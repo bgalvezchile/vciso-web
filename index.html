@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>vCISO.cl — Próximamente</title>
+  <meta name="description" content="Servicios profesionales de ciberseguridad para PYMEs en Chile. Próximamente en línea.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0d1f3c;
+      --navy-mid:  #1a3360;
+      --blue:      #1e4fad;
+      --blue-light:#2a6ddf;
+      --orange:    #e85d26;
+      --orange-lt: #f47c47;
+      --white:     #ffffff;
+      --gray-500:  #718096;
+      --green:     #22c55e;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1a3a6e 100%);
+      background-attachment: fixed;
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Fondo decorativo */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(circle at 80% 50%, rgba(30,79,173,0.3) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(232,93,38,0.12) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: relative;
+      z-index: 10;
+      background: rgba(13,31,60,0.85);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+    .logo-text {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-text span { color: var(--orange-lt); }
+
+    .nav-tagline {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.4);
+      font-weight: 400;
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 580px;
+      width: 100%;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(232,93,38,0.15);
+      border: 1px solid rgba(232,93,38,0.4);
+      color: #f9a97a;
+      padding: 6px 16px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .badge-dot {
+      width: 7px; height: 7px;
+      background: var(--orange-lt);
+      border-radius: 50%;
+      animation: blink 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--orange-lt); }
+      50% { opacity: 0.3; box-shadow: none; }
+    }
+
+    /* Shield */
+    .shield-wrap {
+      margin: 0 auto 28px;
+      width: 84px; height: 84px;
+      background: rgba(30,79,173,0.2);
+      border: 1px solid rgba(42,109,223,0.3);
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      animation: shieldFloat 5s ease-in-out infinite;
+    }
+
+    @keyframes shieldFloat {
+      0%, 100% { transform: translateY(0px); box-shadow: 0 8px 40px rgba(30,79,173,0.2); }
+      50% { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(30,79,173,0.35); }
+    }
+
+    h1 {
+      font-size: clamp(1.7rem, 5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    h1 span { color: var(--orange-lt); }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    /* Pills */
+    .services-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .pill {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 7px 13px;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* CTA */
+    .cta-mail {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      margin-bottom: 12px;
+      word-break: break-all;
+    }
+
+    .cta-mail:hover {
+      background: var(--orange-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(232,93,38,0.35);
+    }
+
+    .cta-note {
+      font-size: 0.76rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 40px;
+    }
+
+    .divider {
+      width: 50px; height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 auto 24px;
+    }
+
+    /* Contador */
+    .visits-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .visits-num {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+      min-width: 28px;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .badge { font-size: 0.7rem; padding: 5px 12px; }
+      .cta-mail { font-size: 0.85rem; padding: 13px 20px; }
+      .services-pills { gap: 6px; }
+      .pill { font-size: 0.72rem; padding: 6px 10px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1811W28ESQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1811W28ESQ');
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="30" height="34" viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z" fill="rgba(30,79,173,0.5)" stroke="#2a6ddf" stroke-width="1.5"/>
+      <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div>
+      <div class="logo-text">v<span>CISO</span>.cl</div>
+      <div class="nav-tagline">Ciberseguridad para empresas</div>
+    </div>
+  </a>
+</nav>
+
+<main>
+  <div class="container">
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Próximamente
+    </div>
+
+    <div class="shield-wrap">
+      <svg width="44" height="50" viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z" fill="rgba(30,79,173,0.4)" stroke="#2a6ddf" stroke-width="1.5"/>
+        <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1>Estamos preparando<br>algo <span>importante</span></h1>
+
+    <p class="subtitle">
+      Muy pronto encontrarás aquí servicios de ciberseguridad
+      para PYMEs chilenas. Auditorías, políticas TI y diagnóstico
+      de vulnerabilidades web — 100% remoto y con IA.
+    </p>
+
+    <div class="services-pills">
+      <div class="pill">🔍 Diagnóstico de Ciberseguridad</div>
+      <div class="pill">📋 Políticas TI a Medida</div>
+      <div class="pill">🌐 Vulnerabilidades Web</div>
+    </div>
+
+    <div>
+      <a href="mailto:contacto@vciso.cl" class="cta-mail">
+        <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        contacto@vciso.cl
+      </a>
+      <div class="cta-note">Escríbenos y te avisamos cuando estemos listos</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="visits-box">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.4)" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+      </svg>
+      <span>Visitas totales:</span>
+      <span class="visits-num" id="visit-count">—</span>
+    </div>
+
+  </div>
+</main>
+
+<footer>© 2026 vCISO.cl — Todos los derechos reservados</footer>
+
+<script>
+  fetch('https://api.countapi.xyz/hit/vciso.cl/visits')
+    .then(res => res.json())
+    .then(data => {
+      const el = document.getElementById('visit-count');
+      if (data && data.value) {
+        el.textContent = data.value.toLocaleString('es-CL');
+      } else {
+        el.textContent = '—';
+      }
+    })
+    .catch(() => {
+      document.getElementById('visit-count').textContent = '—';
+    });
+</script>
+
+</body>
+</html>
