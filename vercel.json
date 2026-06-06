@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/downloads/(.*)", "dest": "/public/downloads/$1" },
-    { "src": "/", "dest": "/vciso_landing.html" }
+  "rewrites": [
+    { "source": "/downloads/(.*)", "destination": "/public/downloads/$1" },
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ],
+  "redirects": [
+    { "source": "/", "destination": "/vciso_landing.html", "permanent": false }
   ]
 }
