@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manual de Ciberseguridad para PYMEs — $5.000 CLP | vCISO.cl</title>
+  <meta name="description" content="Descarga el Manual de Ciberseguridad para PYMEs chilenas. 50 páginas, guía práctica, checklist y plan de acción. Solo $5.000 CLP, descarga inmediata."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://www.vciso.cl/manual-ciberseguridad"/>
+  <meta property="og:title" content="Manual de Ciberseguridad para PYMEs — $5.000 CLP"/>
+  <meta property="og:description" content="Guía práctica de 50 páginas para proteger tu empresa. Descarga inmediata tras el pago."/>
+  <meta property="og:type" content="product"/>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Product",
+   "name":"Manual de Ciberseguridad para PYMEs Chilenas",
+   "description":"Guía práctica de 50 páginas con checklist, plan de acción y normativa chilena. Descarga inmediata en PDF.",
+   "brand":{"@type":"Brand","name":"vCISO.cl"},
+   "offers":{"@type":"Offer","price":"5000","priceCurrency":"CLP",
+     "availability":"https://schema.org/InStock","seller":{"@type":"Organization","name":"vCISO.cl"}}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'><path d='M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z' fill='%231e4fad'/><path d='M13 23L18 28L27 18' stroke='%23f47c47' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0d1f3c; --navy-mid: #1a3360; --navy-dark: #080f1e;
+      --blue: #1e4fad; --blue-lt: #2a6ddf;
+      --orange: #e85d26; --orange-lt: #f47c47;
+      --green: #22c55e; --green-pale: rgba(34,197,94,0.12);
+      --white: #ffffff; --gray-400: #94a3b8;
+      --radius: 10px; --transition: 0.2s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--white);
+           line-height: 1.6; min-height: 100vh; }
+    body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(30,79,173,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,79,173,0.04) 1px, transparent 1px);
+      background-size: 56px 56px; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100;
+      background: rgba(8,15,30,0.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 66px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none;
+      font-weight: 800; font-size: 1.2rem; color: var(--white); letter-spacing: -0.02em; }
+    .logo span { color: var(--orange-lt); }
+    .logo small { display: block; font-size: 0.68rem; font-weight: 400;
+      color: rgba(255,255,255,0.4); margin-top: -2px; }
+    .nav-back { font-size: 0.85rem; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color var(--transition); }
+    .nav-back:hover { color: var(--white); }
+
+    /* HERO PRODUCTO */
+    .product-hero { position: relative; z-index: 1;
+      max-width: 1060px; margin: 0 auto; padding: 52px 5% 0;
+      display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; }
+
+    .hero-left h1 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+    .hero-left h1 em { font-style: normal; color: var(--orange-lt); }
+    .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.65);
+      line-height: 1.75; margin-bottom: 28px; }
+
+    /* PORTADA LIBRO (visual) */
+    .book-cover {
+      background: linear-gradient(135deg, var(--navy-mid) 0%, #1a3a6e 100%);
+      border: 1px solid rgba(42,109,223,0.3);
+      border-radius: 14px; padding: 36px 32px;
+      text-align: center; position: relative; overflow: hidden;
+      box-shadow: 8px 8px 0 rgba(0,0,0,0.3), 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .book-cover::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--blue-lt)); }
+    .book-shield { font-size: 4rem; margin-bottom: 16px; display: block; }
+    .book-title { font-size: 1.1rem; font-weight: 800; line-height: 1.3; margin-bottom: 8px; }
+    .book-sub { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+    .book-badge { display: inline-block; background: var(--orange);
+      color: var(--white); font-size: 0.75rem; font-weight: 700;
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; }
+    .book-pages { font-size: 0.72rem; color: rgba(255,255,255,0.35);
+      border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; }
+
+    /* CARACTERÍSTICAS */
+    .features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .feature { display: flex; align-items: flex-start; gap: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius); padding: 14px 16px; }
+    .feature-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .feature-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
+    .feature-desc { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+
+    /* CAPÍTULOS */
+    .chapters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 28px; }
+    .chapter { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: rgba(255,255,255,0.65);
+      display: flex; align-items: center; gap: 8px; }
+    .ch-num { font-weight: 700; color: var(--orange-lt); font-size: 0.75rem;
+      min-width: 24px; }
+
+    /* ORDER CARD */
+    .order-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 28px; position: sticky; top: 82px; }
+    .order-price { font-size: 3rem; font-weight: 800; letter-spacing: -0.04em;
+      color: var(--white); line-height: 1; margin: 12px 0 4px; }
+    .order-price-label { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .order-features { list-style: none; display: flex; flex-direction: column;
+      gap: 8px; margin-bottom: 24px; }
+    .order-features li { font-size: 0.83rem; color: rgba(255,255,255,0.65);
+      display: flex; align-items: center; gap: 8px; }
+    .order-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+    /* FORM PAGO */
+    .pay-form { display: flex; flex-direction: column; gap: 12px; }
+    .pay-form input { width: 100%; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12); color: var(--white);
+      border-radius: var(--radius); padding: 13px 16px; font-size: 0.92rem;
+      font-family: 'Inter', sans-serif; outline: none; transition: border-color var(--transition); }
+    .pay-form input:focus { border-color: var(--blue-lt); box-shadow: 0 0 0 3px rgba(42,109,223,0.15); }
+    .pay-form input::placeholder { color: rgba(255,255,255,0.25); }
+    .btn-pay { display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 16px; border-radius: var(--radius); border: none;
+      background: var(--orange); color: var(--white); font-family: 'Inter', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer; transition: all var(--transition); }
+    .btn-pay:hover { background: var(--orange-lt); box-shadow: 0 0 28px rgba(232,93,38,0.35);
+      transform: translateY(-1px); }
+    .btn-pay:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .pay-note { font-size: 0.75rem; color: rgba(255,255,255,0.35);
+      text-align: center; margin-top: 4px; line-height: 1.5; }
+    .guarantee { display: flex; gap: 10px; align-items: flex-start;
+      background: var(--green-pale); border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 8px; padding: 12px; margin: 16px 0; font-size: 0.8rem;
+      color: rgba(255,255,255,0.7); }
+    .boleta-note { display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 8px; padding: 12px; font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+
+    /* MENSAJE ÉXITO / ERROR */
+    .pay-status { display: none; border-radius: 10px; padding: 20px;
+      text-align: center; margin-top: 12px; }
+    .pay-status.success { background: var(--green-pale);
+      border: 1px solid rgba(34,197,94,0.3); }
+    .pay-status.error { background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.25); }
+
+    /* PREVIEW CONTENIDOS */
+    .content-preview { position: relative; z-index: 1;
+      max-width: 1060px; margin: 60px auto 0; padding: 0 5% 80px; }
+    .preview-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; }
+    .preview-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .preview-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; padding: 20px; }
+    .preview-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: var(--orange-lt); }
+    .preview-card p { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+    /* FOOTER */
+    footer { background: var(--navy-dark); border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 32px 5%; text-align: center; position: relative; z-index: 1; }
+    footer p { font-size: 0.78rem; color: var(--gray-400); }
+    footer a { color: var(--orange-lt); text-decoration: none; }
+
+    /* LOADER */
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: var(--white); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 860px) {
+      .product-hero { grid-template-columns: 1fr; }
+      .order-card { position: static; }
+      .preview-grid { grid-template-columns: 1fr; }
+      .chapters { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="vciso_landing.html" class="logo">
+    <svg width="26" height="30" viewBox="0 0 40 46" fill="none">
+      <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z"
+            fill="rgba(30,79,173,0.5)" stroke="#2a6ddf" stroke-width="1.5"/>
+      <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div>v<span>CISO</span>.cl<small>Ciberseguridad para empresas</small></div>
+  </a>
+  <a href="vciso_landing.html" class="nav-back">← Volver al inicio</a>
+</nav>
+
+<main>
+  <div class="product-hero">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="hero-left">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(34,197,94,0.1);
+                  border:1px solid rgba(34,197,94,0.25);color:#86efac;font-size:0.75rem;
+                  font-weight:600;padding:5px 14px;border-radius:20px;margin-bottom:20px;
+                  text-transform:uppercase;letter-spacing:0.05em">
+        📥 Descarga inmediata
+      </div>
+      <h1>Manual de Ciberseguridad<br>para <em>PYMEs Chilenas</em></h1>
+      <p class="hero-desc">
+        Guía práctica de 50 páginas para proteger tu empresa sin necesitar un equipo TI interno.
+        Lenguaje claro, casos reales chilenos, checklist accionable y plan de 90 días.
+        Referencia: Tortora & Grabowski adaptado al contexto empresarial chileno.
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <div>
+            <div class="feature-title">Checklist de ciberseguridad completo</div>
+            <div class="feature-desc">Lista de verificación de 40 puntos para evaluar el estado actual de tu empresa. Lista para imprimir y completar esta semana.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🗺️</div>
+          <div>
+            <div class="feature-title">Plan de acción en 90 días</div>
+            <div class="feature-desc">Mes a mes: qué implementar, en qué orden y con qué herramientas. Sin tecnicismos ni presupuestos millonarios.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🇨🇱</div>
+          <div>
+            <div class="feature-title">Normativa chilena actualizada</div>
+            <div class="feature-desc">Ley 21.719 de Protección de Datos, Ley 21.459 de Ciberdelitos y obligaciones CMF explicadas en términos simples.</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔧</div>
+          <div>
+            <div class="feature-title">Herramientas gratuitas recomendadas</div>
+            <div class="feature-desc">Lista curada de herramientas gratuitas o de bajo costo que puedes implementar hoy mismo sin conocimientos técnicos avanzados.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:0.9rem;font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:14px">
+        📚 Contenido — 12 capítulos
+      </h3>
+      <div class="chapters">
+        <div class="chapter"><span class="ch-num">01</span>Por qué las PYMEs son el blanco favorito</div>
+        <div class="chapter"><span class="ch-num">02</span>Las 10 amenazas más comunes en Chile</div>
+        <div class="chapter"><span class="ch-num">03</span>Fundamentos básicos que toda empresa debe tener</div>
+        <div class="chapter"><span class="ch-num">04</span>Protección del correo electrónico (SPF, DMARC)</div>
+        <div class="chapter"><span class="ch-num">05</span>Respaldo — Regla 3-2-1</div>
+        <div class="chapter"><span class="ch-num">06</span>Seguridad en teletrabajo</div>
+        <div class="chapter"><span class="ch-num">07</span>Ley 21.719 — Lo que debes saber</div>
+        <div class="chapter"><span class="ch-num">08</span>Plan de respuesta a incidentes</div>
+        <div class="chapter"><span class="ch-num">09</span>Herramientas gratuitas recomendadas</div>
+        <div class="chapter"><span class="ch-num">10</span>Capacitación del equipo</div>
+        <div class="chapter"><span class="ch-num">11</span>Plan de acción en 90 días</div>
+        <div class="chapter"><span class="ch-num">12</span>Checklist completo de ciberseguridad</div>
+      </div>
+    </div>
+
+    <!-- COLUMNA DERECHA: ORDER CARD -->
+    <div>
+      <!-- Portada visual del libro -->
+      <div class="book-cover" style="margin-bottom:20px">
+        <span class="book-shield">🛡️</span>
+        <div class="book-badge">PDF · 50 páginas</div>
+        <div class="book-title">Manual de Ciberseguridad<br>para PYMEs en Chile</div>
+        <div class="book-sub">Guía práctica · Edición 2026</div>
+        <div class="book-pages">vCISO.cl · contacto@vciso.cl</div>
+      </div>
+
+      <div class="order-card">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);text-transform:uppercase;
+                    letter-spacing:0.08em;font-weight:600">Precio</div>
+        <div class="order-price">$5.000</div>
+        <div class="order-price-label">CLP · Pago único · Descarga inmediata</div>
+
+        <ul class="order-features">
+          <li>PDF de 50 páginas descargable</li>
+          <li>Checklist imprimible de 40 puntos</li>
+          <li>Plan de acción 90 días</li>
+          <li>Normativa chilena actualizada 2026</li>
+          <li>Acceso de por vida al archivo</li>
+          <li>Envío inmediato a tu email</li>
+        </ul>
+
+        <!-- FORMULARIO DE PAGO -->
+        <form class="pay-form" id="payForm" novalidate>
+          <div>
+            <label style="font-size:0.78rem;color:rgba(255,255,255,0.5);
+                          margin-bottom:6px;display:block">
+              Tu email (donde recibirás el PDF)
+            </label>
+            <input type="email" id="payEmail" placeholder="tucorreo@empresa.cl"
+                   autocomplete="email" required/>
+          </div>
+          <button type="submit" class="btn-pay" id="payBtn">
+            <span id="payBtnText">💳 Pagar $5.000 y descargar</span>
+          </button>
+          <p class="pay-note">
+            Pago seguro con Webpay · Tarjetas crédito y débito · Transferencia bancaria
+          </p>
+        </form>
+
+        <div class="pay-status" id="payStatus"></div>
+
+        <div class="guarantee">
+          <span>✅</span>
+          <span>Satisfacción garantizada. Si el manual no cumple tus expectativas, te devolvemos el dinero.</span>
+        </div>
+        <div class="boleta-note">
+          <span>🧾</span>
+          <span>Emitimos <strong>Boleta Electrónica</strong> del SII. La recibirás por email junto con tu descarga.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREVIEW CONTENIDOS -->
+  <div class="content-preview">
+    <h2 class="preview-title">¿Por qué vale la pena?</h2>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <h4>Para dueños de empresa</h4>
+        <p>Entiende los riesgos reales sin necesitar un título en informática. Lenguaje directo y ejemplos del contexto chileno.</p>
+      </div>
+      <div class="preview-card">
+        <h4>Para encargados de TI</h4>
+        <p>Marco de trabajo completo para ordenar y priorizar la seguridad con recursos limitados. Listo para presentar a la gerencia.</p>
+      </div>
+      <div class="preview-card">
+        <h4>Para cumplimiento legal</h4>
+        <p>Guía práctica para la Ley 21.719 de Protección de Datos que entra en vigor en diciembre 2026. Evita multas de hasta $670M CLP.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;text-align:center">
+      <p style="font-size:0.85rem;color:rgba(255,255,255,0.4)">
+        ¿Necesitas algo más personalizado?
+        <a href="vciso_checkout.html" style="color:var(--orange-lt);text-decoration:none">
+          Ver Diagnóstico Express →
+        </a>
+      </p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 vCISO.cl · Todos los derechos reservados · Santiago, Chile ·
+     🧾 Boletas de honorarios electrónicas SII</p>
+  <p style="margin-top:8px">
+    <a href="vciso_landing.html">Inicio</a> ·
+    <a href="mailto:contacto@vciso.cl">contacto@vciso.cl</a> ·
+    <a href="https://wa.me/56984515075" target="_blank" rel="noopener">WhatsApp</a>
+  </p>
+</footer>
+
+<script>
+// ── INTEGRACIÓN FLOW ──────────────────────────────────────────
+const AMOUNT   = 5000;
+const SUBJECT  = 'Manual de Ciberseguridad para PYMEs - vCISO.cl';
+const PRODUCT  = 'ebook';
+
+document.getElementById('payForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById('payEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    showStatus('error', '⚠️ Ingresa un email válido para recibir tu descarga.');
+    return;
+  }
+
+  const btn     = document.getElementById('payBtn');
+  const btnText = document.getElementById('payBtnText');
+
+  // Loading state
+  btn.disabled = true;
+  btnText.innerHTML = '<span class="spinner"></span> Conectando con Flow...';
+
+  try {
+    const resp = await fetch('/api/create-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        amount:          AMOUNT,
+        subject:         SUBJECT,
+        commerceOrder:   `EBOOK-${Date.now()}`,
+      }),
+    });
+
+    const data = await resp.json();
+
+    if (data.redirect) {
+      btnText.innerHTML = '✅ Redirigiendo a Flow...';
+      // Guardar email en localStorage para la página de éxito
+      localStorage.setItem('vciso_pending_email',  email);
+      localStorage.setItem('vciso_pending_product', PRODUCT);
+      window.location.href = data.redirect;
+    } else {
+      throw new Error(data.error || 'Error desconocido');
+    }
+  } catch (err) {
+    console.error(err);
+    btn.disabled = false;
+    btnText.innerHTML = '💳 Pagar $5.000 y descargar';
+    showStatus('error',
+      '⚠️ No se pudo conectar con el sistema de pago. ' +
+      'Por favor, inténtalo de nuevo o contáctanos por ' +
+      '<a href="https://wa.me/56984515075" style="color:#f47c47">WhatsApp</a>.'
+    );
+  }
+});
+
+function showStatus(type, msg) {
+  const el = document.getElementById('payStatus');
+  el.style.display = 'block';
+  el.className     = `pay-status ${type}`;
+  el.innerHTML     = msg;
+}
+</script>
+</body>
+</html>
