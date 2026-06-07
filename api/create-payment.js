@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
     amount:          String(Math.round(amount)),
     email,
     urlConfirmation: `${SITE_URL}/api/flow-confirm`,
-    urlReturn:       `${SITE_URL}/pago-exitoso.html`,
+    urlReturn:       `${SITE_URL}/api/payment-return`,
     paymentMethod:   9,
   };
   params.s = flowSign(params, SECRET_KEY);
