@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Test Email</title></head>
+<body style="font-family:sans-serif;padding:40px;background:#f5f5f5">
+  <h2>Enviar email de descarga</h2>
+  <button onclick="enviar()" style="background:#e85d26;color:white;padding:14px 28px;
+    border:none;border-radius:8px;font-size:1rem;cursor:pointer">
+    📧 Enviar email a bgalvez@gmail.com
+  </button>
+  <div id="resultado" style="margin-top:20px;padding:16px;border-radius:8px"></div>
+
+  <script>
+  async function enviar() {
+    const btn = document.querySelector('button');
+    btn.textContent = '⏳ Enviando...';
+    btn.disabled = true;
+
+    try {
+      const resp = await fetch('https://www.vciso.cl/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email:   'bgalvez@gmail.com',
+          product: 'ebook',
+          order:   'EBOOK-1780802288660',
+          amount:  5000
+        })
+      });
+      const data = await resp.json();
+      const div = document.getElementById('resultado');
+      if (data.ok || data.emailId) {
+        div.style.background = '#d4edda';
+        div.innerHTML = '✅ Email enviado! ID: ' + (data.emailId || 'OK');
+      } else {
+        div.style.background = '#f8d7da';
+        div.innerHTML = '❌ Error: ' + JSON.stringify(data);
+      }
+    } catch(err) {
+      document.getElementById('resultado').innerHTML = '❌ Error: ' + err.message;
+    }
+    btn.textContent = '📧 Enviar email';
+    btn.disabled = false;
+  }
+  </script>
+</body>
+</html>
