@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Páginas transaccionales y de estado — sin valor SEO
+Disallow: /pago-exitoso
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://www.vciso.cl/sitemap.xml
