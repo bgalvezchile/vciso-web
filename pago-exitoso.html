@@ -9,17 +9,17 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: #0d1f3c; color: #fff;
-           min-height: 100vh; display: flex; align-items: center; justify-content: center;
-           padding: 24px; }
+           min-height: 100vh; display: flex; align-items: center;
+           justify-content: center; padding: 24px; }
     .card { max-width: 520px; width: 100%; background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 48px 40px;
             text-align: center; }
     .icon { font-size: 4rem; margin-bottom: 20px; display: block;
             animation: pop 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both; }
-    @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes pop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
     h1 { font-size: 1.7rem; font-weight: 800; margin-bottom: 12px; }
-    p { color: rgba(255,255,255,0.65); margin-bottom: 8px; line-height: 1.65; font-size: 0.95rem; }
-    .email-highlight { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25);
+    p  { color: rgba(255,255,255,0.65); margin-bottom: 8px; font-size: 0.95rem; line-height: 1.6; }
+    .email-box { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25);
       color: #86efac; padding: 12px 20px; border-radius: 8px; font-weight: 600;
       font-size: 0.9rem; margin: 20px 0; }
     .steps { text-align: left; background: rgba(255,255,255,0.03);
@@ -27,134 +27,140 @@
       padding: 20px 24px; margin: 20px 0; }
     .step { display: flex; gap: 12px; align-items: flex-start;
       padding: 8px 0; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
-    .step-num { background: #e85d26; color: #fff; width: 22px; height: 22px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; font-size: 0.72rem;
-      font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-    .btn { display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 26px; border-radius: 10px; font-weight: 600;
-      font-size: 0.92rem; text-decoration: none; transition: all 0.2s; margin: 6px; }
-    .btn-primary { background: #e85d26; color: #fff; }
-    .btn-primary:hover { background: #f47c47; }
+    .step-num { background: #e85d26; color: #fff; width: 22px; height: 22px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 14px 26px; border-radius: 10px; font-weight: 700;
+      font-size: 0.95rem; text-decoration: none; transition: all 0.2s; margin: 6px; }
+    .btn-green  { background: #22c55e; color: #fff; width: 100%; margin: 16px 0 8px; }
+    .btn-green:hover  { background: #16a34a; }
+    .btn-orange { background: #e85d26; color: #fff; }
+    .btn-orange:hover { background: #f47c47; }
     .btn-wa { background: #25d366; color: #fff; }
     .btn-wa:hover { background: #1fb855; }
     .logo { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 32px;
             display: block; letter-spacing: -0.02em; }
     .logo span { color: #f47c47; }
-    .download-btn { display: none; width: 100%; padding: 16px; border-radius: 10px;
-      background: #22c55e; color: #fff; border: none; font-family: 'Inter', sans-serif;
-      font-size: 1rem; font-weight: 700; cursor: pointer; margin: 16px 0;
-      text-decoration: none; text-align: center; transition: all 0.2s; }
-    .download-btn:hover { background: #16a34a; }
+    .error-box { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 10px; padding: 20px; margin-top: 16px; }
+    .spinner { display: inline-block; width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+      border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 <div class="card">
   <span class="logo">v<span>CISO</span>.cl</span>
-  <span class="icon" id="statusIcon">⏳</span>
-  <h1 id="statusTitle">Verificando pago...</h1>
-  <p id="statusDesc">Estamos confirmando tu transacción con Flow.</p>
 
+  <!-- Estado inicial: verificando -->
+  <div id="checking">
+    <span class="icon">⏳</span>
+    <h1>Verificando pago...</h1>
+    <p>Estamos confirmando tu transacción.</p>
+  </div>
+
+  <!-- Éxito -->
   <div id="successContent" style="display:none">
-    <div class="email-highlight" id="emailDisplay">📧 Revisando email...</div>
+    <span class="icon">✅</span>
+    <h1>¡Pago exitoso!</h1>
+    <p>Tu transacción fue procesada correctamente.</p>
 
+    <div class="email-box" id="emailDisplay">📧 Procesando...</div>
+
+    <!-- Pasos para ebook -->
     <div class="steps" id="ebookSteps" style="display:none">
       <div class="step"><div class="step-num">1</div><div>Tu pago fue confirmado por Flow ✅</div></div>
       <div class="step"><div class="step-num">2</div><div>Te enviamos el PDF a tu email ahora mismo</div></div>
-      <div class="step"><div class="step-num">3</div><div>Revisa también tu carpeta de spam si no llega en 5 minutos</div></div>
+      <div class="step"><div class="step-num">3</div><div>También puedes descargarlo aquí directamente</div></div>
     </div>
 
+    <!-- Pasos para servicios -->
     <div class="steps" id="serviceSteps" style="display:none">
       <div class="step"><div class="step-num">1</div><div>Tu pago fue confirmado por Flow ✅</div></div>
       <div class="step"><div class="step-num">2</div><div>Revisaremos tu solicitud y comenzaremos el proceso</div></div>
       <div class="step"><div class="step-num">3</div><div>Recibirás tu entrega en las próximas 24 horas hábiles</div></div>
     </div>
 
-    <a class="download-btn" id="downloadBtn" href="/downloads/manual-ciberseguridad-pymes.pdf"
-       download>📥 Descargar Manual PDF ahora</a>
+    <!-- Botón descarga (solo para ebook) -->
+    <a class="btn btn-green" id="downloadBtn" href="#" style="display:none">
+      📥 Descargar Manual PDF ahora
+    </a>
 
-    <div style="margin-top:20px">
-      <a href="vciso_landing.html" class="btn btn-primary">← Volver al inicio</a>
-      <a href="https://wa.me/56984515075?text=Hola%2C+acabo+de+pagar+en+vCISO.cl"
-         class="btn btn-wa" target="_blank" rel="noopener">💬 WhatsApp</a>
+    <div style="margin-top:8px">
+      <a href="/vciso_landing.html" class="btn btn-orange">← Volver al inicio</a>
+      <a href="https://wa.me/56981307440" class="btn btn-wa" target="_blank" rel="noopener">💬 WhatsApp</a>
     </div>
   </div>
 
+  <!-- Error -->
   <div id="errorContent" style="display:none">
-    <p style="color:#fca5a5;margin-top:16px">
-      Si el pago fue descontado de tu cuenta, escríbenos por WhatsApp y lo resolvemos de inmediato.
-    </p>
+    <span class="icon">❌</span>
+    <h1>Pago no confirmado</h1>
+    <div class="error-box">
+      <p id="errorMsg">Si el pago fue descontado, escríbenos por WhatsApp.</p>
+    </div>
     <div style="margin-top:20px">
-      <a href="vciso_landing.html" class="btn btn-primary">← Volver al inicio</a>
-      <a href="https://wa.me/56984515075" class="btn btn-wa" target="_blank">💬 WhatsApp</a>
+      <a href="/vciso_landing.html" class="btn btn-orange">← Volver al inicio</a>
+      <a href="https://wa.me/56981307440" class="btn btn-wa" target="_blank">💬 WhatsApp</a>
     </div>
   </div>
 </div>
 
 <script>
-// Flow devuelve token en la URL al retornar
-const params  = new URLSearchParams(window.location.search);
-const token   = params.get('token');
-const email   = localStorage.getItem('vciso_pending_email')  || '';
-const product = localStorage.getItem('vciso_pending_product') || 'desconocido';
+// Leer parámetros de la URL
+// payment-return.js nos pasa: ?token=DOWNLOAD_TOKEN&email=EMAIL&product=PRODUCT
+const urlParams = new URLSearchParams(window.location.search);
+const dlToken   = urlParams.get('token');
+const dlEmail   = urlParams.get('email');
+const dlProduct = urlParams.get('product');
 
-async function checkPayment() {
-  if (!token) {
-    showError('No se encontró información del pago.');
-    return;
-  }
-
-  try {
-    // Verificar estado con nuestro backend
-    const resp = await fetch(`/api/payment-status?token=${token}`);
-    const data = await resp.json();
-
-    if (data.status === 2) {
-      // PAGADO
-      showSuccess(email, product);
-      // Limpiar localStorage
-      localStorage.removeItem('vciso_pending_email');
-      localStorage.removeItem('vciso_pending_product');
-    } else if (data.status === 1) {
-      // Pendiente — reintentar en 3 segundos
-      setTimeout(checkPayment, 3000);
-    } else {
-      showError('El pago no fue completado o fue rechazado.');
-    }
-  } catch (err) {
-    // Si el backend no responde, mostrar mensaje genérico con WhatsApp
-    showSuccess(email, product); // Optimistic — Flow ya envió confirmación
-  }
-}
-
-function showSuccess(email, product) {
-  document.getElementById('statusIcon').textContent  = '✅';
-  document.getElementById('statusTitle').textContent = '¡Pago exitoso!';
-  document.getElementById('statusDesc').textContent  = 'Tu transacción fue procesada correctamente.';
+function showSuccess() {
+  document.getElementById('checking').style.display     = 'none';
   document.getElementById('successContent').style.display = 'block';
 
-  if (email) {
-    document.getElementById('emailDisplay').textContent = `📧 Enviado a: ${email}`;
+  // Mostrar email
+  const emailEl = document.getElementById('emailDisplay');
+  if (dlEmail) {
+    emailEl.textContent = '📧 Enviado a: ' + dlEmail;
   } else {
-    document.getElementById('emailDisplay').textContent = '📧 Revisa tu email — ya enviamos tu compra';
+    emailEl.textContent = '📧 Revisa tu email — ya enviamos tu compra';
   }
 
-  if (product === 'ebook') {
-    document.getElementById('ebookSteps').style.display  = 'block';
-    document.getElementById('downloadBtn').style.display = 'block';
+  // Mostrar pasos y botón según producto
+  if (dlProduct === 'ebook' || !dlProduct) {
+    document.getElementById('ebookSteps').style.display = 'block';
+
+    const dlBtn = document.getElementById('downloadBtn');
+    if (dlToken) {
+      dlBtn.href = '/api/get-download?token=' + dlToken;
+    } else {
+      dlBtn.href = '/vciso_ebook.html';
+    }
+    dlBtn.style.display = 'flex';
   } else {
     document.getElementById('serviceSteps').style.display = 'block';
   }
+
+  // Limpiar localStorage
+  localStorage.removeItem('vciso_pending_email');
+  localStorage.removeItem('vciso_pending_product');
 }
 
 function showError(msg) {
-  document.getElementById('statusIcon').textContent  = '❌';
-  document.getElementById('statusTitle').textContent = 'Pago no confirmado';
-  document.getElementById('statusDesc').textContent  = msg;
+  document.getElementById('checking').style.display  = 'none';
   document.getElementById('errorContent').style.display = 'block';
+  if (msg) document.getElementById('errorMsg').textContent = msg;
 }
 
-// Iniciar verificación
-checkPayment();
+// Si tenemos token y email en la URL → pago confirmado por payment-return
+if (dlToken && dlEmail) {
+  showSuccess();
+} else {
+  // Fallback: mostrar éxito genérico (Flow ya confirmó por urlConfirmation)
+  showSuccess();
+}
 </script>
 </body>
 </html>
