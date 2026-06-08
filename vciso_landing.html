@@ -23,12 +23,14 @@
   <meta property="og:image" content="https://www.vciso.cl/og-image.png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="vCISO.cl — Ciberseguridad para PYMEs chilenas"/>
 
   <!-- ── TWITTER CARD ── -->
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="vCISO.cl — Ciberseguridad para PYMEs en Chile | CISO Virtual"/>
   <meta name="twitter:description" content="Diagnóstico de ciberseguridad, políticas TI y cumplimiento Ley 21.719 para empresas chilenas. 100% remoto. Desde $29.000 CLP. Experiencia en banca y AFP."/>
   <meta name="twitter:image" content="https://www.vciso.cl/og-image.png"/>
+  <meta name="twitter:image:alt" content="vCISO.cl — Ciberseguridad para PYMEs chilenas"/>
 
   <!-- ── GEO / LOCAL SEO ── -->
   <meta name="geo.region" content="CL-RM"/>
@@ -40,24 +42,119 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "vCISO.cl",
-    "description": "Ciberseguridad profesional para PYMEs chilenas. CISO Virtual, diagnóstico, políticas TI y cumplimiento Ley 21.719.",
-    "url": "https://www.vciso.cl",
-    "logo": "https://www.vciso.cl/logo.png",
-    "email": "contacto@vciso.cl",
-    "telephone": "+56981307440",
-    "priceRange": "$$",
-    "currenciesAccepted": "CLP",
-    "paymentAccepted": "Transferencia, Khipu, Webpay",
-    "areaServed": {"@type":"Country","name":"Chile"},
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Santiago",
-      "addressRegion": "Región Metropolitana",
-      "addressCountry": "CL"
-    },
-    "sameAs": ["https://www.vciso.cl"]
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.vciso.cl/#organization",
+        "name": "vCISO.cl",
+        "alternateName": "vCISO Chile",
+        "url": "https://www.vciso.cl",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.vciso.cl/logo.png",
+          "width": 200,
+          "height": 60
+        },
+        "description": "Servicios de ciberseguridad para PYMEs chilenas: diagnóstico, políticas TI y cumplimiento Ley 21.719. CISO Virtual 100% remoto.",
+        "email": "contacto@vciso.cl",
+        "telephone": "+56981307440",
+        "foundingDate": "2026",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santiago",
+          "addressRegion": "Región Metropolitana",
+          "addressCountry": "CL"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Chile"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+56981307440",
+          "contactType": "customer service",
+          "availableLanguage": "Spanish",
+          "contactOption": "TollFree"
+        },
+        "sameAs": [
+          "https://www.vciso.cl",
+          "https://wa.me/56981307440"
+        ]
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://www.vciso.cl/#service",
+        "name": "vCISO.cl — Ciberseguridad para PYMEs",
+        "description": "Ciberseguridad profesional para PYMEs chilenas. CISO Virtual, diagnóstico express, políticas TI y cumplimiento Ley 21.719 de protección de datos.",
+        "url": "https://www.vciso.cl",
+        "provider": {"@id": "https://www.vciso.cl/#organization"},
+        "priceRange": "$$",
+        "currenciesAccepted": "CLP",
+        "paymentAccepted": "Transferencia bancaria, Webpay, Khipu",
+        "areaServed": {"@type": "Country", "name": "Chile"},
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santiago",
+          "addressRegion": "Región Metropolitana",
+          "addressCountry": "CL"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios de Ciberseguridad",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Manual de Ciberseguridad para PYMEs",
+                "url": "https://www.vciso.cl/manual-ciberseguridad"
+              },
+              "price": "5000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Generador de Políticas de Seguridad TI",
+                "url": "https://www.vciso.cl/politicas-seguridad"
+              },
+              "price": "29000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Diagnóstico Express de Ciberseguridad",
+                "url": "https://www.vciso.cl/diagnostico-ciberseguridad"
+              },
+              "price": "79000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Scanner Gratuito de Dominio",
+                "url": "https://www.vciso.cl/scanner-dominio"
+              },
+              "price": "0",
+              "priceCurrency": "CLP"
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.vciso.cl/#website",
+        "url": "https://www.vciso.cl",
+        "name": "vCISO.cl",
+        "description": "Ciberseguridad para PYMEs chilenas",
+        "publisher": {"@id": "https://www.vciso.cl/#organization"},
+        "inLanguage": "es-CL"
+      }
+    ]
   }
   </script>
   
@@ -704,7 +801,7 @@ section { position:relative; z-index:1; }
          Diagnóstico, cumplimiento Ley 21.719 y políticas TI con respaldo de IA.</p>
       <div class="contact-links">
         <a href="mailto:contacto@vciso.cl">✉️ contacto@vciso.cl</a>
-        <a href="https://wa.me/56981307440" target="_blank" rel="noopener">💬 WhatsApp +569 8130 7440</a>
+        <a href="https://wa.me/56981307440" target="_blank" rel="noopener">💬 WhatsApp +569 8451 5075</a>
         <a href="https://www.vciso.cl">🌐 www.vciso.cl</a>
       </div>
     </div>
