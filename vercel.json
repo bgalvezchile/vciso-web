@@ -3,6 +3,15 @@
   "buildCommand": "npm install",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/downloads/:path*", "destination": "/public/downloads/:path*" }
+    { "source": "/downloads/:path*",          "destination": "/public/downloads/:path*" },
+    { "source": "/scanner-dominio",           "destination": "/vciso_dominio_scanner.html" },
+    { "source": "/manual-ciberseguridad",     "destination": "/vciso_ebook.html" },
+    { "source": "/politicas-seguridad",       "destination": "/vciso_politicas_checkout.html" },
+    { "source": "/diagnostico-ciberseguridad","destination": "/vciso_checkout.html" },
+    { "source": "/diagnostico",               "destination": "/vciso_diagnostico.html" },
+    { "source": "/generador-politicas",       "destination": "/vciso_politicas_generador.html" },
+    { "source": "/analisis-dominio",          "destination": "/vciso_dominio_checkout.html" },
+    { "source": "/ejemplo-informe",           "destination": "/vciso_informe_ejemplo.html" },
+    { "source": "/pago-exitoso",              "destination": "/pago-exitoso.html" }
   ]
 }
