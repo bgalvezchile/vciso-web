@@ -300,220 +300,6 @@
   }
 
 
-    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-    :root {
-      --navy:#0d1f3c; --navy-mid:#1a3360; --blue:#1e4fad; --blue-lt:#eff6ff;
-      --orange:#e85d26; --white:#ffffff; --gray-50:#f8fafc; --gray-100:#f0f4f8;
-      --gray-300:#cbd5e0; --gray-500:#718096; --gray-700:#2d3748;
-      --green:#22c55e; --green-bg:#f0fdf4; --green-border:#bbf7d0;
-      --yellow:#f59e0b; --yellow-bg:#fffbeb; --yellow-border:#fde68a;
-      --red:#ef4444; --red-bg:#fef2f2; --red-border:#fecaca;
-    }
-    body { font-family:'Inter',sans-serif; color:var(--gray-700); background:var(--gray-50); }
-
-    /* NAV */
-    nav {
-      background:var(--navy); padding:0 5%; height:64px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-    .nav-logo-text { font-size:1.2rem; font-weight:800; color:#fff; }
-    .nav-logo-text span { color:var(--orange); }
-
-    /* ── INPUT SCREEN ── */
-    #screen-input {
-      min-height:calc(100vh - 64px);
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      padding:40px 20px;
-    }
-    .input-card {
-      background:#fff; border-radius:20px; padding:48px 40px;
-      box-shadow:0 8px 40px rgba(0,0,0,.12); max-width:560px; width:100%; text-align:center;
-    }
-    .input-icon { font-size:3rem; margin-bottom:20px; }
-    .input-card h1 { font-size:1.8rem; font-weight:800; color:var(--navy); margin-bottom:10px; }
-    .input-card p  { font-size:.95rem; color:var(--gray-500); margin-bottom:32px; line-height:1.6; }
-
-    .domain-input-wrap {
-      display:flex; gap:0; border:2px solid var(--gray-300); border-radius:10px; overflow:hidden;
-      transition:border-color .2s; margin-bottom:20px;
-    }
-    .domain-input-wrap:focus-within { border-color:var(--blue); }
-    .domain-prefix {
-      background:var(--gray-100); padding:14px 16px; font-size:.9rem;
-      font-weight:600; color:var(--gray-500); border-right:2px solid var(--gray-300);
-      white-space:nowrap;
-    }
-    #domainInput {
-      flex:1; border:none; outline:none; padding:14px 16px;
-      font-size:1rem; font-family:inherit; color:var(--navy); background:#fff;
-    }
-    #domainInput::placeholder { color:var(--gray-300); }
-
-    .scan-btn {
-      width:100%; padding:15px; border:none; border-radius:10px;
-      background:var(--blue); color:#fff; font-size:1rem; font-weight:700;
-      cursor:pointer; transition:all .2s;
-    }
-    .scan-btn:hover { background:#1840a0; transform:translateY(-1px); }
-    .scan-btn:disabled { background:var(--gray-300); cursor:not-allowed; transform:none; }
-
-    .input-hints { display:flex; gap:12px; justify-content:center; margin-top:20px; flex-wrap:wrap; }
-    .hint-chip {
-      background:var(--gray-100); border-radius:20px; padding:5px 14px;
-      font-size:.78rem; color:var(--gray-500); cursor:pointer; transition:all .2s;
-    }
-    .hint-chip:hover { background:var(--blue-lt); color:var(--blue); }
-
-    .err-msg { color:var(--red); font-size:.83rem; margin-top:8px; display:none; }
-
-    /* ── SCANNING SCREEN ── */
-    #screen-scanning { display:none; min-height:calc(100vh - 64px); align-items:center; justify-content:center; flex-direction:column; padding:40px 20px; }
-    .scanning-card { background:#fff; border-radius:20px; padding:48px 40px; box-shadow:0 8px 40px rgba(0,0,0,.12); max-width:480px; width:100%; text-align:center; }
-    .spinner { width:60px; height:60px; border:5px solid var(--gray-100); border-top-color:var(--blue); border-radius:50%; animation:spin 1s linear infinite; margin:0 auto 24px; }
-    @keyframes spin { to { transform:rotate(360deg); } }
-    .scanning-card h2 { font-size:1.3rem; font-weight:800; color:var(--navy); margin-bottom:8px; }
-    .scanning-card .scan-domain-name { font-size:1rem; color:var(--blue); font-weight:600; margin-bottom:24px; }
-    .scan-steps { text-align:left; display:flex; flex-direction:column; gap:10px; }
-    .scan-step { display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px; background:var(--gray-50); }
-    .scan-step .ss-icon { font-size:1rem; width:24px; text-align:center; }
-    .scan-step .ss-label { font-size:.85rem; color:var(--gray-500); flex:1; }
-    .scan-step.done .ss-label { color:var(--navy); font-weight:600; }
-    .scan-step.active { background:var(--blue-lt); }
-    .scan-step.active .ss-label { color:var(--blue); font-weight:600; }
-    .scan-step .ss-status { font-size:.75rem; font-weight:700; }
-    .scan-step.done  .ss-status { color:var(--green); }
-    .scan-step.active .ss-status { color:var(--blue); }
-    .scan-step.pending .ss-status { color:var(--gray-300); }
-
-    /* ── RESULTS SCREEN ── */
-    #screen-results { display:none; }
-    .results-wrap { max-width:900px; margin:0 auto; padding:40px 20px 80px; }
-
-    /* REPORT HEADER */
-    .report-header {
-      background:linear-gradient(135deg,var(--navy),var(--navy-mid));
-      color:#fff; border-radius:16px; padding:32px; margin-bottom:24px;
-      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;
-    }
-    .report-header-left h2 { font-size:1.3rem; font-weight:800; margin-bottom:4px; }
-    .report-header-left .rh-domain { font-size:1rem; color:#93c5fd; font-weight:600; margin-bottom:4px; }
-    .report-header-left .rh-date   { font-size:.8rem; opacity:.55; }
-    .btn-print { padding:10px 22px; border-radius:8px; background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.3); font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; }
-    .btn-print:hover { background:rgba(255,255,255,.25); }
-    .btn-new-scan { padding:10px 22px; border-radius:8px; background:var(--orange); color:#fff; border:none; font-size:.85rem; font-weight:600; cursor:pointer; transition:all .2s; margin-left:8px; }
-    .btn-new-scan:hover { background:#d0521f; }
-
-    /* SCORE CARD */
-    .score-section {
-      background:#fff; border-radius:16px; padding:32px;
-      box-shadow:0 2px 16px rgba(0,0,0,.08); margin-bottom:24px;
-      display:flex; align-items:center; gap:32px; flex-wrap:wrap;
-    }
-    .score-big-circle {
-      width:120px; height:120px; border-radius:50%; border:8px solid;
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      flex-shrink:0;
-    }
-    .score-big-circle .sbc-num { font-size:2.2rem; font-weight:800; line-height:1; }
-    .score-big-circle .sbc-of  { font-size:.8rem; font-weight:600; opacity:.7; }
-    .score-big-circle.green { border-color:var(--green); color:var(--green); }
-    .score-big-circle.yellow{ border-color:var(--yellow); color:var(--yellow); }
-    .score-big-circle.red   { border-color:var(--red); color:var(--red); }
-
-    .score-breakdown { flex:1; min-width:200px; }
-    .score-breakdown h3 { font-size:1.2rem; font-weight:800; color:var(--navy); margin-bottom:6px; }
-    .score-breakdown p { font-size:.9rem; color:var(--gray-500); margin-bottom:16px; }
-    .check-bars { display:flex; flex-direction:column; gap:8px; }
-    .check-bar-row { display:flex; align-items:center; gap:10px; }
-    .check-bar-label { font-size:.78rem; font-weight:600; color:var(--gray-700); width:80px; flex-shrink:0; }
-    .check-bar-track { flex:1; background:var(--gray-100); border-radius:4px; height:8px; overflow:hidden; }
-    .check-bar-fill  { height:100%; border-radius:4px; transition:width .8s ease; }
-    .check-bar-fill.green  { background:var(--green); }
-    .check-bar-fill.yellow { background:var(--yellow); }
-    .check-bar-fill.red    { background:var(--red); }
-    .check-bar-score { font-size:.75rem; font-weight:700; width:36px; text-align:right; }
-
-    /* FINDINGS */
-    .section-title {
-      font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:1px;
-      color:var(--orange); margin-bottom:14px;
-    }
-    .findings-list { display:flex; flex-direction:column; gap:14px; margin-bottom:24px; }
-    .finding-card {
-      background:#fff; border-radius:12px; border-left:4px solid;
-      padding:20px 22px; box-shadow:0 1px 6px rgba(0,0,0,.06);
-    }
-    .finding-card.crit { border-color:var(--red); }
-    .finding-card.warn { border-color:var(--yellow); }
-    .finding-card.ok   { border-color:var(--green); }
-    .finding-card.info { border-color:var(--blue); }
-
-    .fc-header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:10px; }
-    .fc-badge {
-      font-size:.68rem; font-weight:800; padding:3px 10px; border-radius:20px;
-      text-transform:uppercase; letter-spacing:.5px; white-space:nowrap; flex-shrink:0;
-    }
-    .fc-badge.crit { background:var(--red-bg); color:#991b1b; border:1px solid var(--red-border); }
-    .fc-badge.warn { background:var(--yellow-bg); color:#92400e; border:1px solid var(--yellow-border); }
-    .fc-badge.ok   { background:var(--green-bg); color:#166534; border:1px solid var(--green-border); }
-    .fc-badge.info { background:var(--blue-lt); color:var(--blue); border:1px solid #bfdbfe; }
-
-    .fc-title { font-size:.95rem; font-weight:700; color:var(--navy); flex:1; }
-    .fc-detail { font-size:.85rem; color:var(--gray-500); line-height:1.6; margin-bottom:10px; }
-    .fc-value {
-      background:var(--gray-50); border:1px solid var(--gray-100); border-radius:6px;
-      padding:8px 12px; font-size:.78rem; font-family:monospace; color:var(--gray-700);
-      word-break:break-all; margin-bottom:10px;
-    }
-    .fc-rec {
-      background:var(--blue-lt); border:1px solid #bfdbfe; border-radius:8px;
-      padding:12px 14px; font-size:.83rem; color:var(--blue); line-height:1.6;
-    }
-    .fc-rec strong { color:var(--navy); }
-
-    /* EXTERNAL TOOLS */
-    .tools-grid {
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px;
-    }
-    .tool-card {
-      background:#fff; border-radius:10px; padding:16px 18px;
-      box-shadow:0 1px 4px rgba(0,0,0,.06); display:flex; flex-direction:column; gap:6px;
-    }
-    .tool-card a { font-size:.85rem; font-weight:700; color:var(--blue); text-decoration:none; }
-    .tool-card a:hover { text-decoration:underline; }
-    .tool-card p { font-size:.78rem; color:var(--gray-500); line-height:1.4; }
-
-    /* UPSELL */
-    .upsell-box {
-      background:linear-gradient(135deg,var(--navy),var(--navy-mid));
-      border-radius:16px; padding:32px; color:#fff; text-align:center; margin-top:24px;
-    }
-    .upsell-box h3 { font-size:1.2rem; font-weight:800; margin-bottom:8px; }
-    .upsell-box p  { font-size:.9rem; opacity:.75; margin-bottom:24px; }
-    .upsell-cards  { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
-    .upsell-card {
-      background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2);
-      border-radius:10px; padding:14px 18px; text-align:left; min-width:180px;
-    }
-    .upsell-card .uc-price { font-size:1.1rem; font-weight:800; }
-    .upsell-card .uc-name  { font-size:.8rem; opacity:.75; margin-top:2px; }
-    .upsell-cta {
-      display:inline-block; margin-top:20px; padding:12px 32px; border-radius:10px;
-      background:var(--orange); color:#fff; font-weight:700; text-decoration:none;
-      font-size:.9rem; transition:background .2s;
-    }
-    .upsell-cta:hover { background:#d0521f; }
-
-    /* PRINT */
-    @media print {
-      nav, #screen-input, #screen-scanning, .btn-print, .btn-new-scan, .upsell-box { display:none!important; }
-      body { background:#fff; }
-      .report-header { -webkit-print-color-adjust:exact; print-color-adjust:exact; border-radius:0; }
-      #screen-results { display:block!important; }
-    }
-  
-
 /* Scanner específico */
 .scanner-hero {
   text-align:center; padding:64px 5% 48px;
@@ -671,19 +457,6 @@
 </footer>
 
 <script>
-function setDomain(d) {
-  document.getElementById('domainInput').value = d;
-  document.getElementById('scanBtn').click();
-}
-document.getElementById('scanBtn').addEventListener('click', startScan);
-document.getElementById('domainInput').addEventListener('keydown', e => {
-  if(e.key === 'Enter') startScan();
-});
-
-
-// ─────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────
 const DOH = 'https://cloudflare-dns.com/dns-query';
 
 async function dnsQuery(name, type) {
@@ -695,334 +468,216 @@ async function dnsQuery(name, type) {
 
 function setDomain(d) {
   document.getElementById('domainInput').value = d;
+  startScan();
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-function setStep(id, state) {
-  const el = document.getElementById(id);
-  el.className = 'scan-step ' + state;
-  const status = el.querySelector('.ss-status');
-  if (state === 'done')   status.textContent = '✓';
-  if (state === 'active') status.textContent = '...';
-  if (state === 'pending')status.textContent = '—';
-}
+document.getElementById('scanBtn').addEventListener('click', startScan);
+document.getElementById('domainInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') startScan();
+});
 
-// ─────────────────────────────────────────────
-//  VALIDATE & START
-// ─────────────────────────────────────────────
 function startScan() {
   const raw = document.getElementById('domainInput').value.trim().toLowerCase();
   const domain = raw.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
-  const errEl = document.getElementById('inputErr');
 
   if (!domain || !/^[a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?(\.[a-z]{2,})+$/.test(domain)) {
-    errEl.style.display = 'block'; return;
+    document.getElementById('domainInput').style.borderColor = '#ef4444';
+    document.getElementById('domainInput').placeholder = 'Ingresa un dominio válido (ej: tuempresa.cl)';
+    return;
   }
-  errEl.style.display = 'none';
+  document.getElementById('domainInput').style.borderColor = '';
 
-  document.getElementById('screen-input').style.display = 'none';
-  const sc = document.getElementById('screen-scanning');
-  sc.style.display = 'flex';
-  document.getElementById('scanDomainName').textContent = domain;
+  // Ocultar info section, mostrar loading en resultsContainer
+  document.getElementById('infoSection').style.display = 'none';
+  const container = document.getElementById('resultsContainer');
+  container.style.display = 'block';
+  container.innerHTML = `
+    <div style="text-align:center;padding:60px 20px">
+      <div style="width:56px;height:56px;border:5px solid rgba(255,255,255,0.1);
+        border-top-color:var(--orange);border-radius:50%;
+        animation:spin 1s linear infinite;margin:0 auto 24px"></div>
+      <p style="color:rgba(255,255,255,0.6);font-size:0.95rem">Analizando <strong style="color:var(--white)">${domain}</strong>…</p>
+      <p style="color:rgba(255,255,255,0.35);font-size:0.8rem;margin-top:8px">Consultando SPF, DMARC, MX y DNS</p>
+    </div>
+    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>`;
+
   runScan(domain);
 }
 
-// ─────────────────────────────────────────────
-//  MAIN SCAN
-// ─────────────────────────────────────────────
 async function runScan(domain) {
-  const results = {};
+  const r = {};
 
-  // Step 1 — A / NS
-  setStep('ss1','active');
-  await sleep(300);
   try {
-    const [aData, nsData] = await Promise.all([
-      dnsQuery(domain, 'A'),
-      dnsQuery(domain, 'NS'),
-    ]);
-    results.aRecords  = (aData.Answer  || []).filter(r => r.type === 1).map(r => r.data);
-    results.nsRecords = (nsData.Answer || []).filter(r => r.type === 2).map(r => r.data);
-    results.resolves  = results.aRecords.length > 0;
-  } catch(e) {
-    results.aRecords = []; results.nsRecords = []; results.resolves = false;
-  }
-  setStep('ss1','done');
+    const [aData, nsData] = await Promise.all([dnsQuery(domain,'A'), dnsQuery(domain,'NS')]);
+    r.aRecords  = (aData.Answer  || []).filter(x => x.type===1).map(x => x.data);
+    r.nsRecords = (nsData.Answer || []).filter(x => x.type===2).map(x => x.data);
+    r.resolves  = r.aRecords.length > 0;
+  } catch(e) { r.aRecords=[]; r.nsRecords=[]; r.resolves=false; }
 
-  // Step 2 — SPF
-  setStep('ss2','active');
-  await sleep(400);
   try {
-    const txtData = await dnsQuery(domain, 'TXT');
-    const txts = (txtData.Answer || []).filter(r => r.type === 16).map(r => r.data.replace(/"/g,''));
-    const spfRec = txts.find(t => t.startsWith('v=spf1'));
-    results.spf = spfRec || null;
-    results.spfExists = !!spfRec;
-    if (spfRec) {
-      results.spfAllPermissive = /\+all/.test(spfRec);
-      results.spfNeutral = /~all/.test(spfRec);
-      results.spfStrict = /-all/.test(spfRec);
-      results.spfNoAll  = !/[+-~?]all/.test(spfRec);
-    }
-  } catch(e) { results.spf = null; results.spfExists = false; }
-  setStep('ss2','done');
+    const txtData = await dnsQuery(domain,'TXT');
+    const txts = (txtData.Answer||[]).filter(x=>x.type===16).map(x=>x.data.replace(/"/g,''));
+    const spf = txts.find(t=>t.startsWith('v=spf1'));
+    r.spf=spf||null; r.spfExists=!!spf;
+    if(spf){ r.spfStrict=/-all/.test(spf); r.spfNeutral=/~all/.test(spf); r.spfAllPermissive=/\+all/.test(spf); r.spfNoAll=!/[+-~?]all/.test(spf); }
+  } catch(e){ r.spf=null; r.spfExists=false; }
 
-  // Step 3 — DMARC
-  setStep('ss3','active');
-  await sleep(400);
   try {
-    const dmarcData = await dnsQuery('_dmarc.' + domain, 'TXT');
-    const txts = (dmarcData.Answer || []).filter(r => r.type === 16).map(r => r.data.replace(/"/g,''));
-    const dmarcRec = txts.find(t => t.startsWith('v=DMARC1'));
-    results.dmarc = dmarcRec || null;
-    results.dmarcExists = !!dmarcRec;
-    if (dmarcRec) {
-      const pMatch = dmarcRec.match(/p=([a-z]+)/i);
-      results.dmarcPolicy = pMatch ? pMatch[1].toLowerCase() : 'none';
-      const pctMatch = dmarcRec.match(/pct=(\d+)/);
-      results.dmarcPct = pctMatch ? parseInt(pctMatch[1]) : 100;
-    }
-  } catch(e) { results.dmarc = null; results.dmarcExists = false; }
-  setStep('ss3','done');
+    const dmarcData = await dnsQuery('_dmarc.'+domain,'TXT');
+    const txts = (dmarcData.Answer||[]).filter(x=>x.type===16).map(x=>x.data.replace(/"/g,''));
+    const dmarc = txts.find(t=>t.startsWith('v=DMARC1'));
+    r.dmarc=dmarc||null; r.dmarcExists=!!dmarc;
+    if(dmarc){ const p=dmarc.match(/p=([a-z]+)/i); r.dmarcPolicy=p?p[1].toLowerCase():'none'; }
+  } catch(e){ r.dmarc=null; r.dmarcExists=false; }
 
-  // Step 4 — MX
-  setStep('ss4','active');
-  await sleep(400);
   try {
-    const mxData = await dnsQuery(domain, 'MX');
-    results.mxRecords = (mxData.Answer || []).filter(r => r.type === 15).map(r => r.data);
-    results.mxExists  = results.mxRecords.length > 0;
-    results.mxCount   = results.mxRecords.length;
-  } catch(e) { results.mxRecords = []; results.mxExists = false; results.mxCount = 0; }
-  setStep('ss4','done');
+    const mxData = await dnsQuery(domain,'MX');
+    r.mxRecords=(mxData.Answer||[]).filter(x=>x.type===15).map(x=>x.data);
+    r.mxExists=r.mxRecords.length>0; r.mxCount=r.mxRecords.length;
+  } catch(e){ r.mxRecords=[]; r.mxExists=false; r.mxCount=0; }
 
-  // Step 5 — Build report
-  setStep('ss5','active');
-  await sleep(600);
-  setStep('ss5','done');
-  await sleep(300);
-
-  showResults(domain, results);
+  showResults(domain, r);
 }
 
-// ─────────────────────────────────────────────
-//  SCORE ENGINE
-// ─────────────────────────────────────────────
 function scoreResults(r) {
   const checks = {};
-
-  // DNS resolution (0–20)
-  if (r.resolves) { checks.dns = { score:20, max:20, label:'DNS/Resolución', color:'green' }; }
-  else             { checks.dns = { score:0,  max:20, label:'DNS/Resolución', color:'red'   }; }
-
-  // SPF (0–30)
-  if (!r.spfExists)        checks.spf = { score:0,  max:30, label:'SPF', color:'red'    };
-  else if (r.spfAllPermissive) checks.spf = { score:5,  max:30, label:'SPF', color:'red'  };
-  else if (r.spfNeutral)   checks.spf = { score:20, max:30, label:'SPF', color:'yellow' };
-  else if (r.spfStrict)    checks.spf = { score:30, max:30, label:'SPF', color:'green'  };
-  else                     checks.spf = { score:15, max:30, label:'SPF', color:'yellow' };
-
-  // DMARC (0–35)
-  if (!r.dmarcExists)              checks.dmarc = { score:0,  max:35, label:'DMARC', color:'red'    };
-  else if (r.dmarcPolicy === 'none')      checks.dmarc = { score:10, max:35, label:'DMARC', color:'yellow' };
-  else if (r.dmarcPolicy === 'quarantine') checks.dmarc = { score:25, max:35, label:'DMARC', color:'yellow' };
-  else if (r.dmarcPolicy === 'reject')    checks.dmarc = { score:35, max:35, label:'DMARC', color:'green'  };
-  else                                     checks.dmarc = { score:5,  max:35, label:'DMARC', color:'yellow' };
-
-  // MX (0–15)
-  if (!r.mxExists)      checks.mx = { score:0,  max:15, label:'MX/Correo', color:'red'    };
-  else if (r.mxCount===1) checks.mx = { score:10, max:15, label:'MX/Correo', color:'yellow' };
-  else                   checks.mx = { score:15, max:15, label:'MX/Correo', color:'green'  };
-
-  const total = Object.values(checks).reduce((s,c) => s+c.score, 0);
-  const maxT  = Object.values(checks).reduce((s,c) => s+c.max,   0);
-  const pct   = Math.round((total / maxT) * 100);
-
-  return { checks, total, max:maxT, pct };
+  checks.dns  = r.resolves ? {score:20,max:20,label:'DNS',color:'green'} : {score:0,max:20,label:'DNS',color:'red'};
+  if(!r.spfExists)             checks.spf={score:0, max:30,label:'SPF',color:'red'};
+  else if(r.spfAllPermissive)  checks.spf={score:5, max:30,label:'SPF',color:'red'};
+  else if(r.spfStrict)         checks.spf={score:30,max:30,label:'SPF',color:'green'};
+  else if(r.spfNeutral)        checks.spf={score:20,max:30,label:'SPF',color:'yellow'};
+  else                         checks.spf={score:15,max:30,label:'SPF',color:'yellow'};
+  if(!r.dmarcExists)                    checks.dmarc={score:0, max:35,label:'DMARC',color:'red'};
+  else if(r.dmarcPolicy==='none')       checks.dmarc={score:10,max:35,label:'DMARC',color:'yellow'};
+  else if(r.dmarcPolicy==='quarantine') checks.dmarc={score:25,max:35,label:'DMARC',color:'yellow'};
+  else if(r.dmarcPolicy==='reject')     checks.dmarc={score:35,max:35,label:'DMARC',color:'green'};
+  else                                  checks.dmarc={score:5, max:35,label:'DMARC',color:'yellow'};
+  if(!r.mxExists)      checks.mx={score:0, max:15,label:'MX',color:'red'};
+  else if(r.mxCount===1) checks.mx={score:10,max:15,label:'MX',color:'yellow'};
+  else                 checks.mx={score:15,max:15,label:'MX',color:'green'};
+  const total=Object.values(checks).reduce((s,c)=>s+c.score,0);
+  const maxT =Object.values(checks).reduce((s,c)=>s+c.max,  0);
+  return {checks, pct:Math.round(total/maxT*100)};
 }
 
-// ─────────────────────────────────────────────
-//  FINDINGS BUILDER
-// ─────────────────────────────────────────────
+function showResults(domain, r) {
+  const {checks, pct} = scoreResults(r);
+  let riskLabel, riskColor;
+  if(pct>=75){riskLabel='Riesgo Bajo';riskColor='#22c55e';}
+  else if(pct>=45){riskLabel='Riesgo Medio';riskColor='#f59e0b';}
+  else{riskLabel='Riesgo Alto';riskColor='#ef4444';}
+
+  // Build check bars
+  let barsHtml = Object.values(checks).map(c => {
+    const pctBar=Math.round(c.score/c.max*100);
+    const col=c.color==='green'?'#22c55e':c.color==='yellow'?'#f59e0b':'#ef4444';
+    return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <span style="font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.7);width:52px">${c.label}</span>
+      <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:4px;height:8px;overflow:hidden">
+        <div style="width:${pctBar}%;height:100%;background:${col};border-radius:4px;transition:width 0.8s ease"></div>
+      </div>
+      <span style="font-size:0.72rem;font-weight:700;color:${col};width:36px;text-align:right">${c.score}/${c.max}</span>
+    </div>`;
+  }).join('');
+
+  // Build findings
+  const findings = buildFindings(domain, r);
+  const order={crit:0,warn:1,ok:2,info:3};
+  findings.sort((a,b)=>order[a.sev]-order[b.sev]);
+  const sevConfig = {
+    crit:{label:'Crítico',bg:'rgba(239,68,68,0.08)',border:'#ef4444',badgeBg:'rgba(239,68,68,0.15)',badgeColor:'#fca5a5'},
+    warn:{label:'Advertencia',bg:'rgba(245,158,11,0.08)',border:'#f59e0b',badgeBg:'rgba(245,158,11,0.15)',badgeColor:'#fcd34d'},
+    ok:  {label:'OK',bg:'rgba(34,197,94,0.08)',border:'#22c55e',badgeBg:'rgba(34,197,94,0.15)',badgeColor:'#86efac'},
+    info:{label:'Info',bg:'rgba(42,109,223,0.08)',border:'#2a6ddf',badgeBg:'rgba(42,109,223,0.15)',badgeColor:'#93c5fd'},
+  };
+  let findingsHtml = findings.map(f => {
+    const s=sevConfig[f.sev];
+    return `<div style="background:${s.bg};border:1px solid rgba(255,255,255,0.06);border-left:4px solid ${s.border};border-radius:12px;padding:20px 22px;margin-bottom:14px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px">
+        <div style="font-size:0.95rem;font-weight:700;color:var(--white)">${f.title}</div>
+        <span style="font-size:0.68rem;font-weight:800;padding:3px 10px;border-radius:20px;background:${s.badgeBg};color:${s.badgeColor};white-space:nowrap;flex-shrink:0">${s.label}</span>
+      </div>
+      <div style="font-size:0.85rem;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:${f.value||f.rec?'10px':'0'}">${f.detail}</div>
+      ${f.value?`<div style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:8px 12px;font-size:0.75rem;font-family:monospace;color:rgba(255,255,255,0.7);word-break:break-all;margin-bottom:${f.rec?'10px':'0'};white-space:pre-wrap">${f.value}</div>`:''}
+      ${f.rec?`<div style="background:rgba(42,109,223,0.1);border:1px solid rgba(42,109,223,0.2);border-radius:8px;padding:12px 14px;font-size:0.82rem;color:#93c5fd;line-height:1.6">${f.rec}</div>`:''}
+    </div>`;
+  }).join('');
+
+  const date = new Date().toLocaleDateString('es-CL',{day:'2-digit',month:'long',year:'numeric'});
+
+  document.getElementById('resultsContainer').innerHTML = `
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,var(--navy-mid),var(--blue));border-radius:16px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Informe de seguridad</div>
+        <div style="font-size:1.3rem;font-weight:800;color:var(--white)">${domain}</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:2px">${date}</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button onclick="window.print()" style="padding:9px 18px;border-radius:8px;background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.2);font-size:0.83rem;font-weight:600;cursor:pointer">🖨 Imprimir</button>
+        <button onclick="newScan()" style="padding:9px 18px;border-radius:8px;background:var(--orange);color:#fff;border:none;font-size:0.83rem;font-weight:600;cursor:pointer">↩ Nuevo análisis</button>
+      </div>
+    </div>
+
+    <!-- Score -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;gap:32px;flex-wrap:wrap">
+      <div style="width:110px;height:110px;border-radius:50%;border:8px solid ${riskColor};display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0">
+        <span style="font-size:2.2rem;font-weight:800;color:${riskColor};line-height:1">${pct}</span>
+        <span style="font-size:0.75rem;color:rgba(255,255,255,0.4)">/100</span>
+      </div>
+      <div style="flex:1;min-width:180px">
+        <div style="font-size:1.1rem;font-weight:800;color:${riskColor};margin-bottom:6px">${riskLabel}</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-bottom:18px">
+          ${pct>=75?'Tu dominio tiene una configuración sólida.':pct>=45?'Hay brechas importantes que deben corregirse.':'Tu dominio está significativamente expuesto a ataques.'}
+        </div>
+        ${barsHtml}
+      </div>
+    </div>
+
+    <!-- Findings -->
+    <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange-lt);margin-bottom:14px">Hallazgos detallados</div>
+    ${findingsHtml}
+
+    <!-- Upsell -->
+    <div style="background:linear-gradient(135deg,var(--navy-mid),#1a3a6e);border-radius:16px;padding:32px;text-align:center;margin-top:24px;border:1px solid rgba(42,109,223,0.2)">
+      <div style="font-size:1.1rem;font-weight:800;margin-bottom:8px">¿Quieres un análisis más profundo?</div>
+      <div style="font-size:0.88rem;color:rgba(255,255,255,0.6);margin-bottom:20px">Informe ejecutivo completo con DKIM, SSL, subdominios y plan de acción — $79.000 CLP</div>
+      <a href="/analisis-dominio" class="btn btn-primary">Ver análisis completo →</a>
+    </div>`;
+}
+
 function buildFindings(domain, r) {
   const findings = [];
+  if(!r.resolves) findings.push({sev:'crit',title:'Dominio no resuelve en DNS',detail:'El dominio no tiene registros A activos. Puede estar mal configurado.',value:null,rec:'Verifica en tu proveedor de dominio que los registros A apuntan a tu servidor.'});
+  else findings.push({sev:'ok',title:'Dominio resuelve correctamente',detail:`${r.aRecords.length} registro(s) A activo(s), ${r.nsRecords.length} nameserver(s).`,value:`A: ${r.aRecords.join(', ')}\nNS: ${r.nsRecords.slice(0,3).join(', ')}`,rec:null});
 
-  // ── DNS ──
-  if (!r.resolves) {
-    findings.push({ sev:'crit', title:'Dominio no resuelve en DNS',
-      detail:'El dominio no tiene registros A activos. Puede estar mal configurado o no estar apuntando a ningún servidor.',
-      value: null,
-      rec:'Verifica en tu proveedor de dominio (NIC Chile u otro) que los registros A apuntan a la IP de tu servidor o hosting.' });
-  } else {
-    findings.push({ sev:'ok', title:'Dominio resuelve correctamente',
-      detail:`El dominio tiene ${r.aRecords.length} registro(s) A activo(s) y ${r.nsRecords.length} nameserver(s) configurados.`,
-      value:`A: ${r.aRecords.join(', ')}\nNS: ${r.nsRecords.slice(0,3).join(', ')}`,
-      rec: null });
-  }
+  if(!r.spfExists) findings.push({sev:'crit',title:'Sin registro SPF — dominio vulnerable a spoofing',detail:'Cualquier servidor puede enviar correos haciéndose pasar por tu empresa.',value:null,rec:`<strong>Agrega este registro TXT en tu DNS:</strong><br>v=spf1 include:_spf.google.com ~all`});
+  else if(r.spfAllPermissive) findings.push({sev:'crit',title:'SPF con +all — configuración insegura',detail:'El "+all" anula la protección SPF.',value:r.spf,rec:`<strong>Cambia "+all" por "~all" o "-all"</strong>`});
+  else if(r.spfStrict) findings.push({sev:'ok',title:'SPF configurado correctamente (-all)',detail:'Política estricta activa. Excelente.',value:r.spf,rec:null});
+  else if(r.spfNeutral) findings.push({sev:'warn',title:'SPF con ~all (softfail) — mejorable',detail:'Marca correos sospechosos pero no los rechaza.',value:r.spf,rec:'Cuando confirmes todos tus remitentes, cambia "~all" por "-all".'});
+  else findings.push({sev:'warn',title:'SPF incompleto',detail:'Falta el mecanismo "all" al final.',value:r.spf,rec:'Agrega " -all" o " ~all" al final del registro.'});
 
-  // ── SPF ──
-  if (!r.spfExists) {
-    findings.push({ sev:'crit', title:'Sin registro SPF — dominio vulnerable a spoofing',
-      detail:'No existe un registro SPF para este dominio. Cualquier servidor en internet puede enviar correos electrónicos haciéndose pasar por tu empresa, facilitando ataques de phishing contra tus clientes y socios.',
-      value: null,
-      rec: `<strong>Acción inmediata:</strong> Agrega un registro TXT en tu DNS con el siguiente contenido base y agrega los servidores que envían correo por tu empresa:\n\nv=spf1 include:_spf.google.com ~all\n\nVisita: spf-record.com para un generador guiado.` });
-  } else if (r.spfAllPermissive) {
-    findings.push({ sev:'crit', title:'SPF con política "+all" — configuración insegura',
-      detail:'Tu SPF termina en "+all", lo que significa que cualquier servidor puede enviar correos como si fuera tu dominio. Esto anula completamente la protección SPF.',
-      value: r.spf,
-      rec: `<strong>Corrección crítica:</strong> Cambia el final de tu registro SPF de "+all" a "~all" (softfail) o idealmente "-all" (hardfail):\n\n${r.spf.replace('+all','~all')}` });
-  } else if (r.spfStrict) {
-    findings.push({ sev:'ok', title:'SPF configurado correctamente con política estricta',
-      detail:'Tu registro SPF termina en "-all", lo que rechaza explícitamente correos de servidores no autorizados. Excelente configuración.',
-      value: r.spf, rec: null });
-  } else if (r.spfNeutral) {
-    findings.push({ sev:'warn', title:'SPF con política "~all" (softfail) — mejorable',
-      detail:'Tu SPF usa "~all" que marca como sospechosos los correos no autorizados pero no los rechaza. Es mejor que nada, pero considera migrar a "-all" cuando hayas verificado que no hay servidores legítimos sin registrar.',
-      value: r.spf,
-      rec: `<strong>Mejora recomendada:</strong> Una vez confirmados todos tus remitentes legítimos, cambia "~all" por "-all" para un rechazo estricto.` });
-  } else {
-    findings.push({ sev:'warn', title:'SPF existe pero sin política de cierre definida',
-      detail:'Tu registro SPF no termina en un mecanismo "all" claro. Esto puede causar comportamientos inconsistentes en servidores de destino.',
-      value: r.spf,
-      rec: `<strong>Agrega al final:</strong> " -all" o " ~all" para definir qué hacer con correos de servidores no listados.` });
-  }
+  if(!r.dmarcExists) findings.push({sev:'crit',title:'Sin DMARC — máxima exposición a phishing',detail:`Sin _dmarc.${domain}, los atacantes pueden falsificar el campo From de tus correos.`,value:null,rec:`<strong>Crea un registro TXT "_dmarc.${domain}":</strong><br>v=DMARC1; p=none; rua=mailto:dmarc@${domain}; fo=1`});
+  else if(r.dmarcPolicy==='none') findings.push({sev:'warn',title:'DMARC en modo none — solo monitoreo',detail:'Existe pero no bloquea nada todavía.',value:r.dmarc,rec:'Revisa los reportes y cuando estés listo cambia a p=quarantine.'});
+  else if(r.dmarcPolicy==='quarantine') findings.push({sev:'warn',title:'DMARC en quarantine — casi óptimo',detail:'Los correos no autorizados van a spam.',value:r.dmarc,rec:'Migra a p=reject para protección máxima.'});
+  else if(r.dmarcPolicy==='reject') findings.push({sev:'ok',title:'DMARC con reject — protección máxima',detail:'Rechaza activamente correos fraudulentos.',value:r.dmarc,rec:null});
 
-  // ── DMARC ──
-  if (!r.dmarcExists) {
-    findings.push({ sev:'crit', title:'Sin registro DMARC — máxima exposición a phishing',
-      detail:`No existe el registro _dmarc.${domain}. Sin DMARC, aunque tengas SPF, los atacantes pueden falsificar el campo "From:" visible de tus correos. DMARC es la capa de protección más importante contra el phishing con tu dominio.`,
-      value: null,
-      rec: `<strong>Acción urgente:</strong> Crea un registro TXT con nombre "_dmarc.${domain}" y el siguiente valor para comenzar en modo monitoreo:\n\nv=DMARC1; p=none; rua=mailto:dmarc@${domain}; ruf=mailto:dmarc@${domain}; fo=1\n\nLuego escala a p=quarantine y finalmente p=reject tras revisar los reportes.` });
-  } else if (r.dmarcPolicy === 'none') {
-    findings.push({ sev:'warn', title:'DMARC en modo "none" — monitoreo sin protección activa',
-      detail:'Tu registro DMARC existe pero con p=none, lo que solo monitorea sin bloquear correos fraudulentos. Es el primer paso, pero no protege a tus destinatarios.',
-      value: r.dmarc,
-      rec: `<strong>Próximo paso:</strong> Revisa los reportes DMARC que llegas a recibir por email y cuando confirmes que solo tus servidores legítimos pasan, cambia a p=quarantine:\n\n${r.dmarc.replace('p=none','p=quarantine')}` });
-  } else if (r.dmarcPolicy === 'quarantine') {
-    findings.push({ sev:'warn', title:'DMARC con política "quarantine" — casi óptimo',
-      detail:`Tu DMARC envía los correos que no pasan la validación a spam/cuarentena. Buen nivel de protección, pero el objetivo final es p=reject para rechazarlos directamente.`,
-      value: r.dmarc,
-      rec: `<strong>Mejora final:</strong> Cuando estés seguro de que no hay falsos positivos, migra a p=reject:\n\n${r.dmarc.replace('p=quarantine','p=reject')}` });
-  } else if (r.dmarcPolicy === 'reject') {
-    findings.push({ sev:'ok', title:'DMARC con política "reject" — protección máxima',
-      detail:'Excelente. Tu DMARC rechaza activamente los correos que no superan las validaciones SPF y DKIM. Nivel de protección óptimo contra phishing con tu dominio.',
-      value: r.dmarc, rec: null });
-  }
+  if(!r.mxExists) findings.push({sev:'crit',title:'Sin registros MX',detail:'El dominio no puede recibir correos.',value:null,rec:'Verifica con tu proveedor de correo los registros MX que debes agregar.'});
+  else if(r.mxCount===1) findings.push({sev:'warn',title:'Solo 1 servidor MX — sin redundancia',detail:'Si falla, perderás correos entrantes.',value:r.mxRecords.join('\n'),rec:'Consulta con tu proveedor si ofrecen MX de respaldo.'});
+  else findings.push({sev:'ok',title:`${r.mxCount} servidores MX — buena redundancia`,detail:'Múltiples registros MX garantizan disponibilidad.',value:r.mxRecords.join('\n'),rec:null});
 
-  // ── MX ──
-  if (!r.mxExists) {
-    findings.push({ sev:'crit', title:'Sin registros MX — el dominio no puede recibir correos',
-      detail:'No existen registros MX para este dominio. Si tienes correo corporativo, puede estar configurado incorrectamente o haberse perdido una configuración.',
-      value: null,
-      rec: `<strong>Verifica con tu proveedor de correo</strong> (Google Workspace, Microsoft 365, u otro) cuáles son los registros MX que debes agregar a tu DNS.` });
-  } else if (r.mxCount === 1) {
-    findings.push({ sev:'warn', title:'Solo 1 servidor MX — sin redundancia de correo',
-      detail:`Tienes ${r.mxCount} servidor de correo configurado. Si este falla, perderás los correos entrantes. Se recomienda al menos 2 registros MX con diferente prioridad.`,
-      value: r.mxRecords.join('\n'),
-      rec: `<strong>Consulta con tu proveedor</strong> de correo si ofrecen servidores MX de respaldo para agregar redundancia.` });
-  } else {
-    findings.push({ sev:'ok', title:`${r.mxCount} servidores MX configurados — buena redundancia`,
-      detail:`Tienes múltiples registros MX, lo que garantiza que los correos seguirán llegando aunque falle un servidor.`,
-      value: r.mxRecords.join('\n'), rec: null });
-  }
-
-  // DKIM note
-  findings.push({ sev:'info', title:'DKIM — verificación manual requerida',
-    detail:'La firma DKIM no puede verificarse automáticamente sin conocer el selector específico de tu proveedor de correo. Es necesario consultar la consola de Google Workspace, Microsoft 365 u otro proveedor.',
-    value: null,
-    rec: `<strong>Cómo verificar DKIM:</strong>\n1. Ingresa a tu consola de Google Workspace o Microsoft 365.\n2. Busca la sección "Autenticación de correo" o "DKIM".\n3. Verifica que DKIM esté activado y el registro publicado en tu DNS.\n4. Usa MXToolbox con tu selector para confirmarlo.` });
-
+  findings.push({sev:'info',title:'DKIM — verificación manual requerida',detail:'No puede verificarse sin conocer el selector de tu proveedor.',value:null,rec:'Ingresa a Google Workspace o Microsoft 365 y verifica que DKIM esté activado.'});
   return findings;
 }
 
-// ─────────────────────────────────────────────
-//  SHOW RESULTS
-// ─────────────────────────────────────────────
-function showResults(domain, r) {
-  const scored   = scoreResults(r);
-  const findings = buildFindings(domain, r);
-  const pct      = scored.pct;
-
-  // Determine risk level
-  let riskLabel, riskDesc, circleClass;
-  if (pct >= 75) {
-    riskLabel = 'Riesgo Bajo — Buena postura'; circleClass = 'green';
-    riskDesc = 'Tu dominio tiene una configuración sólida. Revisa los puntos de mejora para alcanzar el nivel óptimo.';
-  } else if (pct >= 45) {
-    riskLabel = 'Riesgo Medio — Mejoras necesarias'; circleClass = 'yellow';
-    riskDesc = 'Hay brechas importantes que deben corregirse para proteger tu dominio de suplantación de identidad.';
-  } else {
-    riskLabel = 'Riesgo Alto — Acción inmediata requerida'; circleClass = 'red';
-    riskDesc = 'Tu dominio está significativamente expuesto. Los atacantes pueden enviar correos como si fueran tú.';
-  }
-
-  // Populate header
-  document.getElementById('rh-domain').textContent = domain;
-  document.getElementById('rh-date').textContent = 'Análisis realizado el ' +
-    new Date().toLocaleDateString('es-CL', {day:'2-digit',month:'long',year:'numeric'}) + ' a las ' +
-    new Date().toLocaleTimeString('es-CL', {hour:'2-digit',minute:'2-digit'});
-
-  // Score circle
-  const circle = document.getElementById('scoreBigCircle');
-  circle.className = 'score-big-circle ' + circleClass;
-  document.getElementById('scoreNum').textContent = pct;
-  document.getElementById('riskLabel').textContent = riskLabel;
-  document.getElementById('riskDesc').textContent  = riskDesc;
-
-  // Check bars
-  const barsEl = document.getElementById('checkBars');
-  barsEl.innerHTML = '';
-  Object.values(scored.checks).forEach(c => {
-    const pctBar = Math.round((c.score / c.max) * 100);
-    barsEl.innerHTML += `
-      <div class="check-bar-row">
-        <span class="check-bar-label">${c.label}</span>
-        <div class="check-bar-track">
-          <div class="check-bar-fill ${c.color}" style="width:${pctBar}%"></div>
-        </div>
-        <span class="check-bar-score" style="color:var(--${c.color==='green'?'green':c.color==='yellow'?'yellow':'red'})">${c.score}/${c.max}</span>
-      </div>`;
-  });
-
-  // Findings
-  const list = document.getElementById('findingsList');
-  list.innerHTML = '';
-  // Sort: crit first, then warn, ok, info
-  const order = {crit:0,warn:1,ok:2,info:3};
-  findings.sort((a,b) => order[a.sev] - order[b.sev]);
-  findings.forEach(f => {
-    list.innerHTML += `
-      <div class="finding-card ${f.sev}">
-        <div class="fc-header">
-          <div class="fc-title">${f.title}</div>
-          <span class="fc-badge ${f.sev}">${{crit:'Crítico',warn:'Advertencia',ok:'OK',info:'Info'}[f.sev]}</span>
-        </div>
-        <div class="fc-detail">${f.detail}</div>
-        ${f.value ? `<div class="fc-value">${f.value}</div>` : ''}
-        ${f.rec   ? `<div class="fc-rec">${f.rec}</div>` : ''}
-      </div>`;
-  });
-
-  // Update external tool links
-  document.getElementById('toolDmarcLink').href = `https://dmarcian.com/dmarc-inspector/?domain=${domain}`;
-  document.getElementById('toolSpfLink').href   = `https://mxtoolbox.com/spf.aspx?Domain=${domain}`;
-
-  // Show results
-  document.getElementById('screen-scanning').style.display = 'none';
-  const rs = document.getElementById('screen-results');
-  rs.style.display = 'block';
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
 function newScan() {
-  document.getElementById('screen-results').style.display = 'none';
+  document.getElementById('resultsContainer').style.display = 'none';
+  document.getElementById('resultsContainer').innerHTML = '';
+  document.getElementById('infoSection').style.display = 'block';
   document.getElementById('domainInput').value = '';
-  document.getElementById('screen-input').style.display = 'flex';
-  // Reset scan steps
-  ['ss1','ss2','ss3','ss4','ss5'].forEach(id => setStep(id,'pending'));
   window.scrollTo({top:0});
 }
-
 </script>
 </body></html>
