@@ -36,7 +36,7 @@ async function sendEmail(to, product, order, resendKey, siteUrl, downloadToken) 
       html: base + `
         <h1 style="font-size:1.3rem;margin-bottom:12px">¡Gracias por tu compra! 🎉</h1>
         <p style="color:rgba(255,255,255,0.7);margin-bottom:8px">
-          Tu pago de <strong>$5.000 CLP</strong> fue confirmado.
+          Tu pago de <strong>$12.900 CLP</strong> fue confirmado.
         </p>
         <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin-bottom:24px">
           El PDF incluye tu email como marca de agua para proteger la autoría.
@@ -51,7 +51,7 @@ async function sendEmail(to, product, order, resendKey, siteUrl, downloadToken) 
         <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:14px;
                     margin-top:8px;font-size:0.8rem;color:rgba(255,255,255,0.45)">
           ⏰ Link válido por 48 horas · Orden: ${order}<br/>
-          ¿Necesitas otro link? contacto@vciso.cl · WhatsApp +56 9 8451 5075
+          ¿Necesitas otro link? contacto@vciso.cl · WhatsApp +56 9 8130 7440
         </div></div>`,
     },
     diagnostico: {
@@ -63,7 +63,7 @@ async function sendEmail(to, product, order, resendKey, siteUrl, downloadToken) 
           Tu informe llegará en las próximas <strong>24 horas hábiles</strong>.
         </p>
         <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);margin-top:20px">
-          Orden: ${order} · WhatsApp: +56 9 8451 5075
+          Orden: ${order} · WhatsApp: +56 9 8130 7440
         </p></div>`,
     },
     politicas: {
