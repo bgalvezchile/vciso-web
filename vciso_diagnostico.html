@@ -886,7 +886,7 @@
 
 <!-- FORM -->
 <div class="form-wrap">
-  <div class="form-card" id="form-container">
+  <div class="form-card" id="form-container" style="display:none">
 
     <!-- ══ STEP 1: DATOS DE EMPRESA ══ -->
     <div class="step active" id="step1">
@@ -2293,39 +2293,6 @@ function showAccessDenied(msg) {
       console.error('Error enviando datos:', e.message);
     }
   };
-
-// ── TOKEN PROTECTION ────────────────────────────────────────────────────────
-(async function() {
-  const params = new URLSearchParams(window.location.search);
-  const token  = params.get('token');
-
-  if (!token) {
-    showAccessDenied('Para acceder al formulario necesitas un link de acceso válido.<br/>Si ya realizaste el pago, revisa tu email.');
-    return;
-  }
-
-  try {
-    const resp = await fetch(`/api/validate-token?token=${token}`);
-    const data = await resp.json();
-    if (!data.valid) {
-      showAccessDenied('Tu link de acceso ha expirado o no es válido.<br/>Escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#f47c47">contacto@vciso.cl</a> y te enviamos uno nuevo.');
-      return;
-    }
-    // Token válido — mostrar formulario y guardar token
-    window.__accessToken = token;
-    document.getElementById('form-container').style.display = 'block';
-    document.getElementById('access-denied').style.display  = 'none';
-  } catch(e) {
-    showAccessDenied('Error verificando acceso. Intenta recargar la página.');
-  }
-})();
-
-function showAccessDenied(msg) {
-  document.getElementById('form-container').style.display = 'none';
-  const div = document.getElementById('access-denied');
-  div.style.display = 'flex';
-  div.querySelector('.denied-msg').innerHTML = msg;
-}
 
 </script>
 </body></html>

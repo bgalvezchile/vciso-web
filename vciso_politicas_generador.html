@@ -295,24 +295,6 @@
     .footer-grid { grid-template-columns: 1fr; }
   }
 
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --navy:    #0d1f3c; --navy-mid:#1a3360; --blue:#1e4fad; --blue-lt:#eff6ff;
-      --orange:  #e85d26; --white:#ffffff; --gray-50:#f8fafc; --gray-100:#f0f4f8;
-      --gray-300:#cbd5e0; --gray-500:#718096; --gray-700:#2d3748; --green:#22c55e;
-    }
-    body { font-family:'Inter',sans-serif; color:var(--gray-700); background:var(--gray-50); }
-
-    /* ── NAV ── */
-    nav {
-      background:var(--navy); padding:0 5%; height:64px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-    .nav-logo-text { font-size:1.2rem; font-weight:800; color:#fff; }
-    .nav-logo-text span { color:var(--orange); }
-
     /* ── WIZARD CONTAINER ── */
     #wizard {
       max-width:700px; margin:40px auto 80px; padding:0 20px;
@@ -488,7 +470,6 @@
     /* ── PRINT STYLES ── */
     @media print {
       nav, .output-header .btn-print-all, .btn-print-one, #wizard { display:none !important; }
-      body { background:white; }
       .policy-doc { box-shadow:none; border:1px solid #ddd; break-inside:avoid; page-break-after:always; border-radius:0; }
       .policy-doc:last-child { page-break-after:auto; }
       .policy-doc-header { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -525,7 +506,8 @@
 ═══════════════════════════════════════════ -->
 
 <div id="access-denied" style="display:flex;align-items:center;justify-content:center;
-  min-height:60vh;padding:40px 20px;text-align:center;position:relative;z-index:1">
+  min-height:60vh;padding:40px 20px;text-align:center;position:relative;z-index:1;
+  background:var(--navy);">
   <div style="max-width:460px">
     <div style="font-size:3rem;margin-bottom:16px">🔒</div>
     <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:12px;color:#fff">Acceso restringido</h2>
