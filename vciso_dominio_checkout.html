@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <!-- ── SEO BÁSICO ── -->
-  <title>Análisis Completo de Dominio — $79.000 CLP | vCISO.cl</title>
+  <title>Análisis Completo de Dominio — $49.000 CLP | vCISO.cl</title>
   <meta name="description" content="Diagnóstico profundo de la seguridad de tu dominio: SPF, DMARC, DKIM, SSL y más. Informe ejecutivo con recomendaciones priorizadas."/>
   <meta name="keywords" content="ciberseguridad pymes chile, auditoria seguridad informatica chile, politicas TI chile, ciso virtual chile, diagnostico ciberseguridad santiago, ley 21719 cumplimiento, vciso"/>
   <meta name="author" content="vCISO.cl"/>
@@ -15,7 +15,7 @@
 
   <!-- ── OPEN GRAPH ── -->
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Análisis Completo de Dominio — $79.000 CLP | vCISO.cl"/>
+  <meta property="og:title" content="Análisis Completo de Dominio — $49.000 CLP | vCISO.cl"/>
   <meta property="og:description" content="Diagnóstico profundo de la seguridad de tu dominio: SPF, DMARC, DKIM, SSL y más. Informe ejecutivo con recomendaciones priorizadas."/>
   <meta property="og:url" content="https://www.vciso.cl/analisis-dominio"/>
   <meta property="og:site_name" content="vCISO.cl"/>
@@ -26,7 +26,7 @@
 
   <!-- ── TWITTER CARD ── -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Análisis Completo de Dominio — $79.000 CLP | vCISO.cl"/>
+  <meta name="twitter:title" content="Análisis Completo de Dominio — $49.000 CLP | vCISO.cl"/>
   <meta name="twitter:description" content="Diagnóstico profundo de la seguridad de tu dominio: SPF, DMARC, DKIM, SSL y más. Informe ejecutivo con recomendaciones priorizadas."/>
   <meta name="twitter:image" content="https://www.vciso.cl/og-image.png"/>
 
@@ -337,7 +337,7 @@
 </nav>
 <main class="dom-wrap">
   <div class="svc-badge">🔍 Análisis de dominio</div>
-  <div class="price-badge"><span class="from">Solo</span> $79.000 CLP <span class="from">· Entrega en 24 horas</span></div>
+  <div class="price-badge"><span class="from">Solo</span> $49.000 CLP <span class="from">· Entrega en 24 horas</span></div>
   
 
 
@@ -473,10 +473,16 @@
         <div class="include-item"><span class="chk">✓</span><span>Reporte descargable en <strong>PDF</strong> para presentar a dirección</span></div>
         <div class="include-item"><span class="chk">✓</span><span>Guía de herramientas gratuitas para verificación complementaria</span></div>
 
-        <!-- Reemplazar href con link de Flow o MercadoPago -->
-        <a href="/scanner-dominio" class="pay-btn">
-          🔒 Pagar y escanear mi dominio →
-        </a>
+                <div style="margin-bottom:16px">
+          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-bottom:6px;display:block">Tu email para recibir el análisis *</label>
+          <input type="email" id="emailInput" placeholder="tuemail@empresa.cl"
+            style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
+            color:#fff;border-radius:10px;padding:12px 16px;font-size:0.92rem;outline:none;
+            font-family:inherit"/>
+        </div>
+        <button id="payBtn" class="pay-btn" onclick="initPayment()">
+          <span id="payBtnText">🔒 Pagar $49.000 y obtener análisis →</span>
+        </button>
 
         <div class="payment-methods">
           <span class="pm-badge">💳 Débito</span>
@@ -548,4 +554,51 @@
     </div>
   </div>
 </footer>
+
+<script>
+const AMOUNT  = 49000;
+const SUBJECT = 'Análisis Completo de Dominio — vCISO.cl';
+const PRODUCT = 'analisis-dominio';
+
+async function initPayment() {
+  const emailInput = document.getElementById('emailInput');
+  const email = emailInput ? emailInput.value.trim() : '';
+  const btnText = document.getElementById('payBtnText');
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Por favor ingresa un email válido para recibir tu análisis.');
+    if (emailInput) emailInput.focus();
+    return;
+  }
+
+  btnText.innerHTML = '<span class="spinner"></span> Conectando con Flow...';
+  document.getElementById('payBtn').disabled = true;
+
+  try {
+    const resp = await fetch('/api/create-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        amount:         AMOUNT,
+        subject:        SUBJECT,
+        commerceOrder:  'DOMINIO-' + Date.now(),
+        product:        PRODUCT,
+      }),
+    });
+    const data = await resp.json();
+    if (data.redirect) {
+      btnText.innerHTML = '✅ Redirigiendo a Flow...';
+      window.location.href = data.redirect;
+    } else {
+      throw new Error(data.error || 'Error al crear el pago');
+    }
+  } catch (err) {
+    btnText.innerHTML = '🔒 Pagar $49.000 y obtener análisis →';
+    document.getElementById('payBtn').disabled = false;
+    alert('Error al conectar con el sistema de pago. Inténtalo de nuevo o contáctanos por WhatsApp.');
+    console.error(err);
+  }
+}
+</script>
 </body></html>

@@ -424,8 +424,21 @@
         <span>✅</span><span>Satisfacción garantizada. Si las políticas no se adaptan a tu empresa, las revisamos.</span>
       </div>
       <a href="/generador-politicas" class="btn btn-primary btn-full btn-lg" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;border-radius:10px;background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:1rem;transition:all 0.2s">
-        Generar mis políticas →
-      </a>
+        
+      <div style="margin-bottom:14px">
+        <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-bottom:6px;display:block">
+          Tu email para recibir la entrega *
+        </label>
+        <input type="email" id="emailInput" placeholder="tuemail@empresa.cl"
+          style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
+          color:#fff;border-radius:10px;padding:12px 16px;font-size:0.92rem;outline:none;font-family:inherit"/>
+      </div>
+      <button id="payBtn" onclick="initPayment()"
+        style="width:100%;background:#e85d26;color:#fff;border:none;border-radius:10px;
+               padding:16px;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s">
+        <span id="payBtnText">💳 Pagar $29.000 y generar políticas →</span>
+      </button>
+
       
   <!-- NOTA DOCUMENTO TRIBUTARIO -->
   <div style="
@@ -505,4 +518,53 @@
     </div>
   </div>
 </footer>
+
+<script>
+const AMOUNT  = 29000;
+const SUBJECT = 'Generador de Políticas de Seguridad TI — vCISO.cl';
+const ORDER_PREFIX = 'POLITICAS';
+const PRODUCT = 'politicas';
+
+async function initPayment() {
+  const emailInput = document.getElementById('emailInput');
+  const email = emailInput ? emailInput.value.trim() : '';
+  const btnText = document.getElementById('payBtnText');
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Por favor ingresa un email válido para recibir tu compra.');
+    if (emailInput) emailInput.focus();
+    return;
+  }
+
+  btnText.innerHTML = '<span class="spinner" style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:8px"></span> Conectando con Flow...';
+  document.getElementById('payBtn').disabled = true;
+
+  try {
+    const resp = await fetch('/api/create-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        amount:        AMOUNT,
+        subject:       SUBJECT,
+        commerceOrder: ORDER_PREFIX + '-' + Date.now(),
+        product:       PRODUCT,
+      }),
+    });
+    const data = await resp.json();
+    if (data.redirect) {
+      btnText.innerHTML = '✅ Redirigiendo a Flow...';
+      window.location.href = data.redirect;
+    } else {
+      throw new Error(data.error || 'Error al crear el pago');
+    }
+  } catch (err) {
+    btnText.innerHTML = '💳 Pagar $29.000 y generar políticas →';
+    document.getElementById('payBtn').disabled = false;
+    alert('Error al conectar con el sistema de pago. Inténtalo de nuevo o escríbenos por WhatsApp.');
+    console.error(err);
+  }
+}
+</script>
+<style>@keyframes spin {to{transform:rotate(360deg)}}</style>
 </body></html>
