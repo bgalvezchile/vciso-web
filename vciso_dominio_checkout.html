@@ -473,16 +473,10 @@
         <div class="include-item"><span class="chk">✓</span><span>Reporte descargable en <strong>PDF</strong> para presentar a dirección</span></div>
         <div class="include-item"><span class="chk">✓</span><span>Guía de herramientas gratuitas para verificación complementaria</span></div>
 
-                <div style="margin-bottom:16px">
-          <label style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-bottom:6px;display:block">Tu email para recibir el análisis *</label>
-          <input type="email" id="emailInput" placeholder="tuemail@empresa.cl"
-            style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
-            color:#fff;border-radius:10px;padding:12px 16px;font-size:0.92rem;outline:none;
-            font-family:inherit"/>
-        </div>
-        <button id="payBtn" class="pay-btn" onclick="initPayment()">
-          <span id="payBtnText">🔒 Pagar $49.000 y obtener análisis →</span>
-        </button>
+        <!-- Reemplazar href con link de Flow o MercadoPago -->
+        <a href="/scanner-dominio" class="pay-btn">
+          🔒 Pagar y escanear mi dominio →
+        </a>
 
         <div class="payment-methods">
           <span class="pm-badge">💳 Débito</span>
@@ -556,34 +550,40 @@
 </footer>
 
 <script>
-const AMOUNT  = 49000;
-const SUBJECT = 'Análisis Completo de Dominio — vCISO.cl';
-const PRODUCT = 'analisis-dominio';
+const AMOUNT   = 49000;
+const PRODUCT  = 'dominio';
 
 async function initPayment() {
-  const emailInput = document.getElementById('emailInput');
-  const email = emailInput ? emailInput.value.trim() : '';
-  const btnText = document.getElementById('payBtnText');
+  const dominio  = (document.getElementById('dominioInput')?.value  || '').trim();
+  const empresa  = (document.getElementById('empresaInput')?.value  || '').trim();
+  const contacto = (document.getElementById('contactoInput')?.value || '').trim();
+  const email    = (document.getElementById('emailInput')?.value    || '').trim();
+  const btnText  = document.getElementById('payBtnText');
 
+  if (!dominio)  { alert('Por favor ingresa el dominio a analizar.');    document.getElementById('dominioInput').focus();  return; }
+  if (!empresa)  { alert('Por favor ingresa el nombre de tu empresa.');  document.getElementById('empresaInput').focus();  return; }
+  if (!contacto) { alert('Por favor ingresa tu nombre de contacto.');    document.getElementById('contactoInput').focus(); return; }
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    alert('Por favor ingresa un email válido para recibir tu análisis.');
-    if (emailInput) emailInput.focus();
-    return;
+    alert('Por favor ingresa un email válido.');
+    document.getElementById('emailInput').focus(); return;
   }
 
-  btnText.innerHTML = '<span class="spinner"></span> Conectando con Flow...';
+  btnText.innerHTML = '<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:8px"></span> Conectando con Flow...';
   document.getElementById('payBtn').disabled = true;
+
+  // Guardar datos para post-pago
+  localStorage.setItem('vciso_dominio_data', JSON.stringify({ dominio, empresa, contacto, email }));
 
   try {
     const resp = await fetch('/api/create-payment', {
-      method: 'POST',
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email,
-        amount:         AMOUNT,
-        subject:        SUBJECT,
-        commerceOrder:  'DOMINIO-' + Date.now(),
-        product:        PRODUCT,
+        amount:        AMOUNT,
+        subject:       `Análisis Dominio: ${dominio} — ${empresa}`,
+        commerceOrder: 'DOMINIO-' + Date.now(),
+        product:       PRODUCT,
       }),
     });
     const data = await resp.json();
@@ -594,11 +594,12 @@ async function initPayment() {
       throw new Error(data.error || 'Error al crear el pago');
     }
   } catch (err) {
-    btnText.innerHTML = '🔒 Pagar $49.000 y obtener análisis →';
+    btnText.innerHTML = '🔒 Pagar $49.000 y solicitar análisis →';
     document.getElementById('payBtn').disabled = false;
-    alert('Error al conectar con el sistema de pago. Inténtalo de nuevo o contáctanos por WhatsApp.');
-    console.error(err);
+    alert('Error al conectar con el sistema de pago. Inténtalo de nuevo o escríbenos por WhatsApp.');
   }
 }
 </script>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
 </body></html>

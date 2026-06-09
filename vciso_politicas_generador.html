@@ -9,7 +9,7 @@
   <meta name="description" content="Completa el formulario y genera tus políticas de seguridad TI personalizadas. Alineadas con Ley 21.719 y NIST CSF v2.0."/>
   <meta name="keywords" content="ciberseguridad pymes chile, auditoria seguridad informatica chile, politicas TI chile, ciso virtual chile, diagnostico ciberseguridad santiago, ley 21719 cumplimiento, vciso"/>
   <meta name="author" content="vCISO.cl"/>
-  <meta name="robots" content="index, follow"/>
+  <meta name="robots" content="noindex, nofollow"/>
   <meta name="language" content="es-CL"/>
   <link rel="canonical" href="https://www.vciso.cl/generador-politicas"/>
 
@@ -523,7 +523,24 @@
 <!-- ═══════════════════════════════════════════
      WIZARD
 ═══════════════════════════════════════════ -->
-<div id="wizard">
+
+<div id="access-denied" style="display:flex;align-items:center;justify-content:center;
+  min-height:60vh;padding:40px 20px;text-align:center;position:relative;z-index:1">
+  <div style="max-width:460px">
+    <div style="font-size:3rem;margin-bottom:16px">🔒</div>
+    <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:12px;color:#fff">Acceso restringido</h2>
+    <p class="denied-msg" style="color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:24px">
+      Verificando acceso...
+    </p>
+    <a href="/politicas-seguridad"
+       style="display:inline-block;background:#e85d26;color:#fff;padding:12px 24px;
+              border-radius:8px;text-decoration:none;font-weight:700;font-size:0.9rem">
+      ← Ver servicio de políticas
+    </a>
+  </div>
+</div>
+
+<div id="wizard" style="display:none">
 
   <!-- PROGRESS -->
   <div class="progress-wrap">
@@ -1136,6 +1153,8 @@ function generatePolicies() {
   };
 
   const selected = Array.from(document.querySelectorAll('.policy-check-item input:checked')).map(c => c.value);
+  // Send to backend
+  submitPoliticasToBackend(d, selected);
   const today = new Date();
   const todayStr = today.toLocaleDateString('es-CL', {day:'2-digit', month:'long', year:'numeric'});
 
@@ -1664,6 +1683,8 @@ function generatePolicies() {
   };
 
   const selected = Array.from(document.querySelectorAll('.policy-check-item input:checked')).map(c => c.value);
+  // Send to backend
+  submitPoliticasToBackend(d, selected);
   const today = new Date();
   const todayStr = today.toLocaleDateString('es-CL', {day:'2-digit', month:'long', year:'numeric'});
 
@@ -1767,5 +1788,66 @@ function printOne(pid) {
   const mm = String(now.getMonth()+1).padStart(2,'0');
   document.getElementById('vigencia').value = `${yyyy}-${mm}`;
 })();
+</script>
+<script>
+// ── TOKEN PROTECTION ────────────────────────────────────────────────────────
+(async function() {
+  const params = new URLSearchParams(window.location.search);
+  const token  = params.get('token');
+
+  if (!token) {
+    showAccessDenied('Para acceder al generador necesitas un link de acceso válido.<br/>Si ya realizaste el pago, revisa tu email.');
+    return;
+  }
+
+  try {
+    const resp = await fetch(`/api/validate-token?token=${token}`);
+    const data = await resp.json();
+    if (!data.valid) {
+      showAccessDenied('Tu link de acceso ha expirado o no es válido.<br/>Escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#f47c47">contacto@vciso.cl</a> y te enviamos uno nuevo.');
+      return;
+    }
+    window.__accessToken = token;
+    document.getElementById('wizard').style.display = 'block';
+    document.getElementById('access-denied').style.display = 'none';
+  } catch(e) {
+    showAccessDenied('Error verificando acceso. Intenta recargar la página.');
+  }
+})();
+
+function showAccessDenied(msg) {
+  const wizard = document.getElementById('wizard');
+  if (wizard) wizard.style.display = 'none';
+  const div = document.getElementById('access-denied');
+  div.style.display = 'flex';
+  div.querySelector('.denied-msg').innerHTML = msg;
+}
+
+// ── SEND DATA TO BACKEND WHEN POLICIES ARE GENERATED ───────────────────────
+async function submitPoliticasToBackend(empresaData, politicasSeleccionadas) {
+  try {
+    await fetch('/api/submit-politicas', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token:                  window.__accessToken || '',
+        empresa:                empresaData.empresa  || '',
+        rut:                    empresaData.rut      || '',
+        rubro:                  empresaData.rubro    || '',
+        ciudad:                 empresaData.ciudad   || '',
+        empleados:              empresaData.empleados|| '',
+        vigencia:               empresaData.vigencia || '',
+        repLegal:               empresaData.repLegal || '',
+        repCargo:               empresaData.repCargo || '',
+        tiResp:                 empresaData.tiResp   || '',
+        tiCargo:                empresaData.tiCargo  || '',
+        politicasSeleccionadas: politicasSeleccionadas || [],
+      }),
+    });
+    console.log('Datos políticas enviados a vCISO.cl');
+  } catch(e) {
+    console.error('Error enviando políticas:', e.message);
+  }
+}
 </script>
 </body></html>
