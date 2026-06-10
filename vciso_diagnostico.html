@@ -428,6 +428,56 @@
           </div>
         </div>
 
+        <div class="section-divider"><span>Documento tributario</span></div>
+
+        <div class="field-grid full">
+          <div class="field">
+            <label>¿Necesitas factura electrónica? *</label>
+            <select id="tipo-documento" onchange="toggleFactura()">
+              <option value="">Selecciona...</option>
+              <option value="boleta">No, boleta electrónica está bien</option>
+              <option value="factura">Sí, necesito factura electrónica</option>
+            </select>
+            <span class="error-msg" id="err-tipo-documento">Campo requerido</span>
+          </div>
+        </div>
+
+        <!-- Campos factura — se muestran solo si elige factura -->
+        <div id="factura-fields" style="display:none">
+          <div class="field-grid">
+            <div class="field">
+              <label>RUT empresa *</label>
+              <input type="text" id="rut-empresa" placeholder="Ej: 76.123.456-7"/>
+              <span class="error-msg" id="err-rut-empresa">Campo requerido</span>
+            </div>
+            <div class="field">
+              <label>Razón social *</label>
+              <input type="text" id="razon-social" placeholder="Ej: Constructora Pérez SpA"/>
+              <span class="error-msg" id="err-razon-social">Campo requerido</span>
+            </div>
+          </div>
+          <div class="field-grid full">
+            <div class="field">
+              <label>Giro comercial *</label>
+              <input type="text" id="giro-comercial" placeholder="Ej: Construcción de edificios"/>
+              <span class="error-msg" id="err-giro-comercial">Campo requerido</span>
+            </div>
+          </div>
+          <div class="field-grid full">
+            <div class="field">
+              <label>Email para envío de factura *</label>
+              <input type="email" id="email-factura" placeholder="contabilidad@empresa.cl"/>
+              <span class="field-hint">Puede ser diferente al email de contacto</span>
+              <span class="error-msg" id="err-email-factura">Email inválido</span>
+            </div>
+          </div>
+          <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-top:8px;">
+            <p style="font-size:0.82rem;color:#92400e;margin:0;">
+              📄 <strong>Importante:</strong> La factura electrónica será emitida dentro de las 48 horas hábiles siguientes al pago y enviada al email indicado. Si tienes dudas, escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#1e4fad;">contacto@vciso.cl</a> o por WhatsApp al <a href="https://wa.me/56981307440" style="color:#1e4fad;">+56 9 8130 7440</a>.
+            </p>
+          </div>
+        </div>
+
       </div>
       <div class="form-nav">
         <span></span>
@@ -1423,6 +1473,13 @@
 </footer>
 
 <script>
+// ── Toggle campos factura ─────────────────────────────────────────────────
+function toggleFactura() {
+  const val = document.getElementById('tipo-documento').value;
+  const fields = document.getElementById('factura-fields');
+  fields.style.display = val === 'factura' ? 'block' : 'none';
+}
+
 // ── Estado ────────────────────────────────────────────────────────────────
 const answers     = {};
 let currentStep   = 1;
@@ -1485,7 +1542,7 @@ function validateStep(step) {
   let ok = true;
 
   if (step === 1) {
-    ['empresa','rubro','empleados','nombre','cargo','email'].forEach(id => {
+    ['empresa','rubro','empleados','nombre','cargo','email','tipo-documento'].forEach(id => {
       const el  = document.getElementById(id);
       const err = document.getElementById('err-'+id);
       const val = el ? el.value.trim() : '';
@@ -1496,6 +1553,29 @@ function validateStep(step) {
         if (err) err.classList.remove('visible');
       }
     });
+
+    // Validar campos de factura si eligió factura
+    if (document.getElementById('tipo-documento').value === 'factura') {
+      ['rut-empresa','razon-social','giro-comercial'].forEach(id => {
+        const el  = document.getElementById(id);
+        const err = document.getElementById('err-'+id);
+        const val = el ? el.value.trim() : '';
+        if (!val) {
+          if (err) err.classList.add('visible');
+          ok = false;
+        } else {
+          if (err) err.classList.remove('visible');
+        }
+      });
+      const emailF  = document.getElementById('email-factura');
+      const errF    = document.getElementById('err-email-factura');
+      if (!emailF.value.trim() || !/\S+@\S+\.\S+/.test(emailF.value.trim())) {
+        errF.classList.add('visible');
+        ok = false;
+      } else {
+        errF.classList.remove('visible');
+      }
+    }
   }
 
   // Preguntas por paso
@@ -1609,6 +1689,11 @@ async function submitForm() {
     email:     document.getElementById('email').value.trim(),
     telefono:  document.getElementById('telefono').value.trim(),
     comentario:document.getElementById('comentario').value.trim(),
+      tipoDocumento: document.getElementById('tipo-documento').value,
+      rutEmpresa:    document.getElementById('rut-empresa')   ? document.getElementById('rut-empresa').value.trim()    : '',
+      razonSocial:   document.getElementById('razon-social')  ? document.getElementById('razon-social').value.trim()   : '',
+      giroComercial: document.getElementById('giro-comercial')? document.getElementById('giro-comercial').value.trim() : '',
+      emailFactura:  document.getElementById('email-factura') ? document.getElementById('email-factura').value.trim()  : '',
   };
 
   // Preparar respuestas
