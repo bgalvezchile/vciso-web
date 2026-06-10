@@ -222,7 +222,8 @@ Principios que siempre sigues:
   });
 
   const data = await resp.json();
-  if (!data.content || !data.content[0]) throw new Error('Claude no respondió');
+  console.log('Anthropic response:', JSON.stringify(data));
+if (!data.content || !data.content[0]) throw new Error('Claude no respondió: ' + JSON.stringify(data));
 
   const texto = data.content[0].text.trim();
   // Limpiar posibles bloques markdown
