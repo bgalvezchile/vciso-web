@@ -5,6 +5,9 @@
   "engines": {
     "node": "20.x"
   },
+  "scripts": {
+    "build": "echo 'Build OK'"
+  },
   "dependencies": {
     "node-fetch": "2.7.0",
     "pdf-lib": "1.17.1",
