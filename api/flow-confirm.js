@@ -39,7 +39,7 @@ const PRODUCTS = {
     hasDownload:  false,
     hasForm:      true,   // necesita formulario
     formPath:     '/diagnostico',
-    deliveryMsg:  'Recibirás tu informe personalizado en las próximas <strong>24 horas hábiles</strong> una vez que completes el formulario.',
+    deliveryMsg:  'Recibirás tu informe personalizado en las próximas <strong>48 horas hábiles</strong> una vez que completes el formulario.',
   },
   politicas: {
     prefix:       'POLITICAS',
@@ -57,7 +57,7 @@ const PRODUCTS = {
     hasDownload:  false,
     hasForm:      true,
     formPath:     '/analisis-dominio',
-    deliveryMsg:  'Recibirás tu informe de análisis de dominio en las próximas <strong>24 horas hábiles</strong> una vez que confirmes los datos.',
+    deliveryMsg:  'Recibirás tu informe de análisis de dominio en las próximas <strong>48 horas hábiles</strong> una vez que confirmes los datos.',
   },
 };
 
