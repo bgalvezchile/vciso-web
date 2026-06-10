@@ -5,7 +5,7 @@ const fetch  = require('node-fetch');
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
   AlignmentType, HeadingLevel, BorderStyle, WidthType, ShadingType,
-  VerticalAlign, PageBreak, Header, Footer
+  VerticalAlign, PageBreak, Header, FooterF
 } = require('docx');
 
 const DOWNLOAD_SECRET = process.env.DOWNLOAD_SECRET || 'vciso2026supersecreto';
@@ -625,6 +625,8 @@ module.exports = async (req, res) => {
   try {
     // 1. Llamar a Claude
     console.log('Llamando a Claude API...');
+    console.log('API KEY existe:', !!ANTHROPIC_KEY);
+    console.log('API KEY inicio:', ANTHROPIC_KEY ? ANTHROPIC_KEY.substring(0,15) : 'NULL');
     let analisis;
     try {
       analisis = await llamarClaude(
