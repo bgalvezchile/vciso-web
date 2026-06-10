@@ -35,7 +35,7 @@ const PRODUCTS = {
   diagnostico: {
     prefix:       'DIAG',
     name:         'Diagnóstico Express de Ciberseguridad',
-    price:        '$79.000 CLP',
+    price:        '$89.000 CLP',
     hasDownload:  false,
     hasForm:      true,   // necesita formulario
     formPath:     '/diagnostico',
