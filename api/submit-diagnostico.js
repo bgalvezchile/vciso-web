@@ -154,6 +154,14 @@ ${resumenAreas}
 ## RESPUESTAS DETALLADAS
 ${resumenRespuestas}
 
+## CLASIFICACIÓN LEY 21.663
+${respuestas.q22 !== undefined ? 
+  (Number(respuestas.q22) === 3 ? "OIV NOTIFICADO — Obligaciones específicas Ley 21.663 aplican" :
+   Number(respuestas.q22) === 1 ? "SECTOR CRÍTICO SIN NOTIFICACIÓN — Verificar aplicabilidad" :
+   Number(respuestas.q22) === 0 ? "PYME COMÚN — Ley 21.663 no aplica directamente" :
+   "NO SABE — Requiere orientación")
+  : "No especificado"}
+
 ## COMENTARIO DEL CLIENTE
 ${comentario || 'Sin comentario adicional'}
 
@@ -182,16 +190,37 @@ Genera el informe en formato JSON con EXACTAMENTE esta estructura (sin markdown,
     }
   ],
   "conclusion": "2-3 párrafos de conclusión con visión optimista pero realista, destacando que las mejoras son alcanzables, priorizando las acciones inmediatas y mencionando cómo vCISO.cl puede acompañar el proceso.",
-  "nivel_urgencia_global": "CRÍTICO|ALTO|MEDIO|BAJO"
+  "nivel_urgencia_global": "CRÍTICO|ALTO|MEDIO|BAJO",
+  "nist_mapping": [
+    {"funcion": "Govern", "hallazgos": ["título de hallazgo relacionado"]},
+    {"funcion": "Identify", "hallazgos": []},
+    {"funcion": "Protect", "hallazgos": []},
+    {"funcion": "Detect", "hallazgos": []},
+    {"funcion": "Respond", "hallazgos": []},
+    {"funcion": "Recover", "hallazgos": []}
+  ],
+  "checklist_30_dias": [
+    "Acción concreta 1 para los primeros 30 días",
+    "Acción concreta 2",
+    "Acción concreta 3",
+    "Acción concreta 4",
+    "Acción concreta 5"
+  ]
 }
 
-IMPORTANTE:
-- Personaliza CADA hallazgo al contexto específico de ${datos.empresa} (rubro: ${datos.rubro}, ${datos.empleados} empleados)
+IMPORTANTE — REGLAS DE PERSONALIZACIÓN:
+- Personaliza CADA hallazgo al contexto específico de ${datos.empresa} (rubro: ${datos.rubro}, ${datos.empleados} empleados, TI: ${datos.deptTI || datos.deptTi || 'sin área TI'})
+- SIEMPRE usa el nombre completo "${datos.empresa}" — NUNCA uses solo el nombre de una persona
 - Solo incluye hallazgos para preguntas con 0-1 puntos
 - Las fortalezas son para preguntas con 3 puntos
-- Menciona la Ley 21.719 si hay riesgo de datos personales
-- Alinea con NIST CSF v2.0 donde corresponda
+- Si la empresa guarda datos personales: menciona la Ley 21.719 indicando "riesgo de incumplimiento futuro (vigencia 1 dic 2026)" y nombra a la "Agencia de Protección de Datos Personales"
+- Para clasificación Ley 21.663: si es OIV notificado, incluir hallazgo específico con obligaciones (CSIRT, reportes, SGSI). Si es sector crítico sin notificación, recomendar verificar con ANCI. Si es PYME común, NO mencionar Ley 21.663 como obligación directa. Si no sabe, incluir orientación breve.
+- Mapea los hallazgos a las funciones NIST CSF v2.0: Govern, Identify, Protect, Detect, Respond, Recover
+- Incluye SIEMPRE al menos un hallazgo de la función Detect
 - Máximo 6 hallazgos ALTA prioridad, 5 MEDIA, 3 BAJA
+- El JSON debe incluir también:
+  "nist_mapping": [{"funcion": "Protect", "hallazgos": ["título1", "título2"]}, ...],
+  "checklist_30_dias": ["acción 1", "acción 2", ...hasta 5 acciones concretas para los primeros 30 días"]
 `;
 
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
@@ -204,19 +233,25 @@ IMPORTANTE:
     body: JSON.stringify({
       model:      'claude-haiku-4-5-20251001',
       max_tokens: 16000,
-      system: `Eres un experto en ciberseguridad con más de 20 años de experiencia, especializado en PYMEs chilenas. 
-Tienes certificaciones en NIST CSF v2.0 e ISO 27001, y conocimiento profundo de la Ley 21.719 de Protección de Datos Personales de Chile.
+      system: `Eres un consultor senior en ciberseguridad con más de 20 años de experiencia, especializado en PYMEs chilenas. Tienes certificaciones en NIST CSF v2.0 e ISO 27001, y conocimiento profundo de la legislación chilena vigente.
 
-Tu rol es analizar diagnósticos de ciberseguridad y generar informes profesionales, claros y accionables para dueños y gerentes de PYMEs que no son expertos en tecnología.
+CONOCIMIENTO NORMATIVO CRÍTICO:
+- Ley 21.719 de Protección de Datos Personales: vigencia plena desde el 1 de diciembre de 2026. Actualmente en período de adecuación. El organismo competente es la "Agencia de Protección de Datos Personales" — NUNCA digas "Superintendencia de Privacidad".
+- Ley 21.663 Marco de Ciberseguridad: aplica principalmente a servicios esenciales y Operadores de Importancia Vital. NO aplica directamente a PYMEs comunes como retail, peluquerías, construcción, etc.
+- NIST SP 800-63B: NO recomienda cambio periódico fijo de contraseñas. Recomienda contraseñas largas, únicas, gestor corporativo y 2FA.
+- NIST CSF v2.0: 6 funciones — Govern, Identify, Protect, Detect, Respond, Recover.
 
-Principios que siempre sigues:
-- Lenguaje profesional pero comprensible para alguien no técnico
-- Cada hallazgo está contextualizado al rubro y tamaño específico de la empresa
-- Las recomendaciones son concretas, con pasos específicos y plazos realistas
-- Eres honesto sobre los riesgos sin alarmar innecesariamente
-- Siempre hay un camino de mejora alcanzable
-- Respondes SIEMPRE en español chileno formal
-- Cuando generas JSON, devuelves SOLO el JSON válido, sin texto adicional, sin bloques markdown`,
+REGLAS DE CONTENIDO ESTRICTAS:
+- SIEMPRE referirte a la empresa por su nombre completo, NUNCA por el nombre de una persona.
+- NUNCA recomendar cambio de contraseña cada 90 días. Recomendar en cambio: contraseñas largas únicas (mínimo 12 caracteres), gestor de contraseñas y 2FA.
+- Para Ley 21.719: usar "riesgo de incumplimiento futuro" o "brecha frente a obligaciones exigibles bajo Ley 21.719 a partir del 1 de diciembre de 2026". NUNCA decir que ya están incumpliendo.
+- Para Ley 21.663: solo mencionar si la empresa presta servicios esenciales. Para PYMEs comunes NO aplica directamente.
+- Evitar lenguaje alarmista: no usar "violación directa", "riesgo muy alto", "incumplimiento grave". Usar: "área crítica de mejora", "exposición significativa", "riesgo relevante a corregir".
+- Siempre incluir al menos un hallazgo relacionado con la función Detect del NIST CSF (monitoreo, alertas, detección de amenazas, filtros anti-phishing).
+- Respaldos: siempre incluir automatización, copia externa y prueba de restauración periódica.
+- Tono constructivo: siempre existe un camino de mejora alcanzable y concreto.
+- Responde SIEMPRE en español chileno formal.
+- Cuando generas JSON, devuelves SOLO el JSON válido, sin texto adicional, sin bloques markdown.`,
       messages: [{ role: 'user', content: userPrompt }],
     }),
   });
@@ -467,11 +502,97 @@ async function generarWord(datos, respuestas, puntaje, maxPuntaje, porcentaje, a
     children.push(new Paragraph({ children:[new PageBreak()] }));
   }
 
-  // ── SECCIÓN 5: CONCLUSIONES ──
+  // ── SECCIÓN 5: ALINEACIÓN NIST CSF v2.0 ──
+  if (analisis.nist_mapping && analisis.nist_mapping.length) {
+    children.push(new Paragraph({
+      heading:HeadingLevel.HEADING_1,
+      spacing:{ before:240, after:160 },
+      children:[t("5. Alineación con NIST CSF v2.0",{bold:true,size:32,color:NAVY})]
+    }));
+
+    children.push(p(
+      "Los hallazgos identificados han sido mapeados a las seis funciones del Marco de Ciberseguridad NIST CSF v2.0, estándar internacional de referencia para la gestión de riesgos de ciberseguridad.",
+      {size:20,color:GRAY_TX,sa:160}
+    ));
+
+    const nistEmojis = { Govern:"🏛️", Identify:"🔍", Protect:"🛡️", Detect:"📡", Respond:"🚨", Recover:"🔄" };
+    const nistDesc   = {
+      Govern:  "Políticas, roles, responsabilidades y gestión del riesgo organizacional",
+      Identify:"Inventario de activos, datos, sistemas y evaluación de riesgos",
+      Protect: "Controles de acceso, capacitación, respaldos y protección de datos",
+      Detect:  "Monitoreo continuo, detección de anomalías y amenazas",
+      Respond: "Plan de respuesta a incidentes y comunicación de crisis",
+      Recover: "Restauración de servicios y mejora continua post-incidente",
+    };
+
+    children.push(new Table({
+      width:{size:9360,type:WidthType.DXA},
+      columnWidths:[2200,3160,4000],
+      rows:[
+        new TableRow({ children:[
+          cell([p("Función",{bold:true,size:19,color:WHITE})],{w:2200,bg:NAVY}),
+          cell([p("Descripción",{bold:true,size:19,color:WHITE})],{w:3160,bg:NAVY}),
+          cell([p("Hallazgos identificados",{bold:true,size:19,color:WHITE})],{w:4000,bg:NAVY}),
+        ]}),
+        ...analisis.nist_mapping.map((item,i)=>{
+          const emoji  = nistEmojis[item.funcion] || "•";
+          const desc   = nistDesc[item.funcion]   || "";
+          const hItems = (item.hallazgos||[]);
+          const hText  = hItems.length > 0 ? hItems.join(" · ") : "Sin hallazgos críticos en esta área";
+          const hColor = hItems.length > 0 ? GRAY_TX : GRN_TX;
+          const rowBg  = i%2===0 ? GRAY_BG : WHITE;
+          return new TableRow({ children:[
+            cell([p(`${emoji} ${item.funcion}`,{size:19,bold:true,color:NAVY})],{w:2200,bg:rowBg}),
+            cell([p(desc,{size:17,color:GRAY_TX,italic:true})],{w:3160,bg:rowBg}),
+            cell([p(hText,{size:18,color:hColor})],{w:4000,bg:rowBg}),
+          ]});
+        }),
+      ]
+    }));
+    children.push(empty());
+    children.push(new Paragraph({ children:[new PageBreak()] }));
+  }
+
+  // ── SECCIÓN 6: CHECKLIST PRIMEROS 30 DÍAS ──
+  if (analisis.checklist_30_dias && analisis.checklist_30_dias.length) {
+    children.push(new Paragraph({
+      heading:HeadingLevel.HEADING_1,
+      spacing:{ before:240, after:160 },
+      children:[t("6. Checklist — Primeros 30 Días",{bold:true,size:32,color:NAVY})]
+    }));
+
+    children.push(p(
+      "Las siguientes acciones han sido priorizadas como las más urgentes e impactantes para mejorar la postura de seguridad de " + datos.empresa + " en el corto plazo. Se recomienda abordarlas antes de pasar a las mejoras de mediano plazo.",
+      {size:20,color:GRAY_TX,sa:160}
+    ));
+
+    children.push(new Table({
+      width:{size:9360,type:WidthType.DXA},
+      columnWidths:[720,7200,1440],
+      rows:[
+        new TableRow({ children:[
+          cell([p("#",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:720,bg:ORANGE}),
+          cell([p("Acción prioritaria",{bold:true,size:19,color:WHITE})],{w:7200,bg:ORANGE}),
+          cell([p("Estado",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:1440,bg:ORANGE}),
+        ]}),
+        ...analisis.checklist_30_dias.map((accion,i)=>
+          new TableRow({ children:[
+            cell([p(`${i+1}`,{size:19,bold:true,align:AlignmentType.CENTER,color:ORANGE})],{w:720,bg:i%2===0?GRAY_BG:WHITE}),
+            cell([p(accion,{size:19})],{w:7200,bg:i%2===0?GRAY_BG:WHITE}),
+            cell([p("☐ Pendiente",{size:17,color:GRAY_TX,align:AlignmentType.CENTER})],{w:1440,bg:i%2===0?GRAY_BG:WHITE}),
+          ]})
+        ),
+      ]
+    }));
+    children.push(empty());
+    children.push(new Paragraph({ children:[new PageBreak()] }));
+  }
+
+  // ── SECCIÓN 7: CONCLUSIONES ──
   children.push(new Paragraph({
     heading:HeadingLevel.HEADING_1,
     spacing:{ before:240, after:160 },
-    children:[t("5. Conclusiones y Próximos Pasos",{bold:true,size:32,color:NAVY})]
+    children:[t("7. Conclusiones y Próximos Pasos",{bold:true,size:32,color:NAVY})]
   }));
 
   children.push(p(analisis.conclusion||'',{size:20,color:GRAY_TX,sa:200}));
@@ -524,6 +645,41 @@ async function generarWord(datos, respuestas, puntaje, maxPuntaje, porcentaje, a
   children.push(empty());
   children.push(p(`Informe preparado por vCISO.cl · ${fecha} · Confidencial — Para uso exclusivo de ${datos.empresa}`,
     {size:16,color:GRAY_TX,align:AlignmentType.CENTER,sb:200}));
+
+  // ── DISCLAIMER LEGAL ──
+  children.push(new Paragraph({ children:[new PageBreak()] }));
+
+  children.push(new Paragraph({
+    heading:HeadingLevel.HEADING_1,
+    spacing:{ before:240, after:160 },
+    children:[t("8. Aviso Legal y Limitación de Responsabilidad",{bold:true,size:32,color:NAVY})]
+  }));
+
+  const disclaimerArticulos = [
+    ["1. Naturaleza del servicio.",
+     "El presente informe fue elaborado por vCISO.cl, empresa de consultoria en ciberseguridad con domicilio en Santiago de Chile. Constituye una asesoria de orientacion general basada exclusivamente en las respuestas del cliente al cuestionario de diagnostico. No constituye auditoria tecnica, prueba de penetracion, analisis forense ni evaluacion exhaustiva de sistemas o procesos. Este informe fue elaborado con asistencia de inteligencia artificial y revisado por un consultor humano antes de su entrega."],
+    ["2. Alcance y limitaciones.",
+     "Las recomendaciones son de caracter referencial e informativo. vCISO.cl no garantiza que su implementacion elimine todos los riesgos existentes ni aquellos no identificados. La informacion del cliente es la unica base del analisis, siendo responsabilidad exclusiva del cliente su veracidad e integridad, conforme al articulo 1546 del Codigo Civil de Chile. Este informe no garantiza cumplimiento normativo con Ley 21.719, ISO 27001, NIST CSF ni ningun otro estandar o regulacion."],
+    ["3. Limitacion de responsabilidad.",
+     "En conformidad con los articulos 1547 y 1558 del Codigo Civil de Chile, vCISO.cl limita su responsabilidad a danos directos consecuencia inmediata del incumplimiento de sus obligaciones como consultor. vCISO.cl no sera responsable por danos indirectos, lucro cesante, perdida de datos, interrupcion de operaciones, danos reputacionales, ni perjuicios derivados de la no implementacion, implementacion parcial o incorrecta de las recomendaciones."],
+    ["4. Responsabilidad del cliente.",
+     "La decision de implementar, modificar o descartar las recomendaciones es de exclusiva responsabilidad de la organizacion contratante y su representante legal. vCISO.cl no asume responsabilidad por las consecuencias de dicha decision, conforme al principio de autonomia de la voluntad del articulo 1545 del Codigo Civil de Chile."],
+    ["5. No constituye asesoria legal.",
+     "Este informe no constituye asesoria juridica. Las referencias a normativas legales son de caracter informativo y orientador. Para asesoria legal especifica, la organizacion debe consultar a un abogado habilitado."],
+    ["6. Confidencialidad.",
+     "Este informe es estrictamente confidencial y fue preparado exclusivamente para la organizacion indicada en la portada. Queda prohibida su reproduccion, distribucion o divulgacion a terceros sin autorizacion escrita de vCISO.cl."],
+    ["7. Sin relacion de dependencia.",
+     "Este informe no establece relacion laboral, societaria ni de representacion legal entre vCISO.cl y la organizacion contratante."],
+  ];
+
+  disclaimerArticulos.forEach(([titulo, texto]) => {
+    children.push(p2([
+      t(titulo + "  ", {bold:true, size:20, color:NAVY}),
+      t(texto, {size:20, color:GRAY_TX}),
+    ], {sb:100, sa:100}));
+  });
+
+  children.push(empty());
 
   // ── Generar documento ──
   const doc = new Document({
