@@ -290,7 +290,7 @@
 <div class="hero-mini">
   <div class="badge">🛡️ Diagnóstico Express · $79.000 CLP</div>
   <h1>Diagnóstico de Ciberseguridad</h1>
-  <p>21 preguntas sobre el estado real de seguridad de tu empresa. Recibes un informe profesional personalizado en 24 horas.</p>
+  <p>22 preguntas sobre el estado real de seguridad de tu empresa. Recibes un informe profesional personalizado en 48 horas hábiles.</p>
 </div>
 
 <!-- PROGRESS -->
@@ -1277,6 +1277,49 @@
           <span class="error-msg" id="err-q21">Debes seleccionar una opción</span>
         </div>
 
+        <!-- PREGUNTA LEY 21.663 -->
+        <div class="section-divider"><span>Clasificación Ley 21.663</span></div>
+        <div class="question">
+          <div class="question-num">Pregunta 22 de 22</div>
+          <h3>¿Tu empresa ha sido notificada o crees que podría estar clasificada bajo la Ley 21.663 de Ciberseguridad?</h3>
+          <p class="hint">La ANCI notifica directamente a las organizaciones calificadas como Operadores de Importancia Vital (OIV). Si no has recibido ninguna comunicación oficial, probablemente no aplica a tu empresa.</p>
+          <div class="options">
+            <div class="option" onclick="selectOption(this,'q22',3,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, fuimos notificados por la ANCI como Operador de Importancia Vital (OIV)</div>
+                <div class="option-desc">Hemos recibido comunicación oficial y tenemos obligaciones específicas bajo la Ley 21.663</div>
+              </div>
+              <span class="option-score score-bad">OIV</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q22',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No hemos sido notificados, pero operamos en un sector crítico</div>
+                <div class="option-desc">Ej: salud con más de 50 camas, energía, telecomunicaciones, banca, transporte masivo</div>
+              </div>
+              <span class="option-score score-mid">Verificar</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q22',0,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No, somos una PYME común — no hemos recibido comunicación de la ANCI</div>
+                <div class="option-desc">Retail, comercio, servicios locales, construcción, manufactura u otros sectores no críticos</div>
+              </div>
+              <span class="option-score score-good">No aplica</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q22',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No lo sabemos / queremos orientación al respecto</div>
+                <div class="option-desc">No estamos seguros de si nuestra actividad nos hace sujetos de esta ley</div>
+              </div>
+              <span class="option-score score-mid">Orientación</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-q22">Debes seleccionar una opción</span>
+        </div>
+
         <!-- CUADRO TEXTO LIBRE -->
         <div class="section-divider"><span>Información adicional</span></div>
         <div class="question">
@@ -1311,7 +1354,7 @@
         <div class="result-cta">
           <h3>🎯 Tu informe profesional está en preparación</h3>
           <p>Nuestro equipo analizará tus respuestas y preparará un informe detallado con hallazgos priorizados, plan de acción concreto y recomendaciones alineadas con la Ley 21.719 y el estándar NIST CSF v2.0.</p>
-          <p style="color:rgba(255,255,255,0.9);font-weight:700;margin-top:8px;">📩 Recibirás tu informe en <strong>24 horas hábiles</strong> en tu correo.</p>
+          <p style="color:rgba(255,255,255,0.9);font-weight:700;margin-top:8px;">📩 Recibirás tu informe en <strong>48 horas hábiles</strong> en tu correo.</p>
         </div>
         <div class="next-steps">
           <h4>¿Qué pasa ahora?</h4>
@@ -1321,7 +1364,7 @@
           </div>
           <div class="step-item">
             <div class="step-num-small">2</div>
-            <p><strong>Informe en 24 horas:</strong> Recibirás un PDF con hallazgos priorizados, nivel de riesgo por área y un plan de acción concreto.</p>
+            <p><strong>Informe en 48 horas hábiles:</strong> Recibirás un PDF con hallazgos priorizados, nivel de riesgo por área y un plan de acción concreto.</p>
           </div>
           <div class="step-item">
             <div class="step-num-small">3</div>
@@ -1461,7 +1504,7 @@ function validateStep(step) {
     3: ['q5','q6','q7','q8'],
     4: ['q9','q10','q11','q12'],
     5: ['q13','q14','q15','q16'],
-    6: ['q17','q18','q19','q20','q21'],
+    6: ['q17','q18','q19','q20','q21','q22'],
   };
 
   if (stepQs[step]) {
