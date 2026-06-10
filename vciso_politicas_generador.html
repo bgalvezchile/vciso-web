@@ -87,10 +87,14 @@
     --orange:    #e85d26;
     --orange-lt: #f47c47;
     --white:     #ffffff;
+    --gray-50:   #f8fafc;
     --gray-100:  #f1f5f9;
     --gray-200:  #e2e8f0;
+    --gray-300:  #cbd5e1;
     --gray-400:  #94a3b8;
+    --gray-500:  #64748b;
     --gray-600:  #475569;
+    --gray-700:  #334155;
     --gray-800:  #1e293b;
     --green:     #22c55e;
     --green-pale:rgba(34,197,94,0.12);
@@ -304,8 +308,8 @@
     .step-header { text-align:center; margin-bottom:32px; }
     .step-badge {
       display:inline-flex; align-items:center; gap:6px;
-      background:var(--blue-lt); color:var(--blue);
-      border:1px solid #bfdbfe; border-radius:20px;
+      background:var(--blue-pale); color:#93c5fd;
+      border:1px solid rgba(42,109,223,0.35); border-radius:20px;
       padding:5px 14px; font-size:.75rem; font-weight:700;
       text-transform:uppercase; letter-spacing:.5px; margin-bottom:14px;
     }
@@ -357,7 +361,7 @@
       transition:all .2s; font-size:.85rem; font-weight:500; color:var(--gray-700);
     }
     .policy-check-item input:checked + label {
-      border-color:var(--blue); background:var(--blue-lt); color:var(--navy);
+      border-color:var(--blue-lt); background:rgba(30,79,173,0.10); color:var(--navy);
     }
     .policy-check-item label .pol-icon { font-size:1.3rem; flex-shrink:0; }
     .policy-check-item label .pol-info {}
@@ -726,8 +730,8 @@
         <div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px;">Datos de la empresa</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="summary-empresa"></div>
       </div>
-      <div style="background:var(--blue-lt);border:1px solid #bfdbfe;border-radius:10px;padding:20px 24px;margin-bottom:28px;">
-        <div style="font-size:.8rem;font-weight:700;color:var(--blue);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">Políticas seleccionadas</div>
+      <div style="background:var(--blue-pale);border:1px solid rgba(42,109,223,0.3);border-radius:10px;padding:20px 24px;margin-bottom:28px;">
+        <div style="font-size:.8rem;font-weight:700;color:#93c5fd;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">Políticas seleccionadas</div>
         <div id="summary-policies" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
       </div>
 
