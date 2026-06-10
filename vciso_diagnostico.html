@@ -3,80 +3,19 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <!-- ── SEO BÁSICO ── -->
   <title>Formulario Diagnóstico de Ciberseguridad | vCISO.cl</title>
-  <meta name="description" content="Completa el cuestionario de diagnóstico y recibe tu informe personalizado de ciberseguridad en 24 horas. Solo 20 preguntas."/>
-  <meta name="keywords" content="ciberseguridad pymes chile, auditoria seguridad informatica chile, politicas TI chile, ciso virtual chile, diagnostico ciberseguridad santiago, ley 21719 cumplimiento, vciso"/>
-  <meta name="author" content="vCISO.cl"/>
+  <meta name="description" content="Completa el cuestionario de diagnóstico y recibe tu informe personalizado de ciberseguridad en 24 horas."/>
   <meta name="robots" content="noindex, nofollow"/>
-  <meta name="language" content="es-CL"/>
   <link rel="canonical" href="https://www.vciso.cl/diagnostico"/>
-
-  <!-- ── OPEN GRAPH ── -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Formulario Diagnóstico de Ciberseguridad | vCISO.cl"/>
-  <meta property="og:description" content="Completa el cuestionario de diagnóstico y recibe tu informe personalizado de ciberseguridad en 24 horas. Solo 20 preguntas."/>
-  <meta property="og:url" content="https://www.vciso.cl/diagnostico"/>
-  <meta property="og:site_name" content="vCISO.cl"/>
-  <meta property="og:locale" content="es_CL"/>
-  <meta property="og:image" content="https://www.vciso.cl/og-image.png"/>
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-
-  <!-- ── TWITTER CARD ── -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Formulario Diagnóstico de Ciberseguridad | vCISO.cl"/>
-  <meta name="twitter:description" content="Completa el cuestionario de diagnóstico y recibe tu informe personalizado de ciberseguridad en 24 horas. Solo 20 preguntas."/>
-  <meta name="twitter:image" content="https://www.vciso.cl/og-image.png"/>
-
-  <!-- ── GEO / LOCAL SEO ── -->
-  <meta name="geo.region" content="CL-RM"/>
-  <meta name="geo.placename" content="Santiago, Chile"/>
-  <meta name="geo.position" content="-33.4489;-70.6693"/>
-  <meta name="ICBM" content="-33.4489, -70.6693"/>
-
-  <!-- ── SCHEMA.ORG ── -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "vCISO.cl",
-    "description": "Ciberseguridad profesional para PYMEs chilenas. CISO Virtual, diagnóstico, políticas TI y cumplimiento Ley 21.719.",
-    "url": "https://www.vciso.cl",
-    "logo": "https://www.vciso.cl/logo.png",
-    "email": "contacto@vciso.cl",
-    "telephone": "+56981307440",
-    "priceRange": "$$",
-    "currenciesAccepted": "CLP",
-    "paymentAccepted": "Transferencia, Khipu, Webpay",
-    "areaServed": {"@type":"Country","name":"Chile"},
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Santiago",
-      "addressRegion": "Región Metropolitana",
-      "addressCountry": "CL"
-    },
-    "sameAs": ["https://www.vciso.cl"]
-  }
-  </script>
-  
-
-  <!-- ── FUENTE ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-  <!-- ── FAVICON ── -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'><path d='M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z' fill='%231e4fad'/><path d='M13 23L18 28L27 18' stroke='%23f47c47' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'><path d='M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z' fill='%231e4fad'/><path d='M13 23L18 28L27 18' stroke='%23f47c47' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>"/>
 
   <style>
-
-  /* ── RESET ── */
+  /* ── RESET & VARIABLES ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
 
-  /* ── TOKENS ── */
   :root {
     --navy:      #0d1f3c;
     --navy-mid:  #1a3360;
@@ -87,11 +26,12 @@
     --orange:    #e85d26;
     --orange-lt: #f47c47;
     --white:     #ffffff;
+    --gray-50:   #f8fafc;
     --gray-100:  #f1f5f9;
-    --gray-200:  #e2e8f0;
+    --gray-300:  #cbd5e1;
     --gray-400:  #94a3b8;
-    --gray-600:  #475569;
-    --gray-800:  #1e293b;
+    --gray-500:  #64748b;
+    --gray-700:  #334155;
     --green:     #22c55e;
     --green-pale:rgba(34,197,94,0.12);
     --red:       #ef4444;
@@ -99,830 +39,291 @@
     --yellow:    #f59e0b;
     --yellow-pale:rgba(245,158,11,0.12);
     --radius:    10px;
-    --shadow:    0 4px 24px rgba(0,0,0,0.18);
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.10);
-    --transition: 0.2s ease;
+    --transition:0.2s ease;
   }
 
-  /* ── BASE ── */
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'Inter',sans-serif; background:var(--navy); color:var(--white); min-height:100vh; }
 
-  /* ── GRID BG ── */
-  body::after {
-    content: '';
-    position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(30,79,173,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30,79,173,0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-
-  /* ── TOPNAV ── */
+  /* ── NAV ── */
   .vciso-nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(8,15,30,0.88);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    display: flex; align-items: center;
-    justify-content: space-between;
-    padding: 0 5%; height: 66px;
+    background:var(--navy); border-bottom:1px solid rgba(255,255,255,0.06);
+    padding:0 5%; height:64px;
+    display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:100;
   }
   .vciso-nav .logo {
-    display: flex; align-items: center; gap: 10px;
-    text-decoration: none; font-weight: 800;
-    font-size: 1.25rem; color: var(--white); letter-spacing:-0.02em;
+    display:flex; align-items:center; gap:10px; text-decoration:none;
+    font-size:1.25rem; font-weight:900; color:var(--white); letter-spacing:-0.02em;
   }
-  .vciso-nav .logo svg { flex-shrink: 0; }
-  .vciso-nav .logo span { color: var(--orange-lt); }
-  .vciso-nav .logo small {
-    display: block; font-size: 0.68rem; font-weight: 400;
-    color: rgba(255,255,255,0.4); letter-spacing: 0.02em; margin-top:-2px;
-  }
-  .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
-  .nav-links a {
-    padding: 8px 14px; border-radius: 7px;
-    font-size: 0.88rem; color: rgba(255,255,255,0.65);
-    text-decoration: none; transition: var(--transition);
-  }
-  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
-  .nav-links .btn-nav {
-    background: var(--orange); color: var(--white) !important;
-    font-weight: 600; padding: 8px 18px;
-  }
-  .nav-links .btn-nav:hover { background: var(--orange-lt); box-shadow: 0 0 18px rgba(232,93,38,0.35); }
-  .nav-back {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 0.85rem; color: rgba(255,255,255,0.5);
-    text-decoration: none; transition: color var(--transition);
-  }
-  .nav-back:hover { color: var(--white); }
+  .vciso-nav .logo span { color:var(--orange-lt); }
+  .vciso-nav .logo small { display:block; font-size:0.68rem; font-weight:400; color:var(--gray-400); letter-spacing:0.02em; }
+  .nav-back { color:rgba(255,255,255,0.65); font-size:0.85rem; font-weight:500; text-decoration:none; display:flex; align-items:center; gap:6px; transition:color var(--transition); }
+  .nav-back:hover { color:var(--white); }
+  .btn-nav { background:var(--orange); color:var(--white)!important; padding:8px 16px; border-radius:8px; font-size:0.82rem; font-weight:700; text-decoration:none; }
 
-  /* ── FOOTER ── */
-  .vciso-footer {
-    background: var(--navy-dark);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 52px 5% 32px; position: relative; z-index: 1;
-    margin-top: 80px;
+  /* ── HERO ── */
+  .hero-mini {
+    background:linear-gradient(135deg,var(--navy) 0%,#1a3360 100%);
+    padding:44px 5% 36px; text-align:center; color:white;
+    border-bottom:1px solid rgba(255,255,255,0.06);
   }
-  .footer-grid {
-    max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
-    padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.07);
+  .hero-mini .badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(232,93,38,0.15); border:1px solid rgba(232,93,38,0.4);
+    color:#f9a97a; padding:5px 14px; border-radius:20px;
+    font-size:0.78rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    margin-bottom:14px;
   }
-  .footer-brand .logo-f {
-    font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em;
-    color: var(--white); margin-bottom: 10px; display: block;
-  }
-  .footer-brand .logo-f span { color: var(--orange-lt); }
-  .footer-brand p { font-size: 0.85rem; color: var(--gray-400); line-height: 1.65; }
-  .footer-brand .contact-links { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
-  .footer-brand .contact-links a {
-    font-size: 0.83rem; color: var(--gray-400); text-decoration: none;
-    display: flex; align-items: center; gap: 6px; transition: color var(--transition);
-  }
-  .footer-brand .contact-links a:hover { color: var(--orange-lt); }
-  .footer-col h4 { font-size: 0.8rem; font-weight: 600; color: var(--gray-400);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .footer-col ul a { font-size: 0.85rem; color: rgba(255,255,255,0.5);
-    text-decoration: none; transition: color var(--transition); }
-  .footer-col ul a:hover { color: var(--white); }
-  .footer-bottom {
-    max-width: 1100px; margin: 24px auto 0;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-  }
-  .footer-bottom p { font-size: 0.78rem; color: var(--gray-400); }
-  .footer-badges { display: flex; gap: 10px; flex-wrap: wrap; }
-  .badge-f {
-    font-size: 0.72rem; font-weight: 500;
-    padding: 4px 10px; border-radius: 20px;
-    background: rgba(255,255,255,0.06); color: var(--gray-400);
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  /* ── CONTENEDOR PÁGINAS INTERNAS ── */
-  .page-wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 48px 24px 0; }
-  .page-wrap.wide { max-width: 1100px; }
-
-  /* ── BADGE SERVICIO ── */
-  .svc-badge {
-    display: inline-flex; align-items: center; gap: 7px;
-    background: var(--blue-pale); border: 1px solid rgba(42,109,223,0.25);
-    color: #93c5fd; font-size: 0.78rem; font-weight: 500;
-    padding: 5px 14px; border-radius: 20px;
-    letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 20px;
-  }
-
-  /* ── PRECIO BADGE ── */
-  .price-badge {
-    display: inline-flex; align-items: baseline; gap: 6px;
-    background: rgba(232,93,38,0.12); border: 1px solid rgba(232,93,38,0.25);
-    color: var(--orange-lt); padding: 7px 16px; border-radius: 8px;
-    font-weight: 700; font-size: 1.05rem; margin-bottom: 28px;
-  }
-  .price-badge .from { font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.4); }
-
-  /* ── BOTONES ── */
-  .btn { display: inline-flex; align-items: center; gap: 8px;
-    padding: 13px 26px; border-radius: var(--radius); border: none; cursor: pointer;
-    font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all var(--transition); }
-  .btn-primary { background: var(--orange); color: var(--white); }
-  .btn-primary:hover { background: var(--orange-lt); box-shadow: 0 0 28px rgba(232,93,38,0.35); transform: translateY(-1px); }
-  .btn-secondary { background: rgba(255,255,255,0.06); color: var(--white); border: 1px solid rgba(255,255,255,0.12); }
-  .btn-secondary:hover { background: rgba(255,255,255,0.10); transform: translateY(-1px); }
-  .btn-wa { background: #25d366; color: var(--white); }
-  .btn-wa:hover { background: #1fb855; box-shadow: 0 0 22px rgba(37,211,102,0.3); transform: translateY(-1px); }
-  .btn-blue { background: var(--blue); color: var(--white); }
-  .btn-blue:hover { background: var(--blue-lt); transform: translateY(-1px); }
-  .btn-lg { padding: 16px 34px; font-size: 1.05rem; }
-  .btn-full { width: 100%; justify-content: center; }
-
-  /* ── CARDS ── */
-  .card {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px; padding: 28px;
-  }
-  .card-blue { border-color: rgba(30,79,173,0.3); background: rgba(30,79,173,0.08); }
-  .card-orange { border-color: rgba(232,93,38,0.3); background: rgba(232,93,38,0.06); }
-  .card-green { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.06); }
-
-  /* ── STATUS CHIPS ── */
-  .chip { display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.78rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-  .chip-green { background: var(--green-pale); color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
-  .chip-red   { background: var(--red-pale);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
-  .chip-yellow{ background: var(--yellow-pale); color: #fcd34d; border: 1px solid rgba(245,158,11,0.25); }
-  .chip-blue  { background: var(--blue-pale);   color: #93c5fd; border: 1px solid rgba(42,109,223,0.25); }
-
-  /* ── INPUTS GLOBALES (fuera del wizard) ── */
-  input, select, textarea {
-    width: 100%; background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: var(--white); border-radius: var(--radius);
-    padding: 12px 16px; font-size: 0.92rem; font-family: 'Inter', sans-serif;
-    transition: border-color var(--transition), box-shadow var(--transition);
-    outline: none;
-  }
-  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
-  select option { background: var(--navy-mid); color: var(--white); }
-  label { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; display: block; }
-
-  /* ── INPUTS DENTRO DEL WIZARD — sobreescribe todo lo anterior ── */
-  .form-card input, .form-card select, .form-card textarea {
-    background: #ffffff !important;
-    border: 2px solid #cbd5e0 !important;
-    color: #2d3748 !important;
-    border-radius: 8px !important;
-    padding: 11px 14px !important;
-    font-size: 0.9rem !important;
-    width: 100% !important;
-    box-shadow: none !important;
-  }
-  .form-card input:focus, .form-card select:focus, .form-card textarea:focus {
-    border-color: #1e4fad !important;
-    box-shadow: 0 0 0 3px rgba(30,79,173,0.12) !important;
-  }
-  .form-card input::placeholder, .form-card textarea::placeholder {
-    color: #718096 !important;
-  }
-  .form-card select option { background: white !important; color: #2d3748 !important; }
-  .form-card label { color: #0d1f3c !important; font-weight: 600 !important; }
+  .hero-mini h1 { font-size:clamp(1.5rem,3vw,2rem); font-weight:800; margin-bottom:8px; }
+  .hero-mini p  { color:rgba(255,255,255,0.7); font-size:0.95rem; max-width:520px; margin:0 auto; }
 
   /* ── PROGRESS ── */
-  .progress-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--orange); border-radius: 2px; transition: width 0.4s ease; }
+  .progress-wrap { max-width:760px; margin:0 auto; padding:28px 20px 0; }
+  .progress-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .progress-label  { font-size:0.82rem; font-weight:700; color:rgba(255,255,255,0.85); text-transform:uppercase; letter-spacing:0.05em; }
+  .progress-pct    { font-size:0.82rem; font-weight:700; color:var(--orange-lt); }
+  .progress-bar    { height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden; }
+  .progress-fill   { height:100%; background:linear-gradient(90deg,var(--blue),var(--orange)); border-radius:3px; transition:width 0.5s ease; }
+  .steps-dots      { display:flex; justify-content:space-between; margin-top:14px; }
+  .step-dot        { display:flex; flex-direction:column; align-items:center; gap:5px; flex:1; }
+  .dot             { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.2); transition:background 0.3s; }
+  .dot.active      { background:var(--blue-lt); }
+  .dot.done        { background:var(--green); }
+  .dot-label       { font-size:0.65rem; color:rgba(255,255,255,0.45); text-align:center; white-space:nowrap; }
 
-  /* ── DIVIDER ── */
-  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 32px 0; }
+  /* ── FORM WRAP ── */
+  .form-wrap  { max-width:760px; margin:24px auto 80px; padding:0 20px; }
+  .form-card  { background:white; border-radius:16px; box-shadow:0 4px 32px rgba(0,0,0,0.18); overflow:hidden; }
+
+  /* ── CARD HEADER ── */
+  .card-header {
+    background:linear-gradient(135deg,var(--navy),#1a3360);
+    padding:22px 32px; display:flex; align-items:center; gap:16px;
+  }
+  .card-header-icon { width:46px; height:46px; border-radius:12px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+  .card-header h2   { font-size:1.05rem; font-weight:700; color:white; margin-bottom:3px; }
+  .card-header p    { font-size:0.82rem; color:rgba(255,255,255,0.6); }
+
+  .card-body { padding:28px 32px; }
+
+  /* ── STEPS ── */
+  .step        { display:none; }
+  .step.active { display:block; }
+
+  /* ── FIELDS (paso 1) ── */
+  .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .field-grid.full { grid-template-columns:1fr; }
+  .field { display:flex; flex-direction:column; gap:5px; }
+
+  /* INPUT OVERRIDES — gana sobre CSS global */
+  .form-card label          { color:#0d1f3c!important; font-size:0.83rem!important; font-weight:600!important; margin-bottom:0; }
+  .form-card input,
+  .form-card select,
+  .form-card textarea       { background:#fff!important; border:2px solid #cbd5e1!important; color:#334155!important; border-radius:8px!important; padding:10px 14px!important; font-size:0.9rem!important; font-family:'Inter',sans-serif!important; width:100%!important; box-shadow:none!important; outline:none!important; }
+  .form-card input:focus,
+  .form-card select:focus,
+  .form-card textarea:focus { border-color:#1e4fad!important; box-shadow:0 0 0 3px rgba(30,79,173,0.12)!important; }
+  .form-card input::placeholder,
+  .form-card textarea::placeholder { color:#94a3b8!important; }
+  .form-card select option  { background:white!important; color:#334155!important; }
+  .form-card input.error,
+  .form-card select.error   { border-color:#ef4444!important; }
+  .error-msg { font-size:0.75rem; color:#ef4444; display:none; margin-top:2px; }
+  .error-msg.visible { display:block; }
+  .field-hint { font-size:0.74rem; color:#64748b; margin-top:2px; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider { display:flex; align-items:center; gap:12px; margin:22px 0 16px; }
+  .section-divider span { font-size:0.72rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.1em; white-space:nowrap; }
+  .section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background:#e2e8f0; }
+
+  /* ── QUESTIONS ── */
+  .question { margin-bottom:26px; }
+  .question-num { font-size:0.7rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:5px; }
+  .question h3  { font-size:0.95rem; font-weight:700; color:#0d1f3c; margin-bottom:6px; line-height:1.45; }
+  .question .hint { font-size:0.78rem; color:#64748b; margin-bottom:10px; font-style:italic; }
+
+  /* ── OPTIONS ── */
+  .options { display:flex; flex-direction:column; gap:9px; }
+  .option {
+    display:flex; align-items:flex-start; gap:13px;
+    border:2px solid #cbd5e1; border-radius:10px; padding:13px 15px;
+    cursor:pointer; transition:all 0.15s; position:relative; background:white;
+  }
+  .option:hover { border-color:var(--blue); background:#f0f6ff; }
+  .option.selected       { border-color:var(--blue);   background:rgba(30,79,173,0.07); }
+  .option.selected-good  { border-color:#22c55e;        background:rgba(34,197,94,0.07); }
+  .option.selected-mid   { border-color:#f59e0b;        background:rgba(245,158,11,0.07); }
+  .option.selected-bad   { border-color:#ef4444;        background:rgba(239,68,68,0.07); }
+
+  .option-radio {
+    width:20px; height:20px; border-radius:50%; border:2px solid #cbd5e1;
+    flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.15s;
+  }
+  .option.selected       .option-radio { border-color:var(--blue);  background:var(--blue); }
+  .option.selected-good  .option-radio { border-color:#22c55e;      background:#22c55e; }
+  .option.selected-mid   .option-radio { border-color:#f59e0b;      background:#f59e0b; }
+  .option.selected-bad   .option-radio { border-color:#ef4444;      background:#ef4444; }
+  .option-radio::after { content:''; width:8px; height:8px; border-radius:50%; background:white; display:none; }
+  .option.selected .option-radio::after,
+  .option.selected-good .option-radio::after,
+  .option.selected-mid  .option-radio::after,
+  .option.selected-bad  .option-radio::after { display:block; }
+
+  .option-text    { flex:1; }
+  .option-title   { font-size:0.88rem; font-weight:600; color:#0d1f3c; }
+  .option-desc    { font-size:0.76rem; color:#64748b; margin-top:2px; line-height:1.4; }
+  .option-score   { font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:20px; flex-shrink:0; margin-top:2px; }
+  .score-good     { background:rgba(34,197,94,0.12);  color:#16a34a; }
+  .score-mid      { background:rgba(245,158,11,0.12); color:#d97706; }
+  .score-bad      { background:rgba(239,68,68,0.12);  color:#dc2626; }
+
+  /* ── TEXTAREA LIBRE ── */
+  .free-text-wrap { margin-top:8px; }
+  .form-card .free-text-wrap textarea { min-height:110px; resize:vertical; }
+
+  /* ── NAV BUTTONS ── */
+  .form-nav {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 32px; border-top:1px solid #e2e8f0; background:#f8fafc;
+  }
+  .btn-prev {
+    display:flex; align-items:center; gap:6px;
+    background:none; border:2px solid #cbd5e1; color:#64748b;
+    padding:10px 20px; border-radius:8px; font-size:0.88rem; font-weight:600;
+    cursor:pointer; transition:all 0.2s; font-family:'Inter',sans-serif;
+  }
+  .btn-prev:hover { border-color:#0d1f3c; color:#0d1f3c; }
+  .btn-next {
+    display:flex; align-items:center; gap:6px;
+    background:var(--navy); color:white; border:none;
+    padding:11px 26px; border-radius:8px; font-size:0.9rem; font-weight:700;
+    cursor:pointer; transition:all 0.2s; font-family:'Inter',sans-serif;
+  }
+  .btn-next:hover { background:var(--blue); }
+  .btn-submit {
+    background:var(--orange); color:white; border:none;
+    padding:13px 32px; border-radius:8px; font-size:0.95rem; font-weight:700;
+    cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:8px;
+    font-family:'Inter',sans-serif;
+  }
+  .btn-submit:hover { background:var(--orange-lt); }
+  .btn-submit:disabled { opacity:0.6; cursor:not-allowed; }
+
+  /* ── RESULTADO PRELIMINAR ── */
+  #result { display:none; }
+  .result-header {
+    background:linear-gradient(135deg,var(--navy),#1a3360);
+    padding:36px 32px; text-align:center; color:white;
+  }
+  .score-circle {
+    width:110px; height:110px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.9rem; font-weight:800; margin:0 auto 18px; border:5px solid;
+  }
+  .circle-red    { border-color:#ef4444; color:#ef4444; background:rgba(239,68,68,0.15); }
+  .circle-yellow { border-color:#f59e0b; color:#f59e0b; background:rgba(245,158,11,0.15); }
+  .circle-green  { border-color:#22c55e; color:#22c55e; background:rgba(34,197,94,0.15); }
+  .result-header h2 { font-size:1.4rem; font-weight:800; margin-bottom:7px; }
+  .result-header p  { color:rgba(255,255,255,0.72); font-size:0.92rem; }
+  .result-body { padding:28px 32px; }
+  .areas-grid  { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+  .area-card   { border:1px solid #e2e8f0; border-radius:10px; padding:14px; }
+  .area-top    { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .area-name   { font-size:0.8rem; font-weight:700; color:#0d1f3c; }
+  .area-badge  { font-size:0.72rem; font-weight:700; padding:2px 9px; border-radius:20px; }
+  .badge-red   { background:rgba(239,68,68,0.1);  color:#dc2626; }
+  .badge-yellow{ background:rgba(245,158,11,0.1); color:#d97706; }
+  .badge-green { background:rgba(34,197,94,0.1);  color:#16a34a; }
+  .area-bar    { height:6px; background:#f1f5f9; border-radius:3px; overflow:hidden; }
+  .area-bar-fill { height:100%; border-radius:3px; }
+  .fill-red    { background:#ef4444; }
+  .fill-yellow { background:#f59e0b; }
+  .fill-green  { background:#22c55e; }
+  .result-cta  {
+    background:linear-gradient(135deg,var(--navy),#1a3360);
+    color:white; padding:24px 28px; border-radius:12px; margin-bottom:20px;
+    text-align:center;
+  }
+  .result-cta h3 { font-size:1.1rem; font-weight:800; margin-bottom:8px; }
+  .result-cta p  { color:rgba(255,255,255,0.72); font-size:0.87rem; margin-bottom:16px; }
+  .next-steps { background:#f8fafc; border-radius:10px; padding:20px 24px; }
+  .next-steps h4 { font-size:0.8rem; font-weight:700; color:#0d1f3c; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px; }
+  .step-item { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+  .step-num-small { width:24px; height:24px; border-radius:50%; background:var(--navy); color:white; font-size:0.72rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+  .step-item p    { font-size:0.84rem; color:#334155; line-height:1.5; }
+  .step-item strong { color:#0d1f3c; }
+
+  /* ── ACCESS DENIED ── */
+  #access-denied { display:none; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; text-align:center; max-width:520px; margin:0 auto; }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .vciso-nav { padding: 0 20px; }
-    .nav-links .nav-link { display: none; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .page-wrap { padding: 32px 16px 0; }
+  @media(max-width:600px){
+    .card-body   { padding:20px; }
+    .form-nav    { padding:16px 20px; flex-direction:column; gap:10px; }
+    .field-grid  { grid-template-columns:1fr; }
+    .areas-grid  { grid-template-columns:1fr; }
+    .btn-prev, .btn-next, .btn-submit { width:100%; justify-content:center; }
+    .nav-links   { display:none; }
   }
-  @media (max-width: 480px) {
-    .footer-grid { grid-template-columns: 1fr; }
-  }
-
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy:     #0d1f3c;
-      --blue:     #1e4fad;
-      --blue-lt:  #2a6ddf;
-      --orange:   #e85d26;
-      --orange-lt:#f47c47;
-      --white:    #ffffff;
-      --gray-50:  #f8fafc;
-      --gray-100: #f0f4f8;
-      --gray-300: #cbd5e0;
-      --gray-500: #718096;
-      --gray-700: #2d3748;
-      --green:    #22c55e;
-      --red:      #ef4444;
-      --yellow:   #f59e0b;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--navy);
-      color: var(--gray-700);
-      min-height: 100vh;
-    }
-
-    /* ── NAV ── */
-    nav {
-      background: var(--navy);
-      padding: 0 5%;
-      height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-
-    .nav-back {
-      color: rgba(255,255,255,0.65);
-      font-size: 0.85rem; font-weight: 500;
-      text-decoration: none;
-      display: flex; align-items: center; gap: 6px;
-      transition: color 0.2s;
-    }
-
-    .nav-back:hover { color: white; }
-
-    /* ── HERO MINI ── */
-    .hero-mini {
-      background: linear-gradient(135deg, var(--navy) 0%, #1a3360 100%);
-      padding: 48px 5% 40px;
-      text-align: center;
-      color: white;
-    }
-
-    .hero-mini .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(232,93,38,0.15);
-      border: 1px solid rgba(232,93,38,0.4);
-      color: #f9a97a;
-      padding: 5px 14px; border-radius: 20px;
-      font-size: 0.78rem; font-weight: 700;
-      letter-spacing: 0.05em; text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .hero-mini h1 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 800; margin-bottom: 10px;
-    }
-
-    .hero-mini p {
-      color: rgba(255,255,255,0.7);
-      font-size: 1rem; max-width: 520px; margin: 0 auto;
-    }
-
-    /* ── PROGRESS ── */
-    .progress-wrap {
-      max-width: 720px; margin: 0 auto;
-      padding: 32px 20px 0;
-    }
-
-    .progress-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .progress-label {
-      font-size: 0.82rem; font-weight: 700;
-      color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 0.05em;
-    }
-
-    .progress-pct {
-      font-size: 0.82rem; font-weight: 700; color: var(--orange-lt);
-    }
-
-    .progress-bar {
-      height: 6px; background: var(--gray-100);
-      border-radius: 3px; overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--blue), var(--orange));
-      border-radius: 3px;
-      transition: width 0.5s ease;
-    }
-
-    .steps-dots {
-      display: flex; justify-content: space-between;
-      margin-top: 12px;
-    }
-
-    .step-dot {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      flex: 1;
-    }
-
-    .dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--gray-300);
-      transition: background 0.3s;
-    }
-
-    .dot.active { background: var(--blue); }
-    .dot.done { background: var(--green); }
-
-    .dot-label {
-      font-size: 0.68rem; color: rgba(255,255,255,0.55);
-      text-align: center; white-space: nowrap;
-    }
-
-    /* ── FORM CARD ── */
-    .form-wrap {
-      max-width: 720px; margin: 24px auto 60px;
-      padding: 0 20px;
-    }
-
-    .form-card {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      overflow: hidden;
-    }
-
-    .card-header {
-      background: linear-gradient(135deg, var(--navy), #1a3360);
-      padding: 24px 32px;
-      display: flex; align-items: center; gap: 16px;
-    }
-
-    .card-header-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: rgba(255,255,255,0.1);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; flex-shrink: 0;
-    }
-
-    .card-header h2 {
-      font-size: 1.1rem; font-weight: 700; color: white;
-      margin-bottom: 3px;
-    }
-
-    .card-header p {
-      font-size: 0.83rem; color: rgba(255,255,255,0.65);
-    }
-
-    .card-body { padding: 32px; }
-
-    /* ── STEPS ── */
-    .step { display: none; }
-    .step.active { display: block; }
-
-    /* ── FIELDS ── */
-    .field-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 18px; margin-bottom: 18px;
-    }
-
-    .field-grid.full { grid-template-columns: 1fr; }
-
-    .field { display: flex; flex-direction: column; gap: 6px; }
-
-    .form-card .field label {
-      font-size: 0.85rem !important; font-weight: 600 !important; color: var(--navy) !important;
-    }
-
-    .form-card .field input,
-    .form-card .field select,
-    .form-card .field textarea {
-      border: 2px solid var(--gray-300) !important;
-      border-radius: 8px !important;
-      padding: 11px 14px !important;
-      font-size: 0.9rem !important;
-      font-family: 'Inter', sans-serif !important;
-      color: var(--gray-700) !important;
-      background: white !important;
-      transition: border-color 0.2s !important;
-      outline: none !important;
-      width: 100% !important;
-      box-shadow: none !important;
-    }
-
-    .form-card .field input:focus,
-    .form-card .field select:focus,
-    .form-card .field textarea:focus {
-      border-color: var(--blue) !important;
-      box-shadow: 0 0 0 3px rgba(30,79,173,0.12) !important;
-    }
-
-    .form-card .field input.error,
-    .form-card .field select.error {
-      border-color: var(--red) !important;
-    }
-
-    .form-card .field input::placeholder,
-    .form-card .field textarea::placeholder {
-      color: var(--gray-500) !important;
-    }
-
-    .error-msg {
-      font-size: 0.75rem; color: var(--red);
-      display: none;
-    }
-
-    .error-msg.visible { display: block; }
-
-    .field textarea { resize: vertical; min-height: 80px; }
-
-    /* ── QUESTION ── */
-    .question { margin-bottom: 28px; }
-
-    .question-num {
-      font-size: 0.72rem; font-weight: 700;
-      color: var(--orange); text-transform: uppercase;
-      letter-spacing: 0.1em; margin-bottom: 6px;
-    }
-
-    .question h3 {
-      font-size: 0.97rem; font-weight: 700;
-      color: var(--navy); margin-bottom: 14px;
-      line-height: 1.4;
-    }
-
-    .question .hint {
-      font-size: 0.8rem; color: var(--gray-500);
-      margin-bottom: 12px; font-style: italic;
-    }
-
-    /* ── OPTIONS ── */
-    .options { display: flex; flex-direction: column; gap: 10px; }
-
-    .option {
-      display: flex; align-items: flex-start; gap: 14px;
-      border: 2px solid var(--gray-300);
-      border-radius: 10px; padding: 14px 16px;
-      cursor: pointer;
-      transition: all 0.15s;
-      position: relative;
-    }
-
-    .option:hover {
-      border-color: var(--blue);
-      background: rgba(30,79,173,0.03);
-    }
-
-    .option.selected {
-      border-color: var(--blue);
-      background: rgba(30,79,173,0.06);
-    }
-
-    .option.selected-good { border-color: var(--green); background: rgba(34,197,94,0.06); }
-    .option.selected-mid  { border-color: var(--yellow); background: rgba(245,158,11,0.06); }
-    .option.selected-bad  { border-color: var(--red);    background: rgba(239,68,68,0.06); }
-
-    .option-radio {
-      width: 20px; height: 20px; border-radius: 50%;
-      border: 2px solid var(--gray-300);
-      flex-shrink: 0; margin-top: 1px;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.15s;
-    }
-
-    .option.selected .option-radio,
-    .option.selected-good .option-radio,
-    .option.selected-mid .option-radio,
-    .option.selected-bad .option-radio {
-      border-color: var(--blue);
-      background: var(--blue);
-    }
-
-    .option.selected-good .option-radio { border-color: var(--green); background: var(--green); }
-    .option.selected-mid  .option-radio { border-color: var(--yellow); background: var(--yellow); }
-    .option.selected-bad  .option-radio { border-color: var(--red); background: var(--red); }
-
-    .option-radio::after {
-      content: '';
-      width: 8px; height: 8px; border-radius: 50%;
-      background: white; display: none;
-    }
-
-    .option.selected .option-radio::after,
-    .option.selected-good .option-radio::after,
-    .option.selected-mid  .option-radio::after,
-    .option.selected-bad  .option-radio::after { display: block; }
-
-    .option-text { flex: 1; }
-    .option-title { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
-    .option-desc  { font-size: 0.78rem; color: var(--gray-500); margin-top: 2px; }
-
-    .option-score {
-      font-size: 0.72rem; font-weight: 700;
-      padding: 2px 8px; border-radius: 20px;
-      flex-shrink: 0; margin-top: 2px;
-    }
-
-    .score-good { background: rgba(34,197,94,0.12); color: #16a34a; }
-    .score-mid  { background: rgba(245,158,11,0.12); color: #d97706; }
-    .score-bad  { background: rgba(239,68,68,0.12);  color: #dc2626; }
-
-    /* ── SECTION DIVIDER ── */
-    .section-divider {
-      display: flex; align-items: center; gap: 12px;
-      margin: 28px 0 20px;
-    }
-
-    .section-divider span {
-      font-size: 0.72rem; font-weight: 700;
-      color: var(--blue); text-transform: uppercase;
-      letter-spacing: 0.1em; white-space: nowrap;
-    }
-
-    .section-divider::before,
-    .section-divider::after {
-      content: ''; flex: 1; height: 1px;
-      background: var(--gray-100);
-    }
-
-    /* ── NAV BUTTONS ── */
-    .form-nav {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 24px 32px;
-      border-top: 1px solid var(--gray-300);
-      background: var(--gray-50);
-    }
-
-    .btn-prev {
-      display: flex; align-items: center; gap: 6px;
-      background: none; border: 2px solid var(--gray-300);
-      color: var(--gray-500); padding: 11px 22px;
-      border-radius: 8px; font-size: 0.9rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s;
-    }
-
-    .btn-prev:hover { border-color: var(--navy); color: var(--navy); }
-
-    .btn-next {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--navy); color: white;
-      border: none; padding: 12px 28px;
-      border-radius: 8px; font-size: 0.9rem; font-weight: 700;
-      cursor: pointer; transition: all 0.2s;
-    }
-
-    .btn-next:hover { background: var(--blue); }
-
-    .btn-submit {
-      background: var(--orange); color: white;
-      border: none; padding: 14px 34px;
-      border-radius: 8px; font-size: 1rem; font-weight: 700;
-      cursor: pointer; transition: all 0.2s;
-      display: flex; align-items: center; gap: 8px;
-    }
-
-    .btn-submit:hover { background: var(--orange-lt); }
-
-    /* ── RESULT ── */
-    #result { display: none; }
-
-    .result-header {
-      background: linear-gradient(135deg, var(--navy), #1a3360);
-      padding: 40px 32px;
-      text-align: center; color: white;
-    }
-
-    .score-circle {
-      width: 110px; height: 110px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem; font-weight: 800;
-      margin: 0 auto 20px;
-      border: 6px solid;
-    }
-
-    .circle-red    { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,0.15); }
-    .circle-yellow { border-color: #f59e0b; color: #f59e0b; background: rgba(245,158,11,0.15); }
-    .circle-green  { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.15); }
-
-    .result-header h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
-    .result-header p  { color: rgba(255,255,255,0.75); font-size: 0.95rem; }
-
-    .result-body { padding: 32px; }
-
-    .areas-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 14px; margin-bottom: 28px;
-    }
-
-    .area-card {
-      border: 1px solid var(--gray-300);
-      border-radius: 10px; padding: 16px;
-    }
-
-    .area-top {
-      display: flex; justify-content: space-between;
-      align-items: center; margin-bottom: 8px;
-    }
-
-    .area-name { font-size: 0.83rem; font-weight: 700; color: var(--navy); }
-
-    .area-badge {
-      font-size: 0.72rem; font-weight: 700;
-      padding: 2px 10px; border-radius: 20px;
-    }
-
-    .badge-red    { background: rgba(239,68,68,0.1);  color: #dc2626; }
-    .badge-yellow { background: rgba(245,158,11,0.1); color: #d97706; }
-    .badge-green  { background: rgba(34,197,94,0.1);  color: #16a34a; }
-
-    .area-bar {
-      height: 6px; background: var(--gray-100);
-      border-radius: 3px; overflow: hidden;
-    }
-
-    .area-bar-fill { height: 100%; border-radius: 3px; }
-    .fill-red    { background: var(--red); }
-    .fill-yellow { background: var(--yellow); }
-    .fill-green  { background: var(--green); }
-
-    .area-desc {
-      font-size: 0.78rem; color: var(--gray-500);
-      margin-top: 8px; line-height: 1.5;
-    }
-
-    .findings-box {
-      background: rgba(232,93,38,0.05);
-      border: 1px solid rgba(232,93,38,0.2);
-      border-radius: 10px; padding: 20px;
-      margin-bottom: 24px;
-    }
-
-    .findings-box h3 {
-      font-size: 0.9rem; font-weight: 700;
-      color: var(--orange); margin-bottom: 12px;
-    }
-
-    .finding-item {
-      display: flex; gap: 10px; margin-bottom: 10px;
-      font-size: 0.85rem; color: var(--gray-700); line-height: 1.5;
-    }
-
-    .finding-item::before {
-      content: '⚠️'; flex-shrink: 0; margin-top: 1px;
-    }
-
-    .next-steps {
-      background: var(--gray-50);
-      border-radius: 10px; padding: 24px;
-      margin-bottom: 24px;
-    }
-
-    .next-steps h3 {
-      font-size: 0.9rem; font-weight: 700;
-      color: var(--navy); margin-bottom: 16px;
-    }
-
-    .step-item {
-      display: flex; gap: 14px; margin-bottom: 14px;
-      align-items: flex-start;
-    }
-
-    .step-num-small {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--navy); color: white;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.78rem; font-weight: 700; flex-shrink: 0;
-    }
-
-    .step-item p { font-size: 0.85rem; color: var(--gray-700); line-height: 1.5; }
-    .step-item strong { color: var(--navy); }
-
-    .result-cta {
-      text-align: center;
-      padding: 24px;
-      background: linear-gradient(135deg, var(--orange), #c94d18);
-      border-radius: 12px;
-      color: white;
-    }
-
-    .result-cta h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
-    .result-cta p  { font-size: 0.88rem; color: rgba(255,255,255,0.85); margin-bottom: 20px; }
-
-    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
-    .btn-cta-white {
-      background: white; color: var(--orange);
-      padding: 12px 24px; border-radius: 8px;
-      font-weight: 700; font-size: 0.9rem;
-      text-decoration: none; display: inline-block;
-      transition: transform 0.15s;
-    }
-
-    .btn-cta-white:hover { transform: translateY(-1px); }
-
-    .btn-cta-outline {
-      background: rgba(255,255,255,0.15);
-      color: white; border: 2px solid rgba(255,255,255,0.4);
-      padding: 12px 24px; border-radius: 8px;
-      font-weight: 600; font-size: 0.9rem;
-      text-decoration: none; display: inline-block;
-    }
-
-    .summary-box {
-      background: var(--navy);
-      border-radius: 10px; padding: 20px;
-      margin-bottom: 24px;
-    }
-
-    .summary-box h4 { color: rgba(255,255,255,0.6); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
-
-    .summary-row {
-      display: flex; justify-content: space-between;
-      font-size: 0.85rem; color: rgba(255,255,255,0.85);
-      padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .summary-row:last-child { border-bottom: none; }
-    .summary-row strong { color: white; }
-
-    @media (max-width: 600px) {
-      .card-body { padding: 20px; }
-      .form-nav  { padding: 18px 20px; flex-direction: column; gap: 12px; }
-      .field-grid { grid-template-columns: 1fr; }
-      .areas-grid { grid-template-columns: 1fr; }
-      .btn-prev, .btn-next, .btn-submit { width: 100%; justify-content: center; }
-    }
-  
   </style>
 </head>
 <body>
 
-<nav class="vciso-nav" role="navigation" aria-label="Navegación">
+<!-- NAV -->
+<nav class="vciso-nav" role="navigation" aria-label="Navegación principal">
   <a href="/" class="logo" aria-label="vCISO.cl — Inicio">
     <svg width="28" height="32" viewBox="0 0 40 46" fill="none">
-  <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z"
-        fill="rgba(30,79,173,0.5)" stroke="#2a6ddf" stroke-width="1.5"/>
-  <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5"
-        stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+      <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z" fill="rgba(30,79,173,0.5)" stroke="#2a6ddf" stroke-width="1.5"/>
+      <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
     <div>v<span>CISO</span>.cl<small>Ciberseguridad para empresas</small></div>
   </a>
   <a href="/diagnostico-ciberseguridad" class="nav-back">← Volver</a>
-  <ul class="nav-links" role="list">
-    <li><a href="https://wa.me/56981307440?text=Hola%2C+quisiera+información+sobre+vCISO.cl"
-           class="btn btn-nav" target="_blank" rel="noopener">💬 WhatsApp</a></li>
+  <ul class="nav-links" role="list" style="list-style:none;display:flex;align-items:center;gap:6px;">
+    <li><a href="https://wa.me/56981307440" class="btn-nav" target="_blank" rel="noopener">💬 WhatsApp</a></li>
   </ul>
 </nav>
-
-
-<!-- NAV -->
-
 
 <!-- HERO -->
 <div class="hero-mini">
   <div class="badge">🛡️ Diagnóstico Express · $79.000 CLP</div>
   <h1>Diagnóstico de Ciberseguridad</h1>
-  <p>20 preguntas sobre el estado de seguridad de tu empresa. Recibes un informe personalizado en 24 horas.</p>
+  <p>21 preguntas sobre el estado real de seguridad de tu empresa. Recibes un informe profesional personalizado en 24 horas.</p>
 </div>
 
 <!-- PROGRESS -->
 <div class="progress-wrap">
   <div class="progress-header">
-    <span class="progress-label" id="step-label">Paso 1 de 5 — Datos de tu empresa</span>
-    <span class="progress-pct" id="step-pct">20%</span>
+    <span class="progress-label" id="step-label">Paso 1 de 6 — Datos de tu empresa</span>
+    <span class="progress-pct" id="step-pct">17%</span>
   </div>
   <div class="progress-bar">
-    <div class="progress-fill" id="progress-fill" style="width:20%"></div>
+    <div class="progress-fill" id="progress-fill" style="width:17%"></div>
   </div>
   <div class="steps-dots">
     <div class="step-dot"><div class="dot active" id="dot1"></div><span class="dot-label">Empresa</span></div>
     <div class="step-dot"><div class="dot" id="dot2"></div><span class="dot-label">Accesos</span></div>
-    <div class="step-dot"><div class="dot" id="dot3"></div><span class="dot-label">Datos</span></div>
-    <div class="step-dot"><div class="dot" id="dot4"></div><span class="dot-label">Amenazas</span></div>
-    <div class="step-dot"><div class="dot" id="dot5"></div><span class="dot-label">Normativa</span></div>
+    <div class="step-dot"><div class="dot" id="dot3"></div><span class="dot-label">Equipos</span></div>
+    <div class="step-dot"><div class="dot" id="dot4"></div><span class="dot-label">Datos</span></div>
+    <div class="step-dot"><div class="dot" id="dot5"></div><span class="dot-label">Amenazas</span></div>
+    <div class="step-dot"><div class="dot" id="dot6"></div><span class="dot-label">Normativa</span></div>
   </div>
 </div>
 
-<!-- FORM -->
-<!-- Mensaje acceso denegado -->
-<div id="access-denied" style="display:none;flex-direction:column;align-items:center;
-  justify-content:center;padding:60px 20px;text-align:center;max-width:520px;margin:0 auto;">
+<!-- ACCESS DENIED -->
+<div id="access-denied">
   <div style="font-size:3rem;margin-bottom:20px">🔒</div>
   <h2 style="color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:12px">Acceso no autorizado</h2>
   <p class="denied-msg" style="color:rgba(255,255,255,0.6);font-size:0.95rem;line-height:1.6"></p>
 </div>
 
+<!-- FORM -->
 <div class="form-wrap">
   <div class="form-card" id="form-container" style="display:none">
 
-    <!-- ══ STEP 1: DATOS DE EMPRESA ══ -->
+    <!-- ══ PASO 1: DATOS DE EMPRESA ══ -->
     <div class="step active" id="step1">
       <div class="card-header">
         <div class="card-header-icon">🏢</div>
@@ -940,25 +341,30 @@
             <span class="error-msg" id="err-empresa">Campo requerido</span>
           </div>
           <div class="field">
-            <label>Rubro / Industria *</label>
-            <select id="rubro">
-              <option value="">Selecciona...</option>
-              <option>Retail / Comercio</option>
-              <option>Salud / Clínica</option>
-              <option>Construcción / Inmobiliaria</option>
-              <option>Logística / Transporte</option>
-              <option>Educación</option>
-              <option>Tecnología / Software</option>
-              <option>Servicios profesionales</option>
-              <option>Manufactura / Industria</option>
-              <option>Agricultura / Agroindustria</option>
-              <option>Otro</option>
-            </select>
-            <span class="error-msg" id="err-rubro">Campo requerido</span>
+            <label>RUT de la empresa</label>
+            <input type="text" id="rut" placeholder="Ej: 76.123.456-7"/>
           </div>
         </div>
 
         <div class="field-grid">
+          <div class="field">
+            <label>Rubro / Industria *</label>
+            <select id="rubro">
+              <option value="">Selecciona...</option>
+              <option>Retail / Comercio</option>
+              <option>Salud / Clínica / Farmacia</option>
+              <option>Construcción / Inmobiliaria</option>
+              <option>Logística / Transporte</option>
+              <option>Educación</option>
+              <option>Tecnología / Software</option>
+              <option>Servicios profesionales / Consultora</option>
+              <option>Manufactura / Industria</option>
+              <option>Agricultura / Agroindustria</option>
+              <option>Gastronomía / Hotelería</option>
+              <option>Otro</option>
+            </select>
+            <span class="error-msg" id="err-rubro">Campo requerido</span>
+          </div>
           <div class="field">
             <label>Número de empleados *</label>
             <select id="empleados">
@@ -971,13 +377,25 @@
             </select>
             <span class="error-msg" id="err-empleados">Campo requerido</span>
           </div>
+        </div>
+
+        <div class="field-grid">
           <div class="field">
-            <label>¿Tienen departamento de TI?</label>
+            <label>¿Tienen departamento o persona a cargo de TI?</label>
             <select id="dept-ti">
               <option value="">Selecciona...</option>
               <option>Sí, departamento propio</option>
               <option>Solo una persona a cargo</option>
               <option>Usamos proveedor externo</option>
+              <option>No tenemos nadie a cargo</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>¿Tienen sitio web, tienda online o sistema en internet?</label>
+            <select id="web">
+              <option value="">Selecciona...</option>
+              <option>Sí, con datos o pagos de clientes</option>
+              <option>Sí, solo informativo</option>
               <option>No tenemos</option>
             </select>
           </div>
@@ -1005,967 +423,1193 @@
             <span class="error-msg" id="err-email">Correo inválido</span>
           </div>
           <div class="field">
-            <label>Teléfono / WhatsApp *</label>
+            <label>Teléfono / WhatsApp</label>
             <input type="tel" id="telefono" placeholder="+56 9 XXXX XXXX"/>
-            <span class="error-msg" id="err-telefono">Campo requerido</span>
           </div>
         </div>
 
       </div>
       <div class="form-nav">
-        <div></div>
-        <button class="btn-next" onclick="goNext(1)">Continuar <span>→</span></button>
+        <span></span>
+        <button class="btn-next" onclick="goStep(2)">Siguiente → Accesos y contraseñas</button>
       </div>
     </div>
 
-    <!-- ══ STEP 2: ACCESOS E IDENTIDADES ══ -->
+    <!-- ══ PASO 2: ACCESOS Y CONTRASEÑAS ══ -->
     <div class="step" id="step2">
       <div class="card-header">
         <div class="card-header-icon">🔐</div>
         <div>
-          <h2>Accesos e identidades</h2>
-          <p>El 80% de los incidentes comienzan por credenciales comprometidas.</p>
+          <h2>Accesos y contraseñas</h2>
+          <p>Cómo protegen el acceso a los sistemas y cuentas de la empresa.</p>
         </div>
       </div>
       <div class="card-body">
 
+        <!-- P1 -->
         <div class="question">
-          <div class="question-num">Pregunta 1 de 4</div>
-          <h3>¿Usan doble factor de autenticación (2FA) en el correo y sistemas críticos?</h3>
+          <div class="question-num">Pregunta 1 de 21</div>
+          <h3>Además de la contraseña, ¿usan un segundo paso para entrar al correo o sistemas?</h3>
+          <p class="hint">Ej: un código que llega al celular, una app como Microsoft Authenticator o Google Authenticator.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q1', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q1',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, en todos los sistemas críticos</div>
-                <div class="option-desc">Correo, ERP, banca y accesos remotos protegidos con 2FA</div>
+                <div class="option-title">Sí, en todos los sistemas — correo, Drive, banca, sistemas de gestión</div>
+                <div class="option-desc">Todos los accesos importantes tienen este segundo paso activado</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q1', 2, 'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Solo en algunos sistemas</div>
-                <div class="option-desc">Algunos accesos tienen 2FA pero no todos</div>
-              </div>
-              <span class="option-score score-mid">+2 pts</span>
-            </div>
-            <div class="option" onclick="selectOption(this, 'q1', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q1',2,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
                 <div class="option-title">Solo en el correo corporativo</div>
-                <div class="option-desc">Usamos 2FA solo para el correo</div>
+                <div class="option-desc">Tenemos el segundo paso solo para el correo</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Parcial</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q1', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q1',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No usamos 2FA</div>
-                <div class="option-desc">Solo contraseñas sin segundo factor</div>
+                <div class="option-title">Solo algunos empleados lo tienen activado</div>
+                <div class="option-desc">No está implementado de forma pareja en todo el equipo</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-mid">Insuficiente</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q1',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No, solo usamos contraseña</div>
+                <div class="option-desc">No tenemos ningún segundo paso de verificación</div>
+              </div>
+              <span class="option-score score-bad">Crítico</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q1">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P2 -->
         <div class="question">
-          <div class="question-num">Pregunta 2 de 4</div>
-          <h3>Cuando un empleado se va de la empresa, ¿qué pasa con sus accesos?</h3>
+          <div class="question-num">Pregunta 2 de 21</div>
+          <h3>Cuando un empleado deja la empresa, ¿qué pasa con sus accesos al correo y sistemas?</h3>
+          <p class="hint">Ej: acceso a correo, Drive, software de gestión, redes sociales de la empresa.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q2', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q2',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Se eliminan el mismo día</div>
-                <div class="option-desc">Tenemos un proceso formal de offboarding</div>
+                <div class="option-title">Se eliminan el mismo día — tenemos un proceso formal</div>
+                <div class="option-desc">Hay un checklist y un responsable claro de hacerlo</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q2', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q2',2,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">En algunos días</div>
-                <div class="option-desc">Se hace pero sin un proceso definido</div>
+                <div class="option-title">En algunos días, sin proceso definido</div>
+                <div class="option-desc">Se hace pero depende de que alguien se acuerde</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Mejorable</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q2', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q2',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No tenemos proceso definido</div>
-                <div class="option-desc">Los accesos pueden quedar activos sin control</div>
+                <div class="option-title">Queda activo hasta que alguien se acuerda de eliminarlo</div>
+                <div class="option-desc">No hay proceso ni responsable definido</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-mid">Riesgo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q2',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No lo sabemos / nunca lo hemos revisado</div>
+                <div class="option-desc">No tenemos visibilidad sobre qué accesos quedan activos</div>
+              </div>
+              <span class="option-score score-bad">Crítico</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q2">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P3 -->
         <div class="question">
-          <div class="question-num">Pregunta 3 de 4</div>
-          <h3>¿Tienen una política de contraseñas definida para los empleados?</h3>
+          <div class="question-num">Pregunta 3 de 21</div>
+          <h3>¿Tienen alguna regla definida sobre cómo deben ser las contraseñas del trabajo?</h3>
+          <p class="hint">Ej: largo mínimo, no usar nombre propio o fecha de nacimiento, cambiarla cada cierto tiempo.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q3', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q3',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, documentada y se cumple</div>
-                <div class="option-desc">Requisitos de longitud, complejidad y renovación periódica</div>
+                <div class="option-title">Sí, está escrita y todos los empleados la conocen</div>
+                <div class="option-desc">Existe un documento o política formal que se cumple</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q3', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q3',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Existe pero no está documentada</div>
-                <div class="option-desc">Es de palabra, no hay documento formal</div>
+                <div class="option-title">Existe de palabra, pero no está en ningún documento</div>
+                <div class="option-desc">Hay una práctica informal pero no está formalizada</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Mejorable</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q3', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q3',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
                 <div class="option-title">Cada uno usa la contraseña que quiere</div>
-                <div class="option-desc">Sin política definida ni control</div>
+                <div class="option-desc">No hay ninguna regla ni control sobre contraseñas</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-bad">Crítico</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q3">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P4 -->
         <div class="question">
-          <div class="question-num">Pregunta 4 de 4</div>
-          <h3>¿Usan un gestor de contraseñas corporativo?</h3>
-          <p class="hint">Ej: 1Password, Bitwarden, LastPass Business</p>
+          <div class="question-num">Pregunta 4 de 21</div>
+          <h3>¿Usan alguna herramienta para guardar y compartir contraseñas de forma segura en la empresa?</h3>
+          <p class="hint">Ej: Bitwarden, 1Password, LastPass, el gestor del navegador corporativo (no el personal).</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q4', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q4',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, uno corporativo</div>
-                <div class="option-desc">Todos los empleados lo usan</div>
+                <div class="option-title">Sí, una herramienta corporativa que usan todos</div>
+                <div class="option-desc">Está estandarizado y todos guardan sus contraseñas ahí</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q4', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q4',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Algunos usan uno personal</div>
-                <div class="option-desc">No es corporativo ni está estandarizado</div>
+                <div class="option-title">Algunos usan algo personal, no está estandarizado</div>
+                <div class="option-desc">Hay buenas intenciones pero sin control corporativo</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Mejorable</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q4', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q4',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No usamos gestor de contraseñas</div>
-                <div class="option-desc">Las contraseñas se guardan en notas o Excel</div>
+                <div class="option-title">No — las guardamos en Excel, papel, notas o de memoria</div>
+                <div class="option-desc">Sin herramienta segura para gestionar contraseñas</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-bad">Crítico</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q4">Debes seleccionar una opción</span>
         </div>
 
       </div>
       <div class="form-nav">
-        <button class="btn-prev" onclick="goPrev(2)">← Anterior</button>
-        <button class="btn-next" onclick="goNext(2)">Continuar →</button>
+        <button class="btn-prev" onclick="goStep(1)">← Anterior</button>
+        <button class="btn-next" onclick="goStep(3)">Siguiente → Equipos y red</button>
       </div>
     </div>
 
-    <!-- ══ STEP 3: DATOS E INFRAESTRUCTURA ══ -->
+    <!-- ══ PASO 3: EQUIPOS Y RED ══ -->
     <div class="step" id="step3">
       <div class="card-header">
-        <div class="card-header-icon">💾</div>
+        <div class="card-header-icon">💻</div>
         <div>
-          <h2>Datos e infraestructura</h2>
-          <p>¿Qué tan protegida está la información crítica de tu empresa?</p>
+          <h2>Equipos y red</h2>
+          <p>Estado de los computadores, celulares y conexión a internet que usa la empresa.</p>
         </div>
       </div>
       <div class="card-body">
 
+        <!-- P5 -->
         <div class="question">
-          <div class="question-num">Pregunta 5 de 4</div>
-          <h3>¿Tienen respaldos automáticos de su información crítica?</h3>
+          <div class="question-num">Pregunta 5 de 21</div>
+          <h3>¿Cómo son los computadores que usa el equipo de trabajo?</h3>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q5', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q5',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, automáticos y en la nube</div>
-                <div class="option-desc">Respaldo diario/semanal fuera del sitio, comprobado</div>
+                <div class="option-title">Son equipos de la empresa, administrados por TI o proveedor</div>
+                <div class="option-desc">La empresa controla qué se instala y cómo se configuran</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q5', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q5',2,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, pero manual o en el mismo equipo</div>
-                <div class="option-desc">Hacemos respaldo pero no es automático o está en el mismo PC</div>
+                <div class="option-title">Son equipos de la empresa, pero cada uno los maneja como quiere</div>
+                <div class="option-desc">La empresa los provee pero sin control centralizado</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Mejorable</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q5', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q5',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No tenemos respaldo</div>
-                <div class="option-desc">Si se pierde el equipo, se pierden los datos</div>
+                <div class="option-title">Mixto — algunos de la empresa, otros equipos personales</div>
+                <div class="option-desc">Conviven equipos corporativos y BYOD sin política clara</div>
               </div>
-              <span class="option-score score-bad">Crítico</span>
+              <span class="option-score score-mid">Riesgo</span>
             </div>
-          </div>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Pregunta 6 de 4</div>
-          <h3>¿Cuándo probaron por última vez restaurar un respaldo?</h3>
-          <div class="options">
-            <div class="option" onclick="selectOption(this, 'q6', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q5',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">En los últimos 6 meses</div>
-                <div class="option-desc">Probamos que el respaldo funciona realmente</div>
-              </div>
-              <span class="option-score score-good">+3 pts</span>
-            </div>
-            <div class="option" onclick="selectOption(this, 'q6', 1, 'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Hace más de 1 año</div>
-                <div class="option-desc">Tenemos respaldo pero no lo probamos seguido</div>
-              </div>
-              <span class="option-score score-mid">+1 pt</span>
-            </div>
-            <div class="option" onclick="selectOption(this, 'q6', 0, 'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Nunca lo hemos probado</div>
-                <div class="option-desc">No sabemos si el respaldo funciona realmente</div>
+                <div class="option-title">Son equipos personales de cada trabajador (BYOD)</div>
+                <div class="option-desc">La empresa no tiene control sobre los dispositivos usados</div>
               </div>
               <span class="option-score score-bad">Riesgo alto</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q5">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P6 -->
         <div class="question">
-          <div class="question-num">Pregunta 7 de 4</div>
-          <h3>¿Los equipos y sistemas tienen antivirus o EDR activo y actualizado?</h3>
+          <div class="question-num">Pregunta 6 de 21</div>
+          <h3>El Wi-Fi de la oficina, ¿es el mismo para empleados, visitas y clientes?</h3>
+          <p class="hint">Compartir la misma red con visitas es un riesgo: podrían acceder a sistemas internos de la empresa.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q7', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q6',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, en todos los equipos</div>
-                <div class="option-desc">Solución corporativa centralizada y actualizada</div>
+                <div class="option-title">No — tenemos red separada para visitas y clientes</div>
+                <div class="option-desc">Los empleados usan una red y las visitas otra distinta</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q7', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q6',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">En algunos equipos</div>
-                <div class="option-desc">No todos los equipos están protegidos</div>
+                <div class="option-title">Sí, todos usan la misma red pero con contraseña</div>
+                <div class="option-desc">Hay contraseña pero no separación entre empleados y visitas</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Mejorable</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q7', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q6',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No tenemos o está desactualizado</div>
-                <div class="option-desc">Sin protección activa contra malware</div>
+                <div class="option-title">Sí, todos usan la misma red y es abierta o sin control</div>
+                <div class="option-desc">Cualquiera en la oficina puede conectarse sin restricción</div>
+              </div>
+              <span class="option-score score-bad">Crítico</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q6',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No aplica — trabajamos 100% remoto / no tenemos oficina física</div>
+                <div class="option-desc">Todo el trabajo se hace desde casa o en remoto</div>
+              </div>
+              <span class="option-score score-good">N/A</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-q6">Debes seleccionar una opción</span>
+        </div>
+
+        <!-- P7 -->
+        <div class="question">
+          <div class="question-num">Pregunta 7 de 21</div>
+          <h3>¿Los empleados acceden al correo, archivos o sistemas de la empresa desde su celular personal?</h3>
+          <div class="options">
+            <div class="option" onclick="selectOption(this,'q7',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, y tenemos reglas sobre cómo hacerlo de forma segura</div>
+                <div class="option-desc">Hay política de uso de dispositivos móviles y se cumple</div>
+              </div>
+              <span class="option-score score-good">Óptimo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q7',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, pero sin ninguna regla ni control</div>
+                <div class="option-desc">Acceden desde celular personal sin política definida</div>
+              </div>
+              <span class="option-score score-mid">Riesgo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q7',2,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No, solo acceden desde los computadores del trabajo</div>
+                <div class="option-desc">El acceso está limitado a equipos de escritorio o notebook</div>
+              </div>
+              <span class="option-score score-mid">Aceptable</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-q7">Debes seleccionar una opción</span>
+        </div>
+
+        <!-- P8 -->
+        <div class="question">
+          <div class="question-num">Pregunta 8 de 21</div>
+          <h3>¿Tienen un listado de todos los equipos, programas y servicios digitales que usa la empresa?</h3>
+          <p class="hint">Ej: cuántos computadores tienen, qué software usan, qué servicios en la nube (Drive, Dropbox, sistemas de gestión).</p>
+          <div class="options">
+            <div class="option" onclick="selectOption(this,'q8',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, tenemos un inventario actualizado</div>
+                <div class="option-desc">Sabemos exactamente qué equipos y software tiene la empresa</div>
+              </div>
+              <span class="option-score score-good">Óptimo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q8',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Tenemos una idea general pero no está documentado</div>
+                <div class="option-desc">Sabemos más o menos, pero no hay un registro formal</div>
+              </div>
+              <span class="option-score score-mid">Mejorable</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q8',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No tenemos ningún registro</div>
+                <div class="option-desc">No sabemos con exactitud qué equipos ni software hay en uso</div>
               </div>
               <span class="option-score score-bad">Crítico</span>
             </div>
           </div>
-        </div>
-
-        <div class="question">
-          <div class="question-num">Pregunta 8 de 4</div>
-          <h3>¿Con qué frecuencia actualizan los sistemas operativos y aplicaciones?</h3>
-          <div class="options">
-            <div class="option" onclick="selectOption(this, 'q8', 3, 'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Actualizaciones automáticas habilitadas</div>
-                <div class="option-desc">Los equipos se actualizan solos</div>
-              </div>
-              <span class="option-score score-good">+3 pts</span>
-            </div>
-            <div class="option" onclick="selectOption(this, 'q8', 1, 'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Manualmente, cada cierto tiempo</div>
-                <div class="option-desc">Se hace pero sin periodicidad definida</div>
-              </div>
-              <span class="option-score score-mid">+1 pt</span>
-            </div>
-            <div class="option" onclick="selectOption(this, 'q8', 0, 'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Rara vez o nunca</div>
-                <div class="option-desc">Los sistemas llevan mucho tiempo sin actualizar</div>
-              </div>
-              <span class="option-score score-bad">Riesgo alto</span>
-            </div>
-          </div>
+          <span class="error-msg" id="err-q8">Debes seleccionar una opción</span>
         </div>
 
       </div>
       <div class="form-nav">
-        <button class="btn-prev" onclick="goPrev(3)">← Anterior</button>
-        <button class="btn-next" onclick="goNext(3)">Continuar →</button>
+        <button class="btn-prev" onclick="goStep(2)">← Anterior</button>
+        <button class="btn-next" onclick="goStep(4)">Siguiente → Datos e información</button>
       </div>
     </div>
 
-    <!-- ══ STEP 4: AMENAZAS EXTERNAS ══ -->
+    <!-- ══ PASO 4: DATOS E INFORMACIÓN ══ -->
     <div class="step" id="step4">
+      <div class="card-header">
+        <div class="card-header-icon">💾</div>
+        <div>
+          <h2>Datos e información</h2>
+          <p>Cómo protegen y respaldan la información crítica del negocio.</p>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <!-- P9 -->
+        <div class="question">
+          <div class="question-num">Pregunta 9 de 21</div>
+          <h3>¿Tienen respaldo automático de los archivos e información crítica del negocio?</h3>
+          <p class="hint">Ej: contratos, contabilidad, base de clientes, facturas. Si se borraran hoy, ¿podrían recuperarlos?</p>
+          <div class="options">
+            <div class="option" onclick="selectOption(this,'q9',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, automático y en la nube — fuera de la oficina</div>
+                <div class="option-desc">Los respaldos se hacen solos y están en un lugar externo seguro</div>
+              </div>
+              <span class="option-score score-good">Óptimo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q9',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, pero manual o guardado en el mismo computador</div>
+                <div class="option-desc">Hay respaldo pero depende de recordarlo o está en el mismo equipo</div>
+              </div>
+              <span class="option-score score-mid">Riesgo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q9',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No tenemos respaldo</div>
+                <div class="option-desc">Si se pierde o daña el equipo, se pierde toda la información</div>
+              </div>
+              <span class="option-score score-bad">Crítico</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-q9">Debes seleccionar una opción</span>
+        </div>
+
+        <!-- P10 -->
+        <div class="question">
+          <div class="question-num">Pregunta 10 de 21</div>
+          <h3>¿Alguna vez han probado recuperar archivos desde ese respaldo?</h3>
+          <p class="hint">Un respaldo que nunca se prueba puede fallar justo cuando más se necesita.</p>
+          <div class="options">
+            <div class="option" onclick="selectOption(this,'q10',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, lo probamos en los últimos 6 meses y funcionó</div>
+                <div class="option-desc">Confirmamos que el respaldo se puede restaurar correctamente</div>
+              </div>
+              <span class="option-score score-good">Óptimo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q10',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Lo intentamos hace más de un año</div>
+                <div class="option-desc">Se probó alguna vez pero no recientemente</div>
+              </div>
+              <span class="option-score score-mid">Mejorable</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q10',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Nunca lo hemos probado — no sabemos si funciona</div>
+                <div class="option-desc">Existe el respaldo pero no está verificado</div>
+              </div>
+              <span class="option-score score-bad">Riesgo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q10',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No aplica — no tenemos respaldo</div>
+              </div>
+              <span class="option-score score-bad">Crítico</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-q10">Debes seleccionar una opción</span>
+        </div>
+
+        <!-- P11 -->
+        <div class="question">
+          <div class="question-num">Pregunta 11 de 21</div>
+          <h3>¿Los computadores de la empresa tienen antivirus activo?</h3>
+          <p class="hint">Ej: Windows Defender (viene con Windows), Norton, Kaspersky, Bitdefender, ESET.</p>
+          <div class="options">
+            <div class="option" onclick="selectOption(this,'q11',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, en todos los equipos y está actualizado</div>
+                <div class="option-desc">Todos los computadores tienen protección activa y al día</div>
+              </div>
+              <span class="option-score score-good">Óptimo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q11',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">En algunos equipos, no en todos</div>
+                <div class="option-desc">Hay equipos desprotegidos en la empresa</div>
+              </div>
+              <span class="option-score score-mid">Riesgo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q11',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No tenemos o no sabemos si está activo</div>
+                <div class="option-desc">Sin protección activa contra virus y malware</div>
+              </div>
+              <span class="option-score score-bad">Crítico</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-q11">Debes seleccionar una opción</span>
+        </div>
+
+        <!-- P12 -->
+        <div class="question">
+          <div class="question-num">Pregunta 12 de 21</div>
+          <h3>¿Con qué frecuencia se actualizan los programas y el sistema operativo de los equipos?</h3>
+          <p class="hint">Las actualizaciones corrigen vulnerabilidades. Un sistema sin actualizar es una puerta abierta para los atacantes.</p>
+          <div class="options">
+            <div class="option" onclick="selectOption(this,'q12',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Se actualizan solos automáticamente</div>
+                <div class="option-desc">Los equipos tienen actualizaciones automáticas activadas</div>
+              </div>
+              <span class="option-score score-good">Óptimo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q12',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Manualmente, cada cierto tiempo</div>
+                <div class="option-desc">Se actualiza pero sin periodicidad definida</div>
+              </div>
+              <span class="option-score score-mid">Mejorable</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q12',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Rara vez o nunca — llevan mucho tiempo sin actualizar</div>
+                <div class="option-desc">Los sistemas tienen vulnerabilidades conocidas sin corregir</div>
+              </div>
+              <span class="option-score score-bad">Crítico</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-q12">Debes seleccionar una opción</span>
+        </div>
+
+      </div>
+      <div class="form-nav">
+        <button class="btn-prev" onclick="goStep(3)">← Anterior</button>
+        <button class="btn-next" onclick="goStep(5)">Siguiente → Amenazas y proveedores</button>
+      </div>
+    </div>
+
+    <!-- ══ PASO 5: AMENAZAS Y PROVEEDORES ══ -->
+    <div class="step" id="step5">
       <div class="card-header">
         <div class="card-header-icon">🎯</div>
         <div>
           <h2>Amenazas y proveedores</h2>
-          <p>El correo y los proveedores son las principales puertas de entrada de ataques.</p>
+          <p>Exposición a ataques y control sobre quienes acceden a los sistemas.</p>
         </div>
       </div>
       <div class="card-body">
 
+        <!-- P13 -->
         <div class="question">
-          <div class="question-num">Pregunta 9 de 4</div>
-          <h3>¿Han recibido intentos de phishing, fraude por correo o estafas digitales?</h3>
+          <div class="question-num">Pregunta 13 de 21</div>
+          <h3>¿Han recibido correos falsos, intentos de estafa o fraude digital dirigidos a la empresa?</h3>
+          <p class="hint">Ej: alguien haciéndose pasar por el banco, por un proveedor, pidiendo transferencias urgentes o clicando en links.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q9', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q13',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, y los detectamos y bloqueamos</div>
-                <div class="option-desc">Tenemos filtros activos y los empleados saben reconocerlos</div>
+                <div class="option-title">Sí, y sabemos reconocerlos y bloquearlos</div>
+                <div class="option-desc">Tenemos filtros activos y el equipo sabe cómo identificarlos</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q9', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q13',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, pero los manejamos caso a caso</div>
-                <div class="option-desc">Recibimos phishing pero no tenemos filtros formales</div>
+                <div class="option-title">Sí, los manejamos caso a caso pero sin proceso formal</div>
+                <div class="option-desc">Respondemos cuando ocurre pero sin sistema preventivo</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Mejorable</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q9', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q13',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No sabemos / nunca revisamos</div>
-                <div class="option-desc">No tenemos visibilidad sobre esto</div>
+                <div class="option-title">No sabemos / nunca lo hemos revisado</div>
+                <div class="option-desc">No tenemos visibilidad sobre intentos de ataque</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-bad">Riesgo</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q13">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P14 -->
         <div class="question">
-          <div class="question-num">Pregunta 10 de 4</div>
-          <h3>¿Sus proveedores tecnológicos clave tienen acceso a sus sistemas internos?</h3>
-          <p class="hint">Ej: proveedor de ERP, contabilidad, CRM, soporte externo</p>
+          <div class="question-num">Pregunta 14 de 21</div>
+          <h3>¿El proveedor de informática o soporte técnico tiene acceso a los sistemas de la empresa?</h3>
+          <p class="hint">Ej: acceso remoto al computador, credenciales de administrador, acceso a la red.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q10', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q14',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, con accesos controlados y auditados</div>
-                <div class="option-desc">Accesos limitados, registros de actividad, contratos firmados</div>
+                <div class="option-title">Sí, con acceso controlado, registrado y con contrato firmado</div>
+                <div class="option-desc">Sabemos exactamente qué acceso tiene y hay acuerdo de confidencialidad</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q10', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q14',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, pero sin mayor control</div>
-                <div class="option-desc">Tienen acceso pero no auditamos qué hacen</div>
+                <div class="option-title">Sí, pero no controlamos ni registramos qué hace exactamente</div>
+                <div class="option-desc">Tiene acceso pero sin auditoría ni contrato de confidencialidad</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Riesgo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q10', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q14',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No lo sabemos exactamente</div>
+                <div class="option-title">No lo sabemos con certeza</div>
                 <div class="option-desc">No tenemos claro qué accesos tienen nuestros proveedores</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-bad">Crítico</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q14',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No tenemos proveedor externo de TI</div>
+                <div class="option-desc">Lo manejamos internamente o no aplica</div>
+              </div>
+              <span class="option-score score-good">N/A</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q14">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P15 -->
         <div class="question">
-          <div class="question-num">Pregunta 11 de 4</div>
-          <h3>¿Han sufrido algún incidente de seguridad en los últimos 2 años?</h3>
-          <p class="hint">Ransomware, robo de datos, fraude, acceso no autorizado, caída de sistemas</p>
+          <div class="question-num">Pregunta 15 de 21</div>
+          <h3>¿Han tenido algún problema de seguridad digital en los últimos 2 años?</h3>
+          <p class="hint">Ej: virus en un computador, cuenta de correo o redes sociales hackeada, archivos borrados, estafa exitosa.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q11', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q15',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No hemos tenido incidentes</div>
-                <div class="option-desc">No hemos detectado ningún problema de seguridad</div>
+                <div class="option-title">No hemos tenido ningún incidente que sepamos</div>
+                <div class="option-desc">Sin problemas de seguridad conocidos en este período</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Sin incidentes</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q11', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q15',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, algo menor que manejamos</div>
-                <div class="option-desc">Hubo un incidente pero lo resolvimos</div>
+                <div class="option-title">Sí, algo menor que resolvimos</div>
+                <div class="option-desc">Hubo un incidente pero lo controlamos</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Leve</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q11', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q15',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, algo grave / o no lo sabemos</div>
-                <div class="option-desc">Tuvimos un incidente importante o no tenemos visibilidad</div>
+                <div class="option-title">Sí, algo grave — o no estamos seguros si tuvimos algo</div>
+                <div class="option-desc">Incidente importante o sin visibilidad suficiente para saberlo</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-bad">Alerta</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q15">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P16 -->
         <div class="question">
-          <div class="question-num">Pregunta 12 de 4</div>
-          <h3>¿Tienen un plan de respuesta ante un ransomware o pérdida masiva de datos?</h3>
+          <div class="question-num">Pregunta 16 de 21</div>
+          <h3>Si mañana todos los archivos de la empresa aparecieran bloqueados y alguien pidiera dinero para liberarlos, ¿qué harían?</h3>
+          <p class="hint">Esto se llama ransomware — es el ataque más común y costoso para las PYMEs hoy en día.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q12', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q16',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, documentado y practicado</div>
+                <div class="option-title">Tenemos un plan escrito y lo hemos practicado</div>
                 <div class="option-desc">Sabemos exactamente qué hacer y quién hace qué</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q12', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q16',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Tenemos una idea pero no está escrito</div>
-                <div class="option-desc">Sabemos más o menos qué haríamos</div>
+                <div class="option-title">Más o menos sabríamos qué hacer, pero no está escrito</div>
+                <div class="option-desc">Hay una idea general pero sin plan formal</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Mejorable</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q12', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q16',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No tendríamos idea qué hacer</div>
-                <div class="option-desc">No tenemos plan de respuesta</div>
+                <div class="option-title">No tendríamos idea por dónde empezar</div>
+                <div class="option-desc">Sin plan de respuesta ante incidentes</div>
               </div>
               <span class="option-score score-bad">Crítico</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q16">Debes seleccionar una opción</span>
         </div>
 
       </div>
       <div class="form-nav">
-        <button class="btn-prev" onclick="goPrev(4)">← Anterior</button>
-        <button class="btn-next" onclick="goNext(4)">Continuar →</button>
+        <button class="btn-prev" onclick="goStep(4)">← Anterior</button>
+        <button class="btn-next" onclick="goStep(6)">Siguiente → Normativa y continuidad</button>
       </div>
     </div>
 
-    <!-- ══ STEP 5: NORMATIVA Y POLÍTICAS ══ -->
-    <div class="step" id="step5">
+    <!-- ══ PASO 6: NORMATIVA Y CONTINUIDAD ══ -->
+    <div class="step" id="step6">
       <div class="card-header">
-        <div class="card-header-icon">⚖️</div>
+        <div class="card-header-icon">📋</div>
         <div>
-          <h2>Normativa y políticas</h2>
-          <p>Cumplimiento legal y cultura de seguridad en tu organización.</p>
+          <h2>Normativa y continuidad</h2>
+          <p>Cumplimiento legal, capacitación del equipo e impacto de un incidente en el negocio.</p>
         </div>
       </div>
       <div class="card-body">
 
+        <!-- P17 -->
         <div class="question">
-          <div class="question-num">Pregunta 13 de 4</div>
-          <h3>¿Tienen políticas de seguridad documentadas para sus empleados?</h3>
-          <p class="hint">Uso aceptable de sistemas, teletrabajo, dispositivos móviles, etc.</p>
+          <div class="question-num">Pregunta 17 de 21</div>
+          <h3>¿Tienen algún documento escrito sobre cómo deben comportarse los empleados con la tecnología?</h3>
+          <p class="hint">Ej: qué pueden instalar, cómo usar el correo del trabajo, qué hacer si pierden el celular o el computador.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q13', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q17',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, documentadas y comunicadas</div>
-                <div class="option-desc">Los empleados las conocen y están firmadas</div>
+                <div class="option-title">Sí, están documentadas y los empleados las conocen</div>
+                <div class="option-desc">Existe un reglamento o política formal que se comunica y cumple</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q13', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q17',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Informales / de palabra</div>
-                <div class="option-desc">Hay reglas pero no están escritas</div>
+                <div class="option-title">Hay reglas de palabra pero nada escrito</div>
+                <div class="option-desc">Las reglas existen informalmente pero no están documentadas</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Mejorable</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q13', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q17',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
                 <div class="option-title">No tenemos nada documentado</div>
-                <div class="option-desc">No hay políticas formales de seguridad</div>
+                <div class="option-desc">Sin políticas formales de seguridad para empleados</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-bad">Crítico</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q17">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P18 -->
         <div class="question">
-          <div class="question-num">Pregunta 14 de 4</div>
-          <h3>¿Manejan datos personales de clientes, empleados o proveedores?</h3>
+          <div class="question-num">Pregunta 18 de 21</div>
+          <h3>¿La empresa guarda datos de clientes, empleados o proveedores?</h3>
+          <p class="hint">Ej: RUT, correos, teléfonos, direcciones, datos de pago, historial de compras. La Ley 21.719 exige proteger este tipo de información.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q14', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q18',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, y tenemos controles para protegerlos</div>
-                <div class="option-desc">Aviso de privacidad, registro de datos, accesos controlados</div>
+                <div class="option-title">Sí, y tenemos controles para protegerlos y cumplir la ley</div>
+                <div class="option-desc">Aviso de privacidad, accesos controlados, registro de datos</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q14', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q18',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, pero sin controles formales</div>
-                <div class="option-desc">Manejamos datos pero sin política definida</div>
+                <div class="option-title">Sí, pero sin controles formales ni política definida</div>
+                <div class="option-desc">Guardamos datos pero sin cumplimiento específico de la ley</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Riesgo legal</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q14', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q18',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Manejamos datos pero no sabemos qué exige la ley</div>
-                <div class="option-desc">Sin cumplimiento de la Ley de Datos Personales</div>
+                <div class="option-title">Guardamos datos pero no sabemos qué exige la ley chilena</div>
+                <div class="option-desc">Sin cumplimiento de la Ley 21.719 de Datos Personales</div>
               </div>
-              <span class="option-score score-bad">Riesgo legal</span>
+              <span class="option-score score-bad">Incumplimiento</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q18">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P19 -->
         <div class="question">
-          <div class="question-num">Pregunta 15 de 4</div>
-          <h3>¿Sus empleados reciben capacitación en ciberseguridad?</h3>
+          <div class="question-num">Pregunta 19 de 21</div>
+          <h3>¿Sus empleados han recibido alguna capacitación o charla sobre seguridad digital?</h3>
+          <p class="hint">Ej: cómo detectar un correo falso, crear contraseñas seguras, qué hacer si pierden el equipo o si reciben una llamada sospechosa.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q15', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q19',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
                 <div class="option-title">Sí, al menos una vez al año</div>
-                <div class="option-desc">Talleres, charlas o cursos sobre phishing y buenas prácticas</div>
+                <div class="option-desc">Hacemos capacitaciones periódicas sobre seguridad digital</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Óptimo</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q15', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q19',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Ocasionalmente</div>
-                <div class="option-desc">Alguna vez hemos dado orientación informal</div>
+                <div class="option-title">Alguna vez, de forma informal</div>
+                <div class="option-desc">Se ha mencionado el tema pero sin capacitación formal</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Insuficiente</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q15', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q19',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
                 <div class="option-title">Nunca</div>
-                <div class="option-desc">No hay capacitación en seguridad</div>
+                <div class="option-desc">El equipo no ha recibido ninguna orientación en seguridad digital</div>
               </div>
-              <span class="option-score score-bad">Riesgo alto</span>
+              <span class="option-score score-bad">Crítico</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q19">Debes seleccionar una opción</span>
         </div>
 
+        <!-- P20 -->
         <div class="question">
-          <div class="question-num">Pregunta 16 de 4</div>
-          <h3>¿Tienen seguro de ciberseguridad o ciberriesgo?</h3>
+          <div class="question-num">Pregunta 20 de 21</div>
+          <h3>Si los sistemas de la empresa dejaran de funcionar por un día completo, ¿cuánto impacto tendría en el negocio?</h3>
+          <p class="hint">Ej: no poder facturar, no acceder a clientes, no poder operar, no poder comunicarse.</p>
           <div class="options">
-            <div class="option" onclick="selectOption(this, 'q16', 3, 'good')">
+            <div class="option" onclick="selectOption(this,'q20',3,'good')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Sí, tenemos póliza de ciberriesgo</div>
-                <div class="option-desc">Cubrimos pérdidas por incidentes digitales</div>
+                <div class="option-title">Podríamos operar con procesos manuales sin mayor problema</div>
+                <div class="option-desc">Tenemos alternativas y no dependemos 100% de los sistemas</div>
               </div>
-              <span class="option-score score-good">+3 pts</span>
+              <span class="option-score score-good">Resiliente</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q16', 1, 'mid')">
+            <div class="option" onclick="selectOption(this,'q20',1,'mid')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">Lo estamos evaluando</div>
-                <div class="option-desc">Sabemos que existe pero no lo hemos contratado</div>
+                <div class="option-title">Sería complicado pero podríamos sobrevivir el día</div>
+                <div class="option-desc">Impacto moderado, con dificultades pero operables</div>
               </div>
-              <span class="option-score score-mid">+1 pt</span>
+              <span class="option-score score-mid">Moderado</span>
             </div>
-            <div class="option" onclick="selectOption(this, 'q16', 0, 'bad')">
+            <div class="option" onclick="selectOption(this,'q20',0,'bad')">
               <div class="option-radio"></div>
               <div class="option-text">
-                <div class="option-title">No / no sabíamos que existía</div>
+                <div class="option-title">Sería crítico — no podríamos operar ni facturar</div>
+                <div class="option-desc">La empresa depende totalmente de sus sistemas digitales</div>
+              </div>
+              <span class="option-score score-bad">Alto impacto</span>
+            </div>
+          </div>
+          <span class="error-msg" id="err-q20">Debes seleccionar una opción</span>
+        </div>
+
+        <!-- P21 -->
+        <div class="question">
+          <div class="question-num">Pregunta 21 de 21</div>
+          <h3>¿Tienen seguro de ciberseguridad o ciberriesgo contratado?</h3>
+          <p class="hint">Una póliza de ciberriesgo puede cubrir costos de recuperación, notificación a clientes y multas legales en caso de incidente.</p>
+          <div class="options">
+            <div class="option" onclick="selectOption(this,'q21',3,'good')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Sí, tenemos una póliza de ciberriesgo activa</div>
+                <div class="option-desc">Estamos cubiertos ante pérdidas por incidentes digitales</div>
+              </div>
+              <span class="option-score score-good">Óptimo</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q21',1,'mid')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">Lo estamos evaluando / sabemos que existe</div>
+                <div class="option-desc">Está en consideración pero aún no lo hemos contratado</div>
+              </div>
+              <span class="option-score score-mid">En proceso</span>
+            </div>
+            <div class="option" onclick="selectOption(this,'q21',0,'bad')">
+              <div class="option-radio"></div>
+              <div class="option-text">
+                <div class="option-title">No / no sabíamos que existía este tipo de seguro</div>
                 <div class="option-desc">Sin cobertura ante incidentes digitales</div>
               </div>
               <span class="option-score score-bad">Sin cobertura</span>
             </div>
           </div>
+          <span class="error-msg" id="err-q21">Debes seleccionar una opción</span>
         </div>
 
-        <div class="section-divider"><span>Comentario adicional</span></div>
-
-        <div class="field field-grid full">
-          <label>¿Hay algo más que quieras contarnos sobre tu situación de seguridad?</label>
-          <textarea id="comentario" placeholder="Ej: tuvimos un incidente el año pasado, estamos creciendo rápido y queremos ordenarnos, un cliente nos pidió una certificación..."></textarea>
+        <!-- CUADRO TEXTO LIBRE -->
+        <div class="section-divider"><span>Información adicional</span></div>
+        <div class="question">
+          <h3 style="color:#0d1f3c;margin-bottom:6px;">¿Hay algo más que quieras contarnos sobre la situación tecnológica de tu empresa?</h3>
+          <p class="hint">Cualquier detalle adicional que creas relevante para el diagnóstico: sistemas específicos que usan, problemas recientes, contexto del negocio, preguntas concretas que quieras que respondamos en el informe.</p>
+          <div class="free-text-wrap">
+            <textarea id="comentario" placeholder="Ej: Usamos un sistema de gestión llamado X, tenemos una sucursal en otra ciudad, recientemente cambiamos de proveedor de internet, nos preocupa especialmente el tema de..."></textarea>
+          </div>
         </div>
 
       </div>
       <div class="form-nav">
-        <button class="btn-prev" onclick="goPrev(5)">← Anterior</button>
-        <button class="btn-submit" onclick="submitForm()">
-          <span>Enviar diagnóstico</span>
-          <span>🛡️</span>
+        <button class="btn-prev" onclick="goStep(5)">← Anterior</button>
+        <button class="btn-submit" id="btn-submit" onclick="submitForm()">
+          ⚡ Generar mi diagnóstico
         </button>
       </div>
     </div>
 
   </div><!-- /form-card -->
 
-  <!-- ══ RESULT ══ -->
+  <!-- ══ RESULTADO PRELIMINAR ══ -->
   <div id="result">
     <div class="form-card">
       <div class="result-header">
-        <div id="result-circle" class="score-circle circle-red">
-          <span id="result-pct">0%</span>
-        </div>
-        <h2 id="result-title">Tu nivel de seguridad</h2>
-        <p id="result-subtitle">Análisis basado en tus respuestas</p>
+        <div class="score-circle" id="score-circle"></div>
+        <h2 id="result-title"></h2>
+        <p id="result-subtitle"></p>
       </div>
-
       <div class="result-body">
-
-        <div class="summary-box">
-          <h4>Resumen del diagnóstico</h4>
-          <div class="summary-row"><span>Empresa</span><strong id="res-empresa">—</strong></div>
-          <div class="summary-row"><span>Contacto</span><strong id="res-contacto">—</strong></div>
-          <div class="summary-row"><span>Rubro</span><strong id="res-rubro">—</strong></div>
-          <div class="summary-row"><span>Empleados</span><strong id="res-empleados">—</strong></div>
-          <div class="summary-row"><span>Puntaje obtenido</span><strong id="res-score">—</strong></div>
-        </div>
-
-        <h3 style="font-size:0.95rem; font-weight:700; color:var(--navy); margin-bottom:16px;">Resultado por área</h3>
         <div class="areas-grid" id="areas-grid"></div>
-
-        <div class="findings-box" id="findings-box">
-          <h3>⚠️ Hallazgos prioritarios</h3>
-          <div id="findings-list"></div>
+        <div class="result-cta">
+          <h3>🎯 Tu informe profesional está en preparación</h3>
+          <p>Nuestro equipo analizará tus respuestas y preparará un informe detallado con hallazgos priorizados, plan de acción concreto y recomendaciones alineadas con la Ley 21.719 y el estándar NIST CSF v2.0.</p>
+          <p style="color:rgba(255,255,255,0.9);font-weight:700;margin-top:8px;">📩 Recibirás tu informe en <strong>24 horas hábiles</strong> en tu correo.</p>
         </div>
-
         <div class="next-steps">
-          <h3>📋 ¿Qué sigue?</h3>
+          <h4>¿Qué pasa ahora?</h4>
           <div class="step-item">
             <div class="step-num-small">1</div>
-            <p><strong>Recibirás un correo de confirmación</strong> en los próximos minutos con un resumen de tus respuestas.</p>
+            <p><strong>Análisis experto:</strong> Un especialista en ciberseguridad revisará tus respuestas y preparará un informe personalizado para tu empresa.</p>
           </div>
           <div class="step-item">
             <div class="step-num-small">2</div>
-            <p><strong>En 24 horas hábiles</strong> recibirás tu informe completo de diagnóstico con análisis detallado, riesgos priorizados y plan de acción.</p>
+            <p><strong>Informe en 24 horas:</strong> Recibirás un PDF con hallazgos priorizados, nivel de riesgo por área y un plan de acción concreto.</p>
           </div>
           <div class="step-item">
             <div class="step-num-small">3</div>
-            <p><strong>Te contactaremos</strong> para agendar una llamada de 30 minutos y resolver tus dudas sin costo adicional.</p>
+            <p><strong>Consulta incluida:</strong> Puedes escribirnos por WhatsApp o correo si tienes dudas sobre el informe. <a href="https://wa.me/56981307440" target="_blank" style="color:var(--blue)">+56 9 8130 7440</a></p>
           </div>
         </div>
-
-        <div class="result-cta">
-          <h3>Tu informe está en camino 🎯</h3>
-          <p>¿Tienes urgencia? Escríbenos directamente por WhatsApp y lo coordinamos hoy mismo.</p>
-          <div class="cta-buttons">
-            <a href="https://wa.me/56981307440?text=Hola%2C%20acabo%20de%20completar%20el%20diagn%C3%B3stico%20express%20de%20vCISO.cl%20y%20quisiera%20coordinar%20mi%20informe." class="btn-cta-white" target="_blank">
-              💬 WhatsApp directo
-            </a>
-            <a href="/" class="btn-cta-outline">
-              ← Volver al sitio
-            </a>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
 
 </div><!-- /form-wrap -->
 
+<footer class="vciso-footer" role="contentinfo" style="background:#080f1e;padding:40px 5% 24px;margin-top:0;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;">
+    <div>
+      <a href="/" style="font-size:1.4rem;font-weight:900;color:#fff;text-decoration:none;display:block;margin-bottom:8px;">v<span style="color:#f47c47">CISO</span>.cl</a>
+      <p style="font-size:0.85rem;color:#94a3b8;line-height:1.65;">Ciberseguridad profesional para PYMEs chilenas. Servicios 100% remotos, sin contratos largos.</p>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:5px;">
+        <a href="mailto:contacto@vciso.cl" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">✉ contacto@vciso.cl</a>
+        <a href="https://wa.me/56981307440" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">💬 WhatsApp +56 9 8130 7440</a>
+        <a href="https://www.vciso.cl" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">🌐 www.vciso.cl</a>
+      </div>
+    </div>
+    <div>
+      <h4 style="font-size:0.8rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Servicios</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li><a href="/vciso_dominio_scanner.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Scanner de Dominio</a></li>
+        <li><a href="/vciso_politicas_checkout.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Generador de Políticas</a></li>
+        <li><a href="/vciso_checkout.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Diagnóstico Express</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-size:0.8rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Empresa</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li><a href="/#como-funciona" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Cómo funciona</a></li>
+        <li><a href="/#precios" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Precios</a></li>
+        <li><a href="/vciso_informe_ejemplo.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Ejemplo de informe</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-size:0.8rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Legal</h4>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+        <li><a href="/privacidad.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Política de Privacidad</a></li>
+        <li><a href="/terminos.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Términos de servicio</a></li>
+        <li><a href="/ley-21719.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Ley 21.719</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <p style="font-size:0.78rem;color:#94a3b8;">© 2026 vCISO.cl · Todos los derechos reservados · Santiago, Chile · 🧾 Boletas de honorarios electrónicas SII</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:0.72rem;background:rgba(255,255,255,0.05);color:#94a3b8;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);">🔒 NIST CSF v2.0</span>
+      <span style="font-size:0.72rem;background:rgba(255,255,255,0.05);color:#94a3b8;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);">🇨🇱 Ley 21.719</span>
+    </div>
+  </div>
+</footer>
+
 <script>
-  // ── State ──
-  const answers = {};
-  let currentStep = 1;
-  const totalSteps = 5;
+// ── Estado ────────────────────────────────────────────────────────────────
+const answers     = {};
+let currentStep   = 1;
+const totalSteps  = 6;
 
-  const stepLabels = [
-    'Paso 1 de 5 — Datos de tu empresa',
-    'Paso 2 de 5 — Accesos e identidades',
-    'Paso 3 de 5 — Datos e infraestructura',
-    'Paso 4 de 5 — Amenazas y proveedores',
-    'Paso 5 de 5 — Normativa y políticas'
-  ];
+const stepLabels = [
+  'Paso 1 de 6 — Datos de tu empresa',
+  'Paso 2 de 6 — Accesos y contraseñas',
+  'Paso 3 de 6 — Equipos y red',
+  'Paso 4 de 6 — Datos e información',
+  'Paso 5 de 6 — Amenazas y proveedores',
+  'Paso 6 de 6 — Normativa y continuidad',
+];
 
-  // ── Select option ──
-  function selectOption(el, qKey, score, level) {
-    const parent = el.closest('.question');
-    parent.querySelectorAll('.option').forEach(o => {
-      o.classList.remove('selected','selected-good','selected-mid','selected-bad');
-    });
-    const cls = level === 'good' ? 'selected-good' : level === 'mid' ? 'selected-mid' : 'selected-bad';
-    el.classList.add(cls);
-    answers[qKey] = { score, level };
-  }
+const AREAS = [
+  { id:'accesos',   label:'Accesos y contraseñas', qs:['q1','q2','q3','q4'],     max:12 },
+  { id:'equipos',   label:'Equipos y red',         qs:['q5','q6','q7','q8'],     max:12 },
+  { id:'datos',     label:'Datos e información',   qs:['q9','q10','q11','q12'],  max:12 },
+  { id:'amenazas',  label:'Amenazas y proveedores',qs:['q13','q14','q15','q16'], max:12 },
+  { id:'normativa', label:'Normativa y continuidad',qs:['q17','q18','q19','q20','q21'], max:15 },
+];
 
-  // ── Validate step 1 ──
-  function validateStep1() {
-    let ok = true;
-    const fields = [
-      { id:'empresa', err:'err-empresa', type:'text' },
-      { id:'rubro',   err:'err-rubro',   type:'select' },
-      { id:'empleados',err:'err-empleados',type:'select'},
-      { id:'nombre',  err:'err-nombre',  type:'text' },
-      { id:'cargo',   err:'err-cargo',   type:'text' },
-      { id:'email',   err:'err-email',   type:'email' },
-      { id:'telefono',err:'err-telefono',type:'text' },
-    ];
-    fields.forEach(f => {
-      const el  = document.getElementById(f.id);
-      const err = document.getElementById(f.err);
-      let valid = true;
-      if (f.type === 'email') {
-        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+// ── Seleccionar opción ────────────────────────────────────────────────────
+function selectOption(el, qKey, score, level) {
+  const parent = el.closest('.question');
+  parent.querySelectorAll('.option').forEach(o => {
+    o.classList.remove('selected','selected-good','selected-mid','selected-bad');
+  });
+  const cls = level==='good' ? 'selected-good' : level==='bad' ? 'selected-bad' : 'selected-mid';
+  el.classList.add(cls);
+  answers[qKey] = { score, level };
+  const err = parent.querySelector('.error-msg');
+  if (err) err.classList.remove('visible');
+}
+
+// ── Navegar entre pasos ───────────────────────────────────────────────────
+function goStep(n) {
+  if (n > currentStep && !validateStep(currentStep)) return;
+
+  document.getElementById('step'+currentStep).classList.remove('active');
+  document.getElementById('dot'+currentStep).classList.remove('active');
+  document.getElementById('dot'+currentStep).classList.add('done');
+
+  currentStep = n;
+  document.getElementById('step'+currentStep).classList.add('active');
+  document.getElementById('dot'+currentStep).classList.remove('done');
+  document.getElementById('dot'+currentStep).classList.add('active');
+
+  // Actualizar progress
+  const pct = Math.round((n / totalSteps) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('step-pct').textContent = pct + '%';
+  document.getElementById('step-label').textContent = stepLabels[n-1];
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Validar paso ──────────────────────────────────────────────────────────
+function validateStep(step) {
+  let ok = true;
+
+  if (step === 1) {
+    ['empresa','rubro','empleados','nombre','cargo','email'].forEach(id => {
+      const el  = document.getElementById(id);
+      const err = document.getElementById('err-'+id);
+      const val = el ? el.value.trim() : '';
+      if (!val || (id==='email' && !/\S+@\S+\.\S+/.test(val))) {
+        if (err) err.classList.add('visible');
+        ok = false;
       } else {
-        valid = el.value.trim() !== '';
-      }
-      el.classList.toggle('error', !valid);
-      err.classList.toggle('visible', !valid);
-      if (!valid) ok = false;
-    });
-    return ok;
-  }
-
-  // ── Validate steps 2-5 (check all questions answered) ──
-  function validateQuestions(stepNum) {
-    const qMap = { 2:['q1','q2','q3','q4'], 3:['q5','q6','q7','q8'],
-                   4:['q9','q10','q11','q12'], 5:['q13','q14','q15','q16'] };
-    const qs = qMap[stepNum];
-    const missing = qs.filter(q => !answers[q]);
-    if (missing.length > 0) {
-      alert('Por favor responde todas las preguntas antes de continuar.');
-      return false;
-    }
-    return true;
-  }
-
-  // ── Navigation ──
-  function goNext(from) {
-    if (from === 1 && !validateStep1()) return;
-    if (from > 1 && !validateQuestions(from)) return;
-    showStep(from + 1);
-  }
-
-  function goPrev(from) { showStep(from - 1); }
-
-  function showStep(n) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById('step' + n).classList.add('active');
-    currentStep = n;
-    updateProgress(n);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function updateProgress(n) {
-    const pct = Math.round((n / totalSteps) * 100);
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('step-pct').textContent = pct + '%';
-    document.getElementById('step-label').textContent = stepLabels[n-1];
-    for (let i = 1; i <= totalSteps; i++) {
-      const dot = document.getElementById('dot' + i);
-      dot.className = 'dot' + (i < n ? ' done' : i === n ? ' active' : '');
-    }
-  }
-
-  // ── Submit ──
-  function submitForm() {
-    if (!validateQuestions(5)) return;
-
-    // Calculate score
-    const qKeys = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16'];
-    const maxScore = qKeys.length * 3;
-    const totalScore = qKeys.reduce((sum, k) => sum + (answers[k]?.score || 0), 0);
-    const pct = Math.round((totalScore / maxScore) * 100);
-
-    // Areas
-    const areas = [
-      { name: 'Accesos e identidades', qs: ['q1','q2','q3','q4'], icon: '🔐' },
-      { name: 'Datos e infraestructura', qs: ['q5','q6','q7','q8'], icon: '💾' },
-      { name: 'Amenazas y proveedores', qs: ['q9','q10','q11','q12'], icon: '🎯' },
-      { name: 'Normativa y políticas',  qs: ['q13','q14','q15','q16'], icon: '⚖️' },
-    ];
-
-    const areaDescriptions = {
-      'Accesos e identidades': {
-        good: 'Buena gestión de identidades. Mantener revisiones periódicas.',
-        mid:  'Algunas brechas en control de accesos que deben cerrarse.',
-        bad:  'Brechas críticas en control de accesos. Prioridad urgente.'
-      },
-      'Datos e infraestructura': {
-        good: 'Infraestructura bien protegida. Seguir con el mantenimiento.',
-        mid:  'Respaldos y protección de datos requieren mejoras.',
-        bad:  'Sin respaldo o antivirus. Riesgo crítico de pérdida de datos.'
-      },
-      'Amenazas y proveedores': {
-        good: 'Buena gestión de amenazas externas y cadena de suministro.',
-        mid:  'Control de proveedores y respuesta a incidentes incompleto.',
-        bad:  'Sin visibilidad de amenazas ni plan ante un incidente grave.'
-      },
-      'Normativa y políticas': {
-        good: 'Buen nivel de cumplimiento y cultura de seguridad.',
-        mid:  'Políticas informales que deben documentarse y comunicarse.',
-        bad:  'Sin políticas formales ni cumplimiento de normativa vigente.'
-      }
-    };
-
-    // Populate result
-    document.getElementById('form-container').style.display = 'none';
-    document.getElementById('result').style.display = 'block';
-
-    // Score circle
-    const circle = document.getElementById('result-circle');
-    document.getElementById('result-pct').textContent = pct + '%';
-    let levelText, levelClass;
-    if (pct >= 70) {
-      circle.className = 'score-circle circle-green';
-      levelText = '✅ Nivel de seguridad aceptable';
-      levelClass = 'good';
-    } else if (pct >= 40) {
-      circle.className = 'score-circle circle-yellow';
-      levelText = '🔶 Nivel de seguridad moderado';
-      levelClass = 'mid';
-    } else {
-      circle.className = 'score-circle circle-red';
-      levelText = '⚠️ Nivel de seguridad bajo';
-      levelClass = 'bad';
-    }
-    document.getElementById('result-title').textContent = levelText;
-    document.getElementById('result-subtitle').textContent =
-      `Puntaje: ${totalScore} de ${maxScore} puntos · ${pct}% de madurez en ciberseguridad`;
-
-    // Summary
-    document.getElementById('res-empresa').textContent   = document.getElementById('empresa').value;
-    document.getElementById('res-contacto').textContent  = document.getElementById('nombre').value + ' · ' + document.getElementById('cargo').value;
-    document.getElementById('res-rubro').textContent     = document.getElementById('rubro').value;
-    document.getElementById('res-empleados').textContent = document.getElementById('empleados').value + ' empleados';
-    document.getElementById('res-score').textContent     = totalScore + ' / ' + maxScore + ' pts (' + pct + '%)';
-
-    // Areas grid
-    const grid = document.getElementById('areas-grid');
-    grid.innerHTML = '';
-    areas.forEach(area => {
-      const areaScore = area.qs.reduce((s, q) => s + (answers[q]?.score || 0), 0);
-      const areaMax   = area.qs.length * 3;
-      const areaPct   = Math.round((areaScore / areaMax) * 100);
-      const lvl = areaPct >= 70 ? 'good' : areaPct >= 40 ? 'mid' : 'bad';
-      const badgeText  = lvl === 'good' ? 'Bueno' : lvl === 'mid' ? 'Moderado' : 'Crítico';
-      const badgeClass = lvl === 'good' ? 'badge-green' : lvl === 'mid' ? 'badge-yellow' : 'badge-red';
-      const fillClass  = lvl === 'good' ? 'fill-green' : lvl === 'mid' ? 'fill-yellow' : 'fill-red';
-      const desc = areaDescriptions[area.name]?.[lvl] || '';
-
-      grid.innerHTML += `
-        <div class="area-card">
-          <div class="area-top">
-            <span class="area-name">${area.icon} ${area.name}</span>
-            <span class="area-badge ${badgeClass}">${badgeText} · ${areaPct}%</span>
-          </div>
-          <div class="area-bar">
-            <div class="area-bar-fill ${fillClass}" style="width:${areaPct}%"></div>
-          </div>
-          <p class="area-desc">${desc}</p>
-        </div>`;
-    });
-
-    // Findings
-    const findings = [];
-    const findingMap = {
-      q1: { bad: 'Sin 2FA: las cuentas son vulnerables a robo de credenciales.' },
-      q2: { bad: 'Offboarding sin control: ex-empleados pueden mantener accesos activos.' },
-      q3: { bad: 'Sin política de contraseñas: facilita ataques de fuerza bruta.' },
-      q5: { bad: 'Sin respaldo: un ransomware puede destruir todos los datos de la empresa.' },
-      q7: { bad: 'Sin antivirus activo: los equipos están expuestos a malware.' },
-      q9: { bad: 'Sin protección contra phishing: el correo es la principal puerta de entrada.' },
-      q12:{ bad: 'Sin plan de respuesta: un incidente puede paralizar la empresa por días.' },
-      q13:{ bad: 'Sin políticas documentadas: los empleados no saben qué está permitido.' },
-      q14:{ bad: 'Datos personales sin protección: riesgo de multas bajo Ley de Datos Personales.' },
-    };
-
-    qKeys.forEach(q => {
-      if (answers[q]?.level === 'bad' && findingMap[q]) {
-        findings.push(findingMap[q].bad);
+        if (err) err.classList.remove('visible');
       }
     });
-
-    const findingsList = document.getElementById('findings-list');
-    if (findings.length === 0) {
-      document.getElementById('findings-box').style.display = 'none';
-    } else {
-      findingsList.innerHTML = findings.slice(0,5).map(f =>
-        `<div class="finding-item">${f}</div>`).join('');
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Send data via mailto as fallback
-    const emailBody = encodeURIComponent(
-      `DIAGNÓSTICO EXPRESS vCISO.cl\n` +
-      `========================\n` +
-      `Empresa: ${document.getElementById('empresa').value}\n` +
-      `Contacto: ${document.getElementById('nombre').value}\n` +
-      `Cargo: ${document.getElementById('cargo').value}\n` +
-      `Email: ${document.getElementById('email').value}\n` +
-      `Teléfono: ${document.getElementById('telefono').value}\n` +
-      `Rubro: ${document.getElementById('rubro').value}\n` +
-      `Empleados: ${document.getElementById('empleados').value}\n` +
-      `Departamento TI: ${document.getElementById('dept-ti').value}\n` +
-      `\nPUNTAJE: ${totalScore}/${maxScore} (${pct}%)\n` +
-      `\nRESPUESTAS:\n` +
-      qKeys.map(q => `${q}: ${answers[q]?.score ?? 'N/A'} pts`).join('\n') +
-      `\nComentario: ${document.getElementById('comentario').value}`
-    );
-
-    // Auto-open email to notify (optional, comment out if not needed)
-    // window.open(`mailto:contacto@vciso.cl?subject=Diagnóstico Express - ${document.getElementById('empresa').value}&body=${emailBody}`);
   }
 
-  // Init
-  updateProgress(1);
-
-  // Override submitForm to also send data to backend
-  const _originalSubmit = submitForm;
-  submitForm = async function() {
-    _originalSubmit();
-    // Send data to backend after showing results
-    try {
-      const qKeys = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16'];
-      const maxScore = qKeys.length * 3;
-      const totalScore = qKeys.reduce((sum, k) => sum + (answers[k]?.score || 0), 0);
-      const pct = Math.round((totalScore / maxScore) * 100);
-
-      await fetch('/api/submit-diagnostico', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          token:      window.__accessToken || '',
-          empresa:    document.getElementById('empresa')?.value  || '',
-          contacto:   document.getElementById('nombre')?.value   || '',
-          cargo:      document.getElementById('cargo')?.value    || '',
-          email:      document.getElementById('email')?.value    || '',
-          telefono:   document.getElementById('telefono')?.value || '',
-          rubro:      document.getElementById('rubro')?.value    || '',
-          empleados:  document.getElementById('empleados')?.value || '',
-          deptTi:     document.getElementById('dept-ti')?.value  || '',
-          score:      totalScore,
-          pct,
-          respuestas: Object.fromEntries(qKeys.map(q => [q, answers[q] || {}])),
-          comentario: document.getElementById('comentario')?.value || '',
-        }),
-      });
-      console.log('Datos enviados a vCISO.cl');
-    } catch(e) {
-      console.error('Error enviando datos:', e.message);
-    }
+  // Preguntas por paso
+  const stepQs = {
+    2: ['q1','q2','q3','q4'],
+    3: ['q5','q6','q7','q8'],
+    4: ['q9','q10','q11','q12'],
+    5: ['q13','q14','q15','q16'],
+    6: ['q17','q18','q19','q20','q21'],
   };
 
-// ── TOKEN PROTECTION ────────────────────────────────────────────────────────
+  if (stepQs[step]) {
+    stepQs[step].forEach(q => {
+      const err = document.getElementById('err-'+q);
+      if (!answers[q]) {
+        if (err) err.classList.add('visible');
+        ok = false;
+      } else {
+        if (err) err.classList.remove('visible');
+      }
+    });
+  }
+
+  if (!ok) window.scrollTo({ top: 0, behavior: 'smooth' });
+  return ok;
+}
+
+// ── Calcular puntaje ──────────────────────────────────────────────────────
+function calcScore() {
+  let total = 0, maxTotal = 0;
+  AREAS.forEach(area => {
+    area.qs.forEach(q => { if (answers[q]) total += answers[q].score; });
+    maxTotal += area.max;
+  });
+  return { total, maxTotal, pct: Math.round((total/maxTotal)*100) };
+}
+
+function areaScore(area) {
+  let s = 0;
+  area.qs.forEach(q => { if (answers[q]) s += answers[q].score; });
+  return { obtenido: s, max: area.max, pct: Math.round((s/area.max)*100) };
+}
+
+// ── Mostrar resultado ─────────────────────────────────────────────────────
+function showResult(score) {
+  const { total, maxTotal, pct } = score;
+  const circle  = document.getElementById('score-circle');
+  const title   = document.getElementById('result-title');
+  const subtitle= document.getElementById('result-subtitle');
+  const grid    = document.getElementById('areas-grid');
+
+  let nivel, cls;
+  if      (pct >= 75) { nivel='Avanzado';   cls='circle-green';  }
+  else if (pct >= 50) { nivel='Intermedio'; cls='circle-yellow'; }
+  else if (pct >= 25) { nivel='Básico';     cls='circle-yellow'; }
+  else                { nivel='Crítico';    cls='circle-red';     }
+
+  circle.className  = 'score-circle ' + cls;
+  circle.textContent = pct + '%';
+  title.textContent  = `Nivel de madurez: ${nivel}`;
+  subtitle.textContent = `${total} de ${maxTotal} puntos · Tu informe detallado llegará en 24 horas hábiles`;
+
+  // Grid de áreas
+  grid.innerHTML = '';
+  AREAS.forEach(area => {
+    const d = areaScore(area);
+    let badgeCls, fillCls;
+    if      (d.pct >= 75) { badgeCls='badge-green';  fillCls='fill-green';  }
+    else if (d.pct >= 40) { badgeCls='badge-yellow'; fillCls='fill-yellow'; }
+    else                  { badgeCls='badge-red';    fillCls='fill-red';    }
+
+    const lvl = d.pct >= 75 ? 'Bueno' : d.pct >= 40 ? 'Mejorable' : 'Crítico';
+
+    grid.innerHTML += `
+      <div class="area-card">
+        <div class="area-top">
+          <span class="area-name">${area.label}</span>
+          <span class="area-badge ${badgeCls}">${lvl}</span>
+        </div>
+        <div style="font-size:0.78rem;color:#64748b;margin-bottom:7px;">${d.obtenido}/${d.max} puntos (${d.pct}%)</div>
+        <div class="area-bar"><div class="area-bar-fill ${fillCls}" style="width:${d.pct}%"></div></div>
+      </div>`;
+  });
+
+  // Ocultar wizard, mostrar resultado
+  document.getElementById('form-container').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Enviar formulario ─────────────────────────────────────────────────────
+async function submitForm() {
+  if (!validateStep(6)) return;
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = '⏳ Enviando...';
+
+  const score = calcScore();
+
+  // Recopilar datos del paso 1
+  const datos = {
+    empresa:   document.getElementById('empresa').value.trim(),
+    rut:       document.getElementById('rut').value.trim(),
+    rubro:     document.getElementById('rubro').value,
+    empleados: document.getElementById('empleados').value,
+    deptTI:    document.getElementById('dept-ti').value,
+    web:       document.getElementById('web').value,
+    nombre:    document.getElementById('nombre').value.trim(),
+    cargo:     document.getElementById('cargo').value.trim(),
+    email:     document.getElementById('email').value.trim(),
+    telefono:  document.getElementById('telefono').value.trim(),
+    comentario:document.getElementById('comentario').value.trim(),
+  };
+
+  // Preparar respuestas
+  const respuestas = {};
+  Object.keys(answers).forEach(q => { respuestas[q] = answers[q].score; });
+
+  const payload = {
+    token:      window.__accessToken || '',
+    datos,
+    respuestas,
+    puntaje:    score.total,
+    maxPuntaje: score.maxTotal,
+    porcentaje: score.pct,
+    areas: AREAS.map(a => ({ ...a, ...areaScore(a) })),
+  };
+
+  try {
+    const resp = await fetch('/api/submit-diagnostico', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (resp.ok) {
+      showResult(score);
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = '⚡ Generar mi diagnóstico';
+      alert('Hubo un error al enviar. Por favor intenta de nuevo o escríbenos a contacto@vciso.cl');
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.innerHTML = '⚡ Generar mi diagnóstico';
+    alert('Error de conexión. Por favor intenta de nuevo.');
+  }
+}
+
+// ── Validar token ─────────────────────────────────────────────────────────
 (async function() {
   const params = new URLSearchParams(window.location.search);
   const token  = params.get('token');
 
   if (!token) {
-    showAccessDenied('Para acceder al formulario necesitas un link de acceso válido.<br/>Si ya realizaste el pago, revisa tu email.');
+    showAccessDenied('Para acceder al formulario necesitas un link de acceso válido.<br/>Si ya realizaste el pago, revisa tu correo electrónico.');
     return;
   }
 
@@ -1976,12 +1620,11 @@
       showAccessDenied('Tu link de acceso ha expirado o no es válido.<br/>Escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#f47c47">contacto@vciso.cl</a> y te enviamos uno nuevo.');
       return;
     }
-    // Token válido — mostrar formulario y guardar token
     window.__accessToken = token;
     document.getElementById('form-container').style.display = 'block';
     document.getElementById('access-denied').style.display  = 'none';
   } catch(e) {
-    showAccessDenied('Error verificando acceso. Intenta recargar la página.');
+    showAccessDenied('Error verificando acceso. Por favor recarga la página.');
   }
 })();
 
@@ -1991,58 +1634,7 @@ function showAccessDenied(msg) {
   div.style.display = 'flex';
   div.querySelector('.denied-msg').innerHTML = msg;
 }
-
 </script>
 
-
-
-<footer class="vciso-footer" role="contentinfo">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <span class="logo-f">v<span>CISO</span>.cl</span>
-      <p>Ciberseguridad profesional para PYMEs chilenas. Servicios 100% remotos, sin contratos largos.
-         Diagnóstico, cumplimiento Ley 21.719 y políticas TI con respaldo de IA.</p>
-      <div class="contact-links">
-        <a href="mailto:contacto@vciso.cl">✉️ contacto@vciso.cl</a>
-        <a href="https://wa.me/56981307440" target="_blank" rel="noopener">💬 WhatsApp +56 9 8130 7440</a>
-        <a href="https://www.vciso.cl">🌐 www.vciso.cl</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Servicios</h4>
-      <ul>
-        <li><a href="/scanner-dominio">Scanner de Dominio <span class="chip chip-green" style="font-size:0.65rem;padding:2px 7px">Gratis</span></a></li>
-        <li><a href="/politicas-seguridad">Generador de Políticas</a></li>
-        <li><a href="/diagnostico-ciberseguridad">Diagnóstico Express</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Empresa</h4>
-      <ul>
-        <li><a href="/#como-funciona">Cómo funciona</a></li>
-        <li><a href="/#precios">Precios</a></li>
-        <li><a href="/ejemplo-informe">Ejemplo de informe</a></li>
-        <li><a href="mailto:contacto@vciso.cl">Contacto</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="#">Política de Privacidad</a></li>
-        <li><a href="#">Términos de servicio</a></li>
-        <li><a href="#">Ley 21.719</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 vCISO.cl · Todos los derechos reservados · Santiago, Chile · 🧾 Boletas de honorarios electrónicas SII</p>
-    <div class="footer-badges">
-      <span class="badge-f">🔒 NIST CSF v2.0</span>
-      <span class="badge-f">🇨🇱 Ley 21.719</span>
-      <span class="badge-f">🤖 IA potenciado</span>
-      <span class="badge-f">🏦 Exp. banca &amp; AFP</span>
-    </div>
-  </div>
-</footer>
-
-</body></html>
+</body>
+</html>
