@@ -5,7 +5,7 @@ const fetch  = require('node-fetch');
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
   AlignmentType, HeadingLevel, BorderStyle, WidthType, ShadingType,
-  VerticalAlign, PageBreak, Header, FooterF
+  VerticalAlign, PageBreak
 } = require('docx');
 
 const DOWNLOAD_SECRET = process.env.DOWNLOAD_SECRET || 'vciso2026supersecreto';
@@ -202,7 +202,7 @@ IMPORTANTE:
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
-      model:      'claude-sonnet-4-20250514',
+      model:      'claude-haiku-4-5-20251001',
       max_tokens: 4000,
       system: `Eres un experto en ciberseguridad con más de 20 años de experiencia, especializado en PYMEs chilenas. 
 Tienes certificaciones en NIST CSF v2.0 e ISO 27001, y conocimiento profundo de la Ley 21.719 de Protección de Datos Personales de Chile.
@@ -222,8 +222,7 @@ Principios que siempre sigues:
   });
 
   const data = await resp.json();
-  console.log('Anthropic response:', JSON.stringify(data));
-if (!data.content || !data.content[0]) throw new Error('Claude no respondió: ' + JSON.stringify(data));
+  if (!data.content || !data.content[0]) throw new Error('Claude no respondió');
 
   const texto = data.content[0].text.trim();
   // Limpiar posibles bloques markdown
@@ -547,30 +546,6 @@ async function generarWord(datos, respuestas, puntaje, maxPuntaje, porcentaje, a
           margin:{ top:1080, right:1260, bottom:1080, left:1260 }
         }
       },
-      headers:{
-        default: new Header({ children:[
-          new Paragraph({
-            alignment:AlignmentType.RIGHT,
-            border:{ bottom:{ style:BorderStyle.SINGLE, size:4, color:ORANGE, space:4 } },
-            spacing:{ before:0, after:120 },
-            children:[
-              t("v",{bold:true,size:18,color:NAVY}),
-              t("CISO",{bold:true,size:18,color:ORANGE}),
-              t(`.cl  ·  Diagnóstico Express  ·  ${datos.empresa}  ·  ${fecha}`,{size:18,color:GRAY_TX}),
-            ]
-          })
-        ]})
-      },
-      footers:{
-        default: new Footer({ children:[
-          new Paragraph({
-            alignment:AlignmentType.CENTER,
-            border:{ top:{ style:BorderStyle.SINGLE, size:4, color:"CCCCCC", space:4 } },
-            spacing:{ before:80, after:0 },
-            children:[t("Confidencial · vCISO.cl · contacto@vciso.cl · www.vciso.cl · +56 9 8130 7440",{size:16,color:GRAY_TX})]
-          })
-        ]})
-      },
       children,
     }]
   });
@@ -625,8 +600,6 @@ module.exports = async (req, res) => {
   try {
     // 1. Llamar a Claude
     console.log('Llamando a Claude API...');
-    console.log('API KEY existe:', !!ANTHROPIC_KEY);
-    console.log('API KEY inicio:', ANTHROPIC_KEY ? ANTHROPIC_KEY.substring(0,15) : 'NULL');
     let analisis;
     try {
       analisis = await llamarClaude(
