@@ -260,7 +260,7 @@
   .chip-yellow{ background: var(--yellow-pale); color: #fcd34d; border: 1px solid rgba(245,158,11,0.25); }
   .chip-blue  { background: var(--blue-pale);   color: #93c5fd; border: 1px solid rgba(42,109,223,0.25); }
 
-  /* ── INPUTS ── */
+  /* ── INPUTS GLOBALES (fuera del wizard) ── */
   input, select, textarea {
     width: 100%; background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.12);
@@ -269,13 +269,30 @@
     transition: border-color var(--transition), box-shadow var(--transition);
     outline: none;
   }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--blue-lt);
-    box-shadow: 0 0 0 3px rgba(42,109,223,0.15);
-  }
   input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
   select option { background: var(--navy-mid); color: var(--white); }
   label { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; display: block; }
+
+  /* ── INPUTS DENTRO DEL WIZARD — sobreescribe todo lo anterior ── */
+  .form-card input, .form-card select, .form-card textarea {
+    background: #ffffff !important;
+    border: 2px solid #cbd5e0 !important;
+    color: #2d3748 !important;
+    border-radius: 8px !important;
+    padding: 11px 14px !important;
+    font-size: 0.9rem !important;
+    width: 100% !important;
+    box-shadow: none !important;
+  }
+  .form-card input:focus, .form-card select:focus, .form-card textarea:focus {
+    border-color: #1e4fad !important;
+    box-shadow: 0 0 0 3px rgba(30,79,173,0.12) !important;
+  }
+  .form-card input::placeholder, .form-card textarea::placeholder {
+    color: #718096 !important;
+  }
+  .form-card select option { background: white !important; color: #2d3748 !important; }
+  .form-card label { color: #0d1f3c !important; font-weight: 600 !important; }
 
   /* ── PROGRESS ── */
   .progress-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
@@ -319,7 +336,7 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--gray-50);
+      background: var(--navy);
       color: var(--gray-700);
       min-height: 100vh;
     }
@@ -386,11 +403,11 @@
 
     .progress-label {
       font-size: 0.82rem; font-weight: 700;
-      color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 0.05em;
     }
 
     .progress-pct {
-      font-size: 0.82rem; font-weight: 700; color: var(--blue);
+      font-size: 0.82rem; font-weight: 700; color: var(--orange-lt);
     }
 
     .progress-bar {
@@ -425,7 +442,7 @@
     .dot.done { background: var(--green); }
 
     .dot-label {
-      font-size: 0.68rem; color: var(--gray-500);
+      font-size: 0.68rem; color: rgba(255,255,255,0.55);
       text-align: center; white-space: nowrap;
     }
 
@@ -480,32 +497,41 @@
 
     .field { display: flex; flex-direction: column; gap: 6px; }
 
-    .field label {
-      font-size: 0.85rem; font-weight: 600; color: var(--navy);
+    .form-card .field label {
+      font-size: 0.85rem !important; font-weight: 600 !important; color: var(--navy) !important;
     }
 
-    .field input,
-    .field select,
-    .field textarea {
-      border: 2px solid var(--gray-100);
-      border-radius: 8px;
-      padding: 11px 14px;
-      font-size: 0.9rem; font-family: 'Inter', sans-serif;
-      color: var(--gray-700);
-      background: white;
-      transition: border-color 0.2s;
-      outline: none;
+    .form-card .field input,
+    .form-card .field select,
+    .form-card .field textarea {
+      border: 2px solid var(--gray-300) !important;
+      border-radius: 8px !important;
+      padding: 11px 14px !important;
+      font-size: 0.9rem !important;
+      font-family: 'Inter', sans-serif !important;
+      color: var(--gray-700) !important;
+      background: white !important;
+      transition: border-color 0.2s !important;
+      outline: none !important;
+      width: 100% !important;
+      box-shadow: none !important;
     }
 
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      border-color: var(--blue);
+    .form-card .field input:focus,
+    .form-card .field select:focus,
+    .form-card .field textarea:focus {
+      border-color: var(--blue) !important;
+      box-shadow: 0 0 0 3px rgba(30,79,173,0.12) !important;
     }
 
-    .field input.error,
-    .field select.error {
-      border-color: var(--red);
+    .form-card .field input.error,
+    .form-card .field select.error {
+      border-color: var(--red) !important;
+    }
+
+    .form-card .field input::placeholder,
+    .form-card .field textarea::placeholder {
+      color: var(--gray-500) !important;
     }
 
     .error-msg {
@@ -542,7 +568,7 @@
 
     .option {
       display: flex; align-items: flex-start; gap: 14px;
-      border: 2px solid var(--gray-100);
+      border: 2px solid var(--gray-300);
       border-radius: 10px; padding: 14px 16px;
       cursor: pointer;
       transition: all 0.15s;
@@ -630,7 +656,7 @@
     .form-nav {
       display: flex; justify-content: space-between; align-items: center;
       padding: 24px 32px;
-      border-top: 1px solid var(--gray-100);
+      border-top: 1px solid var(--gray-300);
       background: var(--gray-50);
     }
 
@@ -696,7 +722,7 @@
     }
 
     .area-card {
-      border: 1px solid var(--gray-100);
+      border: 1px solid var(--gray-300);
       border-radius: 10px; padding: 16px;
     }
 
