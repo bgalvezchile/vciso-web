@@ -203,7 +203,7 @@ IMPORTANTE:
     },
     body: JSON.stringify({
       model:      'claude-haiku-4-5-20251001',
-      max_tokens: 4000,
+      max_tokens: 16000,
       system: `Eres un experto en ciberseguridad con más de 20 años de experiencia, especializado en PYMEs chilenas. 
 Tienes certificaciones en NIST CSF v2.0 e ISO 27001, y conocimiento profundo de la Ley 21.719 de Protección de Datos Personales de Chile.
 
