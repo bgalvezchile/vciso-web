@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "node-fetch": "2.7.0",
+    "docx": "9.6.1"
+  }
+}
