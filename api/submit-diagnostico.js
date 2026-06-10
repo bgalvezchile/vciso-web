@@ -233,25 +233,30 @@ IMPORTANTE — REGLAS DE PERSONALIZACIÓN:
     body: JSON.stringify({
       model:      'claude-haiku-4-5-20251001',
       max_tokens: 16000,
-      system: `Eres un consultor senior en ciberseguridad con más de 20 años de experiencia, especializado en PYMEs chilenas. Tienes certificaciones en NIST CSF v2.0 e ISO 27001, y conocimiento profundo de la legislación chilena vigente.
+      system: `Eres un consultor senior en ciberseguridad con más de 20 años de experiencia, especializado en PYMEs chilenas. Tienes certificaciones en NIST CSF v2.0 e ISO 27001 y conocimiento profundo de la legislación chilena vigente.
 
-CONOCIMIENTO NORMATIVO CRÍTICO:
-- Ley 21.719 de Protección de Datos Personales: vigencia plena desde el 1 de diciembre de 2026. Actualmente en período de adecuación. El organismo competente es la "Agencia de Protección de Datos Personales" — NUNCA digas "Superintendencia de Privacidad".
-- Ley 21.663 Marco de Ciberseguridad: aplica principalmente a servicios esenciales y Operadores de Importancia Vital. NO aplica directamente a PYMEs comunes como retail, peluquerías, construcción, etc.
-- NIST SP 800-63B: NO recomienda cambio periódico fijo de contraseñas. Recomienda contraseñas largas, únicas, gestor corporativo y 2FA.
+CONOCIMIENTO NORMATIVO:
+- Ley 21.719: vigencia plena desde el 1 de diciembre de 2026. Organismo competente: "Agencia de Protección de Datos Personales". NUNCA digas "Superintendencia de Privacidad".
+- Ley 21.663: marco general de ciberseguridad chileno. Solo aplica directamente a servicios esenciales y Operadores de Importancia Vital (OIV). Para PYMEs comunes, mencionarla solo como referencia de marco normativo general.
+- NIST SP 800-63B: NO recomendar cambio periódico fijo de contraseñas. Recomendar contraseñas largas únicas (mínimo 12 caracteres), gestor corporativo y 2FA.
 - NIST CSF v2.0: 6 funciones — Govern, Identify, Protect, Detect, Respond, Recover.
 
-REGLAS DE CONTENIDO ESTRICTAS:
+TONO Y PRECISIÓN — REGLAS ESTRICTAS:
 - SIEMPRE referirte a la empresa por su nombre completo, NUNCA por el nombre de una persona.
-- NUNCA recomendar cambio de contraseña cada 90 días. Recomendar en cambio: contraseñas largas únicas (mínimo 12 caracteres), gestor de contraseñas y 2FA.
-- Para Ley 21.719: usar "riesgo de incumplimiento futuro" o "brecha frente a obligaciones exigibles bajo Ley 21.719 a partir del 1 de diciembre de 2026". NUNCA decir que ya están incumpliendo.
-- Para Ley 21.663: solo mencionar si la empresa presta servicios esenciales. Para PYMEs comunes NO aplica directamente.
-- Evitar lenguaje alarmista: no usar "violación directa", "riesgo muy alto", "incumplimiento grave". Usar: "área crítica de mejora", "exposición significativa", "riesgo relevante a corregir".
-- Siempre incluir al menos un hallazgo relacionado con la función Detect del NIST CSF (monitoreo, alertas, detección de amenazas, filtros anti-phishing).
-- Respaldos: siempre incluir automatización, copia externa y prueba de restauración periódica.
-- Tono constructivo: siempre existe un camino de mejora alcanzable y concreto.
-- Responde SIEMPRE en español chileno formal.
-- Cuando generas JSON, devuelves SOLO el JSON válido, sin texto adicional, sin bloques markdown.`,
+- Lenguaje profesional, claro y práctico. NUNCA alarmista. Evitar frases absolutas como "responsabilidad legal inmediata", "incumplimiento directo", "violación de la ley", "demandas inevitables", "pérdida irreversible". Reemplazar por: "podría generar", "puede aumentar la exposición a", "representa una brecha frente a buenas prácticas", "dependiendo del tipo de incidente".
+- No emitir conclusiones jurídicas. Las referencias legales son marcos de referencia, no certificaciones ni dictámenes de cumplimiento.
+- Para Ley 21.719: identificar brechas de preparación usando frases como "podría representar un riesgo de cumplimiento una vez aplicables las obligaciones" o "se recomienda validación con asesoría legal especializada". NUNCA afirmar que ya están incumpliendo.
+- Para Ley 21.663: mencionar solo como marco chileno general. No afirmar que la empresa es OIV ni prestadora de servicios esenciales salvo que el cliente lo haya declarado expresamente.
+- Los hallazgos son inferidos del cuestionario: usar frases como "según las respuestas proporcionadas", "con la información disponible", "se recomienda validar técnicamente".
+- NO inventar sistemas, proveedores ni herramientas específicas que el cliente no haya mencionado. Si no se conoce la herramienta, escribir "plataforma o sistema según corresponda".
+- NO usar estadísticas específicas sin fuente. Preferir "una causa frecuente", "un vector habitual", "un riesgo común en PYMEs".
+- Recomendaciones proporcionales al tamaño, rubro y recursos de la empresa. Priorizar acciones de bajo costo y rápida implementación.
+- Para empresas remotas: no asumir oficina ni red física. Redactar condicionalmente: "si existe oficina o red compartida...". Para trabajo remoto recomendar redes domésticas protegidas, WPA2/WPA3 y separación de dispositivos.
+- En conclusiones: no prometer resultados garantizados. Usar "podría mejorar significativamente", "ayudaría a reducir la exposición", "contribuye a fortalecer la postura de seguridad", siempre condicionado a implementación efectiva.
+- Siempre incluir al menos un hallazgo de la función Detect del NIST CSF (monitoreo, alertas, detección de amenazas).
+- Antes de finalizar: revisar consistencia entre rubro, modalidad de trabajo, tamaño y recomendaciones. Si una recomendación puede no aplicar, redactarla como condicional.
+- Responder SIEMPRE en español chileno formal.
+- Devolver SOLO el JSON válido, sin texto adicional ni bloques markdown.`,
       messages: [{ role: 'user', content: userPrompt }],
     }),
   });
@@ -657,19 +662,19 @@ async function generarWord(datos, respuestas, puntaje, maxPuntaje, porcentaje, a
 
   const disclaimerArticulos = [
     ["1. Naturaleza del servicio.",
-     "El presente informe fue elaborado por vCISO.cl, empresa de consultoria en ciberseguridad con domicilio en Santiago de Chile. Constituye una asesoria de orientacion general basada exclusivamente en las respuestas del cliente al cuestionario de diagnostico. No constituye auditoria tecnica, prueba de penetracion, analisis forense ni evaluacion exhaustiva de sistemas o procesos. Este informe fue elaborado con asistencia de inteligencia artificial y revisado por un consultor humano antes de su entrega."],
+     "El presente informe fue elaborado por vCISO.cl, empresa de consultoría en ciberseguridad con domicilio en Santiago de Chile. Constituye una asesoría de orientación general basada exclusivamente en las respuestas del cliente al cuestionario de diagnóstico. No constituye auditoría técnica, prueba de penetración, análisis forense ni evaluación exhaustiva de sistemas o procesos. Este informe fue elaborado con asistencia de inteligencia artificial y revisado por un consultor humano antes de su entrega."],
     ["2. Alcance y limitaciones.",
-     "Las recomendaciones son de caracter referencial e informativo. vCISO.cl no garantiza que su implementacion elimine todos los riesgos existentes ni aquellos no identificados. La informacion del cliente es la unica base del analisis, siendo responsabilidad exclusiva del cliente su veracidad e integridad, conforme al articulo 1546 del Codigo Civil de Chile. Este informe no garantiza cumplimiento normativo con Ley 21.719, ISO 27001, NIST CSF ni ningun otro estandar o regulacion."],
-    ["3. Limitacion de responsabilidad.",
-     "En conformidad con los articulos 1547 y 1558 del Codigo Civil de Chile, vCISO.cl limita su responsabilidad a danos directos consecuencia inmediata del incumplimiento de sus obligaciones como consultor. vCISO.cl no sera responsable por danos indirectos, lucro cesante, perdida de datos, interrupcion de operaciones, danos reputacionales, ni perjuicios derivados de la no implementacion, implementacion parcial o incorrecta de las recomendaciones."],
+     "Las recomendaciones son de carácter referencial e informativo. vCISO.cl no garantiza que su implementación elimine todos los riesgos existentes ni aquellos no identificados. La información del cliente es la única base del análisis, siendo responsabilidad exclusiva del cliente su veracidad e integridad, conforme al artículo 1546 del Código Civil de Chile. Este informe no garantiza cumplimiento normativo con Ley 21.719, ISO 27001, NIST CSF ni ningún otro estándar o regulación."],
+    ["3. Limitación de responsabilidad.",
+     "En conformidad con los artículos 1547 y 1558 del Código Civil de Chile, vCISO.cl limita su responsabilidad a daños directos consecuencia inmediata del incumplimiento de sus obligaciones como consultor. vCISO.cl no será responsable por daños indirectos, lucro cesante, pérdida de datos, interrupción de operaciones, daños reputacionales, ni perjuicios derivados de la no implementación, implementación parcial o incorrecta de las recomendaciones."],
     ["4. Responsabilidad del cliente.",
-     "La decision de implementar, modificar o descartar las recomendaciones es de exclusiva responsabilidad de la organizacion contratante y su representante legal. vCISO.cl no asume responsabilidad por las consecuencias de dicha decision, conforme al principio de autonomia de la voluntad del articulo 1545 del Codigo Civil de Chile."],
-    ["5. No constituye asesoria legal.",
-     "Este informe no constituye asesoria juridica. Las referencias a normativas legales son de caracter informativo y orientador. Para asesoria legal especifica, la organizacion debe consultar a un abogado habilitado."],
+     "La decisión de implementar, modificar o descartar las recomendaciones es de exclusiva responsabilidad de la organización contratante y su representante legal. vCISO.cl no asume responsabilidad por las consecuencias de dicha decisión, conforme al principio de autonomía de la voluntad del artículo 1545 del Código Civil de Chile."],
+    ["5. No constituye asesoría legal.",
+     "Este informe no constituye asesoría jurídica. Las referencias a normativas legales son de carácter informativo y orientador. Para asesoría legal específica, la organización debe consultar a un abogado habilitado."],
     ["6. Confidencialidad.",
-     "Este informe es estrictamente confidencial y fue preparado exclusivamente para la organizacion indicada en la portada. Queda prohibida su reproduccion, distribucion o divulgacion a terceros sin autorizacion escrita de vCISO.cl."],
-    ["7. Sin relacion de dependencia.",
-     "Este informe no establece relacion laboral, societaria ni de representacion legal entre vCISO.cl y la organizacion contratante."],
+     "Este informe es estrictamente confidencial y fue preparado exclusivamente para la organización indicada en la portada. Queda prohibida su reproducción, distribución o divulgación a terceros sin autorización escrita de vCISO.cl."],
+    ["7. Sin relación de dependencia.",
+     "Este informe no establece relación laboral, societaria ni de representación legal entre vCISO.cl y la organización contratante."],
   ];
 
   disclaimerArticulos.forEach(([titulo, texto]) => {
@@ -839,6 +844,19 @@ module.exports = async (req, res) => {
         <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:6px">Comentario del cliente</div>
         <div style="color:rgba(255,255,255,0.7);font-size:0.88rem;font-style:italic">"${datosNormalizados.comentario}"</div>
       </div>` : ''}
+
+      <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:14px;margin-bottom:20px;border-left:3px solid ${datosNormalizados.tipoDocumento === 'factura' ? '#f59e0b' : '#22c55e'}">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">📄 Documento tributario requerido</div>
+        ${datosNormalizados.tipoDocumento === 'factura' ? `
+        <div style="font-size:0.9rem;color:#fcd34d;font-weight:700;margin-bottom:8px">⚠️ FACTURA ELECTRÓNICA</div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+          <tr><td style="color:rgba(255,255,255,0.5);padding:3px 0;width:130px">RUT empresa</td><td style="color:#fff">${datosNormalizados.rutEmpresa || '—'}</td></tr>
+          <tr><td style="color:rgba(255,255,255,0.5);padding:3px 0">Razón social</td><td style="color:#fff">${datosNormalizados.razonSocial || '—'}</td></tr>
+          <tr><td style="color:rgba(255,255,255,0.5);padding:3px 0">Giro</td><td style="color:#fff">${datosNormalizados.giroComercial || '—'}</td></tr>
+          <tr><td style="color:rgba(255,255,255,0.5);padding:3px 0">Email factura</td><td style="color:#fff">${datosNormalizados.emailFactura || '—'}</td></tr>
+        </table>` : `
+        <div style="font-size:0.88rem;color:#86efac">✅ Boleta electrónica — emitir a nombre del cliente</div>`}
+      </div>
 
       <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);
                   border-radius:8px;padding:14px;margin-bottom:20px;text-align:center">
