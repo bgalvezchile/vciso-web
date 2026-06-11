@@ -153,13 +153,15 @@ Redacta TODAS las políticas en un solo JSON con esta estructura exacta (solo JS
 }
 
 REGLAS:
-- Mínimo 4 lineamientos por política, máximo 6.
-- Mínimo 4 definiciones por política.
+- Entre 5 y 6 lineamientos por política, concretos y específicos para la empresa.
+- Mínimo 4 definiciones por política, en lenguaje no técnico.
+- Cada lineamiento: título descriptivo + párrafo de 3-4 oraciones con reglas concretas y accionables.
 - Lenguaje profesional pero comprensible para empleados sin conocimientos técnicos.
 - Adaptar TODO al contexto de ${datos.empresa}: rubro (${datos.rubro}), tamaño (${datos.empleados} empleados), modalidad (${datos.modalidad}).
 - Para datos_personales: mencionar Ley 21.719 y Agencia de Protección de Datos Personales.
 - NUNCA mencionar IA ni Claude. La empresa que elabora es vCISO.cl.
 - No usar lenguaje alarmista. Tono profesional y constructivo.
+- Ser conciso pero completo. Evitar repetición entre políticas.
 - Devolver SOLO el JSON válido, sin texto adicional ni markdown.`;
 
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
@@ -170,8 +172,8 @@ REGLAS:
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
-      model:      'claude-haiku-4-5-20251001',
-      max_tokens: 16000,
+      model:      'claude-sonnet-4-6',
+      max_tokens: 32000,
       system: `Eres un consultor senior en ciberseguridad especializado en PYMEs chilenas. Elaboras políticas de seguridad TI profesionales basadas en ISO 27002:2022.
 
 REGLAS:
