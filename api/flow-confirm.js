@@ -59,6 +59,15 @@ const PRODUCTS = {
     formPath:     '/analisis-dominio',
     deliveryMsg:  'Recibirás tu informe de análisis de dominio en las próximas <strong>48 horas hábiles</strong> una vez que confirmes los datos.',
   },
+  evaluador: {
+    prefix:       'EVAL',
+    name:         'Evaluador de Propuestas TI',
+    price:        '$69.900 CLP',
+    hasDownload:  false,
+    hasForm:      true,
+    formPath:     '/evaluador-propuestas',
+    deliveryMsg:  'Usa el link para subir las propuestas y recibir tu informe comparativo en minutos.',
+  },
 };
 
 function detectProduct(order) {
