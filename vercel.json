@@ -3,25 +3,76 @@
   "buildCommand": "npm install",
   "outputDirectory": ".",
   "functions": {
-    "api/submit-diagnostico.js": { "maxDuration": 300 },
-    "api/submit-politicas.js":   { "maxDuration": 300 },
-    "api/evaluar-propuestas.js": { "maxDuration": 300 },
-    "api/upload-propuesta.js":   { "maxDuration": 60  },
-    "api/flow-confirm.js":       { "maxDuration": 60  },
-    "api/validate-token.js":     { "maxDuration": 10  },
-    "api/get-download.js":       { "maxDuration": 30  }
+    "api/submit-diagnostico.js": {
+      "maxDuration": 300
+    },
+    "api/submit-politicas.js": {
+      "maxDuration": 300
+    },
+    "api/evaluar-propuestas.js": {
+      "maxDuration": 300
+    },
+    "api/upload-propuesta.js": {
+      "maxDuration": 60
+    },
+    "api/flow-confirm.js": {
+      "maxDuration": 60
+    },
+    "api/validate-token.js": {
+      "maxDuration": 10
+    },
+    "api/get-download.js": {
+      "maxDuration": 30
+    }
   },
   "rewrites": [
-    { "source": "/downloads/:path*",           "destination": "/public/downloads/:path*" },
-    { "source": "/scanner-dominio",            "destination": "/vciso_dominio_scanner.html" },
-    { "source": "/manual-ciberseguridad",      "destination": "/vciso_ebook.html" },
-    { "source": "/politicas-seguridad",        "destination": "/vciso_politicas_checkout.html" },
-    { "source": "/diagnostico-ciberseguridad", "destination": "/vciso_checkout.html" },
-    { "source": "/diagnostico",                "destination": "/vciso_diagnostico.html" },
-    { "source": "/generador-politicas",        "destination": "/vciso_politicas_generador.html" },
-    { "source": "/evaluador-propuestas",       "destination": "/vciso_evaluador_propuestas.html" },
-    { "source": "/analisis-dominio",           "destination": "/vciso_dominio_checkout.html" },
-    { "source": "/ejemplo-informe",            "destination": "/vciso_informe_ejemplo.html" },
-    { "source": "/pago-exitoso",               "destination": "/pago-exitoso.html" }
+    {
+      "source": "/downloads/:path*",
+      "destination": "/public/downloads/:path*"
+    },
+    {
+      "source": "/scanner-dominio",
+      "destination": "/vciso_dominio_scanner.html"
+    },
+    {
+      "source": "/manual-ciberseguridad",
+      "destination": "/vciso_ebook.html"
+    },
+    {
+      "source": "/politicas-seguridad",
+      "destination": "/vciso_politicas_checkout.html"
+    },
+    {
+      "source": "/diagnostico-ciberseguridad",
+      "destination": "/vciso_checkout.html"
+    },
+    {
+      "source": "/diagnostico",
+      "destination": "/vciso_diagnostico.html"
+    },
+    {
+      "source": "/generador-politicas",
+      "destination": "/vciso_politicas_generador.html"
+    },
+    {
+      "source": "/evaluador-propuestas",
+      "destination": "/vciso_evaluador_propuestas.html"
+    },
+    {
+      "source": "/analisis-dominio",
+      "destination": "/vciso_dominio_checkout.html"
+    },
+    {
+      "source": "/ejemplo-informe",
+      "destination": "/vciso_informe_ejemplo.html"
+    },
+    {
+      "source": "/pago-exitoso",
+      "destination": "/pago-exitoso.html"
+    },
+    {
+      "source": "/evaluador-propuestas-checkout",
+      "destination": "/vciso_evaluador_checkout.html"
+    }
   ]
 }
