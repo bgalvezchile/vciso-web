@@ -1,1768 +1,901 @@
-<!DOCTYPE html>
-<html lang="es-CL">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Formulario Diagnóstico de Ciberseguridad | vCISO.cl</title>
-  <meta name="description" content="Completa el cuestionario de diagnóstico y recibe tu informe personalizado de ciberseguridad en 24 horas."/>
-  <meta name="robots" content="noindex, nofollow"/>
-  <link rel="canonical" href="https://www.vciso.cl/diagnostico"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'><path d='M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z' fill='%231e4fad'/><path d='M13 23L18 28L27 18' stroke='%23f47c47' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>"/>
-
-  <style>
-  /* ── RESET & VARIABLES ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --navy:      #0d1f3c;
-    --navy-mid:  #1a3360;
-    --navy-dark: #080f1e;
-    --blue:      #1e4fad;
-    --blue-lt:   #2a6ddf;
-    --blue-pale: rgba(30,79,173,0.12);
-    --orange:    #e85d26;
-    --orange-lt: #f47c47;
-    --white:     #ffffff;
-    --gray-50:   #f8fafc;
-    --gray-100:  #f1f5f9;
-    --gray-300:  #cbd5e1;
-    --gray-400:  #94a3b8;
-    --gray-500:  #64748b;
-    --gray-700:  #334155;
-    --green:     #22c55e;
-    --green-pale:rgba(34,197,94,0.12);
-    --red:       #ef4444;
-    --red-pale:  rgba(239,68,68,0.12);
-    --yellow:    #f59e0b;
-    --yellow-pale:rgba(245,158,11,0.12);
-    --radius:    10px;
-    --transition:0.2s ease;
-  }
-
-  html { scroll-behavior: smooth; }
-  body { font-family:'Inter',sans-serif; background:var(--navy); color:var(--white); min-height:100vh; }
-
-  /* ── NAV ── */
-  .vciso-nav {
-    background:var(--navy); border-bottom:1px solid rgba(255,255,255,0.06);
-    padding:0 5%; height:64px;
-    display:flex; align-items:center; justify-content:space-between;
-    position:sticky; top:0; z-index:100;
-  }
-  .vciso-nav .logo {
-    display:flex; align-items:center; gap:10px; text-decoration:none;
-    font-size:1.25rem; font-weight:900; color:var(--white); letter-spacing:-0.02em;
-  }
-  .vciso-nav .logo span { color:var(--orange-lt); }
-  .vciso-nav .logo small { display:block; font-size:0.68rem; font-weight:400; color:var(--gray-400); letter-spacing:0.02em; }
-  .nav-back { color:rgba(255,255,255,0.65); font-size:0.85rem; font-weight:500; text-decoration:none; display:flex; align-items:center; gap:6px; transition:color var(--transition); }
-  .nav-back:hover { color:var(--white); }
-  .btn-nav { background:var(--orange); color:var(--white)!important; padding:8px 16px; border-radius:8px; font-size:0.82rem; font-weight:700; text-decoration:none; }
-
-  /* ── HERO ── */
-  .hero-mini {
-    background:linear-gradient(135deg,var(--navy) 0%,#1a3360 100%);
-    padding:44px 5% 36px; text-align:center; color:white;
-    border-bottom:1px solid rgba(255,255,255,0.06);
-  }
-  .hero-mini .badge {
-    display:inline-flex; align-items:center; gap:8px;
-    background:rgba(232,93,38,0.15); border:1px solid rgba(232,93,38,0.4);
-    color:#f9a97a; padding:5px 14px; border-radius:20px;
-    font-size:0.78rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
-    margin-bottom:14px;
-  }
-  .hero-mini h1 { font-size:clamp(1.5rem,3vw,2rem); font-weight:800; margin-bottom:8px; }
-  .hero-mini p  { color:rgba(255,255,255,0.7); font-size:0.95rem; max-width:520px; margin:0 auto; }
-
-  /* ── PROGRESS ── */
-  .progress-wrap { max-width:760px; margin:0 auto; padding:28px 20px 0; }
-  .progress-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-  .progress-label  { font-size:0.82rem; font-weight:700; color:rgba(255,255,255,0.85); text-transform:uppercase; letter-spacing:0.05em; }
-  .progress-pct    { font-size:0.82rem; font-weight:700; color:var(--orange-lt); }
-  .progress-bar    { height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden; }
-  .progress-fill   { height:100%; background:linear-gradient(90deg,var(--blue),var(--orange)); border-radius:3px; transition:width 0.5s ease; }
-  .steps-dots      { display:flex; justify-content:space-between; margin-top:14px; }
-  .step-dot        { display:flex; flex-direction:column; align-items:center; gap:5px; flex:1; }
-  .dot             { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.2); transition:background 0.3s; }
-  .dot.active      { background:var(--blue-lt); }
-  .dot.done        { background:var(--green); }
-  .dot-label       { font-size:0.65rem; color:rgba(255,255,255,0.45); text-align:center; white-space:nowrap; }
-
-  /* ── FORM WRAP ── */
-  .form-wrap  { max-width:760px; margin:24px auto 80px; padding:0 20px; }
-  .form-card  { background:white; border-radius:16px; box-shadow:0 4px 32px rgba(0,0,0,0.18); overflow:hidden; }
-
-  /* ── CARD HEADER ── */
-  .card-header {
-    background:linear-gradient(135deg,var(--navy),#1a3360);
-    padding:22px 32px; display:flex; align-items:center; gap:16px;
-  }
-  .card-header-icon { width:46px; height:46px; border-radius:12px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
-  .card-header h2   { font-size:1.05rem; font-weight:700; color:white; margin-bottom:3px; }
-  .card-header p    { font-size:0.82rem; color:rgba(255,255,255,0.6); }
-
-  .card-body { padding:28px 32px; }
-
-  /* ── STEPS ── */
-  .step        { display:none; }
-  .step.active { display:block; }
-
-  /* ── FIELDS (paso 1) ── */
-  .field-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-  .field-grid.full { grid-template-columns:1fr; }
-  .field { display:flex; flex-direction:column; gap:5px; }
-
-  /* INPUT OVERRIDES — gana sobre CSS global */
-  .form-card label          { color:#0d1f3c!important; font-size:0.83rem!important; font-weight:600!important; margin-bottom:0; }
-  .form-card input,
-  .form-card select,
-  .form-card textarea       { background:#fff!important; border:2px solid #cbd5e1!important; color:#334155!important; border-radius:8px!important; padding:10px 14px!important; font-size:0.9rem!important; font-family:'Inter',sans-serif!important; width:100%!important; box-shadow:none!important; outline:none!important; }
-  .form-card input:focus,
-  .form-card select:focus,
-  .form-card textarea:focus { border-color:#1e4fad!important; box-shadow:0 0 0 3px rgba(30,79,173,0.12)!important; }
-  .form-card input::placeholder,
-  .form-card textarea::placeholder { color:#94a3b8!important; }
-  .form-card select option  { background:white!important; color:#334155!important; }
-  .form-card input.error,
-  .form-card select.error   { border-color:#ef4444!important; }
-  .error-msg { font-size:0.75rem; color:#ef4444; display:none; margin-top:2px; }
-  .error-msg.visible { display:block; }
-  .field-hint { font-size:0.74rem; color:#64748b; margin-top:2px; }
-
-  /* ── SECTION DIVIDER ── */
-  .section-divider { display:flex; align-items:center; gap:12px; margin:22px 0 16px; }
-  .section-divider span { font-size:0.72rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:0.1em; white-space:nowrap; }
-  .section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background:#e2e8f0; }
-
-  /* ── QUESTIONS ── */
-  .question { margin-bottom:26px; }
-  .question-num { font-size:0.7rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:5px; }
-  .question h3  { font-size:0.95rem; font-weight:700; color:#0d1f3c; margin-bottom:6px; line-height:1.45; }
-  .question .hint { font-size:0.78rem; color:#64748b; margin-bottom:10px; font-style:italic; }
-
-  /* ── OPTIONS ── */
-  .options { display:flex; flex-direction:column; gap:9px; }
-  .option {
-    display:flex; align-items:flex-start; gap:13px;
-    border:2px solid #cbd5e1; border-radius:10px; padding:13px 15px;
-    cursor:pointer; transition:all 0.15s; position:relative; background:white;
-  }
-  .option:hover { border-color:var(--blue); background:#f0f6ff; }
-  .option.selected       { border-color:var(--blue);   background:rgba(30,79,173,0.07); }
-  .option.selected-good  { border-color:#22c55e;        background:rgba(34,197,94,0.07); }
-  .option.selected-mid   { border-color:#f59e0b;        background:rgba(245,158,11,0.07); }
-  .option.selected-bad   { border-color:#ef4444;        background:rgba(239,68,68,0.07); }
-
-  .option-radio {
-    width:20px; height:20px; border-radius:50%; border:2px solid #cbd5e1;
-    flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.15s;
-  }
-  .option.selected       .option-radio { border-color:var(--blue);  background:var(--blue); }
-  .option.selected-good  .option-radio { border-color:#22c55e;      background:#22c55e; }
-  .option.selected-mid   .option-radio { border-color:#f59e0b;      background:#f59e0b; }
-  .option.selected-bad   .option-radio { border-color:#ef4444;      background:#ef4444; }
-  .option-radio::after { content:''; width:8px; height:8px; border-radius:50%; background:white; display:none; }
-  .option.selected .option-radio::after,
-  .option.selected-good .option-radio::after,
-  .option.selected-mid  .option-radio::after,
-  .option.selected-bad  .option-radio::after { display:block; }
-
-  .option-text    { flex:1; }
-  .option-title   { font-size:0.88rem; font-weight:600; color:#0d1f3c; }
-  .option-desc    { font-size:0.76rem; color:#64748b; margin-top:2px; line-height:1.4; }
-  .option-score   { font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:20px; flex-shrink:0; margin-top:2px; }
-  .score-good     { background:rgba(34,197,94,0.12);  color:#16a34a; }
-  .score-mid      { background:rgba(245,158,11,0.12); color:#d97706; }
-  .score-bad      { background:rgba(239,68,68,0.12);  color:#dc2626; }
-
-  /* ── TEXTAREA LIBRE ── */
-  .free-text-wrap { margin-top:8px; }
-  .form-card .free-text-wrap textarea { min-height:110px; resize:vertical; }
-
-  /* ── NAV BUTTONS ── */
-  .form-nav {
-    display:flex; justify-content:space-between; align-items:center;
-    padding:22px 32px; border-top:1px solid #e2e8f0; background:#f8fafc;
-  }
-  .btn-prev {
-    display:flex; align-items:center; gap:6px;
-    background:none; border:2px solid #cbd5e1; color:#64748b;
-    padding:10px 20px; border-radius:8px; font-size:0.88rem; font-weight:600;
-    cursor:pointer; transition:all 0.2s; font-family:'Inter',sans-serif;
-  }
-  .btn-prev:hover { border-color:#0d1f3c; color:#0d1f3c; }
-  .btn-next {
-    display:flex; align-items:center; gap:6px;
-    background:var(--navy); color:white; border:none;
-    padding:11px 26px; border-radius:8px; font-size:0.9rem; font-weight:700;
-    cursor:pointer; transition:all 0.2s; font-family:'Inter',sans-serif;
-  }
-  .btn-next:hover { background:var(--blue); }
-  .btn-submit {
-    background:var(--orange); color:white; border:none;
-    padding:13px 32px; border-radius:8px; font-size:0.95rem; font-weight:700;
-    cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:8px;
-    font-family:'Inter',sans-serif;
-  }
-  .btn-submit:hover { background:var(--orange-lt); }
-  .btn-submit:disabled { opacity:0.6; cursor:not-allowed; }
-
-  /* ── RESULTADO PRELIMINAR ── */
-  #result { display:none; }
-  .result-header {
-    background:linear-gradient(135deg,var(--navy),#1a3360);
-    padding:36px 32px; text-align:center; color:white;
-  }
-  .score-circle {
-    width:110px; height:110px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-size:1.9rem; font-weight:800; margin:0 auto 18px; border:5px solid;
-  }
-  .circle-red    { border-color:#ef4444; color:#ef4444; background:rgba(239,68,68,0.15); }
-  .circle-yellow { border-color:#f59e0b; color:#f59e0b; background:rgba(245,158,11,0.15); }
-  .circle-green  { border-color:#22c55e; color:#22c55e; background:rgba(34,197,94,0.15); }
-  .result-header h2 { font-size:1.4rem; font-weight:800; margin-bottom:7px; }
-  .result-header p  { color:rgba(255,255,255,0.72); font-size:0.92rem; }
-  .result-body { padding:28px 32px; }
-  .areas-grid  { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
-  .area-card   { border:1px solid #e2e8f0; border-radius:10px; padding:14px; }
-  .area-top    { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-  .area-name   { font-size:0.8rem; font-weight:700; color:#0d1f3c; }
-  .area-badge  { font-size:0.72rem; font-weight:700; padding:2px 9px; border-radius:20px; }
-  .badge-red   { background:rgba(239,68,68,0.1);  color:#dc2626; }
-  .badge-yellow{ background:rgba(245,158,11,0.1); color:#d97706; }
-  .badge-green { background:rgba(34,197,94,0.1);  color:#16a34a; }
-  .area-bar    { height:6px; background:#f1f5f9; border-radius:3px; overflow:hidden; }
-  .area-bar-fill { height:100%; border-radius:3px; }
-  .fill-red    { background:#ef4444; }
-  .fill-yellow { background:#f59e0b; }
-  .fill-green  { background:#22c55e; }
-  .result-cta  {
-    background:linear-gradient(135deg,var(--navy),#1a3360);
-    color:white; padding:24px 28px; border-radius:12px; margin-bottom:20px;
-    text-align:center;
-  }
-  .result-cta h3 { font-size:1.1rem; font-weight:800; margin-bottom:8px; }
-  .result-cta p  { color:rgba(255,255,255,0.72); font-size:0.87rem; margin-bottom:16px; }
-  .next-steps { background:#f8fafc; border-radius:10px; padding:20px 24px; }
-  .next-steps h4 { font-size:0.8rem; font-weight:700; color:#0d1f3c; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px; }
-  .step-item { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
-  .step-num-small { width:24px; height:24px; border-radius:50%; background:var(--navy); color:white; font-size:0.72rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
-  .step-item p    { font-size:0.84rem; color:#334155; line-height:1.5; }
-  .step-item strong { color:#0d1f3c; }
-
-  /* ── ACCESS DENIED ── */
-  #access-denied { display:none; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; text-align:center; max-width:520px; margin:0 auto; }
-
-  /* ── RESPONSIVE ── */
-  @media(max-width:600px){
-    .card-body   { padding:20px; }
-    .form-nav    { padding:16px 20px; flex-direction:column; gap:10px; }
-    .field-grid  { grid-template-columns:1fr; }
-    .areas-grid  { grid-template-columns:1fr; }
-    .btn-prev, .btn-next, .btn-submit { width:100%; justify-content:center; }
-    .nav-links   { display:none; }
-  }
-  </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav class="vciso-nav" role="navigation" aria-label="Navegación principal">
-  <a href="/" class="logo" aria-label="vCISO.cl — Inicio">
-    <svg width="28" height="32" viewBox="0 0 40 46" fill="none">
-      <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z" fill="rgba(30,79,173,0.5)" stroke="#2a6ddf" stroke-width="1.5"/>
-      <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <div>v<span>CISO</span>.cl<small>Ciberseguridad para empresas</small></div>
-  </a>
-  <a href="/diagnostico-ciberseguridad" class="nav-back">← Volver</a>
-  <ul class="nav-links" role="list" style="list-style:none;display:flex;align-items:center;gap:6px;">
-    <li><a href="https://wa.me/56981307440" class="btn-nav" target="_blank" rel="noopener">💬 WhatsApp</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<div class="hero-mini">
-  <div class="badge">🛡️ Diagnóstico Express · $89.000 CLP</div>
-  <h1>Diagnóstico de Ciberseguridad</h1>
-  <p>22 preguntas sobre el estado real de seguridad de tu empresa. Recibes un informe profesional personalizado en 48 horas hábiles.</p>
-</div>
-
-<!-- PROGRESS -->
-<div class="progress-wrap">
-  <div class="progress-header">
-    <span class="progress-label" id="step-label">Paso 1 de 6 — Datos de tu empresa</span>
-    <span class="progress-pct" id="step-pct">17%</span>
-  </div>
-  <div class="progress-bar">
-    <div class="progress-fill" id="progress-fill" style="width:17%"></div>
-  </div>
-  <div class="steps-dots">
-    <div class="step-dot"><div class="dot active" id="dot1"></div><span class="dot-label">Empresa</span></div>
-    <div class="step-dot"><div class="dot" id="dot2"></div><span class="dot-label">Accesos</span></div>
-    <div class="step-dot"><div class="dot" id="dot3"></div><span class="dot-label">Equipos</span></div>
-    <div class="step-dot"><div class="dot" id="dot4"></div><span class="dot-label">Datos</span></div>
-    <div class="step-dot"><div class="dot" id="dot5"></div><span class="dot-label">Amenazas</span></div>
-    <div class="step-dot"><div class="dot" id="dot6"></div><span class="dot-label">Normativa</span></div>
-  </div>
-</div>
-
-<!-- ACCESS DENIED -->
-<div id="access-denied">
-  <div style="font-size:3rem;margin-bottom:20px">🔒</div>
-  <h2 style="color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:12px">Acceso no autorizado</h2>
-  <p class="denied-msg" style="color:rgba(255,255,255,0.6);font-size:0.95rem;line-height:1.6"></p>
-</div>
-
-<!-- FORM -->
-<div class="form-wrap">
-  <div class="form-card" id="form-container" style="display:none">
-
-    <!-- ══ PASO 1: DATOS DE EMPRESA ══ -->
-    <div class="step active" id="step1">
-      <div class="card-header">
-        <div class="card-header-icon">🏢</div>
-        <div>
-          <h2>Datos de tu empresa</h2>
-          <p>Esta información es confidencial y solo se usará para personalizar tu diagnóstico.</p>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <div class="field-grid">
-          <div class="field">
-            <label>Nombre de la empresa *</label>
-            <input type="text" id="empresa" placeholder="Ej: Constructora Pérez SpA"/>
-            <span class="error-msg" id="err-empresa">Campo requerido</span>
-          </div>
-          <div class="field">
-            <label>RUT de la empresa</label>
-            <input type="text" id="rut" placeholder="Ej: 76.123.456-7"/>
-          </div>
-        </div>
-
-        <div class="field-grid">
-          <div class="field">
-            <label>Rubro / Industria *</label>
-            <select id="rubro">
-              <option value="">Selecciona...</option>
-              <option>Retail / Comercio</option>
-              <option>Salud / Clínica / Farmacia</option>
-              <option>Construcción / Inmobiliaria</option>
-              <option>Logística / Transporte</option>
-              <option>Educación</option>
-              <option>Tecnología / Software</option>
-              <option>Servicios profesionales / Consultora</option>
-              <option>Manufactura / Industria</option>
-              <option>Agricultura / Agroindustria</option>
-              <option>Gastronomía / Hotelería</option>
-              <option>Otro</option>
-            </select>
-            <span class="error-msg" id="err-rubro">Campo requerido</span>
-          </div>
-          <div class="field">
-            <label>Número de empleados *</label>
-            <select id="empleados">
-              <option value="">Selecciona...</option>
-              <option>1 – 10</option>
-              <option>11 – 50</option>
-              <option>51 – 200</option>
-              <option>201 – 500</option>
-              <option>Más de 500</option>
-            </select>
-            <span class="error-msg" id="err-empleados">Campo requerido</span>
-          </div>
-        </div>
-
-        <div class="field-grid">
-          <div class="field">
-            <label>¿Tienen departamento o persona a cargo de TI?</label>
-            <select id="dept-ti">
-              <option value="">Selecciona...</option>
-              <option>Sí, departamento propio</option>
-              <option>Solo una persona a cargo</option>
-              <option>Usamos proveedor externo</option>
-              <option>No tenemos nadie a cargo</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>¿Tienen sitio web, tienda online o sistema en internet?</label>
-            <select id="web">
-              <option value="">Selecciona...</option>
-              <option>Sí, con datos o pagos de clientes</option>
-              <option>Sí, solo informativo</option>
-              <option>No tenemos</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="section-divider"><span>Tu contacto</span></div>
-
-        <div class="field-grid">
-          <div class="field">
-            <label>Nombre completo *</label>
-            <input type="text" id="nombre" placeholder="Tu nombre y apellido"/>
-            <span class="error-msg" id="err-nombre">Campo requerido</span>
-          </div>
-          <div class="field">
-            <label>Cargo *</label>
-            <input type="text" id="cargo" placeholder="Ej: Gerente General, Dueño..."/>
-            <span class="error-msg" id="err-cargo">Campo requerido</span>
-          </div>
-        </div>
-
-        <div class="field-grid">
-          <div class="field">
-            <label>Correo electrónico *</label>
-            <input type="email" id="email" placeholder="tu@empresa.cl"/>
-            <span class="error-msg" id="err-email">Correo inválido</span>
-          </div>
-          <div class="field">
-            <label>Teléfono / WhatsApp</label>
-            <input type="tel" id="telefono" placeholder="+56 9 XXXX XXXX"/>
-          </div>
-        </div>
-
-        <div class="section-divider"><span>Documento tributario</span></div>
-
-        <div class="field-grid full">
-          <div class="field">
-            <label>¿Necesitas factura electrónica? *</label>
-            <select id="tipo-documento" onchange="toggleFactura()">
-              <option value="">Selecciona...</option>
-              <option value="boleta">No, boleta electrónica está bien</option>
-              <option value="factura">Sí, necesito factura electrónica</option>
-            </select>
-            <span class="error-msg" id="err-tipo-documento">Campo requerido</span>
-          </div>
-        </div>
-
-        <!-- Campos factura — se muestran solo si elige factura -->
-        <div id="factura-fields" style="display:none">
-          <div class="field-grid">
-            <div class="field">
-              <label>RUT empresa *</label>
-              <input type="text" id="rut-empresa" placeholder="Ej: 76.123.456-7"/>
-              <span class="error-msg" id="err-rut-empresa">Campo requerido</span>
-            </div>
-            <div class="field">
-              <label>Razón social *</label>
-              <input type="text" id="razon-social" placeholder="Ej: Constructora Pérez SpA"/>
-              <span class="error-msg" id="err-razon-social">Campo requerido</span>
-            </div>
-          </div>
-          <div class="field-grid full">
-            <div class="field">
-              <label>Giro comercial *</label>
-              <input type="text" id="giro-comercial" placeholder="Ej: Construcción de edificios"/>
-              <span class="error-msg" id="err-giro-comercial">Campo requerido</span>
-            </div>
-          </div>
-          <div class="field-grid full">
-            <div class="field">
-              <label>Email para envío de factura *</label>
-              <input type="email" id="email-factura" placeholder="contabilidad@empresa.cl"/>
-              <span class="field-hint">Puede ser diferente al email de contacto</span>
-              <span class="error-msg" id="err-email-factura">Email inválido</span>
-            </div>
-          </div>
-          <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-top:8px;">
-            <p style="font-size:0.82rem;color:#92400e;margin:0;">
-              📄 <strong>Importante:</strong> La factura electrónica será emitida dentro de las 48 horas hábiles siguientes al pago y enviada al email indicado. Si tienes dudas, escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#1e4fad;">contacto@vciso.cl</a> o por WhatsApp al <a href="https://wa.me/56981307440" style="color:#1e4fad;">+56 9 8130 7440</a>.
-            </p>
-          </div>
-        </div>
-
-      </div>
-      <div class="form-nav">
-        <span></span>
-        <button class="btn-next" onclick="goStep(2)">Siguiente → Accesos y contraseñas</button>
-      </div>
-    </div>
-
-    <!-- ══ PASO 2: ACCESOS Y CONTRASEÑAS ══ -->
-    <div class="step" id="step2">
-      <div class="card-header">
-        <div class="card-header-icon">🔐</div>
-        <div>
-          <h2>Accesos y contraseñas</h2>
-          <p>Cómo protegen el acceso a los sistemas y cuentas de la empresa.</p>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <!-- P1 -->
-        <div class="question">
-          <div class="question-num">Pregunta 1 de 21</div>
-          <h3>Además de la contraseña, ¿usan un segundo paso para entrar al correo o sistemas?</h3>
-          <p class="hint">Ej: un código que llega al celular, una app como Microsoft Authenticator o Google Authenticator.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q1',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, en todos los sistemas — correo, Drive, banca, sistemas de gestión</div>
-                <div class="option-desc">Todos los accesos importantes tienen este segundo paso activado</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q1',2,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Solo en el correo corporativo</div>
-                <div class="option-desc">Tenemos el segundo paso solo para el correo</div>
-              </div>
-              <span class="option-score score-mid">Parcial</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q1',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Solo algunos empleados lo tienen activado</div>
-                <div class="option-desc">No está implementado de forma pareja en todo el equipo</div>
-              </div>
-              <span class="option-score score-mid">Insuficiente</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q1',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No, solo usamos contraseña</div>
-                <div class="option-desc">No tenemos ningún segundo paso de verificación</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q1">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P2 -->
-        <div class="question">
-          <div class="question-num">Pregunta 2 de 21</div>
-          <h3>Cuando un empleado deja la empresa, ¿qué pasa con sus accesos al correo y sistemas?</h3>
-          <p class="hint">Ej: acceso a correo, Drive, software de gestión, redes sociales de la empresa.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q2',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Se eliminan el mismo día — tenemos un proceso formal</div>
-                <div class="option-desc">Hay un checklist y un responsable claro de hacerlo</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q2',2,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">En algunos días, sin proceso definido</div>
-                <div class="option-desc">Se hace pero depende de que alguien se acuerde</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q2',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Queda activo hasta que alguien se acuerda de eliminarlo</div>
-                <div class="option-desc">No hay proceso ni responsable definido</div>
-              </div>
-              <span class="option-score score-mid">Riesgo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q2',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No lo sabemos / nunca lo hemos revisado</div>
-                <div class="option-desc">No tenemos visibilidad sobre qué accesos quedan activos</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q2">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P3 -->
-        <div class="question">
-          <div class="question-num">Pregunta 3 de 21</div>
-          <h3>¿Tienen alguna regla definida sobre cómo deben ser las contraseñas del trabajo?</h3>
-          <p class="hint">Ej: largo mínimo, no usar nombre propio o fecha de nacimiento, cambiarla cada cierto tiempo.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q3',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, está escrita y todos los empleados la conocen</div>
-                <div class="option-desc">Existe un documento o política formal que se cumple</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q3',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Existe de palabra, pero no está en ningún documento</div>
-                <div class="option-desc">Hay una práctica informal pero no está formalizada</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q3',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Cada uno usa la contraseña que quiere</div>
-                <div class="option-desc">No hay ninguna regla ni control sobre contraseñas</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q3">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P4 -->
-        <div class="question">
-          <div class="question-num">Pregunta 4 de 21</div>
-          <h3>¿Usan alguna herramienta para guardar y compartir contraseñas de forma segura en la empresa?</h3>
-          <p class="hint">Ej: Bitwarden, 1Password, LastPass, el gestor del navegador corporativo (no el personal).</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q4',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, una herramienta corporativa que usan todos</div>
-                <div class="option-desc">Está estandarizado y todos guardan sus contraseñas ahí</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q4',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Algunos usan algo personal, no está estandarizado</div>
-                <div class="option-desc">Hay buenas intenciones pero sin control corporativo</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q4',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No — las guardamos en Excel, papel, notas o de memoria</div>
-                <div class="option-desc">Sin herramienta segura para gestionar contraseñas</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q4">Debes seleccionar una opción</span>
-        </div>
-
-      </div>
-      <div class="form-nav">
-        <button class="btn-prev" onclick="goStep(1)">← Anterior</button>
-        <button class="btn-next" onclick="goStep(3)">Siguiente → Equipos y red</button>
-      </div>
-    </div>
-
-    <!-- ══ PASO 3: EQUIPOS Y RED ══ -->
-    <div class="step" id="step3">
-      <div class="card-header">
-        <div class="card-header-icon">💻</div>
-        <div>
-          <h2>Equipos y red</h2>
-          <p>Estado de los computadores, celulares y conexión a internet que usa la empresa.</p>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <!-- P5 -->
-        <div class="question">
-          <div class="question-num">Pregunta 5 de 21</div>
-          <h3>¿Cómo son los computadores que usa el equipo de trabajo?</h3>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q5',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Son equipos de la empresa, administrados por TI o proveedor</div>
-                <div class="option-desc">La empresa controla qué se instala y cómo se configuran</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q5',2,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Son equipos de la empresa, pero cada uno los maneja como quiere</div>
-                <div class="option-desc">La empresa los provee pero sin control centralizado</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q5',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Mixto — algunos de la empresa, otros equipos personales</div>
-                <div class="option-desc">Conviven equipos corporativos y BYOD sin política clara</div>
-              </div>
-              <span class="option-score score-mid">Riesgo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q5',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Son equipos personales de cada trabajador (BYOD)</div>
-                <div class="option-desc">La empresa no tiene control sobre los dispositivos usados</div>
-              </div>
-              <span class="option-score score-bad">Riesgo alto</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q5">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P6 -->
-        <div class="question">
-          <div class="question-num">Pregunta 6 de 21</div>
-          <h3>El Wi-Fi de la oficina, ¿es el mismo para empleados, visitas y clientes?</h3>
-          <p class="hint">Compartir la misma red con visitas es un riesgo: podrían acceder a sistemas internos de la empresa.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q6',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No — tenemos red separada para visitas y clientes</div>
-                <div class="option-desc">Los empleados usan una red y las visitas otra distinta</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q6',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, todos usan la misma red pero con contraseña</div>
-                <div class="option-desc">Hay contraseña pero no separación entre empleados y visitas</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q6',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, todos usan la misma red y es abierta o sin control</div>
-                <div class="option-desc">Cualquiera en la oficina puede conectarse sin restricción</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q6',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No aplica — trabajamos 100% remoto / no tenemos oficina física</div>
-                <div class="option-desc">Todo el trabajo se hace desde casa o en remoto</div>
-              </div>
-              <span class="option-score score-good">N/A</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q6">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P7 -->
-        <div class="question">
-          <div class="question-num">Pregunta 7 de 21</div>
-          <h3>¿Los empleados acceden al correo, archivos o sistemas de la empresa desde su celular personal?</h3>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q7',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, y tenemos reglas sobre cómo hacerlo de forma segura</div>
-                <div class="option-desc">Hay política de uso de dispositivos móviles y se cumple</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q7',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, pero sin ninguna regla ni control</div>
-                <div class="option-desc">Acceden desde celular personal sin política definida</div>
-              </div>
-              <span class="option-score score-mid">Riesgo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q7',2,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No, solo acceden desde los computadores del trabajo</div>
-                <div class="option-desc">El acceso está limitado a equipos de escritorio o notebook</div>
-              </div>
-              <span class="option-score score-mid">Aceptable</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q7">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P8 -->
-        <div class="question">
-          <div class="question-num">Pregunta 8 de 21</div>
-          <h3>¿Tienen un listado de todos los equipos, programas y servicios digitales que usa la empresa?</h3>
-          <p class="hint">Ej: cuántos computadores tienen, qué software usan, qué servicios en la nube (Drive, Dropbox, sistemas de gestión).</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q8',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, tenemos un inventario actualizado</div>
-                <div class="option-desc">Sabemos exactamente qué equipos y software tiene la empresa</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q8',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Tenemos una idea general pero no está documentado</div>
-                <div class="option-desc">Sabemos más o menos, pero no hay un registro formal</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q8',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No tenemos ningún registro</div>
-                <div class="option-desc">No sabemos con exactitud qué equipos ni software hay en uso</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q8">Debes seleccionar una opción</span>
-        </div>
-
-      </div>
-      <div class="form-nav">
-        <button class="btn-prev" onclick="goStep(2)">← Anterior</button>
-        <button class="btn-next" onclick="goStep(4)">Siguiente → Datos e información</button>
-      </div>
-    </div>
-
-    <!-- ══ PASO 4: DATOS E INFORMACIÓN ══ -->
-    <div class="step" id="step4">
-      <div class="card-header">
-        <div class="card-header-icon">💾</div>
-        <div>
-          <h2>Datos e información</h2>
-          <p>Cómo protegen y respaldan la información crítica del negocio.</p>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <!-- P9 -->
-        <div class="question">
-          <div class="question-num">Pregunta 9 de 21</div>
-          <h3>¿Tienen respaldo automático de los archivos e información crítica del negocio?</h3>
-          <p class="hint">Ej: contratos, contabilidad, base de clientes, facturas. Si se borraran hoy, ¿podrían recuperarlos?</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q9',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, automático y en la nube — fuera de la oficina</div>
-                <div class="option-desc">Los respaldos se hacen solos y están en un lugar externo seguro</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q9',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, pero manual o guardado en el mismo computador</div>
-                <div class="option-desc">Hay respaldo pero depende de recordarlo o está en el mismo equipo</div>
-              </div>
-              <span class="option-score score-mid">Riesgo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q9',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No tenemos respaldo</div>
-                <div class="option-desc">Si se pierde o daña el equipo, se pierde toda la información</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q9">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P10 -->
-        <div class="question">
-          <div class="question-num">Pregunta 10 de 21</div>
-          <h3>¿Alguna vez han probado recuperar archivos desde ese respaldo?</h3>
-          <p class="hint">Un respaldo que nunca se prueba puede fallar justo cuando más se necesita.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q10',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, lo probamos en los últimos 6 meses y funcionó</div>
-                <div class="option-desc">Confirmamos que el respaldo se puede restaurar correctamente</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q10',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Lo intentamos hace más de un año</div>
-                <div class="option-desc">Se probó alguna vez pero no recientemente</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q10',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Nunca lo hemos probado — no sabemos si funciona</div>
-                <div class="option-desc">Existe el respaldo pero no está verificado</div>
-              </div>
-              <span class="option-score score-bad">Riesgo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q10',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No aplica — no tenemos respaldo</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q10">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P11 -->
-        <div class="question">
-          <div class="question-num">Pregunta 11 de 21</div>
-          <h3>¿Los computadores de la empresa tienen antivirus activo?</h3>
-          <p class="hint">Ej: Windows Defender (viene con Windows), Norton, Kaspersky, Bitdefender, ESET.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q11',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, en todos los equipos y está actualizado</div>
-                <div class="option-desc">Todos los computadores tienen protección activa y al día</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q11',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">En algunos equipos, no en todos</div>
-                <div class="option-desc">Hay equipos desprotegidos en la empresa</div>
-              </div>
-              <span class="option-score score-mid">Riesgo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q11',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No tenemos o no sabemos si está activo</div>
-                <div class="option-desc">Sin protección activa contra virus y malware</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q11">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P12 -->
-        <div class="question">
-          <div class="question-num">Pregunta 12 de 21</div>
-          <h3>¿Con qué frecuencia se actualizan los programas y el sistema operativo de los equipos?</h3>
-          <p class="hint">Las actualizaciones corrigen vulnerabilidades. Un sistema sin actualizar es una puerta abierta para los atacantes.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q12',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Se actualizan solos automáticamente</div>
-                <div class="option-desc">Los equipos tienen actualizaciones automáticas activadas</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q12',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Manualmente, cada cierto tiempo</div>
-                <div class="option-desc">Se actualiza pero sin periodicidad definida</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q12',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Rara vez o nunca — llevan mucho tiempo sin actualizar</div>
-                <div class="option-desc">Los sistemas tienen vulnerabilidades conocidas sin corregir</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q12">Debes seleccionar una opción</span>
-        </div>
-
-      </div>
-      <div class="form-nav">
-        <button class="btn-prev" onclick="goStep(3)">← Anterior</button>
-        <button class="btn-next" onclick="goStep(5)">Siguiente → Amenazas y proveedores</button>
-      </div>
-    </div>
-
-    <!-- ══ PASO 5: AMENAZAS Y PROVEEDORES ══ -->
-    <div class="step" id="step5">
-      <div class="card-header">
-        <div class="card-header-icon">🎯</div>
-        <div>
-          <h2>Amenazas y proveedores</h2>
-          <p>Exposición a ataques y control sobre quienes acceden a los sistemas.</p>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <!-- P13 -->
-        <div class="question">
-          <div class="question-num">Pregunta 13 de 21</div>
-          <h3>¿Han recibido correos falsos, intentos de estafa o fraude digital dirigidos a la empresa?</h3>
-          <p class="hint">Ej: alguien haciéndose pasar por el banco, por un proveedor, pidiendo transferencias urgentes o clicando en links.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q13',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, y sabemos reconocerlos y bloquearlos</div>
-                <div class="option-desc">Tenemos filtros activos y el equipo sabe cómo identificarlos</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q13',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, los manejamos caso a caso pero sin proceso formal</div>
-                <div class="option-desc">Respondemos cuando ocurre pero sin sistema preventivo</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q13',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No sabemos / nunca lo hemos revisado</div>
-                <div class="option-desc">No tenemos visibilidad sobre intentos de ataque</div>
-              </div>
-              <span class="option-score score-bad">Riesgo</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q13">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P14 -->
-        <div class="question">
-          <div class="question-num">Pregunta 14 de 21</div>
-          <h3>¿El proveedor de informática o soporte técnico tiene acceso a los sistemas de la empresa?</h3>
-          <p class="hint">Ej: acceso remoto al computador, credenciales de administrador, acceso a la red.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q14',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, con acceso controlado, registrado y con contrato firmado</div>
-                <div class="option-desc">Sabemos exactamente qué acceso tiene y hay acuerdo de confidencialidad</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q14',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, pero no controlamos ni registramos qué hace exactamente</div>
-                <div class="option-desc">Tiene acceso pero sin auditoría ni contrato de confidencialidad</div>
-              </div>
-              <span class="option-score score-mid">Riesgo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q14',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No lo sabemos con certeza</div>
-                <div class="option-desc">No tenemos claro qué accesos tienen nuestros proveedores</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q14',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No tenemos proveedor externo de TI</div>
-                <div class="option-desc">Lo manejamos internamente o no aplica</div>
-              </div>
-              <span class="option-score score-good">N/A</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q14">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P15 -->
-        <div class="question">
-          <div class="question-num">Pregunta 15 de 21</div>
-          <h3>¿Han tenido algún problema de seguridad digital en los últimos 2 años?</h3>
-          <p class="hint">Ej: virus en un computador, cuenta de correo o redes sociales hackeada, archivos borrados, estafa exitosa.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q15',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No hemos tenido ningún incidente que sepamos</div>
-                <div class="option-desc">Sin problemas de seguridad conocidos en este período</div>
-              </div>
-              <span class="option-score score-good">Sin incidentes</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q15',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, algo menor que resolvimos</div>
-                <div class="option-desc">Hubo un incidente pero lo controlamos</div>
-              </div>
-              <span class="option-score score-mid">Leve</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q15',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, algo grave — o no estamos seguros si tuvimos algo</div>
-                <div class="option-desc">Incidente importante o sin visibilidad suficiente para saberlo</div>
-              </div>
-              <span class="option-score score-bad">Alerta</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q15">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P16 -->
-        <div class="question">
-          <div class="question-num">Pregunta 16 de 21</div>
-          <h3>Si mañana todos los archivos de la empresa aparecieran bloqueados y alguien pidiera dinero para liberarlos, ¿qué harían?</h3>
-          <p class="hint">Esto se llama ransomware — es el ataque más común y costoso para las PYMEs hoy en día.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q16',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Tenemos un plan escrito y lo hemos practicado</div>
-                <div class="option-desc">Sabemos exactamente qué hacer y quién hace qué</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q16',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Más o menos sabríamos qué hacer, pero no está escrito</div>
-                <div class="option-desc">Hay una idea general pero sin plan formal</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q16',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No tendríamos idea por dónde empezar</div>
-                <div class="option-desc">Sin plan de respuesta ante incidentes</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q16">Debes seleccionar una opción</span>
-        </div>
-
-      </div>
-      <div class="form-nav">
-        <button class="btn-prev" onclick="goStep(4)">← Anterior</button>
-        <button class="btn-next" onclick="goStep(6)">Siguiente → Normativa y continuidad</button>
-      </div>
-    </div>
-
-    <!-- ══ PASO 6: NORMATIVA Y CONTINUIDAD ══ -->
-    <div class="step" id="step6">
-      <div class="card-header">
-        <div class="card-header-icon">📋</div>
-        <div>
-          <h2>Normativa y continuidad</h2>
-          <p>Cumplimiento legal, capacitación del equipo e impacto de un incidente en el negocio.</p>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <!-- P17 -->
-        <div class="question">
-          <div class="question-num">Pregunta 17 de 21</div>
-          <h3>¿Tienen algún documento escrito sobre cómo deben comportarse los empleados con la tecnología?</h3>
-          <p class="hint">Ej: qué pueden instalar, cómo usar el correo del trabajo, qué hacer si pierden el celular o el computador.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q17',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, están documentadas y los empleados las conocen</div>
-                <div class="option-desc">Existe un reglamento o política formal que se comunica y cumple</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q17',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Hay reglas de palabra pero nada escrito</div>
-                <div class="option-desc">Las reglas existen informalmente pero no están documentadas</div>
-              </div>
-              <span class="option-score score-mid">Mejorable</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q17',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No tenemos nada documentado</div>
-                <div class="option-desc">Sin políticas formales de seguridad para empleados</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q17">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P18 -->
-        <div class="question">
-          <div class="question-num">Pregunta 18 de 21</div>
-          <h3>¿La empresa guarda datos de clientes, empleados o proveedores?</h3>
-          <p class="hint">Ej: RUT, correos, teléfonos, direcciones, datos de pago, historial de compras. La Ley 21.719 exige proteger este tipo de información.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q18',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, y tenemos controles para protegerlos y cumplir la ley</div>
-                <div class="option-desc">Aviso de privacidad, accesos controlados, registro de datos</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q18',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, pero sin controles formales ni política definida</div>
-                <div class="option-desc">Guardamos datos pero sin cumplimiento específico de la ley</div>
-              </div>
-              <span class="option-score score-mid">Riesgo legal</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q18',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Guardamos datos pero no sabemos qué exige la ley chilena</div>
-                <div class="option-desc">Sin cumplimiento de la Ley 21.719 de Datos Personales</div>
-              </div>
-              <span class="option-score score-bad">Incumplimiento</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q18">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P19 -->
-        <div class="question">
-          <div class="question-num">Pregunta 19 de 21</div>
-          <h3>¿Sus empleados han recibido alguna capacitación o charla sobre seguridad digital?</h3>
-          <p class="hint">Ej: cómo detectar un correo falso, crear contraseñas seguras, qué hacer si pierden el equipo o si reciben una llamada sospechosa.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q19',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, al menos una vez al año</div>
-                <div class="option-desc">Hacemos capacitaciones periódicas sobre seguridad digital</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q19',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Alguna vez, de forma informal</div>
-                <div class="option-desc">Se ha mencionado el tema pero sin capacitación formal</div>
-              </div>
-              <span class="option-score score-mid">Insuficiente</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q19',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Nunca</div>
-                <div class="option-desc">El equipo no ha recibido ninguna orientación en seguridad digital</div>
-              </div>
-              <span class="option-score score-bad">Crítico</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q19">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P20 -->
-        <div class="question">
-          <div class="question-num">Pregunta 20 de 21</div>
-          <h3>Si los sistemas de la empresa dejaran de funcionar por un día completo, ¿cuánto impacto tendría en el negocio?</h3>
-          <p class="hint">Ej: no poder facturar, no acceder a clientes, no poder operar, no poder comunicarse.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q20',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Podríamos operar con procesos manuales sin mayor problema</div>
-                <div class="option-desc">Tenemos alternativas y no dependemos 100% de los sistemas</div>
-              </div>
-              <span class="option-score score-good">Resiliente</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q20',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sería complicado pero podríamos sobrevivir el día</div>
-                <div class="option-desc">Impacto moderado, con dificultades pero operables</div>
-              </div>
-              <span class="option-score score-mid">Moderado</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q20',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sería crítico — no podríamos operar ni facturar</div>
-                <div class="option-desc">La empresa depende totalmente de sus sistemas digitales</div>
-              </div>
-              <span class="option-score score-bad">Alto impacto</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q20">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- P21 -->
-        <div class="question">
-          <div class="question-num">Pregunta 21 de 21</div>
-          <h3>¿Tienen seguro de ciberseguridad o ciberriesgo contratado?</h3>
-          <p class="hint">Una póliza de ciberriesgo puede cubrir costos de recuperación, notificación a clientes y multas legales en caso de incidente.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q21',3,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, tenemos una póliza de ciberriesgo activa</div>
-                <div class="option-desc">Estamos cubiertos ante pérdidas por incidentes digitales</div>
-              </div>
-              <span class="option-score score-good">Óptimo</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q21',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Lo estamos evaluando / sabemos que existe</div>
-                <div class="option-desc">Está en consideración pero aún no lo hemos contratado</div>
-              </div>
-              <span class="option-score score-mid">En proceso</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q21',0,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No / no sabíamos que existía este tipo de seguro</div>
-                <div class="option-desc">Sin cobertura ante incidentes digitales</div>
-              </div>
-              <span class="option-score score-bad">Sin cobertura</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q21">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- PREGUNTA LEY 21.663 -->
-        <div class="section-divider"><span>Clasificación Ley 21.663</span></div>
-        <div class="question">
-          <div class="question-num">Pregunta 22 de 22</div>
-          <h3>¿Tu empresa ha sido notificada o crees que podría estar clasificada bajo la Ley 21.663 de Ciberseguridad?</h3>
-          <p class="hint">La ANCI notifica directamente a las organizaciones calificadas como Operadores de Importancia Vital (OIV). Si no has recibido ninguna comunicación oficial, probablemente no aplica a tu empresa.</p>
-          <div class="options">
-            <div class="option" onclick="selectOption(this,'q22',3,'bad')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">Sí, fuimos notificados por la ANCI como Operador de Importancia Vital (OIV)</div>
-                <div class="option-desc">Hemos recibido comunicación oficial y tenemos obligaciones específicas bajo la Ley 21.663</div>
-              </div>
-              <span class="option-score score-bad">OIV</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q22',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No hemos sido notificados, pero operamos en un sector crítico</div>
-                <div class="option-desc">Ej: salud con más de 50 camas, energía, telecomunicaciones, banca, transporte masivo</div>
-              </div>
-              <span class="option-score score-mid">Verificar</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q22',0,'good')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No, somos una PYME común — no hemos recibido comunicación de la ANCI</div>
-                <div class="option-desc">Retail, comercio, servicios locales, construcción, manufactura u otros sectores no críticos</div>
-              </div>
-              <span class="option-score score-good">No aplica</span>
-            </div>
-            <div class="option" onclick="selectOption(this,'q22',1,'mid')">
-              <div class="option-radio"></div>
-              <div class="option-text">
-                <div class="option-title">No lo sabemos / queremos orientación al respecto</div>
-                <div class="option-desc">No estamos seguros de si nuestra actividad nos hace sujetos de esta ley</div>
-              </div>
-              <span class="option-score score-mid">Orientación</span>
-            </div>
-          </div>
-          <span class="error-msg" id="err-q22">Debes seleccionar una opción</span>
-        </div>
-
-        <!-- CUADRO TEXTO LIBRE -->
-        <div class="section-divider"><span>Información adicional</span></div>
-        <div class="question">
-          <h3 style="color:#0d1f3c;margin-bottom:6px;">¿Hay algo más que quieras contarnos sobre la situación tecnológica de tu empresa?</h3>
-          <p class="hint">Cualquier detalle adicional que creas relevante para el diagnóstico: sistemas específicos que usan, problemas recientes, contexto del negocio, preguntas concretas que quieras que respondamos en el informe.</p>
-          <div class="free-text-wrap">
-            <textarea id="comentario" placeholder="Ej: Usamos un sistema de gestión llamado X, tenemos una sucursal en otra ciudad, recientemente cambiamos de proveedor de internet, nos preocupa especialmente el tema de..."></textarea>
-          </div>
-        </div>
-
-      </div>
-      <div class="form-nav">
-        <button class="btn-prev" onclick="goStep(5)">← Anterior</button>
-        <button class="btn-submit" id="btn-submit" onclick="submitForm()">
-          ⚡ Generar mi diagnóstico
-        </button>
-      </div>
-    </div>
-
-  </div><!-- /form-card -->
-
-  <!-- ══ RESULTADO PRELIMINAR ══ -->
-  <div id="result">
-    <div class="form-card">
-      <div class="result-header">
-        <div class="score-circle" id="score-circle"></div>
-        <h2 id="result-title"></h2>
-        <p id="result-subtitle"></p>
-      </div>
-      <div class="result-body">
-        <div class="areas-grid" id="areas-grid"></div>
-        <div class="result-cta">
-          <h3>🎯 Tu informe profesional está en preparación</h3>
-          <p>Nuestro equipo analizará tus respuestas y preparará un informe detallado con hallazgos priorizados, plan de acción concreto y recomendaciones alineadas con la Ley 21.719 y el estándar NIST CSF v2.0.</p>
-          <p style="color:rgba(255,255,255,0.9);font-weight:700;margin-top:8px;">📩 Recibirás tu informe en <strong>48 horas hábiles</strong> en tu correo.</p>
-        </div>
-        <div class="next-steps">
-          <h4>¿Qué pasa ahora?</h4>
-          <div class="step-item">
-            <div class="step-num-small">1</div>
-            <p><strong>Análisis experto:</strong> Un especialista en ciberseguridad revisará tus respuestas y preparará un informe personalizado para tu empresa.</p>
-          </div>
-          <div class="step-item">
-            <div class="step-num-small">2</div>
-            <p><strong>Informe en 48 horas hábiles:</strong> Recibirás un PDF con hallazgos priorizados, nivel de riesgo por área y un plan de acción concreto.</p>
-          </div>
-          <div class="step-item">
-            <div class="step-num-small">3</div>
-            <p><strong>Consulta incluida:</strong> Puedes escribirnos por WhatsApp o correo si tienes dudas sobre el informe. <a href="https://wa.me/56981307440" target="_blank" style="color:var(--blue)">+56 9 8130 7440</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /form-wrap -->
-
-<footer class="vciso-footer" role="contentinfo" style="background:#080f1e;padding:40px 5% 24px;margin-top:0;">
-  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;">
-    <div>
-      <a href="/" style="font-size:1.4rem;font-weight:900;color:#fff;text-decoration:none;display:block;margin-bottom:8px;">v<span style="color:#f47c47">CISO</span>.cl</a>
-      <p style="font-size:0.85rem;color:#94a3b8;line-height:1.65;">Ciberseguridad profesional para PYMEs chilenas. Servicios 100% remotos, sin contratos largos.</p>
-      <div style="margin-top:14px;display:flex;flex-direction:column;gap:5px;">
-        <a href="mailto:contacto@vciso.cl" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">✉ contacto@vciso.cl</a>
-        <a href="https://wa.me/56981307440" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">💬 WhatsApp +56 9 8130 7440</a>
-        <a href="https://www.vciso.cl" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">🌐 www.vciso.cl</a>
-      </div>
-    </div>
-    <div>
-      <h4 style="font-size:0.8rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Servicios</h4>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
-        <li><a href="/vciso_dominio_scanner.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Scanner de Dominio</a></li>
-        <li><a href="/vciso_politicas_checkout.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Generador de Políticas</a></li>
-        <li><a href="/vciso_checkout.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Diagnóstico Express</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 style="font-size:0.8rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Empresa</h4>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
-        <li><a href="/#como-funciona" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Cómo funciona</a></li>
-        <li><a href="/#precios" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Precios</a></li>
-        <li><a href="/vciso_informe_ejemplo.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Ejemplo de informe</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 style="font-size:0.8rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Legal</h4>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
-        <li><a href="/privacidad.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Política de Privacidad</a></li>
-        <li><a href="/terminos.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Términos de servicio</a></li>
-        <li><a href="/ley-21719.html" style="font-size:0.83rem;color:#94a3b8;text-decoration:none;">Ley 21.719</a></li>
-      </ul>
-    </div>
-  </div>
-  <div style="max-width:1200px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-    <p style="font-size:0.78rem;color:#94a3b8;">© 2026 vCISO.cl · Todos los derechos reservados · Santiago, Chile · 🧾 Emitimos boletas y facturas electrónicas · SII</p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <span style="font-size:0.72rem;background:rgba(255,255,255,0.05);color:#94a3b8;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);">🔒 NIST CSF v2.0</span>
-      <span style="font-size:0.72rem;background:rgba(255,255,255,0.05);color:#94a3b8;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);">🇨🇱 Ley 21.719</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-// ── Toggle campos factura ─────────────────────────────────────────────────
-function toggleFactura() {
-  const val = document.getElementById('tipo-documento').value;
-  const fields = document.getElementById('factura-fields');
-  fields.style.display = val === 'factura' ? 'block' : 'none';
+// api/submit-diagnostico.js
+// Recibe formulario → llama Claude API → genera Word → envía por email
+const crypto = require('crypto');
+const fetch  = require('node-fetch');
+const {
+  Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+  AlignmentType, HeadingLevel, BorderStyle, WidthType, ShadingType,
+  VerticalAlign, PageBreak
+} = require('docx');
+
+const DOWNLOAD_SECRET = process.env.DOWNLOAD_SECRET || 'vciso2026supersecreto';
+const TOKEN_TTL       = 48 * 60 * 60 * 1000;
+
+// ── Verificar token ────────────────────────────────────────────────────────
+function verifyToken(token) {
+  try {
+    const decoded = Buffer.from(token, 'base64url').toString('utf8');
+    const parts   = decoded.split('|');
+    if (parts.length < 4) return null;
+    const sig      = parts.pop();
+    const rest     = parts.join('|');
+    const [product, email, timestamp] = parts;
+    const expected = crypto.createHmac('sha256', DOWNLOAD_SECRET).update(rest).digest('hex');
+    if (sig !== expected) return null;
+    if (Date.now() - parseInt(timestamp) > TOKEN_TTL) return null;
+    return { product, email };
+  } catch (e) { return null; }
 }
 
-// ── Estado ────────────────────────────────────────────────────────────────
-const answers     = {};
-let currentStep   = 1;
-const totalSteps  = 6;
+// ── Colores Word ───────────────────────────────────────────────────────────
+const NAVY   = "0D1F3C";
+const BLUE   = "1E4FAD";
+const ORANGE = "E85D26";
+const WHITE  = "FFFFFF";
+const GRAY_BG= "F1F5F9";
+const GRAY_TX= "475569";
+const RED_BG = "FEF2F2";
+const RED_TX = "DC2626";
+const YLW_BG = "FFFBEB";
+const YLW_TX = "D97706";
+const GRN_BG = "F0FDF4";
+const GRN_TX = "16A34A";
 
-const stepLabels = [
-  'Paso 1 de 6 — Datos de tu empresa',
-  'Paso 2 de 6 — Accesos y contraseñas',
-  'Paso 3 de 6 — Equipos y red',
-  'Paso 4 de 6 — Datos e información',
-  'Paso 5 de 6 — Amenazas y proveedores',
-  'Paso 6 de 6 — Normativa y continuidad',
-];
+// ── Helpers Word ───────────────────────────────────────────────────────────
+const bdr  = (c="CCCCCC") => ({ style: BorderStyle.SINGLE, size: 1, color: c });
+const bdrs = (c="CCCCCC") => ({ top:bdr(c), bottom:bdr(c), left:bdr(c), right:bdr(c) });
 
+const cell = (children, opts={}) => new TableCell({
+  borders: bdrs(opts.bc || "CCCCCC"),
+  width: { size: opts.w || 4680, type: WidthType.DXA },
+  shading: opts.bg ? { fill: opts.bg, type: ShadingType.CLEAR } : undefined,
+  margins: { top: 100, bottom: 100, left: 160, right: 160 },
+  verticalAlign: opts.va || VerticalAlign.CENTER,
+  children,
+});
+
+const p = (text, opts={}) => new Paragraph({
+  alignment: opts.align || AlignmentType.LEFT,
+  spacing: { before: opts.sb||0, after: opts.sa||80 },
+  children: [new TextRun({
+    text, bold:opts.bold||false, italics:opts.italic||false,
+    size:opts.size||20, color:opts.color||"000000", font:"Arial"
+  })]
+});
+
+const p2 = (runs, opts={}) => new Paragraph({
+  alignment: opts.align || AlignmentType.LEFT,
+  spacing: { before:opts.sb||0, after:opts.sa||80 },
+  border: opts.border || undefined,
+  shading: opts.bg ? { fill:opts.bg, type:ShadingType.CLEAR } : undefined,
+  children: runs,
+});
+
+const t = (text, opts={}) => new TextRun({
+  text, bold:opts.bold||false, italics:opts.italic||false,
+  size:opts.size||20, color:opts.color||"000000", font:"Arial"
+});
+
+const empty = () => new Paragraph({ children:[new TextRun({ text:"" })] });
+
+const nivelMadurez = pct =>
+  pct >= 75 ? { nivel:"AVANZADO",   color:GRN_TX, bg:GRN_BG } :
+  pct >= 50 ? { nivel:"INTERMEDIO", color:YLW_TX, bg:YLW_BG } :
+  pct >= 25 ? { nivel:"BÁSICO",     color:YLW_TX, bg:YLW_BG } :
+              { nivel:"CRÍTICO",    color:RED_TX, bg:RED_BG  };
+
+const nivelQ = pts =>
+  pts >= 3 ? { txt:"Bueno",     bg:GRN_BG, color:GRN_TX } :
+  pts >= 1 ? { txt:"Mejorable", bg:YLW_BG, color:YLW_TX } :
+             { txt:"Crítico",   bg:RED_BG, color:RED_TX  };
+
+// ── Áreas y preguntas ──────────────────────────────────────────────────────
 const AREAS = [
-  { id:'accesos',   label:'Accesos y contraseñas', qs:['q1','q2','q3','q4'],     max:12 },
-  { id:'equipos',   label:'Equipos y red',         qs:['q5','q6','q7','q8'],     max:12 },
-  { id:'datos',     label:'Datos e información',   qs:['q9','q10','q11','q12'],  max:12 },
-  { id:'amenazas',  label:'Amenazas y proveedores',qs:['q13','q14','q15','q16'], max:12 },
-  { id:'normativa', label:'Normativa y continuidad',qs:['q17','q18','q19','q20','q21'], max:15 },
+  { id:"accesos",   label:"Accesos y Contraseñas",   emoji:"🔐", qs:["q1","q2","q3","q4"],      max:12 },
+  { id:"equipos",   label:"Equipos y Red",            emoji:"💻", qs:["q5","q6","q7","q8"],      max:12 },
+  { id:"datos",     label:"Datos e Información",      emoji:"💾", qs:["q9","q10","q11","q12"],   max:12 },
+  { id:"amenazas",  label:"Amenazas y Proveedores",   emoji:"🎯", qs:["q13","q14","q15","q16"],  max:12 },
+  { id:"normativa", label:"Normativa y Continuidad",  emoji:"📋", qs:["q17","q18","q19","q20","q21"], max:15 },
 ];
 
-// ── Seleccionar opción ────────────────────────────────────────────────────
-function selectOption(el, qKey, score, level) {
-  const parent = el.closest('.question');
-  parent.querySelectorAll('.option').forEach(o => {
-    o.classList.remove('selected','selected-good','selected-mid','selected-bad');
+const PREGUNTAS = {
+  q1: "¿Usan doble factor de autenticación (2FA)?",
+  q2: "¿Qué pasa con los accesos cuando un empleado se va?",
+  q3: "¿Tienen política de contraseñas definida?",
+  q4: "¿Usan gestor de contraseñas corporativo?",
+  q5: "¿Cómo son los computadores del equipo de trabajo?",
+  q6: "¿El Wi-Fi es el mismo para empleados y visitas?",
+  q7: "¿Los empleados usan celular personal para acceder a sistemas?",
+  q8: "¿Tienen inventario de equipos y software?",
+  q9: "¿Tienen respaldos automáticos de información crítica?",
+  q10:"¿Han probado restaurar desde el respaldo?",
+  q11:"¿Los computadores tienen antivirus activo?",
+  q12:"¿Con qué frecuencia actualizan sistemas y aplicaciones?",
+  q13:"¿Han recibido intentos de phishing o fraude digital?",
+  q14:"¿El proveedor TI tiene acceso controlado?",
+  q15:"¿Han tenido incidentes de seguridad en los últimos 2 años?",
+  q16:"¿Tienen plan de respuesta ante ransomware?",
+  q17:"¿Tienen políticas de seguridad documentadas?",
+  q18:"¿Manejan datos personales con controles formales?",
+  q19:"¿Los empleados reciben capacitación en ciberseguridad?",
+  q20:"¿Cuánto impacto tendría una interrupción de un día?",
+  q21:"¿Tienen seguro de ciberriesgo?",
+};
+
+// ── Llamar a Claude API ────────────────────────────────────────────────────
+async function llamarClaude(datos, respuestas, puntaje, maxPuntaje, porcentaje, areas, comentario) {
+  const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
+
+  const resumenRespuestas = Object.entries(respuestas)
+    .map(([q, pts]) => `- ${PREGUNTAS[q] || q}: ${pts} pts`)
+    .join('\n');
+
+  const resumenAreas = areas.map(a =>
+    `- ${a.label}: ${a.obtenido}/${a.max} pts (${a.pct}%)`
+  ).join('\n');
+
+  const userPrompt = `
+Analiza el siguiente diagnóstico de ciberseguridad y genera un informe profesional.
+
+## DATOS DE LA EMPRESA
+- Empresa: ${datos.empresa}
+- Rubro: ${datos.rubro}
+- Empleados: ${datos.empleados}
+- Responsable TI: ${datos.deptTI || datos.deptTi || 'No especificado'}
+- Presencia web: ${datos.web || 'No especificado'}
+- Contacto: ${datos.nombre}, ${datos.cargo}
+
+## PUNTAJE GLOBAL
+${porcentaje}% — ${puntaje}/${maxPuntaje} puntos
+
+## RESULTADOS POR ÁREA
+${resumenAreas}
+
+## RESPUESTAS DETALLADAS
+${resumenRespuestas}
+
+## CLASIFICACIÓN LEY 21.663
+${respuestas.q22 !== undefined ? 
+  (Number(respuestas.q22) === 3 ? "OIV NOTIFICADO — Obligaciones específicas Ley 21.663 aplican" :
+   Number(respuestas.q22) === 1 ? "SECTOR CRÍTICO SIN NOTIFICACIÓN — Verificar aplicabilidad" :
+   Number(respuestas.q22) === 0 ? "PYME COMÚN — Ley 21.663 no aplica directamente" :
+   "NO SABE — Requiere orientación")
+  : "No especificado"}
+
+## COMENTARIO DEL CLIENTE
+${comentario || 'Sin comentario adicional'}
+
+---
+
+Genera el informe en formato JSON con EXACTAMENTE esta estructura (sin markdown, sin texto extra, solo JSON válido):
+
+{
+  "resumen_ejecutivo": "3-4 párrafos analizando la situación global de la empresa, contextualizando al rubro y tamaño, mencionando el nivel de madurez y los principales riesgos identificados. Tono profesional pero comprensible para un dueño de PYME.",
+  "analisis_contexto": "2-3 párrafos analizando el comentario del cliente y el contexto tecnológico específico de su empresa. Identifica patrones de riesgo particulares de su situación.",
+  "hallazgos": [
+    {
+      "titulo": "Título corto del hallazgo",
+      "prioridad": "ALTA|MEDIA|BAJA",
+      "area": "nombre del área afectada",
+      "situacion": "Descripción del problema específico en el contexto de ESTA empresa (1-2 oraciones)",
+      "riesgo": "Qué puede pasar concretamente si no se corrige (1-2 oraciones)",
+      "accion": "Pasos concretos y específicos para esta empresa (2-4 oraciones)",
+      "plazo": "Esta semana|2 semanas|1 mes|2 meses|3 meses"
+    }
+  ],
+  "fortalezas": [
+    {
+      "titulo": "Título de la fortaleza",
+      "descripcion": "Descripción de qué están haciendo bien y cómo aprovecharlo (1-2 oraciones)"
+    }
+  ],
+  "conclusion": "2-3 párrafos de conclusión con visión optimista pero realista, destacando que las mejoras son alcanzables, priorizando las acciones inmediatas y mencionando cómo vCISO.cl puede acompañar el proceso.",
+  "nivel_urgencia_global": "CRÍTICO|ALTO|MEDIO|BAJO",
+  "nist_mapping": [
+    {"funcion": "Govern", "hallazgos": ["título de hallazgo relacionado"]},
+    {"funcion": "Identify", "hallazgos": []},
+    {"funcion": "Protect", "hallazgos": []},
+    {"funcion": "Detect", "hallazgos": []},
+    {"funcion": "Respond", "hallazgos": []},
+    {"funcion": "Recover", "hallazgos": []}
+  ],
+  "checklist_30_dias": [
+    "Acción concreta 1 para los primeros 30 días",
+    "Acción concreta 2",
+    "Acción concreta 3",
+    "Acción concreta 4",
+    "Acción concreta 5"
+  ]
+}
+
+IMPORTANTE — REGLAS DE PERSONALIZACIÓN:
+- Personaliza CADA hallazgo al contexto específico de ${datos.empresa} (rubro: ${datos.rubro}, ${datos.empleados} empleados, TI: ${datos.deptTI || datos.deptTi || 'sin área TI'})
+- SIEMPRE usa el nombre completo "${datos.empresa}" — NUNCA uses solo el nombre de una persona
+- Solo incluye hallazgos para preguntas con 0-1 puntos
+- Las fortalezas son para preguntas con 3 puntos
+- Si la empresa guarda datos personales: menciona la Ley 21.719 indicando "riesgo de incumplimiento futuro (vigencia 1 dic 2026)" y nombra a la "Agencia de Protección de Datos Personales"
+- Para clasificación Ley 21.663: si es OIV notificado, incluir hallazgo específico con obligaciones (CSIRT, reportes, SGSI). Si es sector crítico sin notificación, recomendar verificar con ANCI. Si es PYME común, NO mencionar Ley 21.663 como obligación directa. Si no sabe, incluir orientación breve.
+- Mapea los hallazgos a las funciones NIST CSF v2.0: Govern, Identify, Protect, Detect, Respond, Recover
+- Incluye SIEMPRE al menos un hallazgo de la función Detect
+- Máximo 6 hallazgos ALTA prioridad, 5 MEDIA, 3 BAJA
+- El JSON debe incluir también:
+  "nist_mapping": [{"funcion": "Protect", "hallazgos": ["título1", "título2"]}, ...],
+  "checklist_30_dias": ["acción 1", "acción 2", ...hasta 5 acciones concretas para los primeros 30 días"]
+`;
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type':      'application/json',
+      'x-api-key':         ANTHROPIC_KEY,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model:      'claude-haiku-4-5-20251001',
+      max_tokens: 16000,
+      system: `Eres un consultor senior en ciberseguridad con más de 20 años de experiencia, especializado en PYMEs chilenas. Tienes certificaciones en NIST CSF v2.0 e ISO 27001 y conocimiento profundo de la legislación chilena vigente.
+
+CONOCIMIENTO NORMATIVO:
+- Ley 21.719: vigencia plena desde el 1 de diciembre de 2026. Organismo competente: "Agencia de Protección de Datos Personales". NUNCA digas "Superintendencia de Privacidad".
+- Ley 21.663: marco general de ciberseguridad chileno. Solo aplica directamente a servicios esenciales y Operadores de Importancia Vital (OIV). Para PYMEs comunes, mencionarla solo como referencia de marco normativo general.
+- NIST SP 800-63B: NO recomendar cambio periódico fijo de contraseñas. Recomendar contraseñas largas únicas (mínimo 12 caracteres), gestor corporativo y 2FA.
+- NIST CSF v2.0: 6 funciones — Govern, Identify, Protect, Detect, Respond, Recover.
+
+TONO Y PRECISIÓN — REGLAS ESTRICTAS:
+- SIEMPRE referirte a la empresa por su nombre completo, NUNCA por el nombre de una persona.
+- Lenguaje profesional, claro y práctico. NUNCA alarmista. Evitar frases absolutas como "responsabilidad legal inmediata", "incumplimiento directo", "violación de la ley", "demandas inevitables", "pérdida irreversible". Reemplazar por: "podría generar", "puede aumentar la exposición a", "representa una brecha frente a buenas prácticas", "dependiendo del tipo de incidente".
+- No emitir conclusiones jurídicas. Las referencias legales son marcos de referencia, no certificaciones ni dictámenes de cumplimiento.
+- Para Ley 21.719: identificar brechas de preparación usando frases como "podría representar un riesgo de cumplimiento una vez aplicables las obligaciones" o "se recomienda validación con asesoría legal especializada". NUNCA afirmar que ya están incumpliendo.
+- Para Ley 21.663: mencionar solo como marco chileno general. No afirmar que la empresa es OIV ni prestadora de servicios esenciales salvo que el cliente lo haya declarado expresamente.
+- Los hallazgos son inferidos del cuestionario: usar frases como "según las respuestas proporcionadas", "con la información disponible", "se recomienda validar técnicamente".
+- NO inventar sistemas, proveedores ni herramientas específicas que el cliente no haya mencionado. Si no se conoce la herramienta, escribir "plataforma o sistema según corresponda".
+- NO usar estadísticas específicas sin fuente. Preferir "una causa frecuente", "un vector habitual", "un riesgo común en PYMEs".
+- Recomendaciones proporcionales al tamaño, rubro y recursos de la empresa. Priorizar acciones de bajo costo y rápida implementación.
+- Para empresas remotas: no asumir oficina ni red física. Redactar condicionalmente: "si existe oficina o red compartida...". Para trabajo remoto recomendar redes domésticas protegidas, WPA2/WPA3 y separación de dispositivos.
+- En conclusiones: no prometer resultados garantizados. Usar "podría mejorar significativamente", "ayudaría a reducir la exposición", "contribuye a fortalecer la postura de seguridad", siempre condicionado a implementación efectiva.
+- Siempre incluir al menos un hallazgo de la función Detect del NIST CSF (monitoreo, alertas, detección de amenazas).
+- Antes de finalizar: revisar consistencia entre rubro, modalidad de trabajo, tamaño y recomendaciones. Si una recomendación puede no aplicar, redactarla como condicional.
+- Responder SIEMPRE en español chileno formal.
+- Devolver SOLO el JSON válido, sin texto adicional ni bloques markdown.`,
+      messages: [{ role: 'user', content: userPrompt }],
+    }),
   });
-  const cls = level==='good' ? 'selected-good' : level==='bad' ? 'selected-bad' : 'selected-mid';
-  el.classList.add(cls);
-  answers[qKey] = { score, level };
-  const err = parent.querySelector('.error-msg');
-  if (err) err.classList.remove('visible');
+
+  const data = await resp.json();
+  if (!data.content || !data.content[0]) throw new Error('Claude no respondió');
+
+  const texto = data.content[0].text.trim();
+  // Limpiar posibles bloques markdown
+  const clean = texto.replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
+  return JSON.parse(clean);
 }
 
-// ── Navegar entre pasos ───────────────────────────────────────────────────
-function goStep(n) {
-  if (n > currentStep && !validateStep(currentStep)) return;
+// ── Generar Word ───────────────────────────────────────────────────────────
+async function generarWord(datos, respuestas, puntaje, maxPuntaje, porcentaje, areas, analisis) {
+  const fecha   = new Date().toLocaleDateString('es-CL', { year:'numeric', month:'long', day:'numeric' });
+  const madurez = nivelMadurez(porcentaje);
+  const children = [];
 
-  document.getElementById('step'+currentStep).classList.remove('active');
-  document.getElementById('dot'+currentStep).classList.remove('active');
-  document.getElementById('dot'+currentStep).classList.add('done');
+  // ── PORTADA ──
+  children.push(p2([
+    t("v",{bold:true,size:80,color:NAVY}),
+    t("CISO",{bold:true,size:80,color:ORANGE}),
+    t(".cl",{bold:true,size:80,color:NAVY}),
+  ],{ align:AlignmentType.CENTER, sb:1440, sa:120 }));
 
-  currentStep = n;
-  document.getElementById('step'+currentStep).classList.add('active');
-  document.getElementById('dot'+currentStep).classList.remove('done');
-  document.getElementById('dot'+currentStep).classList.add('active');
+  children.push(p("Ciberseguridad para PYMEs chilenas",{ align:AlignmentType.CENTER, color:GRAY_TX, size:22, sa:400 }));
 
-  // Actualizar progress
-  const pct = Math.round((n / totalSteps) * 100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('step-pct').textContent = pct + '%';
-  document.getElementById('step-label').textContent = stepLabels[n-1];
+  children.push(p2([],{
+    sb:100, sa:100,
+    border:{ bottom:{ style:BorderStyle.SINGLE, size:8, color:ORANGE, space:1 } }
+  }));
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+  children.push(p("INFORME DE DIAGNÓSTICO EXPRESS",{ align:AlignmentType.CENTER, bold:true, size:44, color:NAVY, sb:400, sa:160 }));
+  children.push(p("Diagnóstico de Ciberseguridad para PYMEs",{ align:AlignmentType.CENTER, size:26, color:GRAY_TX, sa:600 }));
 
-// ── Validar paso ──────────────────────────────────────────────────────────
-function validateStep(step) {
-  let ok = true;
+  children.push(new Table({
+    width:{ size:9360, type:WidthType.DXA },
+    columnWidths:[2500,6860],
+    rows:[
+      ["Empresa",    datos.empresa],
+      ["RUT",        datos.rut || "—"],
+      ["Contacto",   `${datos.nombre} · ${datos.cargo}`],
+      ["Email",      datos.email],
+      ["Teléfono",   datos.telefono || "—"],
+      ["Rubro",      datos.rubro],
+      ["Empleados",  datos.empleados],
+      ["Depto TI",   datos.deptTI || datos.deptTi || "—"],
+      ["Fecha",      fecha],
+    ].map(([label,value]) => new TableRow({ children:[
+      cell([p(label,{bold:true,size:20,color:WHITE})],{w:2500,bg:NAVY,bc:NAVY}),
+      cell([p(value,{size:20})],{w:6860,bg:GRAY_BG}),
+    ]}))
+  }));
 
-  if (step === 1) {
-    ['empresa','rubro','empleados','nombre','cargo','email','tipo-documento'].forEach(id => {
-      const el  = document.getElementById(id);
-      const err = document.getElementById('err-'+id);
-      const val = el ? el.value.trim() : '';
-      if (!val || (id==='email' && !/\S+@\S+\.\S+/.test(val))) {
-        if (err) err.classList.add('visible');
-        ok = false;
-      } else {
-        if (err) err.classList.remove('visible');
-      }
-    });
+  children.push(empty());
+  children.push(p(`Documento confidencial — Preparado exclusivamente para ${datos.empresa}`,
+    { align:AlignmentType.CENTER, size:17, color:GRAY_TX, sb:400 }));
+  children.push(new Paragraph({ children:[new PageBreak()] }));
 
-    // Validar campos de factura si eligió factura
-    if (document.getElementById('tipo-documento').value === 'factura') {
-      ['rut-empresa','razon-social','giro-comercial'].forEach(id => {
-        const el  = document.getElementById(id);
-        const err = document.getElementById('err-'+id);
-        const val = el ? el.value.trim() : '';
-        if (!val) {
-          if (err) err.classList.add('visible');
-          ok = false;
-        } else {
-          if (err) err.classList.remove('visible');
+  // ── SECCIÓN 1: RESUMEN EJECUTIVO ──
+  children.push(new Paragraph({
+    heading:HeadingLevel.HEADING_1,
+    spacing:{ before:240, after:160 },
+    children:[t("1. Resumen Ejecutivo",{bold:true,size:32,color:NAVY})]
+  }));
+
+  // Cuadro puntaje
+  children.push(new Table({
+    width:{size:9360,type:WidthType.DXA},
+    columnWidths:[3120,6240],
+    rows:[new TableRow({ children:[
+      cell([
+        p("MADUREZ GLOBAL",{bold:true,size:18,color:WHITE,sa:80}),
+        p2([t(madurez.nivel,{bold:true,size:52,color:WHITE})],{sb:40,sa:40}),
+        p(`${porcentaje}% · ${puntaje}/${maxPuntaje} puntos`,{size:20,color:WHITE}),
+      ],{w:3120,bg:NAVY}),
+      cell([
+        p("Resumen del diagnóstico",{bold:true,size:21,color:NAVY,sa:120}),
+        p(analisis.resumen_ejecutivo,{size:19,color:GRAY_TX}),
+      ],{w:6240,bg:GRAY_BG}),
+    ]})]
+  }));
+
+  children.push(empty());
+
+  // Resumen por áreas
+  children.push(new Table({
+    width:{size:9360,type:WidthType.DXA},
+    columnWidths:[3500,1860,1500,2500],
+    rows:[
+      new TableRow({ children:[
+        cell([p("Área",{bold:true,size:19,color:WHITE})],{w:3500,bg:NAVY}),
+        cell([p("Puntaje",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:1860,bg:NAVY}),
+        cell([p("%",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:1500,bg:NAVY}),
+        cell([p("Nivel",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:2500,bg:NAVY}),
+      ]}),
+      ...areas.map(area=>{
+        const m = nivelMadurez(area.pct);
+        return new TableRow({ children:[
+          cell([p(`${area.emoji||''} ${area.label}`,{size:19})],{w:3500,bg:GRAY_BG}),
+          cell([p(`${area.obtenido}/${area.max}`,{size:19,bold:true,align:AlignmentType.CENTER})],{w:1860,bg:m.bg}),
+          cell([p(`${area.pct}%`,{size:19,align:AlignmentType.CENTER,color:m.color})],{w:1500,bg:m.bg}),
+          cell([p(m.nivel,{size:19,bold:true,align:AlignmentType.CENTER,color:m.color})],{w:2500,bg:m.bg}),
+        ]});
+      }),
+    ]
+  }));
+
+  children.push(empty());
+
+  // Comentario del cliente
+  if (datos.comentario) {
+    children.push(p2([
+      t("Comentario del cliente:  ",{bold:true,size:20,color:YLW_TX}),
+      t(`"${datos.comentario}"`,{italic:true,size:20,color:GRAY_TX}),
+    ],{
+      sb:120, sa:120, bg:YLW_BG,
+      border:{ left:{ style:BorderStyle.SINGLE, size:16, color:YLW_TX, space:4 } }
+    }));
+    children.push(empty());
+  }
+
+  // Análisis contexto
+  if (analisis.analisis_contexto) {
+    children.push(p("Análisis del contexto tecnológico",{bold:true,size:22,color:NAVY,sb:160,sa:100}));
+    children.push(p(analisis.analisis_contexto,{size:20,color:GRAY_TX}));
+    children.push(empty());
+  }
+
+  children.push(new Paragraph({ children:[new PageBreak()] }));
+
+  // ── SECCIÓN 2: RESULTADOS POR ÁREA ──
+  children.push(new Paragraph({
+    heading:HeadingLevel.HEADING_1,
+    spacing:{ before:240, after:160 },
+    children:[t("2. Resultados por Área",{bold:true,size:32,color:NAVY})]
+  }));
+
+  AREAS.forEach(area=>{
+    const areaData = areas.find(a=>a.id===area.id) || { obtenido:0, max:area.max, pct:0 };
+    const m = nivelMadurez(areaData.pct);
+
+    children.push(new Paragraph({
+      heading:HeadingLevel.HEADING_2,
+      spacing:{ before:280, after:100 },
+      children:[t(`${area.emoji} ${area.label} — ${areaData.obtenido}/${area.max} pts (${areaData.pct}%)`,{bold:true,size:26,color:NAVY})]
+    }));
+
+    children.push(new Table({
+      width:{size:9360,type:WidthType.DXA},
+      columnWidths:[4200,2760,1200,1200],
+      rows:[
+        new TableRow({ children:[
+          cell([p("Pregunta",{bold:true,size:18,color:WHITE})],{w:4200,bg:BLUE}),
+          cell([p("Evaluación",{bold:true,size:18,color:WHITE})],{w:2760,bg:BLUE}),
+          cell([p("Pts",{bold:true,size:18,color:WHITE,align:AlignmentType.CENTER})],{w:1200,bg:BLUE}),
+          cell([p("Estado",{bold:true,size:18,color:WHITE,align:AlignmentType.CENTER})],{w:1200,bg:BLUE}),
+        ]}),
+        ...area.qs.map((q,i)=>{
+          const pts = respuestas[q] !== undefined ? Number(respuestas[q]) : 0;
+          const nv  = nivelQ(pts);
+          const eval_txt = pts >= 3 ? "Óptimo" : pts >= 1 ? "Mejorable" : "Requiere atención";
+          return new TableRow({ children:[
+            cell([p(PREGUNTAS[q]||q,{size:18})],{w:4200,bg:i%2===0?GRAY_BG:WHITE}),
+            cell([p(eval_txt,{size:18,italic:true,color:GRAY_TX})],{w:2760,bg:i%2===0?GRAY_BG:WHITE}),
+            cell([p(`${pts}`,{size:18,bold:true,align:AlignmentType.CENTER})],{w:1200,bg:nv.bg}),
+            cell([p(nv.txt,{size:17,bold:true,color:nv.color,align:AlignmentType.CENTER})],{w:1200,bg:nv.bg}),
+          ]});
+        }),
+      ]
+    }));
+    children.push(empty());
+  });
+
+  children.push(new Paragraph({ children:[new PageBreak()] }));
+
+  // ── SECCIÓN 3: HALLAZGOS Y PLAN DE ACCIÓN ──
+  children.push(new Paragraph({
+    heading:HeadingLevel.HEADING_1,
+    spacing:{ before:240, after:160 },
+    children:[t("3. Hallazgos y Plan de Acción",{bold:true,size:32,color:NAVY})]
+  }));
+  children.push(p("Los siguientes hallazgos han sido identificados y priorizados por nuestro equipo basándose en las respuestas del diagnóstico.",
+    {size:20,color:GRAY_TX,sa:200}));
+
+  let numH = 0;
+  for (const prioridad of ["ALTA","MEDIA","BAJA"]) {
+    const grupo = (analisis.hallazgos||[]).filter(h=>h.prioridad===prioridad);
+    if (!grupo.length) continue;
+
+    const pColor = prioridad==="ALTA" ? RED_TX : prioridad==="MEDIA" ? YLW_TX : GRN_TX;
+    const pBg    = prioridad==="ALTA" ? RED_BG : prioridad==="MEDIA" ? YLW_BG : GRN_BG;
+    const pLabel = prioridad==="ALTA" ? "🔴  PRIORIDAD ALTA" : prioridad==="MEDIA" ? "🟡  PRIORIDAD MEDIA" : "🟢  PRIORIDAD BAJA";
+
+    children.push(p2([t(pLabel,{bold:true,size:22,color:pColor})],{sb:280,sa:120,bg:pBg}));
+
+    for (const h of grupo) {
+      numH++;
+      children.push(new Table({
+        width:{size:9360,type:WidthType.DXA},
+        columnWidths:[9360],
+        rows:[new TableRow({ children:[
+          cell([
+            p2([
+              t(`${numH}. `,{bold:true,size:21,color:pColor}),
+              t(h.titulo,{bold:true,size:21,color:NAVY}),
+            ],{sb:60,sa:80}),
+            p2([t("Situación: ",{bold:true,size:19,color:NAVY}), t(h.situacion||'',{size:19,color:GRAY_TX})],{sa:80}),
+            p2([t("Riesgo: ",{bold:true,size:19,color:pColor}), t(h.riesgo||'',{size:19,color:GRAY_TX})],{sa:80}),
+            p2([t("Acción recomendada: ",{bold:true,size:19,color:NAVY}), t(h.accion||'',{size:19,color:GRAY_TX})],{sa:80}),
+            p2([
+              t("Plazo sugerido: ",{bold:true,size:19,color:NAVY}),
+              t(h.plazo||'',{bold:true,size:19,color:pColor}),
+              t("     Responsable: _______________________     ",{size:19,color:GRAY_TX}),
+              t("☐ Completado",{size:19,color:GRAY_TX}),
+            ],{sa:60}),
+          ],{w:9360,bg:WHITE,bc:"E2E8F0"}),
+        ]})]
+      }));
+      children.push(empty());
+    }
+  }
+
+  children.push(new Paragraph({ children:[new PageBreak()] }));
+
+  // ── SECCIÓN 4: FORTALEZAS ──
+  if (analisis.fortalezas && analisis.fortalezas.length) {
+    children.push(new Paragraph({
+      heading:HeadingLevel.HEADING_1,
+      spacing:{ before:240, after:160 },
+      children:[t("4. Fortalezas Identificadas",{bold:true,size:32,color:NAVY})]
+    }));
+
+    for (const f of analisis.fortalezas) {
+      children.push(new Table({
+        width:{size:9360,type:WidthType.DXA},
+        columnWidths:[9360],
+        rows:[new TableRow({ children:[
+          cell([
+            p(`✅ ${f.titulo}`,{bold:true,size:20,color:GRN_TX,sa:60}),
+            p(f.descripcion,{size:19,color:GRAY_TX}),
+          ],{w:9360,bg:GRN_BG,bc:"BBF7D0"}),
+        ]})]
+      }));
+      children.push(empty());
+    }
+    children.push(new Paragraph({ children:[new PageBreak()] }));
+  }
+
+  // ── SECCIÓN 5: ALINEACIÓN NIST CSF v2.0 ──
+  if (analisis.nist_mapping && analisis.nist_mapping.length) {
+    children.push(new Paragraph({
+      heading:HeadingLevel.HEADING_1,
+      spacing:{ before:240, after:160 },
+      children:[t("5. Alineación con NIST CSF v2.0",{bold:true,size:32,color:NAVY})]
+    }));
+
+    children.push(p(
+      "Los hallazgos identificados han sido mapeados a las seis funciones del Marco de Ciberseguridad NIST CSF v2.0, estándar internacional de referencia para la gestión de riesgos de ciberseguridad.",
+      {size:20,color:GRAY_TX,sa:160}
+    ));
+
+    const nistEmojis = { Govern:"🏛️", Identify:"🔍", Protect:"🛡️", Detect:"📡", Respond:"🚨", Recover:"🔄" };
+    const nistDesc   = {
+      Govern:  "Políticas, roles, responsabilidades y gestión del riesgo organizacional",
+      Identify:"Inventario de activos, datos, sistemas y evaluación de riesgos",
+      Protect: "Controles de acceso, capacitación, respaldos y protección de datos",
+      Detect:  "Monitoreo continuo, detección de anomalías y amenazas",
+      Respond: "Plan de respuesta a incidentes y comunicación de crisis",
+      Recover: "Restauración de servicios y mejora continua post-incidente",
+    };
+
+    children.push(new Table({
+      width:{size:9360,type:WidthType.DXA},
+      columnWidths:[2200,3160,4000],
+      rows:[
+        new TableRow({ children:[
+          cell([p("Función",{bold:true,size:19,color:WHITE})],{w:2200,bg:NAVY}),
+          cell([p("Descripción",{bold:true,size:19,color:WHITE})],{w:3160,bg:NAVY}),
+          cell([p("Hallazgos identificados",{bold:true,size:19,color:WHITE})],{w:4000,bg:NAVY}),
+        ]}),
+        ...analisis.nist_mapping.map((item,i)=>{
+          const emoji  = nistEmojis[item.funcion] || "•";
+          const desc   = nistDesc[item.funcion]   || "";
+          const hItems = (item.hallazgos||[]);
+          const hText  = hItems.length > 0 ? hItems.join(" · ") : "Sin hallazgos críticos en esta área";
+          const hColor = hItems.length > 0 ? GRAY_TX : GRN_TX;
+          const rowBg  = i%2===0 ? GRAY_BG : WHITE;
+          return new TableRow({ children:[
+            cell([p(`${emoji} ${item.funcion}`,{size:19,bold:true,color:NAVY})],{w:2200,bg:rowBg}),
+            cell([p(desc,{size:17,color:GRAY_TX,italic:true})],{w:3160,bg:rowBg}),
+            cell([p(hText,{size:18,color:hColor})],{w:4000,bg:rowBg}),
+          ]});
+        }),
+      ]
+    }));
+    children.push(empty());
+    children.push(new Paragraph({ children:[new PageBreak()] }));
+  }
+
+  // ── SECCIÓN 6: CHECKLIST PRIMEROS 30 DÍAS ──
+  if (analisis.checklist_30_dias && analisis.checklist_30_dias.length) {
+    children.push(new Paragraph({
+      heading:HeadingLevel.HEADING_1,
+      spacing:{ before:240, after:160 },
+      children:[t("6. Checklist — Primeros 30 Días",{bold:true,size:32,color:NAVY})]
+    }));
+
+    children.push(p(
+      "Las siguientes acciones han sido priorizadas como las más urgentes e impactantes para mejorar la postura de seguridad de " + datos.empresa + " en el corto plazo. Se recomienda abordarlas antes de pasar a las mejoras de mediano plazo.",
+      {size:20,color:GRAY_TX,sa:160}
+    ));
+
+    children.push(new Table({
+      width:{size:9360,type:WidthType.DXA},
+      columnWidths:[720,7200,1440],
+      rows:[
+        new TableRow({ children:[
+          cell([p("#",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:720,bg:ORANGE}),
+          cell([p("Acción prioritaria",{bold:true,size:19,color:WHITE})],{w:7200,bg:ORANGE}),
+          cell([p("Estado",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:1440,bg:ORANGE}),
+        ]}),
+        ...analisis.checklist_30_dias.map((accion,i)=>
+          new TableRow({ children:[
+            cell([p(`${i+1}`,{size:19,bold:true,align:AlignmentType.CENTER,color:ORANGE})],{w:720,bg:i%2===0?GRAY_BG:WHITE}),
+            cell([p(accion,{size:19})],{w:7200,bg:i%2===0?GRAY_BG:WHITE}),
+            cell([p("☐ Pendiente",{size:17,color:GRAY_TX,align:AlignmentType.CENTER})],{w:1440,bg:i%2===0?GRAY_BG:WHITE}),
+          ]})
+        ),
+      ]
+    }));
+    children.push(empty());
+    children.push(new Paragraph({ children:[new PageBreak()] }));
+  }
+
+  // ── SECCIÓN 7: CONCLUSIONES ──
+  children.push(new Paragraph({
+    heading:HeadingLevel.HEADING_1,
+    spacing:{ before:240, after:160 },
+    children:[t("7. Conclusiones y Próximos Pasos",{bold:true,size:32,color:NAVY})]
+  }));
+
+  children.push(p(analisis.conclusion||'',{size:20,color:GRAY_TX,sa:200}));
+
+  // Tabla hoja de ruta
+  const hallazgosOrdenados = [...(analisis.hallazgos||[])]
+    .sort((a,b) => {
+      const ord = {ALTA:0,MEDIA:1,BAJA:2};
+      return (ord[a.prioridad]||0) - (ord[b.prioridad]||0);
+    })
+    .slice(0,10);
+
+  children.push(new Table({
+    width:{size:9360,type:WidthType.DXA},
+    columnWidths:[1600,5560,2200],
+    rows:[
+      new TableRow({ children:[
+        cell([p("Plazo",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:1600,bg:NAVY}),
+        cell([p("Acción",{bold:true,size:19,color:WHITE})],{w:5560,bg:NAVY}),
+        cell([p("Prioridad",{bold:true,size:19,color:WHITE,align:AlignmentType.CENTER})],{w:2200,bg:NAVY}),
+      ]}),
+      ...hallazgosOrdenados.map((h,i)=>{
+        const pColor = h.prioridad==="ALTA" ? RED_TX : h.prioridad==="MEDIA" ? YLW_TX : GRN_TX;
+        const pBg    = h.prioridad==="ALTA" ? RED_BG : h.prioridad==="MEDIA" ? YLW_BG : GRN_BG;
+        return new TableRow({ children:[
+          cell([p(h.plazo||'',{size:18,align:AlignmentType.CENTER,bold:true,color:BLUE})],{w:1600,bg:i%2===0?GRAY_BG:WHITE}),
+          cell([p(h.titulo,{size:18})],{w:5560,bg:i%2===0?GRAY_BG:WHITE}),
+          cell([p(h.prioridad,{size:18,bold:true,color:pColor,align:AlignmentType.CENTER})],{w:2200,bg:pBg}),
+        ]});
+      }),
+    ]
+  }));
+
+  children.push(empty());
+  children.push(empty());
+
+  // CTA
+  children.push(new Table({
+    width:{size:9360,type:WidthType.DXA},
+    columnWidths:[9360],
+    rows:[new TableRow({ children:[
+      cell([
+        p("¿Necesitas ayuda para implementar estas mejoras?",{bold:true,size:22,color:WHITE,align:AlignmentType.CENTER,sa:120}),
+        p("vCISO.cl actúa como tu CISO externo: acompañamiento continuo, sin contratos largos, a precio de PYME.",{size:20,color:"CCDDFF",align:AlignmentType.CENTER,sa:120}),
+        p("📧 contacto@vciso.cl  ·  📱 +56 9 8130 7440  ·  🌐 www.vciso.cl",{size:20,color:WHITE,align:AlignmentType.CENTER,bold:true}),
+      ],{w:9360,bg:NAVY}),
+    ]})]
+  }));
+
+  children.push(empty());
+  children.push(p(`Informe preparado por vCISO.cl · ${fecha} · Confidencial — Para uso exclusivo de ${datos.empresa}`,
+    {size:16,color:GRAY_TX,align:AlignmentType.CENTER,sb:200}));
+
+  // ── DISCLAIMER LEGAL ──
+  children.push(new Paragraph({ children:[new PageBreak()] }));
+
+  children.push(new Paragraph({
+    heading:HeadingLevel.HEADING_1,
+    spacing:{ before:240, after:160 },
+    children:[t("8. Aviso Legal y Limitación de Responsabilidad",{bold:true,size:32,color:NAVY})]
+  }));
+
+  const disclaimerArticulos = [
+    ["1. Naturaleza del servicio.",
+     "El presente informe fue elaborado por vCISO.cl, empresa de consultoría en ciberseguridad con domicilio en Santiago de Chile. Constituye una asesoría de orientación general basada exclusivamente en las respuestas del cliente al cuestionario de diagnóstico. No constituye auditoría técnica, prueba de penetración, análisis forense ni evaluación exhaustiva de sistemas o procesos. Este informe fue elaborado con asistencia de inteligencia artificial y revisado por un consultor humano antes de su entrega."],
+    ["2. Alcance y limitaciones.",
+     "Las recomendaciones son de carácter referencial e informativo. vCISO.cl no garantiza que su implementación elimine todos los riesgos existentes ni aquellos no identificados. La información del cliente es la única base del análisis, siendo responsabilidad exclusiva del cliente su veracidad e integridad, conforme al artículo 1546 del Código Civil de Chile. Este informe no garantiza cumplimiento normativo con Ley 21.719, ISO 27001, NIST CSF ni ningún otro estándar o regulación."],
+    ["3. Limitación de responsabilidad.",
+     "En conformidad con los artículos 1547 y 1558 del Código Civil de Chile, vCISO.cl limita su responsabilidad a daños directos consecuencia inmediata del incumplimiento de sus obligaciones como consultor. vCISO.cl no será responsable por daños indirectos, lucro cesante, pérdida de datos, interrupción de operaciones, daños reputacionales, ni perjuicios derivados de la no implementación, implementación parcial o incorrecta de las recomendaciones."],
+    ["4. Responsabilidad del cliente.",
+     "La decisión de implementar, modificar o descartar las recomendaciones es de exclusiva responsabilidad de la organización contratante y su representante legal. vCISO.cl no asume responsabilidad por las consecuencias de dicha decisión, conforme al principio de autonomía de la voluntad del artículo 1545 del Código Civil de Chile."],
+    ["5. No constituye asesoría legal.",
+     "Este informe no constituye asesoría jurídica. Las referencias a normativas legales son de carácter informativo y orientador. Para asesoría legal específica, la organización debe consultar a un abogado habilitado."],
+    ["6. Confidencialidad.",
+     "Este informe es estrictamente confidencial y fue preparado exclusivamente para la organización indicada en la portada. Queda prohibida su reproducción, distribución o divulgación a terceros sin autorización escrita de vCISO.cl."],
+    ["7. Sin relación de dependencia.",
+     "Este informe no establece relación laboral, societaria ni de representación legal entre vCISO.cl y la organización contratante."],
+  ];
+
+  disclaimerArticulos.forEach(([titulo, texto]) => {
+    children.push(p2([
+      t(titulo + "  ", {bold:true, size:20, color:NAVY}),
+      t(texto, {size:20, color:GRAY_TX}),
+    ], {sb:100, sa:100}));
+  });
+
+  children.push(empty());
+
+  // ── Generar documento ──
+  const doc = new Document({
+    styles:{
+      default:{ document:{ run:{ font:"Arial", size:20 } } },
+      paragraphStyles:[
+        { id:"Heading1", name:"Heading 1", basedOn:"Normal", next:"Normal", quickFormat:true,
+          run:{ size:32, bold:true, font:"Arial", color:NAVY },
+          paragraph:{ spacing:{ before:240, after:160 }, outlineLevel:0,
+            border:{ bottom:{ style:BorderStyle.SINGLE, size:6, color:ORANGE, space:4 } } } },
+        { id:"Heading2", name:"Heading 2", basedOn:"Normal", next:"Normal", quickFormat:true,
+          run:{ size:26, bold:true, font:"Arial", color:NAVY },
+          paragraph:{ spacing:{ before:200, after:100 }, outlineLevel:1 } },
+      ]
+    },
+    sections:[{
+      properties:{
+        page:{
+          size:{ width:11906, height:16838 },
+          margin:{ top:1080, right:1260, bottom:1080, left:1260 }
         }
-      });
-      const emailF  = document.getElementById('email-factura');
-      const errF    = document.getElementById('err-email-factura');
-      if (!emailF.value.trim() || !/\S+@\S+\.\S+/.test(emailF.value.trim())) {
-        errF.classList.add('visible');
-        ok = false;
-      } else {
-        errF.classList.remove('visible');
-      }
-    }
-  }
+      },
+      children,
+    }]
+  });
 
-  // Preguntas por paso
-  const stepQs = {
-    2: ['q1','q2','q3','q4'],
-    3: ['q5','q6','q7','q8'],
-    4: ['q9','q10','q11','q12'],
-    5: ['q13','q14','q15','q16'],
-    6: ['q17','q18','q19','q20','q21','q22'],
+  return Packer.toBuffer(doc);
+}
+
+// ── Handler principal ──────────────────────────────────────────────────────
+module.exports = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin',  '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST')   return res.status(405).json({ error: 'Method not allowed' });
+
+  const body = req.body || {};
+  const { token, datos, respuestas, puntaje, maxPuntaje, porcentaje, areas } = body;
+
+  // Validar token
+  const info = token ? verifyToken(token) : null;
+  if (!info) return res.status(403).json({ error: 'Token inválido o expirado' });
+
+  const RESEND_KEY    = process.env.RESEND_API_KEY;
+  const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
+  const date          = new Date().toLocaleString('es-CL', { timeZone:'America/Santiago' });
+
+  // Compatibilidad con formulario anterior (campos planos)
+  const datosNormalizados = datos || {
+    empresa:   body.empresa,
+    rut:       body.rut,
+    nombre:    body.contacto || body.nombre,
+    cargo:     body.cargo,
+    email:     body.email || info.email,
+    telefono:  body.telefono,
+    rubro:     body.rubro,
+    empleados: body.empleados,
+    deptTI:    body.deptTi || body.deptTI,
+    web:       body.web,
+    comentario:body.comentario,
   };
 
-  if (stepQs[step]) {
-    stepQs[step].forEach(q => {
-      const err = document.getElementById('err-'+q);
-      if (!answers[q]) {
-        if (err) err.classList.add('visible');
-        ok = false;
-      } else {
-        if (err) err.classList.remove('visible');
-      }
-    });
-  }
+  const respuestasNorm = respuestas || {};
+  const puntajeNorm    = puntaje    || body.score || 0;
+  const maxNorm        = maxPuntaje || 63;
+  const pctNorm        = porcentaje || body.pct   || 0;
+  const areasNorm      = areas      || AREAS.map(a=>({
+    ...a,
+    obtenido: a.qs.reduce((s,q)=> s + (Number(respuestasNorm[q])||0), 0),
+    pct: Math.round((a.qs.reduce((s,q)=>s+(Number(respuestasNorm[q])||0),0) / a.max)*100),
+  }));
 
-  if (!ok) window.scrollTo({ top: 0, behavior: 'smooth' });
-  return ok;
-}
+  try {
+    // 1. Llamar a Claude
+    console.log('Llamando a Claude API...');
+    let analisis;
+    try {
+      analisis = await llamarClaude(
+        datosNormalizados, respuestasNorm, puntajeNorm, maxNorm, pctNorm,
+        areasNorm, datosNormalizados.comentario
+      );
+      console.log('Claude respondió OK, nivel urgencia:', analisis.nivel_urgencia_global);
+    } catch(claudeErr) {
+      console.error('Error Claude API:', claudeErr.message);
+      // Si Claude falla, continuar sin análisis IA (fallback)
+      analisis = {
+        resumen_ejecutivo: `${datosNormalizados.empresa} obtuvo un ${pctNorm}% de madurez en ciberseguridad (${puntajeNorm}/${maxNorm} puntos). El informe detallado será preparado manualmente por nuestro equipo.`,
+        analisis_contexto: datosNormalizados.comentario || '',
+        hallazgos: [],
+        fortalezas: [],
+        conclusion: 'Nuestro equipo revisará las respuestas y preparará un informe personalizado en las próximas 24 horas.',
+        nivel_urgencia_global: 'PENDIENTE',
+      };
+    }
 
-// ── Calcular puntaje ──────────────────────────────────────────────────────
-function calcScore() {
-  let total = 0, maxTotal = 0;
-  AREAS.forEach(area => {
-    area.qs.forEach(q => { if (answers[q]) total += answers[q].score; });
-    maxTotal += area.max;
-  });
-  return { total, maxTotal, pct: Math.round((total/maxTotal)*100) };
-}
+    // 2. Generar Word
+    console.log('Generando Word...');
+    const wordBuffer = await generarWord(
+      datosNormalizados, respuestasNorm, puntajeNorm, maxNorm, pctNorm,
+      areasNorm, analisis
+    );
+    const wordBase64 = wordBuffer.toString('base64');
+    const nombreArchivo = `Diagnostico_${(datosNormalizados.empresa||'cliente').replace(/[^a-zA-Z0-9]/g,'_')}_vCISO.docx`;
 
-function areaScore(area) {
-  let s = 0;
-  area.qs.forEach(q => { if (answers[q]) s += answers[q].score; });
-  return { obtenido: s, max: area.max, pct: Math.round((s/area.max)*100) };
-}
+    // 3. Enviar email con Word adjunto
+    console.log('Enviando email con adjunto...');
+    const madurez = nivelMadurez(pctNorm);
 
-// ── Mostrar resultado ─────────────────────────────────────────────────────
-function showResult(score) {
-  const { total, maxTotal, pct } = score;
-  const circle  = document.getElementById('score-circle');
-  const title   = document.getElementById('result-title');
-  const subtitle= document.getElementById('result-subtitle');
-  const grid    = document.getElementById('areas-grid');
+    const html = `
+    <div style="font-family:sans-serif;max-width:640px;margin:0 auto;
+                background:#0d1f3c;color:#fff;padding:40px;border-radius:12px">
+      <div style="font-size:1.6rem;font-weight:900;margin-bottom:4px">
+        v<span style="color:#f47c47">CISO</span>.cl
+      </div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-bottom:28px;
+                  text-transform:uppercase;letter-spacing:0.06em">
+        Nuevo diagnóstico recibido · ${date}
+      </div>
 
-  let nivel, cls;
-  if      (pct >= 75) { nivel='Avanzado';   cls='circle-green';  }
-  else if (pct >= 50) { nivel='Intermedio'; cls='circle-yellow'; }
-  else if (pct >= 25) { nivel='Básico';     cls='circle-yellow'; }
-  else                { nivel='Crítico';    cls='circle-red';     }
+      <h2 style="font-size:1.2rem;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:12px">
+        🔍 Diagnóstico Express — <span style="color:#f47c47">${datosNormalizados.empresa}</span>
+      </h2>
 
-  circle.className  = 'score-circle ' + cls;
-  circle.textContent = pct + '%';
-  title.textContent  = `Nivel de madurez: ${nivel}`;
-  subtitle.textContent = `${total} de ${maxTotal} puntos · Tu informe detallado llegará en 24 horas hábiles`;
+      <table style="width:100%;border-collapse:collapse;margin-bottom:20px">
+        <tr><td style="padding:6px 8px;color:rgba(255,255,255,0.5);width:140px">Empresa</td>
+            <td style="padding:6px 8px;color:#fff;font-weight:700">${datosNormalizados.empresa}</td></tr>
+        <tr><td style="padding:6px 8px;color:rgba(255,255,255,0.5)">Contacto</td>
+            <td style="padding:6px 8px;color:#fff">${datosNormalizados.nombre} · ${datosNormalizados.cargo}</td></tr>
+        <tr><td style="padding:6px 8px;color:rgba(255,255,255,0.5)">Email cliente</td>
+            <td style="padding:6px 8px;color:#fff">${datosNormalizados.email}</td></tr>
+        <tr><td style="padding:6px 8px;color:rgba(255,255,255,0.5)">Rubro</td>
+            <td style="padding:6px 8px;color:#fff">${datosNormalizados.rubro}</td></tr>
+        <tr><td style="padding:6px 8px;color:rgba(255,255,255,0.5)">Empleados</td>
+            <td style="padding:6px 8px;color:#fff">${datosNormalizados.empleados}</td></tr>
+      </table>
 
-  // Grid de áreas
-  grid.innerHTML = '';
-  AREAS.forEach(area => {
-    const d = areaScore(area);
-    let badgeCls, fillCls;
-    if      (d.pct >= 75) { badgeCls='badge-green';  fillCls='fill-green';  }
-    else if (d.pct >= 40) { badgeCls='badge-yellow'; fillCls='fill-yellow'; }
-    else                  { badgeCls='badge-red';    fillCls='fill-red';    }
+      <div style="background:rgba(232,93,38,0.15);border:1px solid rgba(232,93,38,0.4);
+                  border-radius:10px;padding:20px;margin-bottom:24px;text-align:center">
+        <div style="font-size:2.2rem;font-weight:900;color:#f47c47">${pctNorm}%</div>
+        <div style="font-size:1rem;font-weight:700;color:#fff;margin:4px 0">${madurez.nivel}</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.5)">${puntajeNorm}/${maxNorm} puntos · Urgencia: ${analisis.nivel_urgencia_global}</div>
+      </div>
 
-    const lvl = d.pct >= 75 ? 'Bueno' : d.pct >= 40 ? 'Mejorable' : 'Crítico';
+      <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:16px;margin-bottom:20px">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Hallazgos identificados por Claude</div>
+        ${(analisis.hallazgos||[]).filter(h=>h.prioridad==='ALTA').map(h=>
+          `<div style="font-size:0.85rem;color:#fca5a5;margin-bottom:4px">🔴 ${h.titulo}</div>`
+        ).join('')}
+        ${(analisis.hallazgos||[]).filter(h=>h.prioridad==='MEDIA').map(h=>
+          `<div style="font-size:0.85rem;color:#fcd34d;margin-bottom:4px">🟡 ${h.titulo}</div>`
+        ).join('')}
+      </div>
 
-    grid.innerHTML += `
-      <div class="area-card">
-        <div class="area-top">
-          <span class="area-name">${area.label}</span>
-          <span class="area-badge ${badgeCls}">${lvl}</span>
+      ${datosNormalizados.comentario ? `
+      <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px;margin-bottom:20px">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:6px">Comentario del cliente</div>
+        <div style="color:rgba(255,255,255,0.7);font-size:0.88rem;font-style:italic">"${datosNormalizados.comentario}"</div>
+      </div>` : ''}
+
+      <div style="background:rgba(255,255,255,0.06);border-radius:8px;padding:14px;margin-bottom:20px;border-left:3px solid ${datosNormalizados.tipoDocumento === 'factura' ? '#f59e0b' : '#22c55e'}">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">📄 Documento tributario requerido</div>
+        ${datosNormalizados.tipoDocumento === 'factura' ? `
+        <div style="font-size:0.9rem;color:#fcd34d;font-weight:700;margin-bottom:8px">⚠️ FACTURA ELECTRÓNICA</div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+          <tr><td style="color:rgba(255,255,255,0.5);padding:3px 0;width:130px">RUT empresa</td><td style="color:#fff">${datosNormalizados.rutEmpresa || '—'}</td></tr>
+          <tr><td style="color:rgba(255,255,255,0.5);padding:3px 0">Razón social</td><td style="color:#fff">${datosNormalizados.razonSocial || '—'}</td></tr>
+          <tr><td style="color:rgba(255,255,255,0.5);padding:3px 0">Giro</td><td style="color:#fff">${datosNormalizados.giroComercial || '—'}</td></tr>
+          <tr><td style="color:rgba(255,255,255,0.5);padding:3px 0">Email factura</td><td style="color:#fff">${datosNormalizados.emailFactura || '—'}</td></tr>
+        </table>` : `
+        <div style="font-size:0.88rem;color:#86efac">✅ Boleta electrónica — emitir a nombre del cliente</div>`}
+      </div>
+
+      <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);
+                  border-radius:8px;padding:14px;margin-bottom:20px;text-align:center">
+        <div style="font-size:0.88rem;color:#86efac;font-weight:700">
+          📎 Informe Word adjunto — revisa, ajusta y envía al cliente
         </div>
-        <div style="font-size:0.78rem;color:#64748b;margin-bottom:7px;">${d.obtenido}/${d.max} puntos (${d.pct}%)</div>
-        <div class="area-bar"><div class="area-bar-fill ${fillCls}" style="width:${d.pct}%"></div></div>
-      </div>`;
-  });
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:4px">
+          ${nombreArchivo}
+        </div>
+      </div>
 
-  // Ocultar wizard, mostrar resultado
-  document.getElementById('form-container').style.display = 'none';
-  document.getElementById('result').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+      <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:14px;
+                  font-size:0.75rem;color:rgba(255,255,255,0.3)">
+        Generado automáticamente por Claude API · vCISO.cl · contacto@vciso.cl
+      </div>
+    </div>`;
 
-// ── Enviar formulario ─────────────────────────────────────────────────────
-async function submitForm() {
-  if (!validateStep(6)) return;
-
-  const btn = document.getElementById('btn-submit');
-  btn.disabled = true;
-  btn.textContent = '⏳ Enviando...';
-
-  const score = calcScore();
-
-  // Recopilar datos del paso 1
-  const datos = {
-    empresa:   document.getElementById('empresa').value.trim(),
-    rut:       document.getElementById('rut').value.trim(),
-    rubro:     document.getElementById('rubro').value,
-    empleados: document.getElementById('empleados').value,
-    deptTI:    document.getElementById('dept-ti').value,
-    web:       document.getElementById('web').value,
-    nombre:    document.getElementById('nombre').value.trim(),
-    cargo:     document.getElementById('cargo').value.trim(),
-    email:     document.getElementById('email').value.trim(),
-    telefono:  document.getElementById('telefono').value.trim(),
-    comentario:document.getElementById('comentario').value.trim(),
-      tipoDocumento: document.getElementById('tipo-documento').value,
-      rutEmpresa:    document.getElementById('rut-empresa')   ? document.getElementById('rut-empresa').value.trim()    : '',
-      razonSocial:   document.getElementById('razon-social')  ? document.getElementById('razon-social').value.trim()   : '',
-      giroComercial: document.getElementById('giro-comercial')? document.getElementById('giro-comercial').value.trim() : '',
-      emailFactura:  document.getElementById('email-factura') ? document.getElementById('email-factura').value.trim()  : '',
-  };
-
-  // Preparar respuestas
-  const respuestas = {};
-  Object.keys(answers).forEach(q => { respuestas[q] = answers[q].score; });
-
-  const payload = {
-    token:      window.__accessToken || '',
-    datos,
-    respuestas,
-    puntaje:    score.total,
-    maxPuntaje: score.maxTotal,
-    porcentaje: score.pct,
-    areas: AREAS.map(a => ({ ...a, ...areaScore(a) })),
-  };
-
-  try {
-    const resp = await fetch('/api/submit-diagnostico', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+    const emailResult = await fetch('https://api.resend.com/emails', {
+      method:  'POST',
+      headers: { 'Authorization': `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from:        'vCISO.cl <contacto@vciso.cl>',
+        to:          ['contacto@vciso.cl'],
+        subject:     `🔍 Diagnóstico listo — ${datosNormalizados.empresa} (${pctNorm}% · ${madurez.nivel})`,
+        html,
+        attachments: [{
+          filename:    nombreArchivo,
+          content:     wordBase64,
+        }],
+      }),
     });
 
-    if (resp.ok) {
-      showResult(score);
-    } else {
-      btn.disabled = false;
-      btn.innerHTML = '⚡ Generar mi diagnóstico';
-      alert('Hubo un error al enviar. Por favor intenta de nuevo o escríbenos a contacto@vciso.cl');
-    }
-  } catch(e) {
-    btn.disabled = false;
-    btn.innerHTML = '⚡ Generar mi diagnóstico';
-    alert('Error de conexión. Por favor intenta de nuevo.');
+    const emailData = await emailResult.json();
+    console.log('Email enviado:', JSON.stringify(emailData));
+
+    return res.json({ ok: true });
+
+  } catch (err) {
+    console.error('submit-diagnostico error:', err.message, err.stack);
+    return res.status(500).json({ error: 'Error procesando diagnóstico' });
   }
-}
-
-// ── Validar token ─────────────────────────────────────────────────────────
-(async function() {
-  const params = new URLSearchParams(window.location.search);
-  const token  = params.get('token');
-
-  if (!token) {
-    showAccessDenied('Para acceder al formulario necesitas un link de acceso válido.<br/>Si ya realizaste el pago, revisa tu correo electrónico.');
-    return;
-  }
-
-  try {
-    const resp = await fetch(`/api/validate-token?token=${token}`);
-    const data = await resp.json();
-    if (!data.valid) {
-      showAccessDenied('Tu link de acceso ha expirado o no es válido.<br/>Escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#f47c47">contacto@vciso.cl</a> y te enviamos uno nuevo.');
-      return;
-    }
-    window.__accessToken = token;
-    document.getElementById('form-container').style.display = 'block';
-    document.getElementById('access-denied').style.display  = 'none';
-  } catch(e) {
-    showAccessDenied('Error verificando acceso. Por favor recarga la página.');
-  }
-})();
-
-function showAccessDenied(msg) {
-  document.getElementById('form-container').style.display = 'none';
-  const div = document.getElementById('access-denied');
-  div.style.display = 'flex';
-  div.querySelector('.denied-msg').innerHTML = msg;
-}
-</script>
-
-</body>
-</html>
+};
