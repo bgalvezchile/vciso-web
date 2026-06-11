@@ -136,9 +136,9 @@
   <a href="https://wa.me/56981307440" class="btn-nav" target="_blank" rel="noopener">&#128172; WhatsApp</a>
 </nav>
 <div class="hero-mini">
-  <div class="badge">&#128203; Generador de Políticas · $34.900 CLP</div>
+  <div class="badge">&#128203; Generador de Políticas · $49.900 CLP</div>
   <h1>Políticas de Seguridad TI</h1>
-  <p>Elige las políticas que necesitas. Claude las redacta desde cero, adaptadas 100% a tu empresa, basadas en ISO 27002:2022.</p>
+  <p>Elige las políticas que necesitas. Nuestro equipo de especialistas, asistido por tecnología avanzada, las redacta desde cero adaptadas 100% a tu empresa, basadas en ISO 27002:2022.</p>
 </div>
 <div class="progress-wrap">
   <div class="progress-header">
@@ -225,7 +225,7 @@
     <div class="step" id="step2">
       <div class="card-header">
         <div class="card-header-icon">&#128203;</div>
-        <div><h2>¿Qué políticas necesitas?</h2><p>Selecciona un mínimo de 3. Precio único $34.900 CLP sin importar cuántas elijas.</p></div>
+        <div><h2>¿Qué políticas necesitas?</h2><p>Selecciona un mínimo de 3. Precio único $49.900 CLP sin importar cuántas elijas.</p></div>
       </div>
       <div class="card-body">
         <div class="min-notice">&#128161; <strong>Selecciona al menos 3 políticas.</strong> Puedes elegir todas las que necesites, el precio no cambia.</div>
@@ -273,7 +273,7 @@
         <div id="resumen-empresa" style="background:#f8fafc;border-radius:10px;padding:20px;margin-bottom:20px;border:1px solid #e2e8f0;"></div>
         <div id="resumen-politicas" style="background:#f0fdf4;border-radius:10px;padding:20px;margin-bottom:20px;border:1px solid #bbf7d0;"></div>
         <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;padding:16px;margin-bottom:20px;">
-          <p style="font-size:0.85rem;color:#92400e;margin:0;">&#9889; <strong>Entrega inmediata:</strong> Una vez enviado el formulario, Claude redactará tus políticas y las recibirás en tu correo en menos de 3 minutos.</p>
+          <p style="font-size:0.85rem;color:#92400e;margin:0;">&#9889; <strong>Entrega inmediata:</strong> Una vez enviado el formulario, nuestro equipo procesará tus políticas y las recibirás en tu correo en menos de 3 minutos.</p>
         </div>
         <div style="background:#f8fafc;border-radius:10px;padding:16px;border:1px solid #e2e8f0;">
           <p style="font-size:0.82rem;color:#64748b;margin:0;line-height:1.6;">&#128203; Las políticas son un punto de partida profesional basado en ISO 27002:2022. Te recomendamos revisarlas con tu equipo antes de implementarlas. Si necesitas adaptaciones, escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#1e4fad;">contacto@vciso.cl</a>.</p>
@@ -290,7 +290,7 @@
       <div class="result-header">
         <div class="result-icon">&#127881;</div>
         <h2>¡Tus políticas están siendo generadas!</h2>
-        <p>Claude está redactando cada política personalizada para <strong id="result-empresa"></strong>. Las recibirás en tu correo en menos de 3 minutos.</p>
+        <p>Nuestro equipo está preparando cada política personalizada para <strong id="result-empresa"></strong>. Las recibirás en tu correo en menos de 3 minutos.</p>
       </div>
       <div class="result-body">
         <div class="policies-list" id="result-policies"></div>
@@ -466,7 +466,7 @@ function buildSummary(){
   const formato=document.querySelector('input[name="formato"]:checked').value;
   const selected=getSelectedPolicies();
   document.getElementById('resumen-empresa').innerHTML='<div style="font-size:0.78rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Empresa</div><div style="font-size:1rem;font-weight:700;color:#0d1f3c;margin-bottom:4px;">'+empresa+'</div><div style="font-size:0.85rem;color:#64748b;">'+rubro+' · '+empleados+' empleados</div><div style="font-size:0.85rem;color:#64748b;margin-top:4px;">Formato: '+(formato==='unico'?'Un solo documento Word':'Documentos separados')+'</div>';
-  document.getElementById('resumen-politicas').innerHTML='<div style="font-size:0.78rem;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">'+selected.length+' política'+(selected.length!==1?'s':'')+' seleccionada'+(selected.length!==1?'s':'')+'</div>'+selected.map(k=>'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #d1fae5;font-size:0.85rem;color:#15803d;"><span>'+POLICIES_CONFIG[k].icon+'</span><span style="font-weight:600;">'+POLICIES_CONFIG[k].name+'</span></div>').join('')+'<div style="margin-top:12px;font-size:0.9rem;font-weight:700;color:#0d1f3c;">Total: $34.900 CLP · Precio único incluye todas las políticas seleccionadas</div>';
+  document.getElementById('resumen-politicas').innerHTML='<div style="font-size:0.78rem;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">'+selected.length+' política'+(selected.length!==1?'s':'')+' seleccionada'+(selected.length!==1?'s':'')+'</div>'+selected.map(k=>'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #d1fae5;font-size:0.85rem;color:#15803d;"><span>'+POLICIES_CONFIG[k].icon+'</span><span style="font-weight:600;">'+POLICIES_CONFIG[k].name+'</span></div>').join('')+'<div style="margin-top:12px;font-size:0.9rem;font-weight:700;color:#0d1f3c;">Total: $49.900 CLP · Precio único incluye todas las políticas seleccionadas</div>';
 }
 
 async function submitForm(){
