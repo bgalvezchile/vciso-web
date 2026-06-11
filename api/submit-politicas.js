@@ -99,8 +99,8 @@ const POLICY_CODES = {
   uso_ia:              "POL-TI-011",
 };
 
-// ── Llamar a Claude para generar TODAS las políticas de una vez ──────────────
-async function generarTodasPoliticas(politicas, datos, contexto) {
+// ── Llamar a Claude para generar políticas (en lotes de 5-6) ─────────────────
+async function generarLotePoliticas(politicas, datos, contexto) {
   const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
 
   const todosContextos = Object.entries(contexto)
@@ -128,23 +128,23 @@ ${listaPoliticas}
 ${todosContextos}
 
 ## INSTRUCCIONES
-Redacta TODAS las políticas en un solo JSON con esta estructura exacta (solo JSON válido, sin markdown):
+Redacta las políticas en un JSON con esta estructura exacta (solo JSON válido, sin markdown):
 
 {
   "politicas": {
     "clave_politica": {
-      "objetivo": "2-3 oraciones. Contextualizado a ${datos.empresa} (${datos.rubro}, ${datos.empleados} empleados).",
-      "alcance": "2-3 oraciones indicando a quiénes aplica y qué cubre. Específico para ${datos.empresa}.",
+      "objetivo": "2-3 oraciones contextualizadas a la empresa.",
+      "alcance": "2-3 oraciones sobre a quiénes aplica y qué cubre.",
       "definiciones": [
         {"termino": "Término", "definicion": "Definición clara en lenguaje no técnico"}
       ],
       "responsabilidades": [
-        {"rol": "Gerencia", "responsabilidad": "Descripción"},
-        {"rol": "Empleados", "responsabilidad": "Descripción"},
-        {"rol": "Área TI / Proveedor TI", "responsabilidad": "Descripción"}
+        {"rol": "Gerencia", "responsabilidad": "Descripción concreta"},
+        {"rol": "Empleados", "responsabilidad": "Descripción concreta"},
+        {"rol": "Área TI / Proveedor TI", "responsabilidad": "Descripción concreta"}
       ],
       "lineamientos": [
-        {"titulo": "Título del lineamiento", "contenido": "Reglas concretas y específicas para ${datos.empresa}. Mínimo 3 oraciones."}
+        {"titulo": "Título descriptivo", "contenido": "3-4 oraciones con reglas concretas y específicas para esta empresa."}
       ],
       "sanciones": "Párrafo sobre consecuencias del incumplimiento.",
       "revision": "Párrafo sobre revisión anual."
@@ -152,16 +152,14 @@ Redacta TODAS las políticas en un solo JSON con esta estructura exacta (solo JS
   }
 }
 
-REGLAS:
-- Entre 5 y 6 lineamientos por política, concretos y específicos para la empresa.
-- Mínimo 4 definiciones por política, en lenguaje no técnico.
-- Cada lineamiento: título descriptivo + párrafo de 3-4 oraciones con reglas concretas y accionables.
-- Lenguaje profesional pero comprensible para empleados sin conocimientos técnicos.
-- Adaptar TODO al contexto de ${datos.empresa}: rubro (${datos.rubro}), tamaño (${datos.empleados} empleados), modalidad (${datos.modalidad}).
+REGLAS ESTRICTAS:
+- Exactamente 5 lineamientos por política. Concretos y específicos para ${datos.empresa}.
+- Exactamente 4 definiciones por política en lenguaje no técnico.
+- Adaptar TODO al contexto: rubro (${datos.rubro}), ${datos.empleados} empleados, modalidad (${datos.modalidad}).
 - Para datos_personales: mencionar Ley 21.719 y Agencia de Protección de Datos Personales.
 - NUNCA mencionar IA ni Claude. La empresa que elabora es vCISO.cl.
-- No usar lenguaje alarmista. Tono profesional y constructivo.
-- Ser conciso pero completo. Evitar repetición entre políticas.
+- Tono profesional, constructivo, no alarmista.
+- Las claves del JSON deben ser EXACTAMENTE: ${politicas.map(k => '"'+k+'"').join(', ')}.
 - Devolver SOLO el JSON válido, sin texto adicional ni markdown.`;
 
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
@@ -172,17 +170,10 @@ REGLAS:
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
-      model:      'claude-sonnet-4-6',
-      max_tokens: 32000,
+      model:      'claude-haiku-4-5-20251001',
+      max_tokens: 16000,
       system: `Eres un consultor senior en ciberseguridad especializado en PYMEs chilenas. Elaboras políticas de seguridad TI profesionales basadas en ISO 27002:2022.
-
-REGLAS:
-- Español chileno formal y profesional.
-- Lenguaje claro para empleados sin conocimientos técnicos.
-- Políticas concretas, accionables y proporcionales al tamaño y rubro de la empresa.
-- Ley 21.719: mencionar como referencia de buenas prácticas, no afirmar incumplimiento.
-- NUNCA mencionar Claude, IA generativa ni herramientas de generación. La empresa que elabora es vCISO.cl.
-- Devolver SOLO JSON válido sin markdown.`,
+REGLAS: Español chileno formal. Lenguaje claro para empleados sin conocimientos técnicos. Políticas concretas y proporcionales al tamaño de la empresa. NUNCA mencionar Claude ni IA. La empresa que elabora es vCISO.cl. Devolver SOLO JSON válido sin markdown.`,
       messages: [{ role: 'user', content: userPrompt }],
     }),
   });
@@ -194,6 +185,24 @@ REGLAS:
   const clean = texto.replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
   const parsed = JSON.parse(clean);
   return parsed.politicas || parsed;
+}
+
+async function generarTodasPoliticas(politicas, datos, contexto) {
+  // Dividir en dos lotes para evitar timeout
+  const mitad = Math.ceil(politicas.length / 2);
+  const lote1 = politicas.slice(0, mitad);
+  const lote2 = politicas.slice(mitad);
+
+  console.log(`Lote 1: ${lote1.join(', ')}`);
+  const resultado1 = await generarLotePoliticas(lote1, datos, contexto);
+
+  let resultado2 = {};
+  if (lote2.length > 0) {
+    console.log(`Lote 2: ${lote2.join(', ')}`);
+    resultado2 = await generarLotePoliticas(lote2, datos, contexto);
+  }
+
+  return { ...resultado1, ...resultado2 };
 }
 
 // ── Generar Word de UNA política ──────────────────────────────────────────
