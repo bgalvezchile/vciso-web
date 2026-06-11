@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
+    console.log('BLOB TOKEN existe:', !!process.env.BLOB_READ_WRITE_TOKEN);
     // Vercel maneja multipart/form-data automáticamente
     // El archivo viene en req.body como Buffer cuando se usa formidable
     // Pero en Vercel serverless usamos el approach directo con streams
@@ -64,6 +65,7 @@ module.exports = async (req, res) => {
     const blob = await put(blobName, fileBuffer, {
       access: 'public',
       contentType: mimeType,
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
     
     console.log(`Archivo subido: ${blob.url}`);
