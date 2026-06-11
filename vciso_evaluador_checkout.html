@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ── SEO BÁSICO ── -->
+  <title>Evaluador de Propuestas TI — $69.900 CLP | vCISO.cl</title>
+  <meta name="description" content="Evalúa y compara propuestas de proveedores TI con metodología profesional. Informe comparativo con ranking y recomendación en minutos."/>
+  <meta name="keywords" content="ciberseguridad pymes chile, auditoria seguridad informatica chile, politicas TI chile, ciso virtual chile, diagnostico ciberseguridad santiago, ley 21719 cumplimiento, vciso"/>
+  <meta name="author" content="vCISO.cl"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="language" content="es-CL"/>
+  <link rel="canonical" href="https://www.vciso.cl/evaluador-propuestas"/>
+
+  <!-- ── OPEN GRAPH ── -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Evaluador de Propuestas TI — $69.900 CLP | vCISO.cl"/>
+  <meta property="og:description" content="Evalúa y compara propuestas de proveedores TI con metodología profesional. Informe comparativo con ranking y recomendación en minutos."/>
+  <meta property="og:url" content="https://www.vciso.cl/evaluador-propuestas"/>
+  <meta property="og:site_name" content="vCISO.cl"/>
+  <meta property="og:locale" content="es_CL"/>
+  <meta property="og:image" content="https://www.vciso.cl/og-image.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <!-- ── TWITTER CARD ── -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Evaluador de Propuestas TI — $69.900 CLP | vCISO.cl"/>
+  <meta name="twitter:description" content="Evalúa y compara propuestas de proveedores TI con metodología profesional. Informe comparativo con ranking y recomendación en minutos."/>
+  <meta name="twitter:image" content="https://www.vciso.cl/og-image.png"/>
+
+  <!-- ── GEO / LOCAL SEO ── -->
+  <meta name="geo.region" content="CL-RM"/>
+  <meta name="geo.placename" content="Santiago, Chile"/>
+  <meta name="geo.position" content="-33.4489;-70.6693"/>
+  <meta name="ICBM" content="-33.4489, -70.6693"/>
+
+  <!-- ── SCHEMA.ORG ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "vCISO.cl",
+    "description": "Ciberseguridad profesional para PYMEs chilenas. CISO Virtual, diagnóstico, políticas TI y cumplimiento Ley 21.719.",
+    "url": "https://www.vciso.cl",
+    "logo": "https://www.vciso.cl/logo.png",
+    "email": "contacto@vciso.cl",
+    "telephone": "+56981307440",
+    "priceRange": "$$",
+    "currenciesAccepted": "CLP",
+    "paymentAccepted": "Transferencia, Khipu, Webpay",
+    "areaServed": {"@type":"Country","name":"Chile"},
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Santiago",
+      "addressRegion": "Región Metropolitana",
+      "addressCountry": "CL"
+    },
+    "sameAs": ["https://www.vciso.cl"]
+  }
+  </script>
+  
+
+  <!-- ── FUENTE ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <!-- ── FAVICON ── -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'><path d='M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z' fill='%231e4fad'/><path d='M13 23L18 28L27 18' stroke='%23f47c47' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"/>
+
+  <style>
+
+  /* ── RESET ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  /* ── TOKENS ── */
+  :root {
+    --navy:      #0d1f3c;
+    --navy-mid:  #1a3360;
+    --navy-dark: #080f1e;
+    --blue:      #1e4fad;
+    --blue-lt:   #2a6ddf;
+    --blue-pale: rgba(30,79,173,0.12);
+    --orange:    #e85d26;
+    --orange-lt: #f47c47;
+    --white:     #ffffff;
+    --gray-100:  #f1f5f9;
+    --gray-200:  #e2e8f0;
+    --gray-400:  #94a3b8;
+    --gray-600:  #475569;
+    --gray-800:  #1e293b;
+    --green:     #22c55e;
+    --green-pale:rgba(34,197,94,0.12);
+    --red:       #ef4444;
+    --red-pale:  rgba(239,68,68,0.12);
+    --yellow:    #f59e0b;
+    --yellow-pale:rgba(245,158,11,0.12);
+    --radius:    10px;
+    --shadow:    0 4px 24px rgba(0,0,0,0.18);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.10);
+    --transition: 0.2s ease;
+  }
+
+  /* ── BASE ── */
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── GRID BG ── */
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(30,79,173,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,79,173,0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* ── TOPNAV ── */
+  .vciso-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8,15,30,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 0 5%; height: 66px;
+  }
+  .vciso-nav .logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; font-weight: 800;
+    font-size: 1.25rem; color: var(--white); letter-spacing:-0.02em;
+  }
+  .vciso-nav .logo svg { flex-shrink: 0; }
+  .vciso-nav .logo span { color: var(--orange-lt); }
+  .vciso-nav .logo small {
+    display: block; font-size: 0.68rem; font-weight: 400;
+    color: rgba(255,255,255,0.4); letter-spacing: 0.02em; margin-top:-2px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+  .nav-links a {
+    padding: 8px 14px; border-radius: 7px;
+    font-size: 0.88rem; color: rgba(255,255,255,0.65);
+    text-decoration: none; transition: var(--transition);
+  }
+  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+  .nav-links .btn-nav {
+    background: var(--orange); color: var(--white) !important;
+    font-weight: 600; padding: 8px 18px;
+  }
+  .nav-links .btn-nav:hover { background: var(--orange-lt); box-shadow: 0 0 18px rgba(232,93,38,0.35); }
+  .nav-back {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.85rem; color: rgba(255,255,255,0.5);
+    text-decoration: none; transition: color var(--transition);
+  }
+  .nav-back:hover { color: var(--white); }
+
+  /* ── FOOTER ── */
+  .vciso-footer {
+    background: var(--navy-dark);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 52px 5% 32px; position: relative; z-index: 1;
+    margin-top: 80px;
+  }
+  .footer-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .footer-brand .logo-f {
+    font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em;
+    color: var(--white); margin-bottom: 10px; display: block;
+  }
+  .footer-brand .logo-f span { color: var(--orange-lt); }
+  .footer-brand p { font-size: 0.85rem; color: var(--gray-400); line-height: 1.65; }
+  .footer-brand .contact-links { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+  .footer-brand .contact-links a {
+    font-size: 0.83rem; color: var(--gray-400); text-decoration: none;
+    display: flex; align-items: center; gap: 6px; transition: color var(--transition);
+  }
+  .footer-brand .contact-links a:hover { color: var(--orange-lt); }
+  .footer-col h4 { font-size: 0.8rem; font-weight: 600; color: var(--gray-400);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-col ul a { font-size: 0.85rem; color: rgba(255,255,255,0.5);
+    text-decoration: none; transition: color var(--transition); }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom {
+    max-width: 1100px; margin: 24px auto 0;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p { font-size: 0.78rem; color: var(--gray-400); }
+  .footer-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .badge-f {
+    font-size: 0.72rem; font-weight: 500;
+    padding: 4px 10px; border-radius: 20px;
+    background: rgba(255,255,255,0.06); color: var(--gray-400);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ── CONTENEDOR PÁGINAS INTERNAS ── */
+  .page-wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 48px 24px 0; }
+  .page-wrap.wide { max-width: 1100px; }
+
+  /* ── BADGE SERVICIO ── */
+  .svc-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--blue-pale); border: 1px solid rgba(42,109,223,0.25);
+    color: #93c5fd; font-size: 0.78rem; font-weight: 500;
+    padding: 5px 14px; border-radius: 20px;
+    letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 20px;
+  }
+
+  /* ── PRECIO BADGE ── */
+  .price-badge {
+    display: inline-flex; align-items: baseline; gap: 6px;
+    background: rgba(232,93,38,0.12); border: 1px solid rgba(232,93,38,0.25);
+    color: var(--orange-lt); padding: 7px 16px; border-radius: 8px;
+    font-weight: 700; font-size: 1.05rem; margin-bottom: 28px;
+  }
+  .price-badge .from { font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.4); }
+
+  /* ── BOTONES ── */
+  .btn { display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px; border-radius: var(--radius); border: none; cursor: pointer;
+    font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all var(--transition); }
+  .btn-primary { background: var(--orange); color: var(--white); }
+  .btn-primary:hover { background: var(--orange-lt); box-shadow: 0 0 28px rgba(232,93,38,0.35); transform: translateY(-1px); }
+  .btn-secondary { background: rgba(255,255,255,0.06); color: var(--white); border: 1px solid rgba(255,255,255,0.12); }
+  .btn-secondary:hover { background: rgba(255,255,255,0.10); transform: translateY(-1px); }
+  .btn-wa { background: #25d366; color: var(--white); }
+  .btn-wa:hover { background: #1fb855; box-shadow: 0 0 22px rgba(37,211,102,0.3); transform: translateY(-1px); }
+  .btn-blue { background: var(--blue); color: var(--white); }
+  .btn-blue:hover { background: var(--blue-lt); transform: translateY(-1px); }
+  .btn-lg { padding: 16px 34px; font-size: 1.05rem; }
+  .btn-full { width: 100%; justify-content: center; }
+
+  /* ── CARDS ── */
+  .card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 28px;
+  }
+  .card-blue { border-color: rgba(30,79,173,0.3); background: rgba(30,79,173,0.08); }
+  .card-orange { border-color: rgba(232,93,38,0.3); background: rgba(232,93,38,0.06); }
+  .card-green { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.06); }
+
+  /* ── STATUS CHIPS ── */
+  .chip { display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.78rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
+  .chip-green { background: var(--green-pale); color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
+  .chip-red   { background: var(--red-pale);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
+  .chip-yellow{ background: var(--yellow-pale); color: #fcd34d; border: 1px solid rgba(245,158,11,0.25); }
+  .chip-blue  { background: var(--blue-pale);   color: #93c5fd; border: 1px solid rgba(42,109,223,0.25); }
+
+  /* ── INPUTS ── */
+  input, select, textarea {
+    width: 100%; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--white); border-radius: var(--radius);
+    padding: 12px 16px; font-size: 0.92rem; font-family: 'Inter', sans-serif;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--blue-lt);
+    box-shadow: 0 0 0 3px rgba(42,109,223,0.15);
+  }
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
+  select option { background: var(--navy-mid); color: var(--white); }
+  label { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; display: block; }
+
+  /* ── PROGRESS ── */
+  .progress-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--orange); border-radius: 2px; transition: width 0.4s ease; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 32px 0; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .vciso-nav { padding: 0 20px; }
+    .nav-links .nav-link { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .page-wrap { padding: 32px 16px 0; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+
+.dom-wrap { max-width:860px; margin:0 auto; padding:48px 5% 80px; position:relative; z-index:1; }
+  </style>
+</head>
+<body>
+
+<nav class="vciso-nav" role="navigation" aria-label="Navegación">
+  <a href="/" class="logo" aria-label="vCISO.cl — Inicio">
+    <svg width="28" height="32" viewBox="0 0 40 46" fill="none">
+  <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z"
+        fill="rgba(30,79,173,0.5)" stroke="#2a6ddf" stroke-width="1.5"/>
+  <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+    <div>v<span>CISO</span>.cl<small>Ciberseguridad para empresas</small></div>
+  </a>
+  <a href="/politicas-seguridad" class="nav-back">← Volver</a>
+  <ul class="nav-links" role="list">
+    <li><a href="https://wa.me/56981307440?text=Hola%2C+quisiera+información+sobre+vCISO.cl"
+           class="btn btn-nav" target="_blank" rel="noopener">💬 WhatsApp</a>
+  <!-- NOTA DOCUMENTO TRIBUTARIO -->
+  <div style="
+    display:flex; align-items:flex-start; gap:12px;
+    background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.2);
+    border-radius:10px; padding:16px; margin-top:16px;
+    font-size:0.82rem; color:rgba(255,255,255,0.65); line-height:1.6;
+  ">
+    <span style="font-size:1.1rem;flex-shrink:0">🧾</span>
+    <div>
+      <strong style="color:rgba(255,255,255,0.85);display:block;margin-bottom:3px">
+        Documento tributario
+      </strong>
+      Emitimos <strong>Boleta de Honorarios Electrónica</strong> a través del SII,
+      válida como respaldo tributario para el gasto. Se envía por email dentro de las
+      24 horas siguientes al pago. Si tienes dudas, escríbenos por
+      <a href="https://wa.me/56981307440" target="_blank" rel="noopener"
+         style="color:#f47c47;text-decoration:none">WhatsApp</a> antes de pagar.
+    </div>
+  </div></li>
+  </ul>
+</nav>
+<main class="dom-wrap">
+  <div class="svc-badge">📊 Evaluador de Propuestas TI</div>
+  <div class="price-badge"><span class="from">Solo</span> $69.900 CLP <span class="from">· Informe en minutos</span></div>
+  
+
+
+
+<div class="hero-strip">
+  <div class="hero-badge">📊 Evaluación profesional</div>
+  <h1>Scanner de Exposición de Dominio</h1>
+  <p>Sube las propuestas de tus proveedores TI y recibe un informe comparativo con ranking, puntajes por criterio y recomendación fundamentada.</p>
+</div>
+
+<div class="page-wrapper">
+
+  <!-- LEFT -->
+  <div>
+    <p class="section-label">¿Qué analizamos?</p>
+    <div class="checks-grid">
+      <div class="check-item">
+        <div class="check-icon">📧</div>
+        <div>
+          <div class="check-title">Registro SPF</div>
+          <div class="check-desc">Verifica si tu dominio tiene configurado el Sender Policy Framework. Sin SPF, cualquiera puede enviar correos haciéndose pasar por tu empresa.</div>
+        </div>
+        <span class="check-badge badge-real">En tiempo real</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🛡️</div>
+        <div>
+          <div class="check-title">Registro DMARC</div>
+          <div class="check-desc">Analiza si tienes DMARC activo y qué política aplica (none / quarantine / reject). DMARC es la defensa más efectiva contra phishing usando tu dominio.</div>
+        </div>
+        <span class="check-badge badge-real">En tiempo real</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">📮</div>
+        <div>
+          <div class="check-title">Registros MX (servidores de correo)</div>
+          <div class="check-desc">Identifica quién procesa tu correo electrónico y si tienes redundancia. Detecta configuraciones débiles o malos proveedores.</div>
+        </div>
+        <span class="check-badge badge-real">En tiempo real</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🌐</div>
+        <div>
+          <div class="check-title">Resolución DNS y registros A/NS</div>
+          <div class="check-desc">Confirma que tu dominio resuelve correctamente, identifica tus nameservers y detecta configuraciones anómalas.</div>
+        </div>
+        <span class="check-badge badge-real">En tiempo real</span>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🔒</div>
+        <div>
+          <div class="check-title">DKIM y cabeceras de seguridad web</div>
+          <div class="check-desc">Análisis de la firma de correo DKIM y evaluación de headers HTTP de seguridad (HSTS, CSP, X-Frame-Options).</div>
+        </div>
+        <span class="check-badge badge-link">Guiado</span>
+      </div>
+    </div>
+
+    <!-- SAMPLE REPORT PREVIEW -->
+    <p class="section-label">Ejemplo de reporte generado</p>
+    <div class="sample-report">
+      <div class="score-circle-wrap">
+        <div class="score-circle">
+          <span class="sc-num">32</span>
+          <span class="sc-pct">/100</span>
+        </div>
+        <div class="score-info">
+          <h4>comercialejemplo.cl — Riesgo Alto</h4>
+          <p>Se encontraron 3 problemas críticos que exponen el dominio a suplantación de identidad y phishing.</p>
+        </div>
+      </div>
+      <div class="finding-preview">
+        <div class="finding-row crit">
+          <div class="finding-dot crit"></div>
+          <span class="finding-text crit">CRÍTICO — Sin registro DMARC: cualquiera puede enviar correos como @comercialejemplo.cl</span>
+        </div>
+        <div class="finding-row crit">
+          <div class="finding-dot crit"></div>
+          <span class="finding-text crit">CRÍTICO — SPF con política "+all": configuración insegura que permite spoofing</span>
+        </div>
+        <div class="finding-row warn">
+          <div class="finding-dot warn"></div>
+          <span class="finding-text warn">ADVERTENCIA — Solo 1 servidor MX sin redundancia: riesgo de pérdida de correos</span>
+        </div>
+        <div class="finding-row ok finding-blur">
+          <div class="finding-dot ok"></div>
+          <span class="finding-text ok">OK — Dominio resuelve correctamente con nameservers configurados</span>
+        </div>
+        <div class="finding-row warn finding-blur">
+          <div class="finding-dot warn"></div>
+          <span class="finding-text warn">ADVERTENCIA — Cabeceras de seguridad web no configuradas</span>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-100);font-size:.78rem;color:var(--gray-500);text-align:center;">
+        🔒 Resultados completos y recomendaciones disponibles tras el pago
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div style="background:#fff;border-radius:14px;padding:24px;margin-top:24px;box-shadow:0 1px 4px rgba(0,0,0,.06);">
+      <h4 style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:16px;">¿Qué tan expuestos están los dominios chilenos?</h4>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num" style="color:var(--red);">76%</div>
+          <div class="stat-lbl">de las PyMEs no tienen DMARC configurado</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" style="color:var(--orange);">61%</div>
+          <div class="stat-lbl">tienen SPF mal configurado o ausente</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" style="color:var(--blue);">3 min</div>
+          <div class="stat-lbl">es todo lo que tarda el análisis completo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — PAYMENT -->
+  <div>
+    <div class="payment-card">
+      <div class="card-header">
+        <div class="card-product">Scanner de Dominio</div>
+        <div class="card-price"><sup>$</sup>69.900<span class="currency">CLP</span></div>
+        <div class="card-subtitle">Pago único · análisis inmediato · sin suscripción</div>
+      </div>
+      <div class="card-body">
+        <p class="includes-title">Qué recibes</p>
+        <div class="include-item"><span class="chk">✓</span><span>Análisis <strong>en tiempo real</strong> de SPF, DMARC, MX y DNS</span></div>
+        <div class="include-item"><span class="chk">✓</span><span>Score de exposición con clasificación de riesgo</span></div>
+        <div class="include-item"><span class="chk">✓</span><span><strong>Hallazgos detallados</strong> con severidad (Crítico / Advertencia / OK)</span></div>
+        <div class="include-item"><span class="chk">✓</span><span>Recomendaciones específicas con <strong>pasos de corrección</strong></span></div>
+        <div class="include-item"><span class="chk">✓</span><span>Reporte descargable en <strong>PDF</strong> para presentar a dirección</span></div>
+        <div class="include-item"><span class="chk">✓</span><span>Guía de herramientas gratuitas para verificación complementaria</span></div>
+
+        <!-- Reemplazar href con link de Flow o MercadoPago -->
+        <a href="/politicas-seguridad" class="pay-btn">
+          🔒 Pagar y escanear mi dominio →
+        </a>
+
+        <div class="payment-methods">
+          <span class="pm-badge">💳 Débito</span>
+          <span class="pm-badge">💳 Crédito</span>
+          <span class="pm-badge">🏦 Transferencia</span>
+        </div>
+
+        <div class="guarantee">
+          <span>🛡️ <strong>Garantía:</strong> Si el análisis no entrega resultados por un problema técnico, reembolsamos el 100% sin preguntas.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-box">
+      <h4>¿Por qué es urgente revisarlo?</h4>
+      <p>Un dominio sin SPF ni DMARC puede ser usado por ciberdelincuentes para enviar correos de phishing en nombre de tu empresa — sin que tú lo sepas. Tus clientes, proveedores o empleados pueden recibir correos falsos aparentemente desde tu dirección, con consecuencias legales y reputacionales graves.</p>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<footer class="vciso-footer" role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo-f">v<span>CISO</span>.cl</span>
+      <p>Ciberseguridad profesional para PYMEs chilenas. Servicios 100% remotos, sin contratos largos.
+         Diagnóstico, cumplimiento Ley 21.719 y políticas TI con respaldo de IA.</p>
+      <div class="contact-links">
+        <a href="mailto:contacto@vciso.cl">✉️ contacto@vciso.cl</a>
+        <a href="https://wa.me/56981307440" target="_blank" rel="noopener">💬 WhatsApp +56 9 8130 7440</a>
+        <a href="https://www.vciso.cl">🌐 www.vciso.cl</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="/politicas-seguridad">Scanner de Dominio <span class="chip chip-green" style="font-size:0.65rem;padding:2px 7px">Gratis</span></a></li>
+        <li><a href="/politicas-seguridad">Generador de Políticas</a></li>
+        <li><a href="/diagnostico-ciberseguridad">Diagnóstico Express</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="/#como-funciona">Cómo funciona</a></li>
+        <li><a href="/#precios">Precios</a></li>
+        <li><a href="/ejemplo-informe">Ejemplo de informe</a></li>
+        <li><a href="mailto:contacto@vciso.cl">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Política de Privacidad</a></li>
+        <li><a href="#">Términos de servicio</a></li>
+        <li><a href="#">Ley 21.719</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 vCISO.cl · Todos los derechos reservados · Santiago, Chile · 🧾 Boletas de honorarios electrónicas SII</p>
+    <div class="footer-badges">
+      <span class="badge-f">🔒 NIST CSF v2.0</span>
+      <span class="badge-f">🇨🇱 Ley 21.719</span>
+      <span class="badge-f">🤖 IA potenciado</span>
+      <span class="badge-f">🏦 Exp. banca &amp; AFP</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const AMOUNT   = 69900;
+const PRODUCT  = 'dominio';
+
+async function initPayment() {
+  const dominio  = (document.getElementById('dominioInput')?.value  || '').trim();
+  const empresa  = (document.getElementById('empresaInput')?.value  || '').trim();
+  const contacto = (document.getElementById('contactoInput')?.value || '').trim();
+  const email    = (document.getElementById('emailInput')?.value    || '').trim();
+  const btnText  = document.getElementById('payBtnText');
+
+  if (!dominio)  { alert('Por favor ingresa el dominio a analizar.');    document.getElementById('dominioInput').focus();  return; }
+  if (!empresa)  { alert('Por favor ingresa el nombre de tu empresa.');  document.getElementById('empresaInput').focus();  return; }
+  if (!contacto) { alert('Por favor ingresa tu nombre de contacto.');    document.getElementById('contactoInput').focus(); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Por favor ingresa un email válido.');
+    document.getElementById('emailInput').focus(); return;
+  }
+
+  btnText.innerHTML = '<span style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:8px"></span> Conectando con Flow...';
+  document.getElementById('payBtn').disabled = true;
+
+  // Guardar datos para post-pago
+  localStorage.setItem('vciso_dominio_data', JSON.stringify({ dominio, empresa, contacto, email }));
+
+  try {
+    const resp = await fetch('/api/create-payment', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        amount:        AMOUNT,
+        subject:       `Análisis Dominio: ${dominio} — ${empresa}`,
+        commerceOrder: 'EVAL-' + Date.now(),
+        product:       PRODUCT,
+      }),
+    });
+    const data = await resp.json();
+    if (data.redirect) {
+      btnText.innerHTML = '✅ Redirigiendo a Flow...';
+      window.location.href = data.redirect;
+    } else {
+      throw new Error(data.error || 'Error al crear el pago');
+    }
+  } catch (err) {
+    btnText.innerHTML = '🔒 Pagar $69.900 y subir propuestas →';
+    document.getElementById('payBtn').disabled = false;
+    alert('Error al conectar con el sistema de pago. Inténtalo de nuevo o escríbenos por WhatsApp.');
+  }
+}
+</script>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+</body></html>
