@@ -5,6 +5,18 @@
   "functions": {
     "api/submit-diagnostico.js": {
       "maxDuration": 300
+    },
+    "api/submit-politicas.js": {
+      "maxDuration": 300
+    },
+    "api/flow-confirm.js": {
+      "maxDuration": 60
+    },
+    "api/validate-token.js": {
+      "maxDuration": 10
+    },
+    "api/get-download.js": {
+      "maxDuration": 30
     }
   },
   "rewrites": [
