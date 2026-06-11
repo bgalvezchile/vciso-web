@@ -44,7 +44,7 @@ const PRODUCTS = {
   politicas: {
     prefix:       'POLITICAS',
     name:         'Generador de Políticas de Seguridad TI',
-    price:        '$29.000 CLP',
+    price:        '$49.900 CLP',
     hasDownload:  false,
     hasForm:      true,
     formPath:     '/generador-politicas',
