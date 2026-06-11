@@ -3,1837 +3,533 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <!-- ── SEO BÁSICO ── -->
-  <title>Generador de Políticas TI — Paso a Paso | vCISO.cl</title>
-  <meta name="description" content="Completa el formulario y genera tus políticas de seguridad TI personalizadas. Alineadas con Ley 21.719 y NIST CSF v2.0."/>
-  <meta name="keywords" content="ciberseguridad pymes chile, auditoria seguridad informatica chile, politicas TI chile, ciso virtual chile, diagnostico ciberseguridad santiago, ley 21719 cumplimiento, vciso"/>
-  <meta name="author" content="vCISO.cl"/>
+  <title>Generador de Políticas de Seguridad TI | vCISO.cl</title>
+  <meta name="description" content="Genera políticas de ciberseguridad personalizadas para tu empresa. Redactadas por IA, basadas en ISO 27002:2022 y Ley 21.719."/>
   <meta name="robots" content="noindex, nofollow"/>
-  <meta name="language" content="es-CL"/>
-  <link rel="canonical" href="https://www.vciso.cl/generador-politicas"/>
-
-  <!-- ── OPEN GRAPH ── -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Generador de Políticas TI — Paso a Paso | vCISO.cl"/>
-  <meta property="og:description" content="Completa el formulario y genera tus políticas de seguridad TI personalizadas. Alineadas con Ley 21.719 y NIST CSF v2.0."/>
-  <meta property="og:url" content="https://www.vciso.cl/generador-politicas"/>
-  <meta property="og:site_name" content="vCISO.cl"/>
-  <meta property="og:locale" content="es_CL"/>
-  <meta property="og:image" content="https://www.vciso.cl/og-image.png"/>
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="630"/>
-
-  <!-- ── TWITTER CARD ── -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Generador de Políticas TI — Paso a Paso | vCISO.cl"/>
-  <meta name="twitter:description" content="Completa el formulario y genera tus políticas de seguridad TI personalizadas. Alineadas con Ley 21.719 y NIST CSF v2.0."/>
-  <meta name="twitter:image" content="https://www.vciso.cl/og-image.png"/>
-
-  <!-- ── GEO / LOCAL SEO ── -->
-  <meta name="geo.region" content="CL-RM"/>
-  <meta name="geo.placename" content="Santiago, Chile"/>
-  <meta name="geo.position" content="-33.4489;-70.6693"/>
-  <meta name="ICBM" content="-33.4489, -70.6693"/>
-
-  <!-- ── SCHEMA.ORG ── -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "vCISO.cl",
-    "description": "Ciberseguridad profesional para PYMEs chilenas. CISO Virtual, diagnóstico, políticas TI y cumplimiento Ley 21.719.",
-    "url": "https://www.vciso.cl",
-    "logo": "https://www.vciso.cl/logo.png",
-    "email": "contacto@vciso.cl",
-    "telephone": "+56981307440",
-    "priceRange": "$$",
-    "currenciesAccepted": "CLP",
-    "paymentAccepted": "Transferencia, Khipu, Webpay",
-    "areaServed": {"@type":"Country","name":"Chile"},
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Santiago",
-      "addressRegion": "Región Metropolitana",
-      "addressCountry": "CL"
-    },
-    "sameAs": ["https://www.vciso.cl"]
-  }
-  </script>
-  
-
-  <!-- ── FUENTE ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-
-  <!-- ── FAVICON ── -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'><path d='M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z' fill='%231e4fad'/><path d='M13 23L18 28L27 18' stroke='%23f47c47' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"/>
-
   <style>
-
-  /* ── RESET ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  /* ── TOKENS ── */
-  :root {
-    --navy:      #0d1f3c;
-    --navy-mid:  #1a3360;
-    --navy-dark: #080f1e;
-    --blue:      #1e4fad;
-    --blue-lt:   #2a6ddf;
-    --blue-pale: rgba(30,79,173,0.12);
-    --orange:    #e85d26;
-    --orange-lt: #f47c47;
-    --white:     #ffffff;
-    --gray-50:   #f8fafc;
-    --gray-100:  #f1f5f9;
-    --gray-200:  #e2e8f0;
-    --gray-300:  #cbd5e1;
-    --gray-400:  #94a3b8;
-    --gray-500:  #64748b;
-    --gray-600:  #475569;
-    --gray-700:  #334155;
-    --gray-800:  #1e293b;
-    --green:     #22c55e;
-    --green-pale:rgba(34,197,94,0.12);
-    --red:       #ef4444;
-    --red-pale:  rgba(239,68,68,0.12);
-    --yellow:    #f59e0b;
-    --yellow-pale:rgba(245,158,11,0.12);
-    --radius:    10px;
-    --shadow:    0 4px 24px rgba(0,0,0,0.18);
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.10);
-    --transition: 0.2s ease;
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0d1f3c;--navy-mid:#1a3360;--navy-dark:#080f1e;
+    --blue:#1e4fad;--blue-lt:#2a6ddf;--orange:#e85d26;--orange-lt:#f47c47;
+    --white:#ffffff;--gray-50:#f8fafc;--gray-100:#f1f5f9;
+    --gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;--gray-700:#334155;
+    --green:#22c55e;--red:#ef4444;
   }
-
-  /* ── BASE ── */
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
-  /* ── GRID BG ── */
-  body::after {
-    content: '';
-    position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(30,79,173,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30,79,173,0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-
-  /* ── TOPNAV ── */
-  .vciso-nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(8,15,30,0.88);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    display: flex; align-items: center;
-    justify-content: space-between;
-    padding: 0 5%; height: 66px;
-  }
-  .vciso-nav .logo {
-    display: flex; align-items: center; gap: 10px;
-    text-decoration: none; font-weight: 800;
-    font-size: 1.25rem; color: var(--white); letter-spacing:-0.02em;
-  }
-  .vciso-nav .logo svg { flex-shrink: 0; }
-  .vciso-nav .logo span { color: var(--orange-lt); }
-  .vciso-nav .logo small {
-    display: block; font-size: 0.68rem; font-weight: 400;
-    color: rgba(255,255,255,0.4); letter-spacing: 0.02em; margin-top:-2px;
-  }
-  .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
-  .nav-links a {
-    padding: 8px 14px; border-radius: 7px;
-    font-size: 0.88rem; color: rgba(255,255,255,0.65);
-    text-decoration: none; transition: var(--transition);
-  }
-  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
-  .nav-links .btn-nav {
-    background: var(--orange); color: var(--white) !important;
-    font-weight: 600; padding: 8px 18px;
-  }
-  .nav-links .btn-nav:hover { background: var(--orange-lt); box-shadow: 0 0 18px rgba(232,93,38,0.35); }
-  .nav-back {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 0.85rem; color: rgba(255,255,255,0.5);
-    text-decoration: none; transition: color var(--transition);
-  }
-  .nav-back:hover { color: var(--white); }
-
-  /* ── FOOTER ── */
-  .vciso-footer {
-    background: var(--navy-dark);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 52px 5% 32px; position: relative; z-index: 1;
-    margin-top: 80px;
-  }
-  .footer-grid {
-    max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
-    padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-  .footer-brand .logo-f {
-    font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em;
-    color: var(--white); margin-bottom: 10px; display: block;
-  }
-  .footer-brand .logo-f span { color: var(--orange-lt); }
-  .footer-brand p { font-size: 0.85rem; color: var(--gray-400); line-height: 1.65; }
-  .footer-brand .contact-links { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
-  .footer-brand .contact-links a {
-    font-size: 0.83rem; color: var(--gray-400); text-decoration: none;
-    display: flex; align-items: center; gap: 6px; transition: color var(--transition);
-  }
-  .footer-brand .contact-links a:hover { color: var(--orange-lt); }
-  .footer-col h4 { font-size: 0.8rem; font-weight: 600; color: var(--gray-400);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .footer-col ul a { font-size: 0.85rem; color: rgba(255,255,255,0.5);
-    text-decoration: none; transition: color var(--transition); }
-  .footer-col ul a:hover { color: var(--white); }
-  .footer-bottom {
-    max-width: 1100px; margin: 24px auto 0;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-  }
-  .footer-bottom p { font-size: 0.78rem; color: var(--gray-400); }
-  .footer-badges { display: flex; gap: 10px; flex-wrap: wrap; }
-  .badge-f {
-    font-size: 0.72rem; font-weight: 500;
-    padding: 4px 10px; border-radius: 20px;
-    background: rgba(255,255,255,0.06); color: var(--gray-400);
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-
-  /* ── CONTENEDOR PÁGINAS INTERNAS ── */
-  .page-wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 48px 24px 0; }
-  .page-wrap.wide { max-width: 1100px; }
-
-  /* ── BADGE SERVICIO ── */
-  .svc-badge {
-    display: inline-flex; align-items: center; gap: 7px;
-    background: var(--blue-pale); border: 1px solid rgba(42,109,223,0.25);
-    color: #93c5fd; font-size: 0.78rem; font-weight: 500;
-    padding: 5px 14px; border-radius: 20px;
-    letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 20px;
-  }
-
-  /* ── PRECIO BADGE ── */
-  .price-badge {
-    display: inline-flex; align-items: baseline; gap: 6px;
-    background: rgba(232,93,38,0.12); border: 1px solid rgba(232,93,38,0.25);
-    color: var(--orange-lt); padding: 7px 16px; border-radius: 8px;
-    font-weight: 700; font-size: 1.05rem; margin-bottom: 28px;
-  }
-  .price-badge .from { font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.4); }
-
-  /* ── BOTONES ── */
-  .btn { display: inline-flex; align-items: center; gap: 8px;
-    padding: 13px 26px; border-radius: var(--radius); border: none; cursor: pointer;
-    font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all var(--transition); }
-  .btn-primary { background: var(--orange); color: var(--white); }
-  .btn-primary:hover { background: var(--orange-lt); box-shadow: 0 0 28px rgba(232,93,38,0.35); transform: translateY(-1px); }
-  .btn-secondary { background: rgba(255,255,255,0.06); color: var(--white); border: 1px solid rgba(255,255,255,0.12); }
-  .btn-secondary:hover { background: rgba(255,255,255,0.10); transform: translateY(-1px); }
-  .btn-wa { background: #25d366; color: var(--white); }
-  .btn-wa:hover { background: #1fb855; box-shadow: 0 0 22px rgba(37,211,102,0.3); transform: translateY(-1px); }
-  .btn-blue { background: var(--blue); color: var(--white); }
-  .btn-blue:hover { background: var(--blue-lt); transform: translateY(-1px); }
-  .btn-lg { padding: 16px 34px; font-size: 1.05rem; }
-  .btn-full { width: 100%; justify-content: center; }
-
-  /* ── CARDS ── */
-  .card {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px; padding: 28px;
-  }
-  .card-blue { border-color: rgba(30,79,173,0.3); background: rgba(30,79,173,0.08); }
-  .card-orange { border-color: rgba(232,93,38,0.3); background: rgba(232,93,38,0.06); }
-  .card-green { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.06); }
-
-  /* ── STATUS CHIPS ── */
-  .chip { display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.78rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; }
-  .chip-green { background: var(--green-pale); color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
-  .chip-red   { background: var(--red-pale);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
-  .chip-yellow{ background: var(--yellow-pale); color: #fcd34d; border: 1px solid rgba(245,158,11,0.25); }
-  .chip-blue  { background: var(--blue-pale);   color: #93c5fd; border: 1px solid rgba(42,109,223,0.25); }
-
-  /* ── INPUTS ── */
-  input, select, textarea {
-    width: 100%; background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: var(--white); border-radius: var(--radius);
-    padding: 12px 16px; font-size: 0.92rem; font-family: 'Inter', sans-serif;
-    transition: border-color var(--transition), box-shadow var(--transition);
-    outline: none;
-  }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--blue-lt);
-    box-shadow: 0 0 0 3px rgba(42,109,223,0.15);
-  }
-  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
-  select option { background: var(--navy-mid); color: var(--white); }
-  label { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; display: block; }
-
-  /* ── PROGRESS ── */
-  .progress-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--orange); border-radius: 2px; transition: width 0.4s ease; }
-
-  /* ── DIVIDER ── */
-  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 32px 0; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .vciso-nav { padding: 0 20px; }
-    .nav-links .nav-link { display: none; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .page-wrap { padding: 32px 16px 0; }
-  }
-  @media (max-width: 480px) {
-    .footer-grid { grid-template-columns: 1fr; }
-  }
-
-    /* ── WIZARD CONTAINER ── */
-    #wizard {
-      max-width:700px; margin:40px auto 80px; padding:0 20px;
-    }
-
-    /* ── STEP HEADER ── */
-    .step-header { text-align:center; margin-bottom:32px; }
-    .step-badge {
-      display:inline-flex; align-items:center; gap:6px;
-      background:var(--blue-pale); color:#93c5fd;
-      border:1px solid rgba(42,109,223,0.35); border-radius:20px;
-      padding:5px 14px; font-size:.75rem; font-weight:700;
-      text-transform:uppercase; letter-spacing:.5px; margin-bottom:14px;
-    }
-    .step-header h2 { font-size:1.6rem; font-weight:800; color:var(--navy); margin-bottom:8px; }
-    .step-header p  { font-size:.9rem; color:var(--gray-500); }
-
-    /* ── PROGRESS BAR ── */
-    .progress-wrap { background:var(--gray-100); border-radius:4px; height:6px; margin-bottom:36px; overflow:hidden; }
-    .progress-bar  { height:100%; background:linear-gradient(90deg,var(--blue),var(--orange)); border-radius:4px; transition:width .4s ease; }
-
-    /* ── CARD ── */
-    .card {
-      background:var(--white); border-radius:16px; padding:32px;
-      box-shadow:0 2px 16px rgba(0,0,0,.08);
-    }
-
-    /* ── FORM ELEMENTS ── */
-    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-    @media(max-width:560px){ .form-grid{grid-template-columns:1fr;} }
-    .form-group { display:flex; flex-direction:column; gap:6px; }
-    .form-group.full { grid-column:1/-1; }
-    label { font-size:.82rem; font-weight:600; color:var(--navy); }
-    label .req { color:var(--orange); margin-left:2px; }
-    input, select, textarea {
-      border:1.5px solid var(--gray-300); border-radius:8px;
-      padding:10px 14px; font-size:.9rem; font-family:inherit; color:var(--gray-700);
-      background:var(--white); transition:border-color .2s, box-shadow .2s;
-      width:100%;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline:none; border-color:var(--blue);
-      box-shadow:0 0 0 3px rgba(30,79,173,.12);
-    }
-    textarea { resize:vertical; min-height:80px; }
-    .field-hint { font-size:.75rem; color:var(--gray-500); }
-    .error-msg { color:#e53e3e; font-size:.78rem; display:none; margin-top:3px; }
-
-    /* ── POLICY CHECKBOXES ── */
-    .policy-grid {
-      display:grid; grid-template-columns:1fr 1fr; gap:12px;
-    }
-    @media(max-width:560px){ .policy-grid{grid-template-columns:1fr;} }
-    .policy-check-item { position:relative; }
-    .policy-check-item input[type="checkbox"] { position:absolute; opacity:0; width:0; height:0; }
-    .policy-check-item label {
-      display:flex; align-items:flex-start; gap:12px;
-      background:var(--gray-50); border:2px solid var(--gray-300);
-      border-radius:10px; padding:14px; cursor:pointer;
-      transition:all .2s; font-size:.85rem; font-weight:500; color:var(--gray-700);
-    }
-    .policy-check-item input:checked + label {
-      border-color:var(--blue-lt); background:rgba(30,79,173,0.10); color:var(--navy);
-    }
-    .policy-check-item label .pol-icon { font-size:1.3rem; flex-shrink:0; }
-    .policy-check-item label .pol-info {}
-    .policy-check-item label .pol-name { font-weight:700; font-size:.85rem; margin-bottom:2px; }
-    .policy-check-item label .pol-desc { font-size:.75rem; color:var(--gray-500); font-weight:400; line-height:1.4; }
-    .policy-check-item input:checked + label .pol-desc { color:var(--blue); }
-    .sel-count { font-size:.8rem; color:var(--gray-500); margin-bottom:12px; }
-    .sel-count strong { color:var(--navy); }
-
-    /* ── NAVIGATION BUTTONS ── */
-    .btn-row { display:flex; justify-content:space-between; align-items:center; margin-top:28px; gap:12px; }
-    .btn-secondary {
-      padding:12px 24px; border-radius:8px; font-size:.9rem; font-weight:600;
-      background:var(--white); color:var(--navy); border:2px solid var(--gray-300);
-      cursor:pointer; transition:all .2s;
-    }
-    .btn-secondary:hover { border-color:var(--navy); }
-    .btn-primary {
-      padding:12px 28px; border-radius:8px; font-size:.95rem; font-weight:700;
-      background:var(--blue); color:var(--white); border:none;
-      cursor:pointer; transition:all .2s;
-    }
-    .btn-primary:hover { background:#1840a0; transform:translateY(-1px); }
-    .btn-generate {
-      padding:14px 32px; border-radius:10px; font-size:1rem; font-weight:700;
-      background:var(--orange); color:var(--white); border:none;
-      cursor:pointer; transition:all .2s; width:100%;
-    }
-    .btn-generate:hover { background:#d0521f; transform:translateY(-1px); }
-
-    /* ── STEPS ── */
-    .step { display:none; }
-    .step.active { display:block; }
-
-    /* ══════════════════════════════════════════════
-       OUTPUT — GENERATED POLICIES
-    ══════════════════════════════════════════════ */
-    #output { display:none; }
-    .output-header {
-      background:linear-gradient(135deg,var(--navy),var(--navy-mid));
-      color:white; padding:28px 32px; border-radius:16px; margin-bottom:24px;
-      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
-    }
-    .output-header h2 { font-size:1.3rem; font-weight:800; }
-    .output-header p { font-size:.85rem; opacity:.7; margin-top:4px; }
-    .btn-print-all {
-      padding:12px 24px; border-radius:8px; font-size:.9rem; font-weight:700;
-      background:var(--orange); color:white; border:none; cursor:pointer; transition:all .2s;
-    }
-    .btn-print-all:hover { background:#d0521f; }
-
-    /* Individual policy document */
-    .policy-doc {
-      background:white; border-radius:16px; margin-bottom:24px;
-      box-shadow:0 2px 16px rgba(0,0,0,.08); overflow:hidden;
-    }
-    .policy-doc-header {
-      background:var(--navy); color:white; padding:22px 32px;
-      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
-    }
-    .policy-doc-header .doc-info {}
-    .policy-doc-header .doc-code { font-size:.75rem; opacity:.5; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
-    .policy-doc-header .doc-name { font-size:1.1rem; font-weight:800; }
-    .policy-doc-header .doc-version { font-size:.78rem; opacity:.55; margin-top:3px; }
-    .btn-print-one {
-      padding:8px 18px; border-radius:8px; font-size:.8rem; font-weight:600;
-      background:rgba(255,255,255,.15); color:white; border:1px solid rgba(255,255,255,.25);
-      cursor:pointer; transition:all .2s; white-space:nowrap;
-    }
-    .btn-print-one:hover { background:rgba(255,255,255,.25); }
-
-    .policy-doc-meta {
-      background:var(--gray-50); border-bottom:1px solid var(--gray-100);
-      padding:14px 32px; display:flex; gap:32px; flex-wrap:wrap;
-    }
-    .meta-item { font-size:.78rem; }
-    .meta-item .meta-label { color:var(--gray-500); margin-bottom:2px; text-transform:uppercase; letter-spacing:.5px; font-weight:600; }
-    .meta-item .meta-val   { color:var(--navy); font-weight:700; }
-
-    .policy-doc-body { padding:28px 32px; }
-
-    .pol-section { margin-bottom:24px; }
-    .pol-section-title {
-      font-size:.75rem; font-weight:800; text-transform:uppercase; letter-spacing:1px;
-      color:var(--orange); border-bottom:2px solid var(--gray-100); padding-bottom:6px; margin-bottom:12px;
-    }
-    .pol-section-content { font-size:.9rem; color:var(--gray-700); line-height:1.7; }
-    .pol-section-content ul { padding-left:20px; }
-    .pol-section-content ul li { margin-bottom:6px; }
-    .pol-section-content strong { color:var(--navy); }
-
-    .signature-block {
-      margin-top:32px; padding-top:24px; border-top:2px solid var(--gray-100);
-      display:grid; grid-template-columns:1fr 1fr; gap:32px;
-    }
-    @media(max-width:500px){ .signature-block{grid-template-columns:1fr;} }
-    .sig-col { }
-    .sig-line { border-bottom:1.5px solid var(--gray-700); margin-bottom:8px; height:40px; }
-    .sig-label { font-size:.78rem; color:var(--gray-500); }
-    .sig-name  { font-size:.85rem; font-weight:700; color:var(--navy); }
-    .sig-role  { font-size:.78rem; color:var(--gray-500); }
-
-    .policy-footer {
-      background:var(--gray-50); border-top:1px solid var(--gray-100);
-      padding:12px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;
-    }
-    .policy-footer span { font-size:.72rem; color:var(--gray-500); }
-    .policy-footer .confidential { font-weight:700; color:var(--orange); font-size:.72rem; }
-
-    /* ── PRINT STYLES ── */
-    @media print {
-      nav, .output-header .btn-print-all, .btn-print-one, #wizard { display:none !important; }
-      .policy-doc { box-shadow:none; border:1px solid #ddd; break-inside:avoid; page-break-after:always; border-radius:0; }
-      .policy-doc:last-child { page-break-after:auto; }
-      .policy-doc-header { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-      .output-header { display:none; }
-    }
-  
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;}
+  /* NAV */
+  .vciso-nav{background:var(--navy);border-bottom:1px solid rgba(255,255,255,0.06);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:1.25rem;font-weight:900;color:var(--white);letter-spacing:-0.02em;}
+  .logo span{color:var(--orange-lt);}
+  .logo small{display:block;font-size:0.68rem;font-weight:400;color:var(--gray-400);}
+  .nav-back{color:rgba(255,255,255,0.65);font-size:0.85rem;font-weight:500;text-decoration:none;}
+  .btn-nav{background:var(--orange);color:var(--white)!important;padding:8px 16px;border-radius:8px;font-size:0.82rem;font-weight:700;text-decoration:none;}
+  /* HERO */
+  .hero-mini{background:linear-gradient(135deg,var(--navy) 0%,#1a3360 100%);padding:44px 5% 36px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,93,38,0.15);border:1px solid rgba(232,93,38,0.4);color:#f9a97a;padding:5px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:14px;}
+  .hero-mini h1{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:8px;}
+  .hero-mini p{color:rgba(255,255,255,0.7);font-size:0.95rem;max-width:560px;margin:0 auto;}
+  /* PROGRESS */
+  .progress-wrap{max-width:760px;margin:0 auto;padding:28px 20px 0;}
+  .progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .progress-label{font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.85);text-transform:uppercase;letter-spacing:0.05em;}
+  .progress-pct{font-size:0.82rem;font-weight:700;color:var(--orange-lt);}
+  .progress-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--orange));border-radius:3px;transition:width 0.5s ease;}
+  .steps-dots{display:flex;justify-content:space-between;margin-top:14px;}
+  .step-dot{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;}
+  .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.2);transition:background 0.3s;}
+  .dot.active{background:var(--blue-lt);}
+  .dot.done{background:var(--green);}
+  .dot-label{font-size:0.65rem;color:rgba(255,255,255,0.45);text-align:center;}
+  /* FORM */
+  .form-wrap{max-width:760px;margin:24px auto 80px;padding:0 20px;}
+  .form-card{background:white;border-radius:16px;box-shadow:0 4px 32px rgba(0,0,0,0.18);overflow:hidden;}
+  .card-header{background:linear-gradient(135deg,var(--navy),#1a3360);padding:22px 32px;display:flex;align-items:center;gap:16px;}
+  .card-header-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+  .card-header h2{font-size:1.05rem;font-weight:700;color:white;margin-bottom:3px;}
+  .card-header p{font-size:0.82rem;color:rgba(255,255,255,0.6);}
+  .card-body{padding:28px 32px;}
+  .step{display:none;}
+  .step.active{display:block;}
+  /* FIELDS */
+  .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .field-grid.full{grid-template-columns:1fr;}
+  .field{display:flex;flex-direction:column;gap:5px;}
+  .form-card label{color:#0d1f3c!important;font-size:0.83rem!important;font-weight:600!important;margin-bottom:0;}
+  .form-card input,.form-card select,.form-card textarea{background:#fff!important;border:2px solid #cbd5e1!important;color:#334155!important;border-radius:8px!important;padding:10px 14px!important;font-size:0.9rem!important;font-family:'Inter',sans-serif!important;width:100%!important;box-shadow:none!important;outline:none!important;}
+  .form-card input:focus,.form-card select:focus,.form-card textarea:focus{border-color:#1e4fad!important;box-shadow:0 0 0 3px rgba(30,79,173,0.12)!important;}
+  .form-card input::placeholder,.form-card textarea::placeholder{color:#94a3b8!important;}
+  .form-card select option{background:white!important;color:#334155!important;}
+  .error-msg{font-size:0.75rem;color:#ef4444;display:none;margin-top:2px;}
+  .error-msg.visible{display:block;}
+  .section-divider{display:flex;align-items:center;gap:12px;margin:22px 0 16px;}
+  .section-divider span{font-size:0.72rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap;}
+  .section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:#e2e8f0;}
+  /* POLICY CHECKBOXES */
+  .policy-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+  @media(max-width:560px){.policy-grid{grid-template-columns:1fr;}}
+  .policy-item{position:relative;}
+  .policy-item input[type="checkbox"]{position:absolute;opacity:0;width:0;height:0;}
+  .policy-item label{display:flex;align-items:flex-start;gap:12px;background:var(--gray-50);border:2px solid var(--gray-300);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s;height:100%;}
+  .policy-item input:checked+label{border-color:var(--blue-lt);background:rgba(30,79,173,0.08);}
+  .pol-check{width:20px;height:20px;border:2px solid #cbd5e1;border-radius:5px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  .policy-item input:checked+label .pol-check{border-color:var(--blue-lt);background:var(--blue-lt);}
+  .pol-check::after{content:'checkmark';font-size:0;color:white;display:none;}
+  .policy-item input:checked+label .pol-check::after{display:block;}
+  .pol-icon{font-size:1.4rem;flex-shrink:0;margin-top:1px;}
+  .pol-name{font-weight:700;font-size:0.85rem;color:#0d1f3c;margin-bottom:3px;}
+  .pol-desc{font-size:0.74rem;color:#64748b;line-height:1.4;}
+  .min-notice{font-size:0.8rem;color:#64748b;margin-bottom:16px;padding:10px 14px;background:#f8fafc;border-radius:8px;border-left:3px solid var(--blue);}
+  .selected-count{font-size:0.82rem;font-weight:700;color:var(--blue);margin-top:8px;}
+  /* FORMATO */
+  .formato-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .formato-item{position:relative;}
+  .formato-item input[type="radio"]{position:absolute;opacity:0;width:0;height:0;}
+  .formato-item label{display:flex;align-items:flex-start;gap:12px;background:var(--gray-50);border:2px solid var(--gray-300);border-radius:10px;padding:16px;cursor:pointer;transition:all .2s;height:100%;}
+  .formato-item input:checked+label{border-color:var(--blue-lt);background:rgba(30,79,173,0.08);}
+  .formato-icon{font-size:1.6rem;flex-shrink:0;}
+  .formato-name{font-weight:700;font-size:0.88rem;color:#0d1f3c;margin-bottom:4px;}
+  .formato-desc{font-size:0.76rem;color:#64748b;line-height:1.4;}
+  /* CONTEXT */
+  .context-question{margin-bottom:20px;}
+  .context-hint{font-size:0.76rem;color:#64748b;margin-bottom:8px;font-style:italic;}
+  /* NAV BUTTONS */
+  .form-nav{display:flex;justify-content:space-between;align-items:center;padding:22px 32px;border-top:1px solid #e2e8f0;background:#f8fafc;}
+  .btn-prev{display:flex;align-items:center;gap:6px;background:none;border:2px solid #cbd5e1;color:#64748b;padding:10px 20px;border-radius:8px;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;}
+  .btn-prev:hover{border-color:#0d1f3c;color:#0d1f3c;}
+  .btn-next{display:flex;align-items:center;gap:6px;background:var(--navy);color:white;border:none;padding:11px 26px;border-radius:8px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;}
+  .btn-next:hover{background:var(--blue);}
+  .btn-submit{background:var(--orange);color:white;border:none;padding:13px 32px;border-radius:8px;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;}
+  .btn-submit:hover{background:var(--orange-lt);}
+  .btn-submit:disabled{opacity:0.6;cursor:not-allowed;}
+  /* RESULT */
+  #result{display:none;}
+  .result-header{background:linear-gradient(135deg,var(--navy),#1a3360);padding:40px 32px;text-align:center;color:white;}
+  .result-icon{font-size:3rem;margin-bottom:16px;}
+  .result-header h2{font-size:1.5rem;font-weight:800;margin-bottom:8px;}
+  .result-header p{color:rgba(255,255,255,0.72);font-size:0.95rem;}
+  .result-body{padding:28px 32px;}
+  .policies-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;}
+  .policy-tag{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:0.85rem;color:#15803d;font-weight:600;}
+  .next-steps{background:#f8fafc;border-radius:10px;padding:20px 24px;}
+  .next-steps h4{font-size:0.8rem;font-weight:700;color:#0d1f3c;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;}
+  .step-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+  .step-num-small{width:24px;height:24px;border-radius:50%;background:var(--navy);color:white;font-size:0.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .step-item p{font-size:0.84rem;color:#334155;line-height:1.5;}
+  #access-denied{display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;max-width:520px;margin:0 auto;}
+  @media(max-width:600px){.card-body{padding:20px;}.form-nav{padding:16px 20px;flex-direction:column;gap:10px;}.field-grid{grid-template-columns:1fr;}.formato-grid{grid-template-columns:1fr;}.btn-prev,.btn-next,.btn-submit{width:100%;justify-content:center;}}
   </style>
 </head>
 <body>
-
-<nav class="vciso-nav" role="navigation" aria-label="Navegación">
-  <a href="/" class="logo" aria-label="vCISO.cl — Inicio">
+<nav class="vciso-nav">
+  <a href="/" class="logo">
     <svg width="28" height="32" viewBox="0 0 40 46" fill="none">
-  <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z"
-        fill="rgba(30,79,173,0.5)" stroke="#2a6ddf" stroke-width="1.5"/>
-  <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5"
-        stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+      <path d="M20 2L4 9V22C4 32 11 41 20 44C29 41 36 32 36 22V9L20 2Z" fill="rgba(30,79,173,0.5)" stroke="#2a6ddf" stroke-width="1.5"/>
+      <path d="M13 23L18 28L27 18" stroke="#f47c47" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
     <div>v<span>CISO</span>.cl<small>Ciberseguridad para empresas</small></div>
   </a>
-  <a href="/politicas-seguridad" class="nav-back">← Volver</a>
-  <ul class="nav-links" role="list">
-    <li><a href="https://wa.me/56981307440?text=Hola%2C+quisiera+información+sobre+vCISO.cl"
-           class="btn btn-nav" target="_blank" rel="noopener">💬 WhatsApp</a></li>
-  </ul>
+  <a href="/politicas-seguridad" class="nav-back">&#8592; Volver</a>
+  <a href="https://wa.me/56981307440" class="btn-nav" target="_blank" rel="noopener">&#128172; WhatsApp</a>
 </nav>
-
-
-<!-- NAV -->
-
-
-<!-- ═══════════════════════════════════════════
-     WIZARD
-═══════════════════════════════════════════ -->
-
-<div id="access-denied" style="display:flex;align-items:center;justify-content:center;
-  min-height:60vh;padding:40px 20px;text-align:center;position:relative;z-index:1;
-  background:var(--navy);">
-  <div style="max-width:460px">
-    <div style="font-size:3rem;margin-bottom:16px">🔒</div>
-    <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:12px;color:#fff">Acceso restringido</h2>
-    <p class="denied-msg" style="color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:24px">
-      Verificando acceso...
-    </p>
-    <a href="/politicas-seguridad"
-       style="display:inline-block;background:#e85d26;color:#fff;padding:12px 24px;
-              border-radius:8px;text-decoration:none;font-weight:700;font-size:0.9rem">
-      ← Ver servicio de políticas
-    </a>
+<div class="hero-mini">
+  <div class="badge">&#128203; Generador de Políticas · $34.900 CLP</div>
+  <h1>Políticas de Seguridad TI</h1>
+  <p>Elige las políticas que necesitas. Claude las redacta desde cero, adaptadas 100% a tu empresa, basadas en ISO 27002:2022.</p>
+</div>
+<div class="progress-wrap">
+  <div class="progress-header">
+    <span class="progress-label" id="step-label">Paso 1 de 4 — Datos de tu empresa</span>
+    <span class="progress-pct" id="step-pct">25%</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:25%"></div></div>
+  <div class="steps-dots">
+    <div class="step-dot"><div class="dot active" id="dot1"></div><span class="dot-label">Empresa</span></div>
+    <div class="step-dot"><div class="dot" id="dot2"></div><span class="dot-label">Políticas</span></div>
+    <div class="step-dot"><div class="dot" id="dot3"></div><span class="dot-label">Contexto</span></div>
+    <div class="step-dot"><div class="dot" id="dot4"></div><span class="dot-label">Confirmar</span></div>
   </div>
 </div>
-
-<div id="wizard" style="display:none">
-
-  <!-- PROGRESS -->
-  <div class="progress-wrap">
-    <div class="progress-bar" id="progressBar" style="width:33%"></div>
-  </div>
-
-  <!-- ── STEP 1: Datos de la empresa ── -->
-  <div class="step active" id="step1">
-    <div class="step-header">
-      <div class="step-badge">📋 Paso 1 de 3</div>
-      <h2>Datos de tu empresa</h2>
-      <p>Esta información aparecerá en el encabezado de todas las políticas generadas.</p>
-    </div>
-    <div class="card">
-      <div class="form-grid">
-        <div class="form-group full">
-          <label>Razón social <span class="req">*</span></label>
-          <input type="text" id="empresa" placeholder="Ej: Comercial Atacama SpA" maxlength="100"/>
-          <span class="error-msg" id="err-empresa">Campo requerido</span>
-        </div>
-        <div class="form-group">
-          <label>RUT empresa <span class="req">*</span></label>
-          <input type="text" id="rut" placeholder="Ej: 76.123.456-7" maxlength="12"/>
-          <span class="error-msg" id="err-rut">Campo requerido</span>
-        </div>
-        <div class="form-group">
-          <label>Rubro / industria <span class="req">*</span></label>
-          <select id="rubro">
-            <option value="">Selecciona...</option>
-            <option>Retail / Comercio</option>
-            <option>Construcción</option>
-            <option>Transporte y logística</option>
-            <option>Salud / Clínicas</option>
-            <option>Educación</option>
-            <option>Consultoría / Servicios profesionales</option>
-            <option>Tecnología</option>
-            <option>Manufactura / Industria</option>
-            <option>Inmobiliaria</option>
-            <option>Agricultura / Agroindustria</option>
-            <option>Otro</option>
-          </select>
-          <span class="error-msg" id="err-rubro">Campo requerido</span>
-        </div>
-        <div class="form-group">
-          <label>N° de colaboradores</label>
-          <select id="empleados">
-            <option value="1–10">1 – 10</option>
-            <option value="11–30">11 – 30</option>
-            <option value="31–50">31 – 50</option>
-            <option value="51–100">51 – 100</option>
-            <option value="101–200">101 – 200</option>
-            <option value="más de 200">Más de 200</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Ciudad</label>
-          <input type="text" id="ciudad" placeholder="Ej: Santiago" maxlength="50"/>
-        </div>
-        <div class="form-group">
-          <label>Fecha de vigencia <span class="req">*</span></label>
-          <input type="month" id="vigencia"/>
-          <span class="field-hint">Mes y año de entrada en vigor</span>
-          <span class="error-msg" id="err-vigencia">Campo requerido</span>
-        </div>
-        <div class="form-group full">
-          <label>Representante Legal <span class="req">*</span></label>
-          <input type="text" id="rep-legal" placeholder="Ej: María Torres González" maxlength="80"/>
-          <span class="error-msg" id="err-rep">Campo requerido</span>
-        </div>
-        <div class="form-group">
-          <label>Cargo del Representante Legal</label>
-          <input type="text" id="rep-cargo" placeholder="Ej: Gerente General" maxlength="60"/>
-        </div>
-        <div class="form-group">
-          <label>Responsable de Seguridad TI</label>
-          <input type="text" id="ti-resp" placeholder="Ej: Carlos Mora" maxlength="80"/>
-          <span class="field-hint">Quien firmará como encargado de TI</span>
-        </div>
-        <div class="form-group">
-          <label>Cargo responsable TI</label>
-          <input type="text" id="ti-cargo" placeholder="Ej: Jefe de TI" maxlength="60"/>
-        </div>
-      </div>
-
-      <div class="btn-row">
-        <span></span>
-        <button class="btn-primary" onclick="validateStep1()">Siguiente →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── STEP 2: Selección de políticas ── -->
-  <div class="step" id="step2">
-    <div class="step-header">
-      <div class="step-badge">📋 Paso 2 de 3</div>
-      <h2>Selecciona las políticas</h2>
-      <p>Elige las que necesitas. Puedes seleccionar todas o las que sean relevantes para tu empresa.</p>
-    </div>
-    <div class="card">
-      <div class="sel-count">Seleccionadas: <strong id="selCount">0</strong> de 8</div>
-      <div class="policy-grid">
-        <div class="policy-check-item">
-          <input type="checkbox" id="p1" value="p1" onchange="updateCount()"/>
-          <label for="p1">
-            <span class="pol-icon">🛡️</span>
-            <div class="pol-info">
-              <div class="pol-name">Seguridad de la Información</div>
-              <div class="pol-desc">Política base y marco general de seguridad</div>
-            </div>
-          </label>
-        </div>
-        <div class="policy-check-item">
-          <input type="checkbox" id="p2" value="p2" onchange="updateCount()"/>
-          <label for="p2">
-            <span class="pol-icon">🔐</span>
-            <div class="pol-info">
-              <div class="pol-name">Contraseñas y Control de Accesos</div>
-              <div class="pol-desc">Requisitos de contraseñas, MFA y gestión de usuarios</div>
-            </div>
-          </label>
-        </div>
-        <div class="policy-check-item">
-          <input type="checkbox" id="p3" value="p3" onchange="updateCount()"/>
-          <label for="p3">
-            <span class="pol-icon">💻</span>
-            <div class="pol-info">
-              <div class="pol-name">Uso Aceptable de TI</div>
-              <div class="pol-desc">Uso de equipos, internet, correo y software corporativo</div>
-            </div>
-          </label>
-        </div>
-        <div class="policy-check-item">
-          <input type="checkbox" id="p4" value="p4" onchange="updateCount()"/>
-          <label for="p4">
-            <span class="pol-icon">💾</span>
-            <div class="pol-info">
-              <div class="pol-name">Respaldo y Recuperación</div>
-              <div class="pol-desc">Copias de seguridad, pruebas de restauración y RTO/RPO</div>
-            </div>
-          </label>
-        </div>
-        <div class="policy-check-item">
-          <input type="checkbox" id="p5" value="p5" onchange="updateCount()"/>
-          <label for="p5">
-            <span class="pol-icon">🚨</span>
-            <div class="pol-info">
-              <div class="pol-name">Gestión de Incidentes</div>
-              <div class="pol-desc">Detección, reporte y respuesta a incidentes de seguridad</div>
-            </div>
-          </label>
-        </div>
-        <div class="policy-check-item">
-          <input type="checkbox" id="p6" value="p6" onchange="updateCount()"/>
-          <label for="p6">
-            <span class="pol-icon">📋</span>
-            <div class="pol-info">
-              <div class="pol-name">Protección de Datos Personales</div>
-              <div class="pol-desc">Cumplimiento Ley 19.628 y tratamiento de datos</div>
-            </div>
-          </label>
-        </div>
-        <div class="policy-check-item">
-          <input type="checkbox" id="p7" value="p7" onchange="updateCount()"/>
-          <label for="p7">
-            <span class="pol-icon">🏠</span>
-            <div class="pol-info">
-              <div class="pol-name">Teletrabajo y Trabajo Remoto</div>
-              <div class="pol-desc">Requisitos de seguridad para trabajo desde casa o remoto</div>
-            </div>
-          </label>
-        </div>
-        <div class="policy-check-item">
-          <input type="checkbox" id="p8" value="p8" onchange="updateCount()"/>
-          <label for="p8">
-            <span class="pol-icon">🤝</span>
-            <div class="pol-info">
-              <div class="pol-name">Gestión de Proveedores</div>
-              <div class="pol-desc">Control de accesos de terceros y cadena de suministro</div>
-            </div>
-          </label>
-        </div>
-      </div>
-      <span class="error-msg" id="err-policies" style="display:none;margin-top:12px;">Selecciona al menos una política</span>
-
-      <div class="btn-row">
-        <button class="btn-secondary" onclick="goStep(1)">← Anterior</button>
-        <button class="btn-primary" onclick="validateStep2()">Siguiente →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── STEP 3: Confirmación ── -->
-  <div class="step" id="step3">
-    <div class="step-header">
-      <div class="step-badge">📋 Paso 3 de 3</div>
-      <h2>Confirmar y generar</h2>
-      <p>Revisa el resumen antes de generar tus políticas.</p>
-    </div>
-    <div class="card">
-      <div style="background:var(--gray-50);border-radius:10px;padding:20px 24px;margin-bottom:24px;">
-        <div style="font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px;">Datos de la empresa</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="summary-empresa"></div>
-      </div>
-      <div style="background:var(--blue-pale);border:1px solid rgba(42,109,223,0.3);border-radius:10px;padding:20px 24px;margin-bottom:28px;">
-        <div style="font-size:.8rem;font-weight:700;color:#93c5fd;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">Políticas seleccionadas</div>
-        <div id="summary-policies" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-      </div>
-
-      <button class="btn-generate" onclick="generatePolicies()">⚡ Generar mis políticas ahora</button>
-
-      <div class="btn-row" style="margin-top:16px;">
-        <button class="btn-secondary" onclick="goStep(2)">← Anterior</button>
-        <span></span>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /wizard -->
-
-
-<!-- ═══════════════════════════════════════════
-     OUTPUT — GENERATED POLICIES
-═══════════════════════════════════════════ -->
-<div id="output" style="max-width:900px;margin:0 auto 80px;padding:0 20px;">
-
-  <div class="output-header">
-    <div>
-      <h2>✅ Tus políticas están listas</h2>
-      <p id="output-subtitle">Generadas el <span id="output-date"></span></p>
-    </div>
-    <button class="btn-print-all" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
-  </div>
-
-  <div id="policies-container"></div>
-
+<div id="access-denied">
+  <div style="font-size:3rem;margin-bottom:20px">&#128274;</div>
+  <h2 style="color:#fff;font-size:1.3rem;font-weight:800;margin-bottom:12px">Acceso no autorizado</h2>
+  <p class="denied-msg" style="color:rgba(255,255,255,0.6);font-size:0.95rem;line-height:1.6"></p>
 </div>
+<div class="form-wrap">
+  <div class="form-card" id="form-container" style="display:none">
 
-
-<script>
-// ── STATE ──
-let currentStep = 1;
-const totalSteps = 3;
-
-// ── NAVIGATION ──
-function goStep(n) {
-  document.getElementById('step' + currentStep).classList.remove('active');
-  currentStep = n;
-  document.getElementById('step' + currentStep).classList.add('active');
-  document.getElementById('progressBar').style.width = ((currentStep / totalSteps) * 100) + '%';
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-// ── STEP 1 VALIDATION ──
-function validateStep1() {
-  let ok = true;
-  const fields = [
-    {id:'empresa',  err:'err-empresa'},
-    {id:'rut',      err:'err-rut'},
-    {id:'rubro',    err:'err-rubro'},
-    {id:'vigencia', err:'err-vigencia'},
-    {id:'rep-legal',err:'err-rep'},
-  ];
-  fields.forEach(f => {
-    const el = document.getElementById(f.id);
-    const errEl = document.getElementById(f.err);
-    if (!el.value.trim()) {
-      errEl.style.display = 'block'; el.style.borderColor = '#e53e3e'; ok = false;
-    } else {
-      errEl.style.display = 'none'; el.style.borderColor = '';
-    }
-  });
-  if (ok) { buildSummary(); goStep(2); }
-}
-
-// ── STEP 2 VALIDATION ──
-function validateStep2() {
-  const selected = document.querySelectorAll('.policy-check-item input:checked');
-  if (selected.length === 0) {
-    document.getElementById('err-policies').style.display = 'block'; return;
-  }
-  document.getElementById('err-policies').style.display = 'none';
-  buildSummary();
-  goStep(3);
-}
-
-function updateCount() {
-  const n = document.querySelectorAll('.policy-check-item input:checked').length;
-  document.getElementById('selCount').textContent = n;
-}
-
-// ── BUILD SUMMARY (step 3) ──
-function buildSummary() {
-  const empresa  = v('empresa');
-  const rut      = v('rut');
-  const rubro    = v('rubro');
-  const ciudad   = v('ciudad');
-  const vigencia = formatVigencia(v('vigencia'));
-  const rep      = v('rep-legal');
-  const repCargo = v('rep-cargo') || 'Representante Legal';
-  const ti       = v('ti-resp')  || '—';
-  const tiCargo  = v('ti-cargo') || '—';
-
-  document.getElementById('summary-empresa').innerHTML = `
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Empresa</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${empresa}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">RUT</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${rut}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Rubro</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${rubro}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Ciudad</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${ciudad||'—'}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Vigencia desde</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${vigencia}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Representante</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${rep} (${repCargo})</div></div>
-  `;
-
-  const checks = document.querySelectorAll('.policy-check-item input:checked');
-  let chips = '';
-  checks.forEach(ch => {
-    const name = ch.closest('.policy-check-item').querySelector('.pol-name').textContent;
-    chips += `<span style="background:var(--blue);color:white;border-radius:20px;padding:4px 12px;font-size:.78rem;font-weight:600;">${name}</span>`;
-  });
-  document.getElementById('summary-policies').innerHTML = chips;
-}
-
-function v(id) { return document.getElementById(id).value.trim(); }
-
-function formatVigencia(raw) {
-  if (!raw) return '—';
-  const [y, m] = raw.split('-');
-  const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  return months[parseInt(m)-1] + ' ' + y;
-}
-
-// ─────────────────────────────────────────────
-//  POLICY TEMPLATES
-// ─────────────────────────────────────────────
-const POLICY_TEMPLATES = {
-
-  p1: {
-    code: 'POL-01', icon: '🛡️',
-    name: 'Política de Seguridad de la Información',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer el marco general de seguridad de la información de <strong>${d.empresa}</strong>, definiendo los principios, responsabilidades y lineamientos que guían la protección de los activos de información de la organización, en alineación con las buenas prácticas del NIST Cybersecurity Framework v2.0 y la normativa chilena vigente.</p>` },
-      { title: '2. Alcance', content: `<p>Esta política aplica a <strong>todos los colaboradores, directivos, contratistas y proveedores</strong> de ${d.empresa} que tengan acceso a información o sistemas de la organización, independientemente de su modalidad de trabajo (presencial o remoto).</p>` },
-      { title: '3. Principios de Seguridad', content: `<ul>
-        <li><strong>Confidencialidad:</strong> La información solo es accesible a quienes estén autorizados explícitamente.</li>
-        <li><strong>Integridad:</strong> La información se mantiene exacta y completa, protegida de modificaciones no autorizadas.</li>
-        <li><strong>Disponibilidad:</strong> La información y los sistemas están disponibles cuando los usuarios autorizados los requieren.</li>
-        <li><strong>Proporcionalidad:</strong> Las medidas de seguridad son proporcionales al riesgo y al valor del activo protegido.</li>
-      </ul>` },
-      { title: '4. Clasificación de la Información', content: `<ul>
-        <li><strong>Pública:</strong> Información sin restricción de divulgación (ej.: catálogos, web corporativa).</li>
-        <li><strong>Interna:</strong> Uso exclusivo de colaboradores de ${d.empresa} (ej.: procedimientos internos, comunicaciones internas).</li>
-        <li><strong>Confidencial:</strong> Información sensible cuya divulgación podría causar daño (ej.: datos de clientes, contratos, información financiera).</li>
-        <li><strong>Restringida:</strong> Información crítica con acceso muy limitado (ej.: claves, datos personales sensibles).</li>
-      </ul>` },
-      { title: '5. Responsabilidades', content: `<ul>
-        <li><strong>Directivos:</strong> Aprobar esta política, asignar recursos y liderar la cultura de seguridad.</li>
-        <li><strong>Responsable de TI:</strong> Implementar controles técnicos, gestionar incidentes y mantener la política actualizada.</li>
-        <li><strong>Todos los colaboradores:</strong> Cumplir esta política, reportar incidentes y proteger los activos a su cargo.</li>
-        <li><strong>Proveedores y terceros:</strong> Cumplir los requisitos de seguridad definidos en sus contratos.</li>
-      </ul>` },
-      { title: '6. Cumplimiento y Sanciones', content: `<p>El incumplimiento de esta política podrá derivar en medidas disciplinarias conforme al Reglamento Interno de ${d.empresa}, sin perjuicio de las acciones legales que procedan bajo la legislación chilena vigente, incluyendo la <strong>Ley 21.459 sobre delitos informáticos</strong> y el <strong>Código del Trabajo</strong>.</p>` },
-      { title: '7. Revisión', content: `<p>Esta política será revisada <strong>anualmente</strong> o cuando ocurra un incidente significativo, un cambio tecnológico relevante, o modificaciones al marco legal aplicable. La versión vigente estará disponible para todos los colaboradores de ${d.empresa}.</p>` },
-    ]
-  },
-
-  p2: {
-    code: 'POL-02', icon: '🔐',
-    name: 'Política de Contraseñas y Control de Accesos',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer los requisitos mínimos para la gestión segura de credenciales y el control de accesos a los sistemas de información de <strong>${d.empresa}</strong>, reduciendo el riesgo de accesos no autorizados.</p>` },
-      { title: '2. Requisitos de Contraseñas', content: `<ul>
-        <li>Longitud mínima: <strong>12 caracteres</strong>.</li>
-        <li>Debe combinar letras mayúsculas, minúsculas, números y caracteres especiales (! @ # $ % &).</li>
-        <li>Prohibido usar: nombre del usuario, RUT, fecha de nacimiento, nombre de la empresa o secuencias simples (123456, qwerty).</li>
-        <li>Vigencia máxima: <strong>90 días</strong> para sistemas críticos; 180 días para sistemas de baja criticidad.</li>
-        <li>No reutilizar las últimas <strong>10 contraseñas</strong>.</li>
-        <li>Uso obligatorio de <strong>gestor de contraseñas</strong> corporativo para cuentas de servicio.</li>
-      </ul>` },
-      { title: '3. Autenticación de Múltiples Factores (MFA)', content: `<ul>
-        <li>MFA es <strong>obligatorio</strong> para: acceso remoto (VPN), correo corporativo, sistemas financieros y ERP, administración de servidores y plataformas cloud.</li>
-        <li>Se acepta: aplicación autenticadora (Google Authenticator, Microsoft Authenticator), token hardware o SMS como respaldo.</li>
-        <li>Nunca compartir códigos MFA con terceros, incluyendo soporte técnico.</li>
-      </ul>` },
-      { title: '4. Gestión de Accesos', content: `<ul>
-        <li><strong>Principio de mínimo privilegio:</strong> Cada usuario recibe solo los permisos estrictamente necesarios para su función.</li>
-        <li>Los accesos se aprueban formalmente por el jefe directo y son gestionados por TI.</li>
-        <li>Al <strong>desvincularse</strong> un colaborador: las cuentas se desactivan el mismo día del término del contrato.</li>
-        <li>Revisión semestral de todos los accesos activos.</li>
-        <li>Las cuentas con privilegios de administrador se usan solo para tareas administrativas, nunca para uso cotidiano.</li>
-      </ul>` },
-      { title: '5. Responsabilidades', content: `<ul>
-        <li>Cada usuario es <strong>responsable personal</strong> de su contraseña. No debe compartirla bajo ninguna circunstancia.</li>
-        <li>Si sospecha que su contraseña fue comprometida, debe cambiarla inmediatamente y notificar a TI.</li>
-        <li>TI nunca solicitará contraseñas por teléfono, correo o mensajería.</li>
-      </ul>` },
-      { title: '6. Sanciones', content: `<p>El incumplimiento de esta política, especialmente el compartir credenciales o eludir controles de acceso, constituye una falta grave conforme al Reglamento Interno de ${d.empresa} y podrá implicar acciones disciplinarias, hasta el término del contrato.</p>` },
-    ]
-  },
-
-  p3: {
-    code: 'POL-03', icon: '💻',
-    name: 'Política de Uso Aceptable de Recursos Tecnológicos',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Definir el uso aceptable de los recursos tecnológicos de <strong>${d.empresa}</strong> — computadores, teléfonos, internet, correo electrónico y software — para proteger la seguridad de la información y el patrimonio de la organización.</p>` },
-      { title: '2. Uso de Equipos Corporativos', content: `<ul>
-        <li>Los equipos corporativos son para uso profesional; el uso personal es tolerado en forma moderada y no debe interferir con el trabajo.</li>
-        <li>Prohibido instalar software no autorizado, juegos o aplicaciones de entretenimiento.</li>
-        <li>No conectar dispositivos USB o de almacenamiento externo sin autorización de TI.</li>
-        <li>El equipo debe bloquearse automáticamente después de <strong>5 minutos</strong> de inactividad.</li>
-        <li>Nunca prestar equipos corporativos a familiares o amigos.</li>
-      </ul>` },
-      { title: '3. Uso de Internet', content: `<ul>
-        <li>Prohibido el acceso a sitios de contenido adulto, apuestas, descarga ilegal (torrents/piratería) o contenido ilícito.</li>
-        <li>Las descargas de software deben ser aprobadas por TI y provenir de fuentes oficiales.</li>
-        <li>Evitar conectarse a redes Wi-Fi públicas sin usar VPN corporativa.</li>
-        <li>${d.empresa} se reserva el derecho de monitorear el uso de internet desde sus redes con fines de seguridad.</li>
-      </ul>` },
-      { title: '4. Uso del Correo Electrónico', content: `<ul>
-        <li>El correo corporativo es un recurso profesional; su uso personal debe ser mínimo.</li>
-        <li>Prohibido enviar información confidencial por correo sin cifrado a destinatarios externos no autorizados.</li>
-        <li>Nunca abrir adjuntos o hacer clic en enlaces de remitentes desconocidos o sospechosos.</li>
-        <li>No usar el correo corporativo para registrarse en sitios web personales o redes sociales.</li>
-        <li>Ante dudas sobre un correo, reportarlo inmediatamente a TI (posible phishing).</li>
-      </ul>` },
-      { title: '5. Redes Sociales', content: `<ul>
-        <li>Prohibido publicar información confidencial, datos de clientes o procesos internos de ${d.empresa} en redes sociales.</li>
-        <li>El uso de redes sociales en horario laboral debe ser limitado y no interferir con el desempeño.</li>
-        <li>Cualquier publicación que mencione a ${d.empresa} debe ser respetuosa y no comprometer la reputación de la organización.</li>
-      </ul>` },
-      { title: '6. Sanciones', content: `<p>El incumplimiento de esta política será evaluado caso a caso. Según la gravedad, podrá derivar en amonestación escrita, suspensión o término del contrato, de acuerdo al Reglamento Interno de ${d.empresa} y el Código del Trabajo.</p>` },
-    ]
-  },
-
-  p4: {
-    code: 'POL-04', icon: '💾',
-    name: 'Política de Respaldo y Recuperación de Información',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Garantizar la disponibilidad y recuperación de la información crítica de <strong>${d.empresa}</strong> ante pérdidas accidentales, fallos tecnológicos o incidentes de seguridad, mediante un proceso documentado y verificado de respaldo.</p>` },
-      { title: '2. Tipos de Respaldo', content: `<ul>
-        <li><strong>Respaldo completo:</strong> Copia total de todos los datos. Frecuencia mínima: <strong>semanal</strong> (domingos).</li>
-        <li><strong>Respaldo incremental:</strong> Solo los cambios desde el último respaldo. Frecuencia: <strong>diaria</strong> (de lunes a sábado).</li>
-        <li><strong>Respaldo de bases de datos críticas:</strong> Frecuencia mínima diaria; preferentemente en tiempo real (replicación).</li>
-      </ul>` },
-      { title: '3. Almacenamiento y Retención', content: `<ul>
-        <li>Los respaldos se almacenan en al menos <strong>dos ubicaciones distintas</strong>: una en las instalaciones de ${d.empresa} y otra fuera del sitio (nube o sitio alterno).</li>
-        <li>Retención mínima de respaldos: <strong>30 días</strong> para respaldos diarios; <strong>12 meses</strong> para respaldos mensuales.</li>
-        <li>Los respaldos deben estar <strong>cifrados</strong> (AES-256 o equivalente).</li>
-        <li>El acceso a los respaldos está restringido al personal autorizado de TI.</li>
-      </ul>` },
-      { title: '4. Pruebas de Restauración', content: `<ul>
-        <li>Se realizarán pruebas de restauración <strong>al menos trimestralmente</strong>.</li>
-        <li>Cada prueba debe ser documentada con: fecha, sistema restaurado, tiempo de recuperación y resultado.</li>
-        <li>En caso de fallo en la prueba, se debe corregir el problema y repetir la prueba dentro de los <strong>5 días hábiles</strong> siguientes.</li>
-      </ul>` },
-      { title: '5. Objetivos de Recuperación', content: `<ul>
-        <li><strong>RTO (Recovery Time Objective):</strong> Tiempo máximo para restaurar operaciones críticas: <strong>4 horas</strong>.</li>
-        <li><strong>RPO (Recovery Point Objective):</strong> Máxima pérdida de datos tolerable: <strong>24 horas</strong>.</li>
-        <li>Estos objetivos deben revisarse anualmente y al incorporar nuevos sistemas críticos.</li>
-      </ul>` },
-      { title: '6. Responsabilidades', content: `<ul>
-        <li><strong>TI:</strong> Configurar, ejecutar, verificar y documentar todos los respaldos.</li>
-        <li><strong>Jefaturas:</strong> Identificar qué información es crítica para sus áreas.</li>
-        <li><strong>Directivos:</strong> Aprobar los recursos necesarios para cumplir con esta política.</li>
-      </ul>` },
-    ]
-  },
-
-  p5: {
-    code: 'POL-05', icon: '🚨',
-    name: 'Política de Gestión de Incidentes de Seguridad',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer el proceso de detección, reporte, contención, erradicación y recuperación ante incidentes de seguridad de la información en <strong>${d.empresa}</strong>, minimizando el impacto en las operaciones.</p>` },
-      { title: '2. Definición de Incidente', content: `<p>Un incidente de seguridad es cualquier evento que comprometa (o amenace comprometer) la <strong>confidencialidad, integridad o disponibilidad</strong> de la información. Ejemplos:</p><ul>
-        <li>Correo de phishing recibido o ejecutado.</li>
-        <li>Malware o ransomware detectado en un equipo.</li>
-        <li>Acceso no autorizado a sistemas o información.</li>
-        <li>Pérdida o robo de equipos con información corporativa.</li>
-        <li>Filtración de datos de clientes o empleados.</li>
-        <li>Caída no planificada de sistemas críticos.</li>
-      </ul>` },
-      { title: '3. Proceso de Respuesta', content: `<ul>
-        <li><strong>Paso 1 — Detección y reporte:</strong> Cualquier colaborador que detecte un incidente debe reportarlo a TI en forma inmediata (no más de <strong>1 hora</strong>). Canal: correo a seguridad@${d.empresa.toLowerCase().replace(/\s+/g,'')}.cl o teléfono de TI.</li>
-        <li><strong>Paso 2 — Evaluación y clasificación:</strong> TI evalúa la severidad (Alta / Media / Baja) y activa el nivel de respuesta correspondiente.</li>
-        <li><strong>Paso 3 — Contención:</strong> Aislar el sistema afectado para evitar propagación. En ransomware, desconectar de la red de inmediato.</li>
-        <li><strong>Paso 4 — Erradicación:</strong> Eliminar la causa raíz (malware, acceso indebido, vulnerabilidad explotada).</li>
-        <li><strong>Paso 5 — Recuperación:</strong> Restaurar el servicio desde respaldos verificados.</li>
-        <li><strong>Paso 6 — Lecciones aprendidas:</strong> Documentar el incidente y las mejoras implementadas dentro de los <strong>5 días hábiles</strong> posteriores.</li>
-      </ul>` },
-      { title: '4. Comunicaciones', content: `<ul>
-        <li>Los incidentes de severidad <strong>Alta</strong> deben notificarse a la gerencia dentro de las <strong>2 horas</strong> de detección.</li>
-        <li>Si hay datos personales comprometidos, se evalúa la obligación de notificación al <strong>SERNAC y al titular</strong> según Ley 19.628.</li>
-        <li>Ningún colaborador puede comunicar un incidente a medios de comunicación sin autorización de la gerencia.</li>
-      </ul>` },
-      { title: '5. Registro de Incidentes', content: `<p>TI mantiene un <strong>registro de incidentes</strong> que incluye: fecha, tipo, sistemas afectados, acciones tomadas, tiempo de resolución y lecciones aprendidas. Este registro es revisado semestralmente para identificar patrones y mejoras preventivas.</p>` },
-    ]
-  },
-
-  p6: {
-    code: 'POL-06', icon: '📋',
-    name: 'Política de Protección de Datos Personales',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer los lineamientos de <strong>${d.empresa}</strong> para el tratamiento responsable, seguro y legal de datos personales, en cumplimiento de la <strong>Ley N° 19.628 sobre Protección de la Vida Privada</strong> y sus modificaciones.</p>` },
-      { title: '2. Definiciones Clave', content: `<ul>
-        <li><strong>Dato personal:</strong> Información sobre una persona natural identificada o identificable (nombre, RUT, correo, teléfono, dirección, datos de salud, etc.).</li>
-        <li><strong>Tratamiento:</strong> Cualquier operación sobre datos personales: recolección, almacenamiento, uso, modificación, comunicación o eliminación.</li>
-        <li><strong>Titular:</strong> La persona natural a quien pertenecen los datos.</li>
-        <li><strong>Responsable:</strong> ${d.empresa} en su calidad de quien decide sobre el tratamiento.</li>
-      </ul>` },
-      { title: '3. Principios del Tratamiento', content: `<ul>
-        <li><strong>Licitud:</strong> Solo se tratan datos con una base legal válida (consentimiento, contrato, obligación legal o interés legítimo).</li>
-        <li><strong>Finalidad:</strong> Los datos se recolectan para fines específicos, explícitos y legítimos. No se usan para fines incompatibles.</li>
-        <li><strong>Proporcionalidad:</strong> Solo se recolectan los datos estrictamente necesarios.</li>
-        <li><strong>Seguridad:</strong> Se implementan medidas técnicas y organizativas para proteger los datos.</li>
-        <li><strong>Confidencialidad:</strong> Los colaboradores que acceden a datos personales están obligados al secreto profesional.</li>
-      </ul>` },
-      { title: '4. Derechos de los Titulares', content: `<p>${d.empresa} garantiza el ejercicio de los siguientes derechos:</p><ul>
-        <li><strong>Acceso:</strong> El titular puede solicitar información sobre sus datos en poder de ${d.empresa}.</li>
-        <li><strong>Rectificación:</strong> Corrección de datos inexactos o desactualizados.</li>
-        <li><strong>Cancelación / Supresión:</strong> Eliminar datos cuando ya no son necesarios o el titular retira su consentimiento.</li>
-        <li><strong>Oposición:</strong> Oponerse al tratamiento en ciertos supuestos.</li>
-      </ul><p style="margin-top:10px;">Canal de solicitudes: <strong>${v('ti-resp') ? v('ti-resp')+', ' : ''}correo de contacto de la empresa</strong>. Plazo de respuesta: <strong>5 días hábiles</strong>.</p>` },
-      { title: '5. Obligaciones de los Colaboradores', content: `<ul>
-        <li>Acceder solo a los datos personales necesarios para su función.</li>
-        <li>No compartir datos personales de clientes, proveedores o empleados sin autorización.</li>
-        <li>Reportar inmediatamente cualquier acceso indebido, pérdida o filtración de datos personales a TI.</li>
-        <li>Eliminar datos personales de sistemas o correos cuando ya no sean necesarios.</li>
-      </ul>` },
-      { title: '6. Transferencia a Terceros', content: `<p>${d.empresa} solo transfiere datos personales a terceros cuando existe una base legal válida y el tercero ofrece garantías equivalentes de protección. Todo proveedor que procese datos en nombre de ${d.empresa} debe suscribir un acuerdo de tratamiento de datos.</p>` },
-      { title: '7. Retención y Eliminación', content: `<p>Los datos personales se conservan solo durante el tiempo necesario para cumplir la finalidad para la que fueron recopilados, o el plazo legal mínimo aplicable. Transcurrido este plazo, son eliminados o anonimizados de forma segura.</p>` },
-    ]
-  },
-
-  p7: {
-    code: 'POL-07', icon: '🏠',
-    name: 'Política de Teletrabajo y Trabajo Remoto',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer los requisitos de seguridad aplicables al trabajo remoto en <strong>${d.empresa}</strong>, garantizando que los colaboradores puedan trabajar desde casa o locaciones externas sin comprometer la seguridad de la información corporativa.</p>` },
-      { title: '2. Equipos y Software', content: `<ul>
-        <li>Se debe usar preferentemente <strong>equipo corporativo</strong> para acceder a sistemas de ${d.empresa}.</li>
-        <li>Si se usa equipo personal, debe estar actualizado, tener antivirus activo y usar el perfil de usuario separado del familiar.</li>
-        <li>El sistema operativo y todas las aplicaciones deben estar <strong>actualizados</strong>.</li>
-        <li>Usar siempre la <strong>VPN corporativa</strong> al acceder a recursos internos de ${d.empresa}.</li>
-      </ul>` },
-      { title: '3. Redes y Conectividad', content: `<ul>
-        <li>Preferir la red domiciliaria propia. Asegurarse de que el router Wi-Fi esté protegido con contraseña fuerte (WPA2/WPA3).</li>
-        <li>Nunca usar redes Wi-Fi públicas (cafeterías, aeropuertos, hoteles) sin VPN activa.</li>
-        <li>No permitir que familiares o convivientes usen el equipo de trabajo.</li>
-      </ul>` },
-      { title: '4. Información y Documentos', content: `<ul>
-        <li>No imprimir documentos confidenciales en casa. Si es necesario, destruirlos con destructora al terminar su uso.</li>
-        <li>No almacenar información de ${d.empresa} en servicios de nube personal (Google Drive, Dropbox personal, etc.).</li>
-        <li>Usar los canales y herramientas aprobadas por ${d.empresa} para compartir documentos.</li>
-        <li>Bloquear la pantalla siempre que se aleje del equipo, aunque sea brevemente.</li>
-      </ul>` },
-      { title: '5. Videoconferencias y Comunicaciones', content: `<ul>
-        <li>Usar las plataformas de videoconferencia aprobadas por ${d.empresa}.</li>
-        <li>Proteger reuniones virtuales con contraseña cuando se traten temas confidenciales.</li>
-        <li>Verificar que el entorno visible en cámara no muestre información confidencial (documentos, pantallas).</li>
-        <li>No grabar reuniones sin consentimiento de los participantes.</li>
-      </ul>` },
-      { title: '6. Reporte de Incidentes', content: `<p>El colaborador remoto debe reportar cualquier incidente de seguridad (robo de equipo, acceso no autorizado, pérdida de dispositivo) de forma inmediata al responsable de TI de ${d.empresa}, independientemente del horario.</p>` },
-    ]
-  },
-
-  p8: {
-    code: 'POL-08', icon: '🤝',
-    name: 'Política de Gestión de Proveedores y Terceros',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Gestionar los riesgos de seguridad de la información asociados a proveedores, contratistas y terceros que tienen acceso a los sistemas, datos o instalaciones de <strong>${d.empresa}</strong>.</p>` },
-      { title: '2. Selección y Evaluación de Proveedores', content: `<ul>
-        <li>Antes de contratar un proveedor con acceso a datos o sistemas, se evalúa su postura de seguridad (cuestionario de seguridad o certificaciones equivalentes).</li>
-        <li>Proveedores que manejen datos personales o información confidencial deben acreditar medidas de protección equivalentes a las de ${d.empresa}.</li>
-        <li>Se prefieren proveedores con certificaciones reconocidas (ISO 27001, SOC 2) para servicios críticos.</li>
-      </ul>` },
-      { title: '3. Contratos y Acuerdos', content: `<ul>
-        <li>Todo proveedor con acceso a sistemas o datos de ${d.empresa} debe firmar un <strong>Acuerdo de Confidencialidad (NDA)</strong> antes de iniciar los trabajos.</li>
-        <li>Los contratos deben incluir cláusulas de: seguridad de la información, tratamiento de datos personales, notificación de incidentes (dentro de 24 horas), y auditoría del cumplimiento.</li>
-        <li>Al término del contrato, el proveedor debe devolver o destruir toda información de ${d.empresa} en su poder.</li>
-      </ul>` },
-      { title: '4. Control de Accesos de Terceros', content: `<ul>
-        <li>Los accesos de terceros se crean con credenciales <strong>individuales y nominativas</strong> (nunca compartidas con la cuenta de un empleado).</li>
-        <li>Se aplica el principio de <strong>mínimo privilegio</strong>: acceso solo a lo estrictamente necesario para la tarea.</li>
-        <li>Los accesos remotos de proveedores se realizan siempre con supervisión de un responsable de ${d.empresa}.</li>
-        <li>Al finalizar cada intervención, los accesos se desactivan o eliminan de inmediato.</li>
-      </ul>` },
-      { title: '5. Monitoreo y Revisión', content: `<ul>
-        <li>TI mantiene un <strong>inventario actualizado</strong> de todos los proveedores con acceso a sistemas de ${d.empresa}.</li>
-        <li>Los accesos de proveedores son revisados <strong>trimestralmente</strong>.</li>
-        <li>Ante cualquier incidente involucrando a un proveedor, se aplica el proceso de gestión de incidentes y se notifica al proveedor de forma inmediata.</li>
-      </ul>` },
-      { title: '6. Incumplimiento', content: `<p>El incumplimiento de los requisitos de seguridad por parte de un proveedor podrá derivar en la terminación anticipada del contrato, sin perjuicio de las acciones legales por daños y perjuicios que correspondan conforme a la legislación chilena.</p>` },
-    ]
-  },
-
-};
-
-// ─────────────────────────────────────────────
-//  GENERATE POLICIES
-// ─────────────────────────────────────────────
-function generatePolicies() {
-  const d = {
-    empresa:  v('empresa'),
-    rut:      v('rut'),
-    rubro:    v('rubro'),
-    ciudad:   v('ciudad') || 'Chile',
-    empleados:document.getElementById('empleados').value,
-    vigencia: formatVigencia(v('vigencia')),
-    repLegal: v('rep-legal'),
-    repCargo: v('rep-cargo') || 'Representante Legal',
-    tiResp:   v('ti-resp') || 'Responsable de TI',
-    tiCargo:  v('ti-cargo') || 'Jefe de TI',
-  };
-
-  const selected = Array.from(document.querySelectorAll('.policy-check-item input:checked')).map(c => c.value);
-  // Send to backend
-  submitPoliticasToBackend(d, selected);
-  const today = new Date();
-  const todayStr = today.toLocaleDateString('es-CL', {day:'2-digit', month:'long', year:'numeric'});
-
-  document.getElementById('output-date').textContent = todayStr;
-
-  const container = document.getElementById('policies-container');
-  container.innerHTML = '';
-
-  selected.forEach(pid => {
-    const tpl = POLICY_TEMPLATES[pid];
-    const sections = tpl.sections(d);
-
-    let sectionsHTML = sections.map(s => `
-      <div class="pol-section">
-        <div class="pol-section-title">${s.title}</div>
-        <div class="pol-section-content">${s.content}</div>
+    <!-- PASO 1 -->
+    <div class="step active" id="step1">
+      <div class="card-header">
+        <div class="card-header-icon">&#127970;</div>
+        <div><h2>Datos de tu empresa</h2><p>Esta información permite personalizar cada política según tu realidad.</p></div>
       </div>
-    `).join('');
-
-    const docHTML = `
-      <div class="policy-doc" id="doc-${pid}">
-        <div class="policy-doc-header">
-          <div class="doc-info">
-            <div class="doc-code">${tpl.code}</div>
-            <div class="doc-name">${tpl.icon} ${tpl.name}</div>
-            <div class="doc-version">Versión 1.0 — ${d.vigencia} — Confidencial</div>
-          </div>
-          <button class="btn-print-one" onclick="printOne('${pid}')">🖨️ Imprimir esta política</button>
+      <div class="card-body">
+        <div class="field-grid">
+          <div class="field"><label>Nombre de la empresa *</label><input type="text" id="empresa" placeholder="Ej: Constructora Pérez SpA"/><span class="error-msg" id="err-empresa">Campo requerido</span></div>
+          <div class="field"><label>RUT de la empresa</label><input type="text" id="rut" placeholder="Ej: 76.123.456-7"/></div>
         </div>
-
-        <div class="policy-doc-meta">
-          <div class="meta-item">
-            <div class="meta-label">Empresa</div>
-            <div class="meta-val">${d.empresa}</div>
+        <div class="field-grid">
+          <div class="field">
+            <label>Rubro / Industria *</label>
+            <select id="rubro"><option value="">Selecciona...</option><option>Retail / Comercio</option><option>Salud / Clínica / Farmacia</option><option>Construcción / Inmobiliaria</option><option>Logística / Transporte</option><option>Educación</option><option>Tecnología / Software</option><option>Servicios profesionales / Consultora</option><option>Manufactura / Industria</option><option>Agricultura / Agroindustria</option><option>Gastronomía / Hotelería</option><option>Otro</option></select>
+            <span class="error-msg" id="err-rubro">Campo requerido</span>
           </div>
-          <div class="meta-item">
-            <div class="meta-label">RUT</div>
-            <div class="meta-val">${d.rut}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Rubro</div>
-            <div class="meta-val">${d.rubro}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Ciudad</div>
-            <div class="meta-val">${d.ciudad}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">N° Empleados</div>
-            <div class="meta-val">${d.empleados}</div>
+          <div class="field">
+            <label>Número de empleados *</label>
+            <select id="empleados"><option value="">Selecciona...</option><option>1 - 10</option><option>11 - 50</option><option>51 - 200</option><option>Más de 200</option></select>
+            <span class="error-msg" id="err-empleados">Campo requerido</span>
           </div>
         </div>
-
-        <div class="policy-doc-body">
-          ${sectionsHTML}
-
-          <div class="signature-block">
-            <div class="sig-col">
-              <div class="sig-line"></div>
-              <div class="sig-name">${d.repLegal}</div>
-              <div class="sig-role">${d.repCargo}</div>
-              <div class="sig-role" style="margin-top:4px;">Fecha: ___/___/______</div>
-            </div>
-            <div class="sig-col">
-              <div class="sig-line"></div>
-              <div class="sig-name">${d.tiResp}</div>
-              <div class="sig-role">${d.tiCargo}</div>
-              <div class="sig-role" style="margin-top:4px;">Fecha: ___/___/______</div>
-            </div>
+        <div class="field-grid">
+          <div class="field">
+            <label>Modalidad de trabajo *</label>
+            <select id="modalidad"><option value="">Selecciona...</option><option>Presencial — todos en oficina</option><option>Remoto — todos desde casa</option><option>Híbrido — mixto presencial y remoto</option><option>En terreno — trabajo de campo</option></select>
+            <span class="error-msg" id="err-modalidad">Campo requerido</span>
+          </div>
+          <div class="field">
+            <label>¿Tienen área o responsable de TI? *</label>
+            <select id="dept-ti"><option value="">Selecciona...</option><option>Sí, departamento propio</option><option>Solo una persona a cargo</option><option>Usamos proveedor externo</option><option>No tenemos nadie a cargo</option></select>
+            <span class="error-msg" id="err-dept-ti">Campo requerido</span>
           </div>
         </div>
-
-        <div class="policy-footer">
-          <span>${tpl.code} — ${tpl.name} — v1.0</span>
-          <span class="confidential">🔒 CONFIDENCIAL — USO INTERNO</span>
-          <span>Generado por vCISO.cl — ${todayStr}</span>
+        <div class="field-grid">
+          <div class="field">
+            <label>Plataforma tecnológica principal *</label>
+            <select id="plataforma"><option value="">Selecciona...</option><option>Microsoft 365 (Teams, Outlook, OneDrive)</option><option>Google Workspace (Gmail, Drive, Meet)</option><option>Mixto Microsoft y Google</option><option>Solo herramientas gratuitas / personales</option><option>Sistema propio o ERP especializado</option></select>
+            <span class="error-msg" id="err-plataforma">Campo requerido</span>
+          </div>
+          <div class="field">
+            <label>¿Cómo son los equipos de trabajo? *</label>
+            <select id="equipos"><option value="">Selecciona...</option><option>Equipos de la empresa administrados</option><option>Equipos de la empresa sin administración central</option><option>Equipos personales de los trabajadores (BYOD)</option><option>Mixto — algunos de la empresa, otros personales</option></select>
+            <span class="error-msg" id="err-equipos">Campo requerido</span>
+          </div>
+        </div>
+        <div class="section-divider"><span>Contacto</span></div>
+        <div class="field-grid">
+          <div class="field"><label>Nombre completo *</label><input type="text" id="nombre" placeholder="Nombre y apellido"/><span class="error-msg" id="err-nombre">Campo requerido</span></div>
+          <div class="field"><label>Cargo *</label><input type="text" id="cargo" placeholder="Ej: Gerente General, Dueño..."/><span class="error-msg" id="err-cargo">Campo requerido</span></div>
+        </div>
+        <div class="field-grid">
+          <div class="field"><label>Correo electrónico *</label><input type="email" id="email" placeholder="tu@empresa.cl"/><span class="error-msg" id="err-email">Correo inválido</span></div>
+          <div class="field"><label>Teléfono / WhatsApp</label><input type="tel" id="telefono" placeholder="+56 9 XXXX XXXX"/></div>
         </div>
       </div>
-    `;
-    container.insertAdjacentHTML('beforeend', docHTML);
-  });
+      <div class="form-nav"><span></span><button class="btn-next" onclick="goStep(2)">Siguiente &#8594; Elegir políticas</button></div>
+    </div>
 
-  // Show output, hide wizard
-  document.getElementById('wizard').style.display = 'none';
-  document.getElementById('output').style.display = 'block';
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function printOne(pid) {
-  // Temporarily hide other docs
-  const all = document.querySelectorAll('.policy-doc');
-  all.forEach(d => { if(d.id !== 'doc-'+pid) d.style.display='none'; });
-  window.print();
-  all.forEach(d => d.style.display='');
-}
-
-// Set default vigencia to current month
-(function() {
-  const now = new Date();
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth()+1).padStart(2,'0');
-  document.getElementById('vigencia').value = `${yyyy}-${mm}`;
-})();
-</script>
-
-
-<footer class="vciso-footer" role="contentinfo">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <span class="logo-f">v<span>CISO</span>.cl</span>
-      <p>Ciberseguridad profesional para PYMEs chilenas. Servicios 100% remotos, sin contratos largos.
-         Diagnóstico, cumplimiento Ley 21.719 y políticas TI con respaldo de IA.</p>
-      <div class="contact-links">
-        <a href="mailto:contacto@vciso.cl">✉️ contacto@vciso.cl</a>
-        <a href="https://wa.me/56981307440" target="_blank" rel="noopener">💬 WhatsApp +56 9 8130 7440</a>
-        <a href="https://www.vciso.cl">🌐 www.vciso.cl</a>
+    <!-- PASO 2 -->
+    <div class="step" id="step2">
+      <div class="card-header">
+        <div class="card-header-icon">&#128203;</div>
+        <div><h2>¿Qué políticas necesitas?</h2><p>Selecciona un mínimo de 3. Precio único $34.900 CLP sin importar cuántas elijas.</p></div>
       </div>
+      <div class="card-body">
+        <div class="min-notice">&#128161; <strong>Selecciona al menos 3 políticas.</strong> Puedes elegir todas las que necesites, el precio no cambia.</div>
+        <div class="policy-grid">
+          <div class="policy-item"><input type="checkbox" id="pol-uso_aceptable" value="uso_aceptable" onchange="updateCount()"/><label for="pol-uso_aceptable"><div class="pol-check"></div><div class="pol-icon">&#128187;</div><div><div class="pol-name">Uso Aceptable de Recursos TI</div><div class="pol-desc">Qué pueden y no pueden hacer los empleados con los sistemas, correo y equipos de la empresa.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-contrasenas" value="contrasenas" onchange="updateCount()"/><label for="pol-contrasenas"><div class="pol-check"></div><div class="pol-icon">&#128272;</div><div><div class="pol-name">Contraseñas e Identidad Digital</div><div class="pol-desc">Reglas para crear, gestionar y proteger contraseñas y accesos corporativos.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-byod" value="byod" onchange="updateCount()"/><label for="pol-byod"><div class="pol-check"></div><div class="pol-icon">&#128241;</div><div><div class="pol-name">Dispositivos Móviles y BYOD</div><div class="pol-desc">Uso de celulares personales y equipos propios para acceder a sistemas de la empresa.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-respaldos" value="respaldos" onchange="updateCount()"/><label for="pol-respaldos"><div class="pol-check"></div><div class="pol-icon">&#128190;</div><div><div class="pol-name">Respaldos y Recuperación</div><div class="pol-desc">Cómo respaldar información crítica, con qué frecuencia y cómo recuperarla ante un incidente.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-datos_personales" value="datos_personales" onchange="updateCount()"/><label for="pol-datos_personales"><div class="pol-check"></div><div class="pol-icon">&#128737;</div><div><div class="pol-name">Protección de Datos Personales</div><div class="pol-desc">Manejo de datos de clientes, trabajadores y terceros. Alineada con Ley 21.719.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-acceso_remoto" value="acceso_remoto" onchange="updateCount()"/><label for="pol-acceso_remoto"><div class="pol-check"></div><div class="pol-icon">&#127968;</div><div><div class="pol-name">Acceso Remoto y Teletrabajo</div><div class="pol-desc">Reglas para trabajar desde casa o fuera de la oficina de forma segura.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-proveedores" value="proveedores" onchange="updateCount()"/><label for="pol-proveedores"><div class="pol-check"></div><div class="pol-icon">&#129309;</div><div><div class="pol-name">Gestión de Proveedores TI</div><div class="pol-desc">Control de accesos de proveedores externos, contratos y responsabilidades.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-clasificacion_info" value="clasificacion_info" onchange="updateCount()"/><label for="pol-clasificacion_info"><div class="pol-check"></div><div class="pol-icon">&#128193;</div><div><div class="pol-name">Clasificación de Información</div><div class="pol-desc">Cómo identificar, etiquetar y manejar información confidencial, interna y pública.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-respuesta_incidentes" value="respuesta_incidentes" onchange="updateCount()"/><label for="pol-respuesta_incidentes"><div class="pol-check"></div><div class="pol-icon">&#128680;</div><div><div class="pol-name">Respuesta a Incidentes</div><div class="pol-desc">Qué hacer ante un ataque, virus, pérdida de datos o acceso no autorizado.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-redes_sociales" value="redes_sociales" onchange="updateCount()"/><label for="pol-redes_sociales"><div class="pol-check"></div><div class="pol-icon">&#128226;</div><div><div class="pol-name">Uso de Redes Sociales</div><div class="pol-desc">Reglas para el uso de redes sociales personales y corporativas en horario laboral.</div></div></label></div>
+          <div class="policy-item"><input type="checkbox" id="pol-uso_ia" value="uso_ia" onchange="updateCount()"/><label for="pol-uso_ia"><div class="pol-check"></div><div class="pol-icon">&#129302;</div><div><div class="pol-name">Uso de Inteligencia Artificial</div><div class="pol-desc">Qué herramientas de IA pueden usar los empleados y qué información no puede compartirse con ellas.</div></div></label></div>
+        </div>
+        <div class="selected-count" id="selected-count">0 políticas seleccionadas</div>
+        <span class="error-msg" id="err-politicas" style="display:none;margin-top:8px;">Selecciona al menos 3 políticas</span>
+        <div class="section-divider"><span>Formato de entrega</span></div>
+        <div class="formato-grid">
+          <div class="formato-item"><input type="radio" name="formato" id="fmt-unico" value="unico" checked/><label for="fmt-unico"><div class="formato-icon">&#128196;</div><div><div class="formato-name">Un solo documento Word</div><div class="formato-desc">Todas las políticas juntas en un archivo. Fácil de compartir con el equipo.</div></div></label></div>
+          <div class="formato-item"><input type="radio" name="formato" id="fmt-separado" value="separado"/><label for="fmt-separado"><div class="formato-icon">&#128194;</div><div><div class="formato-name">Documentos separados</div><div class="formato-desc">Un Word por cada política. Más fácil de gestionar y actualizar individualmente.</div></div></label></div>
+        </div>
+      </div>
+      <div class="form-nav"><button class="btn-prev" onclick="goStep(1)">&#8592; Anterior</button><button class="btn-next" onclick="goStep(3)">Siguiente &#8594; Contexto</button></div>
     </div>
-    <div class="footer-col">
-      <h4>Servicios</h4>
-      <ul>
-        <li><a href="/scanner-dominio">Scanner de Dominio <span class="chip chip-green" style="font-size:0.65rem;padding:2px 7px">Gratis</span></a></li>
-        <li><a href="/politicas-seguridad">Generador de Políticas</a></li>
-        <li><a href="/diagnostico-ciberseguridad">Diagnóstico Express</a></li>
-      </ul>
+
+    <!-- PASO 3 -->
+    <div class="step" id="step3">
+      <div class="card-header">
+        <div class="card-header-icon">&#128269;</div>
+        <div><h2>Contexto específico</h2><p>Estas preguntas permiten redactar políticas coherentes con tu realidad actual.</p></div>
+      </div>
+      <div class="card-body" id="context-body"></div>
+      <div class="form-nav"><button class="btn-prev" onclick="goStep(2)">&#8592; Anterior</button><button class="btn-next" onclick="goStep(4)">Siguiente &#8594; Confirmar</button></div>
     </div>
-    <div class="footer-col">
-      <h4>Empresa</h4>
-      <ul>
-        <li><a href="/#como-funciona">Cómo funciona</a></li>
-        <li><a href="/#precios">Precios</a></li>
-        <li><a href="/ejemplo-informe">Ejemplo de informe</a></li>
-        <li><a href="mailto:contacto@vciso.cl">Contacto</a></li>
-      </ul>
+
+    <!-- PASO 4 -->
+    <div class="step" id="step4">
+      <div class="card-header">
+        <div class="card-header-icon">&#9989;</div>
+        <div><h2>Confirma tu pedido</h2><p>Revisa el resumen antes de generar tus políticas.</p></div>
+      </div>
+      <div class="card-body">
+        <div id="resumen-empresa" style="background:#f8fafc;border-radius:10px;padding:20px;margin-bottom:20px;border:1px solid #e2e8f0;"></div>
+        <div id="resumen-politicas" style="background:#f0fdf4;border-radius:10px;padding:20px;margin-bottom:20px;border:1px solid #bbf7d0;"></div>
+        <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;padding:16px;margin-bottom:20px;">
+          <p style="font-size:0.85rem;color:#92400e;margin:0;">&#9889; <strong>Entrega inmediata:</strong> Una vez enviado el formulario, Claude redactará tus políticas y las recibirás en tu correo en menos de 3 minutos.</p>
+        </div>
+        <div style="background:#f8fafc;border-radius:10px;padding:16px;border:1px solid #e2e8f0;">
+          <p style="font-size:0.82rem;color:#64748b;margin:0;line-height:1.6;">&#128203; Las políticas son un punto de partida profesional basado en ISO 27002:2022. Te recomendamos revisarlas con tu equipo antes de implementarlas. Si necesitas adaptaciones, escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#1e4fad;">contacto@vciso.cl</a>.</p>
+        </div>
+      </div>
+      <div class="form-nav"><button class="btn-prev" onclick="goStep(3)">&#8592; Anterior</button><button class="btn-submit" id="btn-submit" onclick="submitForm()">&#128640; Generar mis políticas</button></div>
     </div>
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="#">Política de Privacidad</a></li>
-        <li><a href="#">Términos de servicio</a></li>
-        <li><a href="#">Ley 21.719</a></li>
-      </ul>
+
+  </div><!-- /form-card -->
+
+  <!-- RESULTADO -->
+  <div id="result">
+    <div class="form-card">
+      <div class="result-header">
+        <div class="result-icon">&#127881;</div>
+        <h2>¡Tus políticas están siendo generadas!</h2>
+        <p>Claude está redactando cada política personalizada para <strong id="result-empresa"></strong>. Las recibirás en tu correo en menos de 3 minutos.</p>
+      </div>
+      <div class="result-body">
+        <div class="policies-list" id="result-policies"></div>
+        <div class="next-steps">
+          <h4>¿Qué hacer cuando lleguen?</h4>
+          <div class="step-item"><div class="step-num-small">1</div><p><strong>Revísalas con tu equipo:</strong> Cada política viene en Word editable. Léelas, ajusta lo que necesites y adáptalas a tu contexto.</p></div>
+          <div class="step-item"><div class="step-num-small">2</div><p><strong>Comunícalas formalmente:</strong> Comparte las políticas con todos los empleados. Se recomienda que cada persona las firme como constancia de conocimiento.</p></div>
+          <div class="step-item"><div class="step-num-small">3</div><p><strong>Revísalas anualmente:</strong> Las políticas deben actualizarse al menos una vez al año o cuando cambien procesos importantes.</p></div>
+          <div class="step-item"><div class="step-num-small">4</div><p>¿Necesitas apoyo para implementarlas? Escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#1e4fad;">contacto@vciso.cl</a> o WhatsApp <a href="https://wa.me/56981307440" style="color:#1e4fad;">+56 9 8130 7440</a>.</p></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <p>© 2026 vCISO.cl · Todos los derechos reservados · Santiago, Chile · 🧾 Boletas de honorarios electrónicas SII</p>
-    <div class="footer-badges">
-      <span class="badge-f">🔒 NIST CSF v2.0</span>
-      <span class="badge-f">🇨🇱 Ley 21.719</span>
-      <span class="badge-f">🤖 IA potenciado</span>
-      <span class="badge-f">🏦 Exp. banca &amp; AFP</span>
-    </div>
+
+</div><!-- /form-wrap -->
+
+<footer style="background:#080f1e;padding:40px 5% 24px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p style="font-size:0.78rem;color:#94a3b8;text-align:center;">© 2026 vCISO.cl · Todos los derechos reservados · Santiago, Chile · &#129518; Emitimos boletas y facturas electrónicas · SII</p>
   </div>
 </footer>
+
 <script>
-// ── STATE ──
-let currentStep = 1;
-const totalSteps = 3;
-
-// ── NAVIGATION ──
-function goStep(n) {
-  document.getElementById('step' + currentStep).classList.remove('active');
-  currentStep = n;
-  document.getElementById('step' + currentStep).classList.add('active');
-  document.getElementById('progressBar').style.width = ((currentStep / totalSteps) * 100) + '%';
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-// ── STEP 1 VALIDATION ──
-function validateStep1() {
-  let ok = true;
-  const fields = [
-    {id:'empresa',  err:'err-empresa'},
-    {id:'rut',      err:'err-rut'},
-    {id:'rubro',    err:'err-rubro'},
-    {id:'vigencia', err:'err-vigencia'},
-    {id:'rep-legal',err:'err-rep'},
-  ];
-  fields.forEach(f => {
-    const el = document.getElementById(f.id);
-    const errEl = document.getElementById(f.err);
-    if (!el.value.trim()) {
-      errEl.style.display = 'block'; el.style.borderColor = '#e53e3e'; ok = false;
-    } else {
-      errEl.style.display = 'none'; el.style.borderColor = '';
-    }
-  });
-  if (ok) { buildSummary(); goStep(2); }
-}
-
-// ── STEP 2 VALIDATION ──
-function validateStep2() {
-  const selected = document.querySelectorAll('.policy-check-item input:checked');
-  if (selected.length === 0) {
-    document.getElementById('err-policies').style.display = 'block'; return;
-  }
-  document.getElementById('err-policies').style.display = 'none';
-  buildSummary();
-  goStep(3);
-}
-
-function updateCount() {
-  const n = document.querySelectorAll('.policy-check-item input:checked').length;
-  document.getElementById('selCount').textContent = n;
-}
-
-// ── BUILD SUMMARY (step 3) ──
-function buildSummary() {
-  const empresa  = v('empresa');
-  const rut      = v('rut');
-  const rubro    = v('rubro');
-  const ciudad   = v('ciudad');
-  const vigencia = formatVigencia(v('vigencia'));
-  const rep      = v('rep-legal');
-  const repCargo = v('rep-cargo') || 'Representante Legal';
-  const ti       = v('ti-resp')  || '—';
-  const tiCargo  = v('ti-cargo') || '—';
-
-  document.getElementById('summary-empresa').innerHTML = `
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Empresa</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${empresa}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">RUT</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${rut}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Rubro</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${rubro}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Ciudad</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${ciudad||'—'}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Vigencia desde</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${vigencia}</div></div>
-    <div><div style="font-size:.72rem;color:var(--gray-500);">Representante</div><div style="font-weight:700;color:var(--navy);font-size:.88rem;">${rep} (${repCargo})</div></div>
-  `;
-
-  const checks = document.querySelectorAll('.policy-check-item input:checked');
-  let chips = '';
-  checks.forEach(ch => {
-    const name = ch.closest('.policy-check-item').querySelector('.pol-name').textContent;
-    chips += `<span style="background:var(--blue);color:white;border-radius:20px;padding:4px 12px;font-size:.78rem;font-weight:600;">${name}</span>`;
-  });
-  document.getElementById('summary-policies').innerHTML = chips;
-}
-
-function v(id) { return document.getElementById(id).value.trim(); }
-
-function formatVigencia(raw) {
-  if (!raw) return '—';
-  const [y, m] = raw.split('-');
-  const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  return months[parseInt(m)-1] + ' ' + y;
-}
-
-// ─────────────────────────────────────────────
-//  POLICY TEMPLATES
-// ─────────────────────────────────────────────
-const POLICY_TEMPLATES = {
-
-  p1: {
-    code: 'POL-01', icon: '🛡️',
-    name: 'Política de Seguridad de la Información',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer el marco general de seguridad de la información de <strong>${d.empresa}</strong>, definiendo los principios, responsabilidades y lineamientos que guían la protección de los activos de información de la organización, en alineación con las buenas prácticas del NIST Cybersecurity Framework v2.0 y la normativa chilena vigente.</p>` },
-      { title: '2. Alcance', content: `<p>Esta política aplica a <strong>todos los colaboradores, directivos, contratistas y proveedores</strong> de ${d.empresa} que tengan acceso a información o sistemas de la organización, independientemente de su modalidad de trabajo (presencial o remoto).</p>` },
-      { title: '3. Principios de Seguridad', content: `<ul>
-        <li><strong>Confidencialidad:</strong> La información solo es accesible a quienes estén autorizados explícitamente.</li>
-        <li><strong>Integridad:</strong> La información se mantiene exacta y completa, protegida de modificaciones no autorizadas.</li>
-        <li><strong>Disponibilidad:</strong> La información y los sistemas están disponibles cuando los usuarios autorizados los requieren.</li>
-        <li><strong>Proporcionalidad:</strong> Las medidas de seguridad son proporcionales al riesgo y al valor del activo protegido.</li>
-      </ul>` },
-      { title: '4. Clasificación de la Información', content: `<ul>
-        <li><strong>Pública:</strong> Información sin restricción de divulgación (ej.: catálogos, web corporativa).</li>
-        <li><strong>Interna:</strong> Uso exclusivo de colaboradores de ${d.empresa} (ej.: procedimientos internos, comunicaciones internas).</li>
-        <li><strong>Confidencial:</strong> Información sensible cuya divulgación podría causar daño (ej.: datos de clientes, contratos, información financiera).</li>
-        <li><strong>Restringida:</strong> Información crítica con acceso muy limitado (ej.: claves, datos personales sensibles).</li>
-      </ul>` },
-      { title: '5. Responsabilidades', content: `<ul>
-        <li><strong>Directivos:</strong> Aprobar esta política, asignar recursos y liderar la cultura de seguridad.</li>
-        <li><strong>Responsable de TI:</strong> Implementar controles técnicos, gestionar incidentes y mantener la política actualizada.</li>
-        <li><strong>Todos los colaboradores:</strong> Cumplir esta política, reportar incidentes y proteger los activos a su cargo.</li>
-        <li><strong>Proveedores y terceros:</strong> Cumplir los requisitos de seguridad definidos en sus contratos.</li>
-      </ul>` },
-      { title: '6. Cumplimiento y Sanciones', content: `<p>El incumplimiento de esta política podrá derivar en medidas disciplinarias conforme al Reglamento Interno de ${d.empresa}, sin perjuicio de las acciones legales que procedan bajo la legislación chilena vigente, incluyendo la <strong>Ley 21.459 sobre delitos informáticos</strong> y el <strong>Código del Trabajo</strong>.</p>` },
-      { title: '7. Revisión', content: `<p>Esta política será revisada <strong>anualmente</strong> o cuando ocurra un incidente significativo, un cambio tecnológico relevante, o modificaciones al marco legal aplicable. La versión vigente estará disponible para todos los colaboradores de ${d.empresa}.</p>` },
-    ]
-  },
-
-  p2: {
-    code: 'POL-02', icon: '🔐',
-    name: 'Política de Contraseñas y Control de Accesos',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer los requisitos mínimos para la gestión segura de credenciales y el control de accesos a los sistemas de información de <strong>${d.empresa}</strong>, reduciendo el riesgo de accesos no autorizados.</p>` },
-      { title: '2. Requisitos de Contraseñas', content: `<ul>
-        <li>Longitud mínima: <strong>12 caracteres</strong>.</li>
-        <li>Debe combinar letras mayúsculas, minúsculas, números y caracteres especiales (! @ # $ % &).</li>
-        <li>Prohibido usar: nombre del usuario, RUT, fecha de nacimiento, nombre de la empresa o secuencias simples (123456, qwerty).</li>
-        <li>Vigencia máxima: <strong>90 días</strong> para sistemas críticos; 180 días para sistemas de baja criticidad.</li>
-        <li>No reutilizar las últimas <strong>10 contraseñas</strong>.</li>
-        <li>Uso obligatorio de <strong>gestor de contraseñas</strong> corporativo para cuentas de servicio.</li>
-      </ul>` },
-      { title: '3. Autenticación de Múltiples Factores (MFA)', content: `<ul>
-        <li>MFA es <strong>obligatorio</strong> para: acceso remoto (VPN), correo corporativo, sistemas financieros y ERP, administración de servidores y plataformas cloud.</li>
-        <li>Se acepta: aplicación autenticadora (Google Authenticator, Microsoft Authenticator), token hardware o SMS como respaldo.</li>
-        <li>Nunca compartir códigos MFA con terceros, incluyendo soporte técnico.</li>
-      </ul>` },
-      { title: '4. Gestión de Accesos', content: `<ul>
-        <li><strong>Principio de mínimo privilegio:</strong> Cada usuario recibe solo los permisos estrictamente necesarios para su función.</li>
-        <li>Los accesos se aprueban formalmente por el jefe directo y son gestionados por TI.</li>
-        <li>Al <strong>desvincularse</strong> un colaborador: las cuentas se desactivan el mismo día del término del contrato.</li>
-        <li>Revisión semestral de todos los accesos activos.</li>
-        <li>Las cuentas con privilegios de administrador se usan solo para tareas administrativas, nunca para uso cotidiano.</li>
-      </ul>` },
-      { title: '5. Responsabilidades', content: `<ul>
-        <li>Cada usuario es <strong>responsable personal</strong> de su contraseña. No debe compartirla bajo ninguna circunstancia.</li>
-        <li>Si sospecha que su contraseña fue comprometida, debe cambiarla inmediatamente y notificar a TI.</li>
-        <li>TI nunca solicitará contraseñas por teléfono, correo o mensajería.</li>
-      </ul>` },
-      { title: '6. Sanciones', content: `<p>El incumplimiento de esta política, especialmente el compartir credenciales o eludir controles de acceso, constituye una falta grave conforme al Reglamento Interno de ${d.empresa} y podrá implicar acciones disciplinarias, hasta el término del contrato.</p>` },
-    ]
-  },
-
-  p3: {
-    code: 'POL-03', icon: '💻',
-    name: 'Política de Uso Aceptable de Recursos Tecnológicos',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Definir el uso aceptable de los recursos tecnológicos de <strong>${d.empresa}</strong> — computadores, teléfonos, internet, correo electrónico y software — para proteger la seguridad de la información y el patrimonio de la organización.</p>` },
-      { title: '2. Uso de Equipos Corporativos', content: `<ul>
-        <li>Los equipos corporativos son para uso profesional; el uso personal es tolerado en forma moderada y no debe interferir con el trabajo.</li>
-        <li>Prohibido instalar software no autorizado, juegos o aplicaciones de entretenimiento.</li>
-        <li>No conectar dispositivos USB o de almacenamiento externo sin autorización de TI.</li>
-        <li>El equipo debe bloquearse automáticamente después de <strong>5 minutos</strong> de inactividad.</li>
-        <li>Nunca prestar equipos corporativos a familiares o amigos.</li>
-      </ul>` },
-      { title: '3. Uso de Internet', content: `<ul>
-        <li>Prohibido el acceso a sitios de contenido adulto, apuestas, descarga ilegal (torrents/piratería) o contenido ilícito.</li>
-        <li>Las descargas de software deben ser aprobadas por TI y provenir de fuentes oficiales.</li>
-        <li>Evitar conectarse a redes Wi-Fi públicas sin usar VPN corporativa.</li>
-        <li>${d.empresa} se reserva el derecho de monitorear el uso de internet desde sus redes con fines de seguridad.</li>
-      </ul>` },
-      { title: '4. Uso del Correo Electrónico', content: `<ul>
-        <li>El correo corporativo es un recurso profesional; su uso personal debe ser mínimo.</li>
-        <li>Prohibido enviar información confidencial por correo sin cifrado a destinatarios externos no autorizados.</li>
-        <li>Nunca abrir adjuntos o hacer clic en enlaces de remitentes desconocidos o sospechosos.</li>
-        <li>No usar el correo corporativo para registrarse en sitios web personales o redes sociales.</li>
-        <li>Ante dudas sobre un correo, reportarlo inmediatamente a TI (posible phishing).</li>
-      </ul>` },
-      { title: '5. Redes Sociales', content: `<ul>
-        <li>Prohibido publicar información confidencial, datos de clientes o procesos internos de ${d.empresa} en redes sociales.</li>
-        <li>El uso de redes sociales en horario laboral debe ser limitado y no interferir con el desempeño.</li>
-        <li>Cualquier publicación que mencione a ${d.empresa} debe ser respetuosa y no comprometer la reputación de la organización.</li>
-      </ul>` },
-      { title: '6. Sanciones', content: `<p>El incumplimiento de esta política será evaluado caso a caso. Según la gravedad, podrá derivar en amonestación escrita, suspensión o término del contrato, de acuerdo al Reglamento Interno de ${d.empresa} y el Código del Trabajo.</p>` },
-    ]
-  },
-
-  p4: {
-    code: 'POL-04', icon: '💾',
-    name: 'Política de Respaldo y Recuperación de Información',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Garantizar la disponibilidad y recuperación de la información crítica de <strong>${d.empresa}</strong> ante pérdidas accidentales, fallos tecnológicos o incidentes de seguridad, mediante un proceso documentado y verificado de respaldo.</p>` },
-      { title: '2. Tipos de Respaldo', content: `<ul>
-        <li><strong>Respaldo completo:</strong> Copia total de todos los datos. Frecuencia mínima: <strong>semanal</strong> (domingos).</li>
-        <li><strong>Respaldo incremental:</strong> Solo los cambios desde el último respaldo. Frecuencia: <strong>diaria</strong> (de lunes a sábado).</li>
-        <li><strong>Respaldo de bases de datos críticas:</strong> Frecuencia mínima diaria; preferentemente en tiempo real (replicación).</li>
-      </ul>` },
-      { title: '3. Almacenamiento y Retención', content: `<ul>
-        <li>Los respaldos se almacenan en al menos <strong>dos ubicaciones distintas</strong>: una en las instalaciones de ${d.empresa} y otra fuera del sitio (nube o sitio alterno).</li>
-        <li>Retención mínima de respaldos: <strong>30 días</strong> para respaldos diarios; <strong>12 meses</strong> para respaldos mensuales.</li>
-        <li>Los respaldos deben estar <strong>cifrados</strong> (AES-256 o equivalente).</li>
-        <li>El acceso a los respaldos está restringido al personal autorizado de TI.</li>
-      </ul>` },
-      { title: '4. Pruebas de Restauración', content: `<ul>
-        <li>Se realizarán pruebas de restauración <strong>al menos trimestralmente</strong>.</li>
-        <li>Cada prueba debe ser documentada con: fecha, sistema restaurado, tiempo de recuperación y resultado.</li>
-        <li>En caso de fallo en la prueba, se debe corregir el problema y repetir la prueba dentro de los <strong>5 días hábiles</strong> siguientes.</li>
-      </ul>` },
-      { title: '5. Objetivos de Recuperación', content: `<ul>
-        <li><strong>RTO (Recovery Time Objective):</strong> Tiempo máximo para restaurar operaciones críticas: <strong>4 horas</strong>.</li>
-        <li><strong>RPO (Recovery Point Objective):</strong> Máxima pérdida de datos tolerable: <strong>24 horas</strong>.</li>
-        <li>Estos objetivos deben revisarse anualmente y al incorporar nuevos sistemas críticos.</li>
-      </ul>` },
-      { title: '6. Responsabilidades', content: `<ul>
-        <li><strong>TI:</strong> Configurar, ejecutar, verificar y documentar todos los respaldos.</li>
-        <li><strong>Jefaturas:</strong> Identificar qué información es crítica para sus áreas.</li>
-        <li><strong>Directivos:</strong> Aprobar los recursos necesarios para cumplir con esta política.</li>
-      </ul>` },
-    ]
-  },
-
-  p5: {
-    code: 'POL-05', icon: '🚨',
-    name: 'Política de Gestión de Incidentes de Seguridad',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer el proceso de detección, reporte, contención, erradicación y recuperación ante incidentes de seguridad de la información en <strong>${d.empresa}</strong>, minimizando el impacto en las operaciones.</p>` },
-      { title: '2. Definición de Incidente', content: `<p>Un incidente de seguridad es cualquier evento que comprometa (o amenace comprometer) la <strong>confidencialidad, integridad o disponibilidad</strong> de la información. Ejemplos:</p><ul>
-        <li>Correo de phishing recibido o ejecutado.</li>
-        <li>Malware o ransomware detectado en un equipo.</li>
-        <li>Acceso no autorizado a sistemas o información.</li>
-        <li>Pérdida o robo de equipos con información corporativa.</li>
-        <li>Filtración de datos de clientes o empleados.</li>
-        <li>Caída no planificada de sistemas críticos.</li>
-      </ul>` },
-      { title: '3. Proceso de Respuesta', content: `<ul>
-        <li><strong>Paso 1 — Detección y reporte:</strong> Cualquier colaborador que detecte un incidente debe reportarlo a TI en forma inmediata (no más de <strong>1 hora</strong>). Canal: correo a seguridad@${d.empresa.toLowerCase().replace(/\s+/g,'')}.cl o teléfono de TI.</li>
-        <li><strong>Paso 2 — Evaluación y clasificación:</strong> TI evalúa la severidad (Alta / Media / Baja) y activa el nivel de respuesta correspondiente.</li>
-        <li><strong>Paso 3 — Contención:</strong> Aislar el sistema afectado para evitar propagación. En ransomware, desconectar de la red de inmediato.</li>
-        <li><strong>Paso 4 — Erradicación:</strong> Eliminar la causa raíz (malware, acceso indebido, vulnerabilidad explotada).</li>
-        <li><strong>Paso 5 — Recuperación:</strong> Restaurar el servicio desde respaldos verificados.</li>
-        <li><strong>Paso 6 — Lecciones aprendidas:</strong> Documentar el incidente y las mejoras implementadas dentro de los <strong>5 días hábiles</strong> posteriores.</li>
-      </ul>` },
-      { title: '4. Comunicaciones', content: `<ul>
-        <li>Los incidentes de severidad <strong>Alta</strong> deben notificarse a la gerencia dentro de las <strong>2 horas</strong> de detección.</li>
-        <li>Si hay datos personales comprometidos, se evalúa la obligación de notificación al <strong>SERNAC y al titular</strong> según Ley 19.628.</li>
-        <li>Ningún colaborador puede comunicar un incidente a medios de comunicación sin autorización de la gerencia.</li>
-      </ul>` },
-      { title: '5. Registro de Incidentes', content: `<p>TI mantiene un <strong>registro de incidentes</strong> que incluye: fecha, tipo, sistemas afectados, acciones tomadas, tiempo de resolución y lecciones aprendidas. Este registro es revisado semestralmente para identificar patrones y mejoras preventivas.</p>` },
-    ]
-  },
-
-  p6: {
-    code: 'POL-06', icon: '📋',
-    name: 'Política de Protección de Datos Personales',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer los lineamientos de <strong>${d.empresa}</strong> para el tratamiento responsable, seguro y legal de datos personales, en cumplimiento de la <strong>Ley N° 19.628 sobre Protección de la Vida Privada</strong> y sus modificaciones.</p>` },
-      { title: '2. Definiciones Clave', content: `<ul>
-        <li><strong>Dato personal:</strong> Información sobre una persona natural identificada o identificable (nombre, RUT, correo, teléfono, dirección, datos de salud, etc.).</li>
-        <li><strong>Tratamiento:</strong> Cualquier operación sobre datos personales: recolección, almacenamiento, uso, modificación, comunicación o eliminación.</li>
-        <li><strong>Titular:</strong> La persona natural a quien pertenecen los datos.</li>
-        <li><strong>Responsable:</strong> ${d.empresa} en su calidad de quien decide sobre el tratamiento.</li>
-      </ul>` },
-      { title: '3. Principios del Tratamiento', content: `<ul>
-        <li><strong>Licitud:</strong> Solo se tratan datos con una base legal válida (consentimiento, contrato, obligación legal o interés legítimo).</li>
-        <li><strong>Finalidad:</strong> Los datos se recolectan para fines específicos, explícitos y legítimos. No se usan para fines incompatibles.</li>
-        <li><strong>Proporcionalidad:</strong> Solo se recolectan los datos estrictamente necesarios.</li>
-        <li><strong>Seguridad:</strong> Se implementan medidas técnicas y organizativas para proteger los datos.</li>
-        <li><strong>Confidencialidad:</strong> Los colaboradores que acceden a datos personales están obligados al secreto profesional.</li>
-      </ul>` },
-      { title: '4. Derechos de los Titulares', content: `<p>${d.empresa} garantiza el ejercicio de los siguientes derechos:</p><ul>
-        <li><strong>Acceso:</strong> El titular puede solicitar información sobre sus datos en poder de ${d.empresa}.</li>
-        <li><strong>Rectificación:</strong> Corrección de datos inexactos o desactualizados.</li>
-        <li><strong>Cancelación / Supresión:</strong> Eliminar datos cuando ya no son necesarios o el titular retira su consentimiento.</li>
-        <li><strong>Oposición:</strong> Oponerse al tratamiento en ciertos supuestos.</li>
-      </ul><p style="margin-top:10px;">Canal de solicitudes: <strong>${v('ti-resp') ? v('ti-resp')+', ' : ''}correo de contacto de la empresa</strong>. Plazo de respuesta: <strong>5 días hábiles</strong>.</p>` },
-      { title: '5. Obligaciones de los Colaboradores', content: `<ul>
-        <li>Acceder solo a los datos personales necesarios para su función.</li>
-        <li>No compartir datos personales de clientes, proveedores o empleados sin autorización.</li>
-        <li>Reportar inmediatamente cualquier acceso indebido, pérdida o filtración de datos personales a TI.</li>
-        <li>Eliminar datos personales de sistemas o correos cuando ya no sean necesarios.</li>
-      </ul>` },
-      { title: '6. Transferencia a Terceros', content: `<p>${d.empresa} solo transfiere datos personales a terceros cuando existe una base legal válida y el tercero ofrece garantías equivalentes de protección. Todo proveedor que procese datos en nombre de ${d.empresa} debe suscribir un acuerdo de tratamiento de datos.</p>` },
-      { title: '7. Retención y Eliminación', content: `<p>Los datos personales se conservan solo durante el tiempo necesario para cumplir la finalidad para la que fueron recopilados, o el plazo legal mínimo aplicable. Transcurrido este plazo, son eliminados o anonimizados de forma segura.</p>` },
-    ]
-  },
-
-  p7: {
-    code: 'POL-07', icon: '🏠',
-    name: 'Política de Teletrabajo y Trabajo Remoto',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Establecer los requisitos de seguridad aplicables al trabajo remoto en <strong>${d.empresa}</strong>, garantizando que los colaboradores puedan trabajar desde casa o locaciones externas sin comprometer la seguridad de la información corporativa.</p>` },
-      { title: '2. Equipos y Software', content: `<ul>
-        <li>Se debe usar preferentemente <strong>equipo corporativo</strong> para acceder a sistemas de ${d.empresa}.</li>
-        <li>Si se usa equipo personal, debe estar actualizado, tener antivirus activo y usar el perfil de usuario separado del familiar.</li>
-        <li>El sistema operativo y todas las aplicaciones deben estar <strong>actualizados</strong>.</li>
-        <li>Usar siempre la <strong>VPN corporativa</strong> al acceder a recursos internos de ${d.empresa}.</li>
-      </ul>` },
-      { title: '3. Redes y Conectividad', content: `<ul>
-        <li>Preferir la red domiciliaria propia. Asegurarse de que el router Wi-Fi esté protegido con contraseña fuerte (WPA2/WPA3).</li>
-        <li>Nunca usar redes Wi-Fi públicas (cafeterías, aeropuertos, hoteles) sin VPN activa.</li>
-        <li>No permitir que familiares o convivientes usen el equipo de trabajo.</li>
-      </ul>` },
-      { title: '4. Información y Documentos', content: `<ul>
-        <li>No imprimir documentos confidenciales en casa. Si es necesario, destruirlos con destructora al terminar su uso.</li>
-        <li>No almacenar información de ${d.empresa} en servicios de nube personal (Google Drive, Dropbox personal, etc.).</li>
-        <li>Usar los canales y herramientas aprobadas por ${d.empresa} para compartir documentos.</li>
-        <li>Bloquear la pantalla siempre que se aleje del equipo, aunque sea brevemente.</li>
-      </ul>` },
-      { title: '5. Videoconferencias y Comunicaciones', content: `<ul>
-        <li>Usar las plataformas de videoconferencia aprobadas por ${d.empresa}.</li>
-        <li>Proteger reuniones virtuales con contraseña cuando se traten temas confidenciales.</li>
-        <li>Verificar que el entorno visible en cámara no muestre información confidencial (documentos, pantallas).</li>
-        <li>No grabar reuniones sin consentimiento de los participantes.</li>
-      </ul>` },
-      { title: '6. Reporte de Incidentes', content: `<p>El colaborador remoto debe reportar cualquier incidente de seguridad (robo de equipo, acceso no autorizado, pérdida de dispositivo) de forma inmediata al responsable de TI de ${d.empresa}, independientemente del horario.</p>` },
-    ]
-  },
-
-  p8: {
-    code: 'POL-08', icon: '🤝',
-    name: 'Política de Gestión de Proveedores y Terceros',
-    sections: (d) => [
-      { title: '1. Objetivo', content: `<p>Gestionar los riesgos de seguridad de la información asociados a proveedores, contratistas y terceros que tienen acceso a los sistemas, datos o instalaciones de <strong>${d.empresa}</strong>.</p>` },
-      { title: '2. Selección y Evaluación de Proveedores', content: `<ul>
-        <li>Antes de contratar un proveedor con acceso a datos o sistemas, se evalúa su postura de seguridad (cuestionario de seguridad o certificaciones equivalentes).</li>
-        <li>Proveedores que manejen datos personales o información confidencial deben acreditar medidas de protección equivalentes a las de ${d.empresa}.</li>
-        <li>Se prefieren proveedores con certificaciones reconocidas (ISO 27001, SOC 2) para servicios críticos.</li>
-      </ul>` },
-      { title: '3. Contratos y Acuerdos', content: `<ul>
-        <li>Todo proveedor con acceso a sistemas o datos de ${d.empresa} debe firmar un <strong>Acuerdo de Confidencialidad (NDA)</strong> antes de iniciar los trabajos.</li>
-        <li>Los contratos deben incluir cláusulas de: seguridad de la información, tratamiento de datos personales, notificación de incidentes (dentro de 24 horas), y auditoría del cumplimiento.</li>
-        <li>Al término del contrato, el proveedor debe devolver o destruir toda información de ${d.empresa} en su poder.</li>
-      </ul>` },
-      { title: '4. Control de Accesos de Terceros', content: `<ul>
-        <li>Los accesos de terceros se crean con credenciales <strong>individuales y nominativas</strong> (nunca compartidas con la cuenta de un empleado).</li>
-        <li>Se aplica el principio de <strong>mínimo privilegio</strong>: acceso solo a lo estrictamente necesario para la tarea.</li>
-        <li>Los accesos remotos de proveedores se realizan siempre con supervisión de un responsable de ${d.empresa}.</li>
-        <li>Al finalizar cada intervención, los accesos se desactivan o eliminan de inmediato.</li>
-      </ul>` },
-      { title: '5. Monitoreo y Revisión', content: `<ul>
-        <li>TI mantiene un <strong>inventario actualizado</strong> de todos los proveedores con acceso a sistemas de ${d.empresa}.</li>
-        <li>Los accesos de proveedores son revisados <strong>trimestralmente</strong>.</li>
-        <li>Ante cualquier incidente involucrando a un proveedor, se aplica el proceso de gestión de incidentes y se notifica al proveedor de forma inmediata.</li>
-      </ul>` },
-      { title: '6. Incumplimiento', content: `<p>El incumplimiento de los requisitos de seguridad por parte de un proveedor podrá derivar en la terminación anticipada del contrato, sin perjuicio de las acciones legales por daños y perjuicios que correspondan conforme a la legislación chilena.</p>` },
-    ]
-  },
-
+const POLICIES_CONFIG={
+  uso_aceptable:{name:"Uso Aceptable de Recursos TI",icon:"💻"},
+  contrasenas:{name:"Contraseñas e Identidad Digital",icon:"🔐"},
+  byod:{name:"Dispositivos Móviles y BYOD",icon:"📱"},
+  respaldos:{name:"Respaldos y Recuperación",icon:"💾"},
+  datos_personales:{name:"Protección de Datos Personales",icon:"🛡️"},
+  acceso_remoto:{name:"Acceso Remoto y Teletrabajo",icon:"🏠"},
+  proveedores:{name:"Gestión de Proveedores TI",icon:"🤝"},
+  clasificacion_info:{name:"Clasificación de Información",icon:"🗂️"},
+  respuesta_incidentes:{name:"Respuesta a Incidentes",icon:"🚨"},
+  redes_sociales:{name:"Uso de Redes Sociales",icon:"📢"},
+  uso_ia:{name:"Uso de Inteligencia Artificial",icon:"🤖"},
+};
+const CONTEXT_QUESTIONS={
+  uso_aceptable:[
+    {id:"q_reglamento",label:"¿Tienen reglamento interno de trabajo vigente?",type:"select",options:["Sí, está actualizado y los empleados lo conocen","Sí, pero está desactualizado","No tenemos reglamento formal"]},
+    {id:"q_internet_uso",label:"¿Qué usos de internet son más relevantes para el negocio?",type:"textarea",placeholder:"Ej: buscamos proveedores, comunicamos con clientes por WhatsApp, usamos redes sociales para ventas..."},
+  ],
+  contrasenas:[
+    {id:"q_gestor",label:"¿Actualmente usan algún gestor de contraseñas?",type:"select",options:["Sí, uno corporativo para todos","Algunos usan algo personal, no estandarizado","No, cada uno guarda sus contraseñas como puede"]},
+    {id:"q_2fa",label:"¿Tienen doble factor de autenticación (2FA) activado?",type:"select",options:["Sí, en todos los sistemas","Solo en el correo","En algunos sistemas","No tenemos 2FA"]},
+    {id:"q_sistemas_criticos",label:"¿Cuáles son los sistemas más críticos que requieren acceso con contraseña?",type:"textarea",placeholder:"Ej: correo corporativo, sistema de facturación, CRM, banca en línea..."},
+  ],
+  byod:[
+    {id:"q_byod_tipo",label:"¿Qué tipo de acceso tienen los empleados desde sus dispositivos personales?",type:"select",options:["Solo correo y calendario","Correo, archivos y sistemas de gestión","Acceso completo a todos los sistemas","Solo algunos empleados tienen acceso remoto"]},
+    {id:"q_borrado_remoto",label:"¿Pueden borrar remotamente los datos corporativos de un dispositivo perdido?",type:"select",options:["Sí, tenemos esa capacidad","No, no tenemos esa opción","No sabemos si es posible"]},
+  ],
+  respaldos:[
+    {id:"q_donde_respaldan",label:"¿Dónde respaldan hoy la información crítica?",type:"select",options:["Nube automática (OneDrive, Drive, etc.)","Disco externo manual","Servidor interno","No tenemos respaldo formal"]},
+    {id:"q_frecuencia_respaldo",label:"¿Con qué frecuencia se hacen los respaldos actualmente?",type:"select",options:["Diario automático","Semanal","Mensual o menos","No tenemos frecuencia definida"]},
+    {id:"q_info_critica",label:"¿Qué información es más crítica para el negocio?",type:"textarea",placeholder:"Ej: base de datos de clientes, contratos, contabilidad, diseños, inventario..."},
+  ],
+  datos_personales:[
+    {id:"q_tipo_datos",label:"¿Qué tipos de datos personales manejan principalmente?",type:"textarea",placeholder:"Ej: nombre y RUT de clientes, datos de trabajadores, historial de compras, datos de salud..."},
+    {id:"q_donde_almacenan",label:"¿Dónde almacenan los datos personales principalmente?",type:"select",options:["Sistema o software especializado","Planillas Excel o Google Sheets","Correo electrónico","Plataforma en la nube (CRM, ERP)","En papel / archivos físicos"]},
+    {id:"q_terceros_datos",label:"¿Comparten datos personales con terceros (proveedores, socios)?",type:"select",options:["No compartimos datos personales con terceros","Sí, con proveedores de servicios","Sí, con plataformas digitales","No estamos seguros"]},
+  ],
+  acceso_remoto:[
+    {id:"q_vpn",label:"¿Usan VPN para conectarse a sistemas internos desde fuera de la oficina?",type:"select",options:["Sí, tenemos VPN corporativa","No, accedemos directo por internet","No tenemos sistemas que requieran VPN","No sabemos qué es VPN"]},
+    {id:"q_sistemas_remotos",label:"¿A qué sistemas acceden los empleados en remoto?",type:"textarea",placeholder:"Ej: correo, Drive, sistema de gestión, ERP, carpetas compartidas..."},
+  ],
+  proveedores:[
+    {id:"q_num_proveedores",label:"¿Cuántos proveedores externos tienen acceso a sus sistemas?",type:"select",options:["Solo 1 (proveedor TI principal)","2 a 5 proveedores","Más de 5 proveedores","No tenemos proveedores con acceso a sistemas"]},
+    {id:"q_contrato_prov",label:"¿Tienen contratos con cláusulas de confidencialidad con sus proveedores TI?",type:"select",options:["Sí, todos tienen contrato con NDA","Solo algunos tienen contrato","No tenemos contratos formalizados"]},
+  ],
+  clasificacion_info:[
+    {id:"q_info_confidencial",label:"¿Qué tipo de información confidencial maneja la empresa?",type:"textarea",placeholder:"Ej: estrategias comerciales, precios de costo, datos de clientes VIP, información financiera..."},
+    {id:"q_como_comparten",label:"¿Cómo comparten documentos confidenciales actualmente?",type:"select",options:["Por correo electrónico","Por WhatsApp","Plataforma colaborativa (SharePoint, Drive)","En persona o impreso","Sin proceso definido"]},
+  ],
+  respuesta_incidentes:[
+    {id:"q_contacto_emergencia",label:"¿Tienen un contacto de emergencia TI para cuando ocurre un problema?",type:"select",options:["Sí, tenemos proveedor TI de emergencia 24/7","Sí, pero solo en horario laboral","No, improvisamos cuando pasa algo","No hemos pensado en esto"]},
+    {id:"q_incidente_previo",label:"¿Han tenido algún incidente de seguridad en los últimos 2 años?",type:"select",options:["No que sepamos","Sí, algo menor que resolvimos","Sí, algo grave","No estamos seguros"]},
+  ],
+  redes_sociales:[
+    {id:"q_rrss_corp",label:"¿Tienen redes sociales corporativas?",type:"select",options:["Sí, las administra una persona o equipo designado","Sí, pero varios empleados tienen acceso","No tenemos redes sociales corporativas"]},
+    {id:"q_rrss_personales",label:"¿Los empleados usan redes sociales personales en horario laboral?",type:"select",options:["Sí, sin restricción","Sí, pero solo en tiempos libres","No, está prohibido","No tenemos política al respecto"]},
+  ],
+  uso_ia:[
+    {id:"q_ia_herramientas",label:"¿Qué herramientas de IA usan actualmente en la empresa?",type:"textarea",placeholder:"Ej: ChatGPT, Microsoft Copilot, Google Gemini, Claude, herramientas de diseño IA, ninguna..."},
+    {id:"q_ia_uso",label:"¿Para qué usan principalmente la IA?",type:"select",options:["Redacción y comunicaciones","Análisis de datos","Generación de imágenes o contenido","Programación o desarrollo","Atención al cliente","Aún no la usamos formalmente"]},
+    {id:"q_ia_datos",label:"¿Los empleados ingresan datos confidenciales o de clientes en herramientas de IA?",type:"select",options:["Sí, frecuentemente","A veces, sin política definida","No, tenemos cuidado con eso","No lo sabemos"]},
+  ],
 };
 
-// ─────────────────────────────────────────────
-//  GENERATE POLICIES
-// ─────────────────────────────────────────────
-function generatePolicies() {
-  const d = {
-    empresa:  v('empresa'),
-    rut:      v('rut'),
-    rubro:    v('rubro'),
-    ciudad:   v('ciudad') || 'Chile',
-    empleados:document.getElementById('empleados').value,
-    vigencia: formatVigencia(v('vigencia')),
-    repLegal: v('rep-legal'),
-    repCargo: v('rep-cargo') || 'Representante Legal',
-    tiResp:   v('ti-resp') || 'Responsable de TI',
-    tiCargo:  v('ti-cargo') || 'Jefe de TI',
-  };
+let currentStep=1;
+const contextAnswers={};
+const stepLabels=['Paso 1 de 4 — Datos de tu empresa','Paso 2 de 4 — Elige tus políticas','Paso 3 de 4 — Contexto específico','Paso 4 de 4 — Confirmar y generar'];
 
-  const selected = Array.from(document.querySelectorAll('.policy-check-item input:checked')).map(c => c.value);
-  // Send to backend
-  submitPoliticasToBackend(d, selected);
-  const today = new Date();
-  const todayStr = today.toLocaleDateString('es-CL', {day:'2-digit', month:'long', year:'numeric'});
+function updateCount(){
+  const sel=getSelectedPolicies();
+  const el=document.getElementById('selected-count');
+  el.textContent=sel.length+' política'+(sel.length!==1?'s':'')+' seleccionada'+(sel.length!==1?'s':'');
+  el.style.color=sel.length>=3?'#16a34a':'#dc2626';
+}
 
-  document.getElementById('output-date').textContent = todayStr;
-
-  const container = document.getElementById('policies-container');
-  container.innerHTML = '';
-
-  selected.forEach(pid => {
-    const tpl = POLICY_TEMPLATES[pid];
-    const sections = tpl.sections(d);
-
-    let sectionsHTML = sections.map(s => `
-      <div class="pol-section">
-        <div class="pol-section-title">${s.title}</div>
-        <div class="pol-section-content">${s.content}</div>
-      </div>
-    `).join('');
-
-    const docHTML = `
-      <div class="policy-doc" id="doc-${pid}">
-        <div class="policy-doc-header">
-          <div class="doc-info">
-            <div class="doc-code">${tpl.code}</div>
-            <div class="doc-name">${tpl.icon} ${tpl.name}</div>
-            <div class="doc-version">Versión 1.0 — ${d.vigencia} — Confidencial</div>
-          </div>
-          <button class="btn-print-one" onclick="printOne('${pid}')">🖨️ Imprimir esta política</button>
-        </div>
-
-        <div class="policy-doc-meta">
-          <div class="meta-item">
-            <div class="meta-label">Empresa</div>
-            <div class="meta-val">${d.empresa}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">RUT</div>
-            <div class="meta-val">${d.rut}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Rubro</div>
-            <div class="meta-val">${d.rubro}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Ciudad</div>
-            <div class="meta-val">${d.ciudad}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">N° Empleados</div>
-            <div class="meta-val">${d.empleados}</div>
-          </div>
-        </div>
-
-        <div class="policy-doc-body">
-          ${sectionsHTML}
-
-          <div class="signature-block">
-            <div class="sig-col">
-              <div class="sig-line"></div>
-              <div class="sig-name">${d.repLegal}</div>
-              <div class="sig-role">${d.repCargo}</div>
-              <div class="sig-role" style="margin-top:4px;">Fecha: ___/___/______</div>
-            </div>
-            <div class="sig-col">
-              <div class="sig-line"></div>
-              <div class="sig-name">${d.tiResp}</div>
-              <div class="sig-role">${d.tiCargo}</div>
-              <div class="sig-role" style="margin-top:4px;">Fecha: ___/___/______</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="policy-footer">
-          <span>${tpl.code} — ${tpl.name} — v1.0</span>
-          <span class="confidential">🔒 CONFIDENCIAL — USO INTERNO</span>
-          <span>Generado por vCISO.cl — ${todayStr}</span>
-        </div>
-      </div>
-    `;
-    container.insertAdjacentHTML('beforeend', docHTML);
+function getSelectedPolicies(){
+  return Object.keys(POLICIES_CONFIG).filter(k=>{
+    const el=document.getElementById('pol-'+k);
+    return el&&el.checked;
   });
-
-  // Show output, hide wizard
-  document.getElementById('wizard').style.display = 'none';
-  document.getElementById('output').style.display = 'block';
-  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-function printOne(pid) {
-  // Temporarily hide other docs
-  const all = document.querySelectorAll('.policy-doc');
-  all.forEach(d => { if(d.id !== 'doc-'+pid) d.style.display='none'; });
-  window.print();
-  all.forEach(d => d.style.display='');
+function goStep(n){
+  if(n>currentStep&&!validateStep(currentStep))return;
+  if(n===3)buildContextQuestions();
+  if(n===4)buildSummary();
+  document.getElementById('step'+currentStep).classList.remove('active');
+  document.getElementById('dot'+currentStep).classList.remove('active');
+  document.getElementById('dot'+currentStep).classList.add('done');
+  currentStep=n;
+  document.getElementById('step'+currentStep).classList.add('active');
+  document.getElementById('dot'+currentStep).classList.remove('done');
+  document.getElementById('dot'+currentStep).classList.add('active');
+  const pct=Math.round((n/4)*100);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('step-pct').textContent=pct+'%';
+  document.getElementById('step-label').textContent=stepLabels[n-1];
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// Set default vigencia to current month
-(function() {
-  const now = new Date();
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth()+1).padStart(2,'0');
-  document.getElementById('vigencia').value = `${yyyy}-${mm}`;
-})();
-</script>
-<script>
-// ── TOKEN PROTECTION ────────────────────────────────────────────────────────
-(async function() {
-  const params = new URLSearchParams(window.location.search);
-  const token  = params.get('token');
-
-  if (!token) {
-    showAccessDenied('Para acceder al generador necesitas un link de acceso válido.<br/>Si ya realizaste el pago, revisa tu email.');
-    return;
-  }
-
-  try {
-    const resp = await fetch(`/api/validate-token?token=${token}`);
-    const data = await resp.json();
-    if (!data.valid) {
-      showAccessDenied('Tu link de acceso ha expirado o no es válido.<br/>Escríbenos a <a href="mailto:contacto@vciso.cl" style="color:#f47c47">contacto@vciso.cl</a> y te enviamos uno nuevo.');
-      return;
-    }
-    window.__accessToken = token;
-    document.getElementById('wizard').style.display = 'block';
-    document.getElementById('access-denied').style.display = 'none';
-  } catch(e) {
-    showAccessDenied('Error verificando acceso. Intenta recargar la página.');
-  }
-})();
-
-function showAccessDenied(msg) {
-  const wizard = document.getElementById('wizard');
-  if (wizard) wizard.style.display = 'none';
-  const div = document.getElementById('access-denied');
-  div.style.display = 'flex';
-  div.querySelector('.denied-msg').innerHTML = msg;
-}
-
-// ── SEND DATA TO BACKEND WHEN POLICIES ARE GENERATED ───────────────────────
-async function submitPoliticasToBackend(empresaData, politicasSeleccionadas) {
-  try {
-    await fetch('/api/submit-politicas', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        token:                  window.__accessToken || '',
-        empresa:                empresaData.empresa  || '',
-        rut:                    empresaData.rut      || '',
-        rubro:                  empresaData.rubro    || '',
-        ciudad:                 empresaData.ciudad   || '',
-        empleados:              empresaData.empleados|| '',
-        vigencia:               empresaData.vigencia || '',
-        repLegal:               empresaData.repLegal || '',
-        repCargo:               empresaData.repCargo || '',
-        tiResp:                 empresaData.tiResp   || '',
-        tiCargo:                empresaData.tiCargo  || '',
-        politicasSeleccionadas: politicasSeleccionadas || [],
-      }),
+function validateStep(step){
+  let ok=true;
+  if(step===1){
+    ['empresa','rubro','empleados','modalidad','dept-ti','plataforma','equipos','nombre','cargo','email'].forEach(id=>{
+      const el=document.getElementById(id);
+      const err=document.getElementById('err-'+id);
+      const val=el?el.value.trim():'';
+      if(!val||(id==='email'&&!/\S+@\S+\.\S+/.test(val))){if(err)err.classList.add('visible');ok=false;}
+      else{if(err)err.classList.remove('visible');}
     });
-    console.log('Datos políticas enviados a vCISO.cl');
-  } catch(e) {
-    console.error('Error enviando políticas:', e.message);
+  }
+  if(step===2){
+    const sel=getSelectedPolicies();
+    const errEl=document.getElementById('err-politicas');
+    if(sel.length<3){errEl.style.display='block';ok=false;}
+    else{errEl.style.display='none';}
+  }
+  if(!ok)window.scrollTo({top:0,behavior:'smooth'});
+  return ok;
+}
+
+function buildContextQuestions(){
+  const selected=getSelectedPolicies();
+  const body=document.getElementById('context-body');
+  body.innerHTML='';
+  selected.forEach(polKey=>{
+    const cfg=POLICIES_CONFIG[polKey];
+    const questions=CONTEXT_QUESTIONS[polKey];
+    if(!questions)return;
+    const section=document.createElement('div');
+    section.innerHTML='<div class="section-divider"><span>'+cfg.icon+' '+cfg.name+'</span></div>';
+    questions.forEach(q=>{
+      const div=document.createElement('div');
+      div.className='context-question';
+      if(q.type==='select'){
+        div.innerHTML='<label style="color:#0d1f3c!important;font-size:0.88rem!important;font-weight:600!important;display:block;margin-bottom:6px;">'+q.label+'</label><select id="'+q.id+'" style="background:#fff!important;border:2px solid #cbd5e1!important;color:#334155!important;border-radius:8px!important;padding:10px 14px!important;font-size:0.9rem!important;width:100%!important;" onchange="contextAnswers[\''+q.id+'\']=this.value"><option value="">Selecciona...</option>'+q.options.map(o=>'<option>'+o+'</option>').join('')+'</select>';
+      }else if(q.type==='textarea'){
+        div.innerHTML='<label style="color:#0d1f3c!important;font-size:0.88rem!important;font-weight:600!important;display:block;margin-bottom:6px;">'+q.label+'</label><textarea id="'+q.id+'" rows="3" placeholder="'+q.placeholder+'" style="background:#fff!important;border:2px solid #cbd5e1!important;color:#334155!important;border-radius:8px!important;padding:10px 14px!important;font-size:0.9rem!important;width:100%!important;min-height:80px;resize:vertical;" oninput="contextAnswers[\''+q.id+'\']=this.value"></textarea>';
+      }
+      section.appendChild(div);
+    });
+    body.appendChild(section);
+  });
+}
+
+function buildSummary(){
+  const empresa=document.getElementById('empresa').value;
+  const rubro=document.getElementById('rubro').value;
+  const empleados=document.getElementById('empleados').value;
+  const formato=document.querySelector('input[name="formato"]:checked').value;
+  const selected=getSelectedPolicies();
+  document.getElementById('resumen-empresa').innerHTML='<div style="font-size:0.78rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Empresa</div><div style="font-size:1rem;font-weight:700;color:#0d1f3c;margin-bottom:4px;">'+empresa+'</div><div style="font-size:0.85rem;color:#64748b;">'+rubro+' · '+empleados+' empleados</div><div style="font-size:0.85rem;color:#64748b;margin-top:4px;">Formato: '+(formato==='unico'?'Un solo documento Word':'Documentos separados')+'</div>';
+  document.getElementById('resumen-politicas').innerHTML='<div style="font-size:0.78rem;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">'+selected.length+' política'+(selected.length!==1?'s':'')+' seleccionada'+(selected.length!==1?'s':'')+'</div>'+selected.map(k=>'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #d1fae5;font-size:0.85rem;color:#15803d;"><span>'+POLICIES_CONFIG[k].icon+'</span><span style="font-weight:600;">'+POLICIES_CONFIG[k].name+'</span></div>').join('')+'<div style="margin-top:12px;font-size:0.9rem;font-weight:700;color:#0d1f3c;">Total: $34.900 CLP · Precio único incluye todas las políticas seleccionadas</div>';
+}
+
+async function submitForm(){
+  const btn=document.getElementById('btn-submit');
+  btn.disabled=true;
+  btn.textContent='⏳ Generando políticas...';
+  const selected=getSelectedPolicies();
+  const formato=document.querySelector('input[name="formato"]:checked').value;
+  document.querySelectorAll('#context-body select').forEach(el=>{contextAnswers[el.id]=el.value;});
+  document.querySelectorAll('#context-body textarea').forEach(el=>{contextAnswers[el.id]=el.value;});
+  const datos={
+    empresa:document.getElementById('empresa').value.trim(),
+    rut:document.getElementById('rut').value.trim(),
+    rubro:document.getElementById('rubro').value,
+    empleados:document.getElementById('empleados').value,
+    modalidad:document.getElementById('modalidad').value,
+    deptTI:document.getElementById('dept-ti').value,
+    plataforma:document.getElementById('plataforma').value,
+    equipos:document.getElementById('equipos').value,
+    nombre:document.getElementById('nombre').value.trim(),
+    cargo:document.getElementById('cargo').value.trim(),
+    email:document.getElementById('email').value.trim(),
+    telefono:document.getElementById('telefono').value.trim(),
+  };
+  const payload={token:window.__accessToken||'',datos,politicas:selected,formato,contexto:contextAnswers};
+  try{
+    const resp=await fetch('/api/submit-politicas',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(resp.ok){
+      document.getElementById('form-container').style.display='none';
+      document.getElementById('result').style.display='block';
+      document.getElementById('result-empresa').textContent=datos.empresa;
+      document.getElementById('result-policies').innerHTML=selected.map(k=>'<div class="policy-tag">'+POLICIES_CONFIG[k].icon+' '+POLICIES_CONFIG[k].name+'</div>').join('');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }else{
+      btn.disabled=false;btn.innerHTML='🚀 Generar mis políticas';
+      alert('Hubo un error al generar las políticas. Por favor intenta de nuevo o escríbenos a contacto@vciso.cl');
+    }
+  }catch(e){
+    btn.disabled=false;btn.innerHTML='🚀 Generar mis políticas';
+    alert('Error de conexión. Por favor intenta de nuevo.');
   }
 }
+
+(async function(){
+  const params=new URLSearchParams(window.location.search);
+  const token=params.get('token');
+  if(!token){showAccessDenied('Para acceder al generador necesitas un link de acceso válido. Si ya realizaste el pago, revisa tu correo electrónico.');return;}
+  try{
+    const resp=await fetch('/api/validate-token?token='+token);
+    const data=await resp.json();
+    if(!data.valid){showAccessDenied('Tu link de acceso ha expirado o no es válido. Escríbenos a contacto@vciso.cl y te enviamos uno nuevo.');return;}
+    window.__accessToken=token;
+    document.getElementById('form-container').style.display='block';
+    document.getElementById('access-denied').style.display='none';
+  }catch(e){showAccessDenied('Error verificando acceso. Por favor recarga la página.');}
+})();
+
+function showAccessDenied(msg){
+  document.getElementById('form-container').style.display='none';
+  const div=document.getElementById('access-denied');
+  div.style.display='flex';
+  div.querySelector('.denied-msg').innerHTML=msg;
+}
 </script>
-</body></html>
+</body>
+</html>
