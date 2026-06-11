@@ -99,24 +99,18 @@ const POLICY_CODES = {
   uso_ia:              "POL-TI-011",
 };
 
-// ── Llamar a Claude para generar UNA política ─────────────────────────────
-async function generarPolitica(polKey, datos, contexto) {
+// ── Llamar a Claude para generar TODAS las políticas de una vez ──────────────
+async function generarTodasPoliticas(politicas, datos, contexto) {
   const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
-  const polName = POLICY_NAMES[polKey];
-  const polCode = POLICY_CODES[polKey];
 
-  const contextoTexto = Object.entries(contexto)
-    .filter(([k]) => k.startsWith('q_') && k.includes(polKey.split('_')[0]))
-    .map(([k, v]) => `- ${k}: ${Array.isArray(v) ? v.join(', ') : v}`)
-    .join('\n') || 'Sin contexto específico adicional';
-
-  // Incluir todo el contexto relevante
   const todosContextos = Object.entries(contexto)
     .filter(([, v]) => v && (typeof v === 'string' ? v.trim() : v.length > 0))
     .map(([k, v]) => `- ${k}: ${Array.isArray(v) ? v.join(', ') : v}`)
-    .join('\n');
+    .join('\n') || 'Sin contexto adicional';
 
-  const userPrompt = `Redacta la siguiente política de seguridad TI para la empresa indicada.
+  const listaPoliticas = politicas.map(k => `- ${k}: ${POLICY_NAMES[k]}`).join('\n');
+
+  const userPrompt = `Redacta las siguientes políticas de seguridad TI para la empresa indicada.
 
 ## DATOS DE LA EMPRESA
 - Empresa: ${datos.empresa}
@@ -127,47 +121,46 @@ async function generarPolitica(polKey, datos, contexto) {
 - Plataforma tecnológica: ${datos.plataforma}
 - Tipo de equipos: ${datos.equipos}
 
-## POLÍTICA A REDACTAR
-- Nombre: ${polName}
-- Código: ${polCode}
+## POLÍTICAS A REDACTAR
+${listaPoliticas}
 
 ## CONTEXTO ESPECÍFICO DEL CLIENTE
-${todosContextos || 'No se proporcionó contexto adicional'}
+${todosContextos}
 
-## INSTRUCCIONES DE REDACCIÓN
-Redacta la política completa en JSON con EXACTAMENTE esta estructura (solo JSON válido, sin markdown):
+## INSTRUCCIONES
+Redacta TODAS las políticas en un solo JSON con esta estructura exacta (solo JSON válido, sin markdown):
 
 {
-  "objetivo": "Párrafo de 2-3 oraciones explicando el propósito de esta política para ${datos.empresa}. Contextualizado al rubro y tamaño de la empresa.",
-  "alcance": "Párrafo de 2-3 oraciones indicando a quiénes aplica (empleados, contratistas, proveedores) y qué sistemas o actividades cubre. Específico para la realidad de ${datos.empresa}.",
-  "definiciones": [
-    {"termino": "Término técnico", "definicion": "Definición clara en lenguaje no técnico, comprensible para cualquier empleado de una PYME"},
-    {"termino": "Otro término", "definicion": "Su definición"}
-  ],
-  "responsabilidades": [
-    {"rol": "Gerencia / Dirección", "responsabilidad": "Qué debe hacer la gerencia respecto a esta política"},
-    {"rol": "Empleados", "responsabilidad": "Obligaciones de todos los empleados"},
-    {"rol": "Área TI / Proveedor TI", "responsabilidad": "Responsabilidades del área o proveedor de TI"}
-  ],
-  "lineamientos": [
-    {
-      "titulo": "Título del lineamiento (ej: Uso permitido, Restricciones, etc.)",
-      "contenido": "Párrafo detallado con las reglas concretas de este lineamiento. Mínimo 3-4 oraciones. Específico y accionable para ${datos.empresa}."
+  "politicas": {
+    "clave_politica": {
+      "objetivo": "2-3 oraciones. Contextualizado a ${datos.empresa} (${datos.rubro}, ${datos.empleados} empleados).",
+      "alcance": "2-3 oraciones indicando a quiénes aplica y qué cubre. Específico para ${datos.empresa}.",
+      "definiciones": [
+        {"termino": "Término", "definicion": "Definición clara en lenguaje no técnico"}
+      ],
+      "responsabilidades": [
+        {"rol": "Gerencia", "responsabilidad": "Descripción"},
+        {"rol": "Empleados", "responsabilidad": "Descripción"},
+        {"rol": "Área TI / Proveedor TI", "responsabilidad": "Descripción"}
+      ],
+      "lineamientos": [
+        {"titulo": "Título del lineamiento", "contenido": "Reglas concretas y específicas para ${datos.empresa}. Mínimo 3 oraciones."}
+      ],
+      "sanciones": "Párrafo sobre consecuencias del incumplimiento.",
+      "revision": "Párrafo sobre revisión anual."
     }
-  ],
-  "sanciones": "Párrafo indicando las consecuencias del incumplimiento. Mencionar que puede ir desde amonestación hasta desvinculación según gravedad, y posibles implicancias legales si aplica.",
-  "revision": "Indicar que esta política será revisada anualmente o cuando ocurran cambios significativos en la organización, tecnología o marco legal aplicable."
+  }
 }
 
-REGLAS IMPORTANTES:
-- Mínimo 4 lineamientos, máximo 8. Cada uno debe ser concreto y específico para ${datos.empresa}.
-- Mínimo 4 definiciones relevantes para esta política.
-- Lenguaje profesional pero comprensible para empleados no técnicos de una PYME.
-- Adaptar TODO al rubro (${datos.rubro}), tamaño (${datos.empleados} empleados) y modalidad (${datos.modalidad}).
+REGLAS:
+- Mínimo 4 lineamientos por política, máximo 6.
+- Mínimo 4 definiciones por política.
+- Lenguaje profesional pero comprensible para empleados sin conocimientos técnicos.
+- Adaptar TODO al contexto de ${datos.empresa}: rubro (${datos.rubro}), tamaño (${datos.empleados} empleados), modalidad (${datos.modalidad}).
 - Para datos_personales: mencionar Ley 21.719 y Agencia de Protección de Datos Personales.
-- NO mencionar que fue generado por IA ni por Claude. La empresa que elabora es vCISO.cl.
-- NO usar lenguaje alarmista ni absoluto. Tono profesional y constructivo.
-- Devolver SOLO el JSON válido, sin texto adicional ni bloques markdown.`;
+- NUNCA mencionar IA ni Claude. La empresa que elabora es vCISO.cl.
+- No usar lenguaje alarmista. Tono profesional y constructivo.
+- Devolver SOLO el JSON válido, sin texto adicional ni markdown.`;
 
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -178,26 +171,27 @@ REGLAS IMPORTANTES:
     },
     body: JSON.stringify({
       model:      'claude-haiku-4-5-20251001',
-      max_tokens: 4000,
-      system: `Eres un consultor senior en ciberseguridad y compliance con más de 20 años de experiencia, especializado en PYMEs chilenas. Elaboras políticas de seguridad TI profesionales basadas en ISO 27002:2022, adaptadas a la realidad de cada empresa.
+      max_tokens: 16000,
+      system: `Eres un consultor senior en ciberseguridad especializado en PYMEs chilenas. Elaboras políticas de seguridad TI profesionales basadas en ISO 27002:2022.
 
-REGLAS ESTRICTAS:
-- Redactar en español chileno formal y profesional.
-- Lenguaje claro y directo, comprensible para empleados sin conocimientos técnicos.
+REGLAS:
+- Español chileno formal y profesional.
+- Lenguaje claro para empleados sin conocimientos técnicos.
 - Políticas concretas, accionables y proporcionales al tamaño y rubro de la empresa.
-- Para Ley 21.719: mencionar como referencia de buenas prácticas, no afirmar incumplimiento.
-- NUNCA mencionar Claude, IA generativa ni herramientas de generación automática. La empresa que elabora es vCISO.cl.
+- Ley 21.719: mencionar como referencia de buenas prácticas, no afirmar incumplimiento.
+- NUNCA mencionar Claude, IA generativa ni herramientas de generación. La empresa que elabora es vCISO.cl.
 - Devolver SOLO JSON válido sin markdown.`,
       messages: [{ role: 'user', content: userPrompt }],
     }),
   });
 
   const data = await resp.json();
-  if (!data.content || !data.content[0]) throw new Error(`Claude no respondió para ${polKey}`);
+  if (!data.content || !data.content[0]) throw new Error('Claude no respondió');
 
   const texto = data.content[0].text.trim();
   const clean = texto.replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
-  return JSON.parse(clean);
+  const parsed = JSON.parse(clean);
+  return parsed.politicas || parsed;
 }
 
 // ── Generar Word de UNA política ──────────────────────────────────────────
@@ -659,32 +653,33 @@ module.exports = async (req, res) => {
   console.log(`Generando ${politicas?.length} políticas para ${datos?.empresa}`);
 
   try {
-    // 1. Generar contenido de cada política con Claude
-    const politicasContenido = [];
-
-    for (const polKey of politicas) {
-      console.log(`Generando política: ${polKey}`);
-      try {
-        const contenido = await generarPolitica(polKey, datos, contexto || {});
-        politicasContenido.push({ polKey, contenido });
-      } catch(e) {
-        console.error(`Error en política ${polKey}:`, e.message);
-        // Contenido de fallback
-        politicasContenido.push({ polKey, contenido: {
-          objetivo: `Esta política establece los lineamientos de ${POLICY_NAMES[polKey]} para ${datos.empresa}.`,
-          alcance: `Aplica a todos los empleados, contratistas y proveedores de ${datos.empresa} que utilicen los recursos tecnológicos de la organización.`,
-          definiciones: [{termino:"Recurso TI", definicion:"Cualquier sistema, equipo o plataforma tecnológica utilizada en la organización."}],
-          responsabilidades: [
-            {rol:"Gerencia", responsabilidad:"Aprobar y respaldar esta política."},
-            {rol:"Empleados", responsabilidad:"Conocer y cumplir esta política."},
-            {rol:"Área TI", responsabilidad:"Implementar y controlar el cumplimiento."},
-          ],
-          lineamientos: [{titulo:"Lineamiento general", contenido:"Esta política será detallada por el equipo de TI según las necesidades específicas de la organización."}],
-          sanciones: "El incumplimiento de esta política podrá resultar en medidas disciplinarias según la gravedad de la falta.",
-          revision: "Esta política será revisada anualmente o ante cambios significativos en la organización.",
-        }});
-      }
+    // 1. Generar TODAS las políticas en una sola llamada a Claude
+    console.log(`Generando ${politicas.length} políticas en una sola llamada...`);
+    let todasPoliticas = {};
+    try {
+      todasPoliticas = await generarTodasPoliticas(politicas, datos, contexto || {});
+      console.log('Claude respondió OK. Políticas generadas:', Object.keys(todasPoliticas).length);
+    } catch(e) {
+      console.error('Error generando políticas:', e.message);
     }
+
+    // Armar array con contenido o fallback
+    const politicasContenido = politicas.map(polKey => ({
+      polKey,
+      contenido: todasPoliticas[polKey] || {
+        objetivo: `Esta política establece los lineamientos de ${POLICY_NAMES[polKey]} para ${datos.empresa}.`,
+        alcance: `Aplica a todos los empleados, contratistas y proveedores de ${datos.empresa}.`,
+        definiciones: [{termino:"Recurso TI", definicion:"Cualquier sistema, equipo o plataforma tecnológica utilizada en la organización."}],
+        responsabilidades: [
+          {rol:"Gerencia", responsabilidad:"Aprobar y respaldar esta política."},
+          {rol:"Empleados", responsabilidad:"Conocer y cumplir esta política."},
+          {rol:"Área TI / Proveedor TI", responsabilidad:"Implementar y controlar el cumplimiento."},
+        ],
+        lineamientos: [{titulo:"Lineamiento general", contenido:"Esta política será detallada según las necesidades específicas de la organización."}],
+        sanciones: "El incumplimiento podrá resultar en medidas disciplinarias según la gravedad de la falta.",
+        revision: "Esta política será revisada anualmente o ante cambios significativos.",
+      }
+    }));
 
     // 2. Generar Word(s)
     const adjuntos = [];
