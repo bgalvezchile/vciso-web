@@ -143,8 +143,168 @@ function generarPlanAccion(riesgos, scores) {
   return { plan30, plan60, plan90 };
 }
 
+
+// ── ANÁLISIS CLAUDE ───────────────────────────────────────────────────────────
+async function analizarConClaude(datos, respuestas, scores) {
+  const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
+  const madurez = nivelMadurez(scores.global);
+
+  // Preparar resumen de respuestas en lenguaje natural
+  const resumen = `
+Empresa: ${datos.empresa} (${datos.rubro || 'PYME'})
+
+MÓDULO 1 — IDENTIFICACIÓN:
+- Tipos de datos: ${(respuestas.p1||[]).join(', ')}
+- Volumen de personas: ${respuestas.p2 || 'no indicado'}
+- Responsable definido: ${respuestas.p3 || 'no indicado'}
+
+MÓDULO 2 — BASES DE LICITUD:
+- Mecanismo recopilación: ${respuestas.p4 || 'no indicado'}
+- Datos de menores: ${respuestas.p4a || 'no indicado'}
+- Informa a titulares: ${respuestas.p5 || 'no indicado'}
+- Política de privacidad web: ${respuestas.p5a || 'no indicado'}
+- Uso para otros fines: ${respuestas.p6 || 'no indicado'}
+- Minimización de datos: ${respuestas.p6a || 'no indicado'}
+
+MÓDULO 3 — INVENTARIO Y FLUJO:
+- Cláusulas en contratos proveedores: ${respuestas.p7 || 'no indicado'}
+- Servicios cloud usados: ${(respuestas.p7a||[]).join(', ') || 'ninguno'}
+- Inventario de datos: ${respuestas.p8 || 'no indicado'}
+- Proveedores con acceso identificados: ${respuestas.p8a || 'no indicado'}
+- Mapa de sistemas: ${respuestas.p9 || 'no indicado'}
+- Política de retención: ${respuestas.p10 || 'no indicado'}
+
+MÓDULO 4 — DERECHOS DE TITULARES:
+- Capacidad responder solicitudes (30 días): ${respuestas.p11 || 'no indicado'}
+- Capacidad eliminar datos: ${respuestas.p12 || 'no indicado'}
+- Canal y procedimiento ARCO: ${respuestas.p13 || 'no indicado'}
+
+MÓDULO 5 — SEGURIDAD:
+- Medidas implementadas: ${(respuestas.p14||[]).join(', ') || 'ninguna'}
+- Clasificación información: ${respuestas.p14a || 'no indicado'}
+- Control de accesos: ${respuestas.p15 || 'no indicado'}
+- Procedimiento incidentes: ${respuestas.p16 || 'no indicado'}
+- Historial incidentes: ${respuestas.p16a || 'no indicado'}
+- Capacitación equipo: ${respuestas.p17 || 'no indicado'}
+
+MÓDULO 6 — GOBERNANZA:
+- Política privacidad interna: ${respuestas.p18 || 'no indicado'}
+- Nivel documentación: ${respuestas.p18a || 'no indicado'}
+- Evaluación de riesgos: ${respuestas.p19 || 'no indicado'}
+
+PUNTAJES CALCULADOS:
+- Bases de licitud: ${scores.licitud}/100
+- Derechos de titulares: ${scores.derechos}/100
+- Inventario y gobernanza: ${scores.inventario}/100
+- Seguridad técnica: ${scores.seguridad}/100
+- Riesgo regulatorio: ${scores.riesgoReg}/100
+- GLOBAL: ${scores.global}/100 — ${madurez.nivel}
+`;
+
+  const prompt = `Acabas de revisar el cuestionario de diagnóstico de cumplimiento Ley 21.719 completado por la siguiente empresa. Como abogado especialista en la ley Y experto en TI y ciberseguridad, genera un diagnóstico profesional, preciso y útil.
+
+RESPUESTAS DEL CUESTIONARIO:
+${resumen}
+
+Genera un diagnóstico de evaluación profesional con la siguiente estructura exacta en JSON:
+
+{
+  "resumen_ejecutivo": "Párrafo de 3-4 oraciones que resume el estado general de la empresa respecto a la Ley 21.719. Usa lenguaje directo y comprensible para un gerente de PYME. Menciona el nivel global (${madurez.nivel}) y las áreas más críticas.",
+  
+  "dimensiones": [
+    {
+      "nombre": "Bases de licitud y consentimiento",
+      "puntaje": ${scores.licitud},
+      "nivel": "${nivelMadurez(scores.licitud).nivel}",
+      "analisis": "2-3 oraciones analizando específicamente qué hace bien y qué le falta a esta empresa en materia de consentimiento, deber de información y minimización de datos. Menciona aspectos concretos de sus respuestas. Sin jerga legal excesiva."
+    },
+    {
+      "nombre": "Derechos de los titulares",
+      "puntaje": ${scores.derechos},
+      "nivel": "${nivelMadurez(scores.derechos).nivel}",
+      "analisis": "2-3 oraciones sobre su capacidad de responder solicitudes de acceso, rectificación y eliminación. Menciona el plazo de 30 días que exige la ley de forma simple."
+    },
+    {
+      "nombre": "Inventario y gobernanza de datos",
+      "puntaje": ${scores.inventario},
+      "nivel": "${nivelMadurez(scores.inventario).nivel}",
+      "analisis": "2-3 oraciones sobre si la empresa sabe qué datos tiene, dónde están y quién los accede. Si usa servicios en la nube, menciona la implicancia de transferencias internacionales de forma simple."
+    },
+    {
+      "nombre": "Seguridad técnica",
+      "puntaje": ${scores.seguridad},
+      "nivel": "${nivelMadurez(scores.seguridad).nivel}",
+      "analisis": "2-3 oraciones sobre las medidas de protección que tiene y las que le faltan. Menciona si tiene o no protocolo de respuesta ante incidentes y la obligación de notificar a la Agencia en 72 horas cuando corresponda."
+    },
+    {
+      "nombre": "Riesgo regulatorio",
+      "puntaje": ${scores.riesgoReg},
+      "nivel": "${nivelMadurez(scores.riesgoReg).nivel}",
+      "analisis": "2-3 oraciones sobre el nivel de exposición regulatoria considerando el tipo de datos que maneja, el volumen y las brechas detectadas. Menciona que la Agencia de Protección de Datos comenzará a fiscalizar en diciembre 2026."
+    }
+  ],
+  
+  "hallazgos_criticos": [
+    "Hallazgo crítico 1 — máximo 2 oraciones, lenguaje simple, describe el problema concreto",
+    "Hallazgo crítico 2",
+    "Hallazgo crítico 3"
+  ],
+  
+  "aspectos_positivos": [
+    "Aspecto positivo 1 — qué está haciendo bien la empresa",
+    "Aspecto positivo 2"
+  ],
+  
+  "conclusion": "Párrafo final de 2-3 oraciones. Resume el nivel de cumplimiento actual, menciona el plazo de diciembre 2026 y recomienda buscar asesoría especializada para implementar las mejoras necesarias. Tono profesional pero accesible."
+}
+
+REGLAS IMPORTANTES:
+- Usa lenguaje claro para un dueño de PYME, no para un abogado
+- Sé específico con las respuestas del cuestionario, no genérico
+- No inventes información que no esté en las respuestas
+- Si la empresa tiene aspectos positivos, reconócelos
+- Los hallazgos críticos deben ser los más importantes, no todos los problemas
+- Máximo 3 hallazgos críticos y 3 aspectos positivos
+- Responde SOLO con el JSON, sin texto adicional ni markdown`;
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': ANTHROPIC_KEY,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 3000,
+      system: `Eres un profesional con doble especialización: abogado experto en la Ley N° 21.719 de Protección de Datos Personales de Chile y sus normas complementarias, Y experto en tecnologías de la información y ciberseguridad con experiencia práctica en PYMEs chilenas.
+
+Tu rol es evaluar el nivel de cumplimiento de una PYME con la Ley 21.719, combinando el análisis legal del articulado con la perspectiva técnica de cómo se implementan los controles en la práctica.
+
+Principios que guían tu evaluación:
+- La Ley 21.719 fue publicada el 13 de diciembre de 2024 y entra en vigencia el 1 de diciembre de 2026
+- La Agencia de Protección de Datos Personales (APDP) fiscalizará y sancionará desde esa fecha
+- Las PYMEs tienen las mismas obligaciones que las grandes empresas, pero reciben amonestación escrita en su primera infracción leve
+- El principio de accountability exige poder DEMOSTRAR el cumplimiento, no solo cumplirlo
+- Desde la perspectiva técnica, evalúas si los controles declarados son suficientes y coherentes
+- Usas lenguaje accesible para un gerente de PYME, sin perder precisión legal ni técnica
+- Eres objetivo: reconoces lo que está bien y señalas lo que falta
+
+Respondes SOLO en JSON válido, sin texto adicional ni markdown.`,
+      messages: [{ role: 'user', content: prompt }],
+    }),
+  });
+
+  const data = await resp.json();
+  if (!data.content || !data.content[0]) throw new Error('Claude no generó análisis');
+  
+  const texto = data.content[0].text.trim();
+  const clean = texto.replace(/^```json\s*/,'').replace(/\s*```$/,'').trim();
+  return JSON.parse(clean);
+}
+
 // ── GENERAR PDF ───────────────────────────────────────────────────────────────
-function generarPDF(datos, scores, riesgos, plan) {
+function generarPDF(datos, scores, analisis) {
   return new Promise((resolve, reject) => {
     try {
       const doc = new PDFDocument({ margin: 60, size: 'A4', info: {
@@ -188,90 +348,110 @@ function generarPDF(datos, scores, riesgos, plan) {
 
       doc.addPage();
 
-      // ── SECCIÓN 1: SCORING POR DIMENSIÓN ──
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('1. Evaluación por Dimensión', 60, 60);
+      // ── SECCIÓN 1: RESUMEN EJECUTIVO ──
+      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('1. Resumen Ejecutivo', 60, 60);
       doc.moveTo(60, 82).lineTo(535, 82).strokeColor(ORANGE).lineWidth(1.5).stroke();
 
-      const dimensiones = [
-        { nombre: 'Bases de licitud y consentimiento', puntaje: scores.licitud },
-        { nombre: 'Derechos de los titulares', puntaje: scores.derechos },
-        { nombre: 'Inventario y gobernanza', puntaje: scores.inventario },
-        { nombre: 'Seguridad técnica', puntaje: scores.seguridad },
-        { nombre: 'Riesgo regulatorio', puntaje: scores.riesgoReg },
-      ];
-
       let y = 100;
-      dimensiones.forEach(d => {
-        const nivel = nivelMadurez(d.puntaje);
-        const barColor = d.puntaje >= 80 ? '#22c55e' : d.puntaje >= 60 ? '#f59e0b' : d.puntaje >= 40 ? '#f97316' : '#ef4444';
-        
-        doc.fillColor(BLACK).font('Helvetica-Bold').fontSize(10).text(d.nombre, 60, y);
-        doc.fillColor(GRAY).font('Helvetica').fontSize(9).text(nivel.nivel, 300, y);
-        doc.fillColor(barColor).font('Helvetica-Bold').fontSize(10).text(`${d.puntaje}/100`, 470, y);
-        
-        // Barra de progreso
-        doc.rect(60, y + 14, W, 8).fill('#f1f5f9');
-        doc.rect(60, y + 14, W * (d.puntaje / 100), 8).fill(barColor);
-        
-        y += 36;
-      });
+      doc.rect(60, y, W, 4).fill(COLOR_NIVEL);
+      y += 12;
+      doc.fillColor(BLACK).font('Helvetica').fontSize(10).text(analisis.resumen_ejecutivo || '', 60, y, {width: W});
+      y += doc.heightOfString(analisis.resumen_ejecutivo || '', {width: W}) + 20;
 
-      // Leyenda
-      y += 10;
-      doc.rect(60, y, W, 36).fill('#f8fafc').stroke('#e2e8f0');
-      doc.fillColor(GRAY).font('Helvetica').fontSize(8)
-        .text('🟢 80-100: Alto cumplimiento   🟡 60-79: Cumplimiento parcial   🟠 40-59: Riesgo relevante   🔴 0-39: Riesgo crítico', 70, y + 14);
-
-      // ── SECCIÓN 2: RIESGOS PRIORITARIOS ──
-      y += 60;
-      if (y > 680) { doc.addPage(); y = 60; }
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('2. Riesgos Prioritarios Detectados', 60, y);
+      // ── SECCIÓN 2: EVALUACIÓN POR DIMENSIÓN ──
+      if (y > 650) { doc.addPage(); y = 60; }
+      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('2. Evaluación por Dimensión', 60, y);
       doc.moveTo(60, y + 22).lineTo(535, y + 22).strokeColor(ORANGE).lineWidth(1.5).stroke();
       y += 36;
 
-      riesgos.forEach(r => {
-        if (y > 720) { doc.addPage(); y = 60; }
-        const prioColor = r.prioridad === 'ALTA' ? '#ef4444' : r.prioridad === 'MEDIA' ? '#f59e0b' : '#64748b';
-        const prioText  = r.prioridad === 'ALTA' ? '● ALTA' : r.prioridad === 'MEDIA' ? '● MEDIA' : '● BAJA';
-        
-        doc.rect(60, y, W, 38).fill(r.prioridad === 'ALTA' ? '#fef2f2' : r.prioridad === 'MEDIA' ? '#fffbeb' : '#f8fafc').stroke('#e2e8f0');
-        doc.fillColor(prioColor).font('Helvetica-Bold').fontSize(8).text(prioText, 70, y + 6);
-        doc.fillColor(GRAY).fontSize(7).text(r.articulo, W - 10, y + 6, {align:'right'});
-        doc.fillColor(BLACK).font('Helvetica').fontSize(9).text(r.texto, 70, y + 18, {width: W - 20});
-        y += 46;
+      const dimensiones = analisis.dimensiones || [];
+      dimensiones.forEach(d => {
+        if (y > 660) { doc.addPage(); y = 60; }
+        const barColor = d.puntaje >= 80 ? '#22c55e' : d.puntaje >= 60 ? '#f59e0b' : d.puntaje >= 40 ? '#f97316' : '#ef4444';
+
+        // Header dimensión
+        doc.rect(60, y, W, 22).fill(barColor);
+        doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10)
+          .text(d.nombre, 70, y + 6)
+          .text(`${d.puntaje}/100 — ${d.nivel}`, 70, y + 6, {width: W - 20, align: 'right'});
+        y += 26;
+
+        // Barra de progreso
+        doc.rect(60, y, W, 6).fill('#f1f5f9');
+        doc.rect(60, y, W * (d.puntaje / 100), 6).fill(barColor);
+        y += 14;
+
+        // Análisis narrativo
+        const analisisText = d.analisis || '';
+        const textHeight = doc.heightOfString(analisisText, {width: W - 20}) + 16;
+        doc.rect(60, y, W, textHeight).fill('#f8fafc').stroke('#e2e8f0');
+        doc.fillColor(BLACK).font('Helvetica').fontSize(9).text(analisisText, 70, y + 8, {width: W - 20});
+        y += textHeight + 10;
       });
 
-      // ── SECCIÓN 3: PLAN DE ACCIÓN ──
-      doc.addPage();
-      y = 60;
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('3. Plan de Acción Recomendado', 60, y);
+      // Leyenda
+      if (y > 700) { doc.addPage(); y = 60; }
+      y += 6;
+      doc.rect(60, y, W, 24).fill('#f8fafc').stroke('#e2e8f0');
+      doc.fillColor(GRAY).font('Helvetica').fontSize(8)
+        .text('🟢 80-100: Alto cumplimiento   🟡 60-79: Cumplimiento parcial   🟠 40-59: Riesgo relevante   🔴 0-39: Riesgo crítico', 70, y + 8);
+      y += 34;
+
+      // ── SECCIÓN 3: HALLAZGOS Y ASPECTOS POSITIVOS ──
+      if (y > 620) { doc.addPage(); y = 60; }
+      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('3. Hallazgos y Aspectos Destacados', 60, y);
       doc.moveTo(60, y + 22).lineTo(535, y + 22).strokeColor(ORANGE).lineWidth(1.5).stroke();
-      y += 40;
+      y += 36;
 
-      const periodos = [
-        { titulo: 'Primeros 30 días — Prioridad ALTA', items: plan.plan30, color: '#ef4444', bg: '#fef2f2' },
-        { titulo: 'Días 31 a 60 — Prioridad MEDIA', items: plan.plan60, color: '#f59e0b', bg: '#fffbeb' },
-        { titulo: 'Días 61 a 90 — Prioridad BAJA', items: plan.plan90, color: '#64748b', bg: '#f8fafc' },
-      ];
-
-      periodos.forEach(p => {
-        if (!p.items.length) return;
-        if (y > 680) { doc.addPage(); y = 60; }
-        doc.rect(60, y, W, 22).fill(p.color).stroke();
-        doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10).text(p.titulo, 70, y + 6);
-        y += 28;
-        p.items.forEach(item => {
+      // Hallazgos críticos
+      const hallazgos = analisis.hallazgos_criticos || [];
+      if (hallazgos.length) {
+        doc.rect(60, y, W, 22).fill('#ef4444');
+        doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10).text('⚠ Aspectos que requieren atención', 70, y + 6);
+        y += 26;
+        hallazgos.forEach(h => {
           if (y > 720) { doc.addPage(); y = 60; }
-          doc.rect(60, y, W, 26).fill(p.bg).stroke('#e2e8f0');
-          doc.fillColor(BLACK).font('Helvetica').fontSize(9).text(`→  ${item}`, 70, y + 8, {width: W - 20});
-          y += 30;
+          const hh = doc.heightOfString(h, {width: W - 30}) + 16;
+          doc.rect(60, y, W, hh).fill('#fef2f2').stroke('#fecaca');
+          doc.fillColor('#dc2626').font('Helvetica-Bold').fontSize(9).text('●', 70, y + 8);
+          doc.fillColor(BLACK).font('Helvetica').fontSize(9).text(h, 84, y + 8, {width: W - 34});
+          y += hh + 4;
         });
-        y += 12;
-      });
+        y += 8;
+      }
 
-      // ── SECCIÓN 4: CONTEXTO REGULATORIO ──
+      // Aspectos positivos
+      const positivos = analisis.aspectos_positivos || [];
+      if (positivos.length) {
+        if (y > 680) { doc.addPage(); y = 60; }
+        doc.rect(60, y, W, 22).fill('#22c55e');
+        doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10).text('✓ Aspectos positivos identificados', 70, y + 6);
+        y += 26;
+        positivos.forEach(p => {
+          if (y > 720) { doc.addPage(); y = 60; }
+          const ph = doc.heightOfString(p, {width: W - 30}) + 16;
+          doc.rect(60, y, W, ph).fill('#f0fdf4').stroke('#bbf7d0');
+          doc.fillColor('#16a34a').font('Helvetica-Bold').fontSize(9).text('✓', 70, y + 8);
+          doc.fillColor(BLACK).font('Helvetica').fontSize(9).text(p, 84, y + 8, {width: W - 34});
+          y += ph + 4;
+        });
+        y += 8;
+      }
+
+      // Conclusión
+      if (y > 660) { doc.addPage(); y = 60; }
+      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('4. Conclusión', 60, y);
+      doc.moveTo(60, y + 22).lineTo(535, y + 22).strokeColor(ORANGE).lineWidth(1.5).stroke();
+      y += 36;
+      const concText = analisis.conclusion || '';
+      const concH = doc.heightOfString(concText, {width: W - 20}) + 20;
+      doc.rect(60, y, W, concH).fill('#eff6ff').stroke('#bfdbfe');
+      doc.fillColor(BLACK).font('Helvetica').fontSize(10).text(concText, 70, y + 10, {width: W - 20});
+      y += concH + 20;
+
+      // ── SECCIÓN 5: CONTEXTO REGULATORIO ──
       if (y > 600) { doc.addPage(); y = 60; }
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('4. Contexto Regulatorio', 60, y);
+      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('5. Contexto Regulatorio', 60, y);
       doc.moveTo(60, y + 22).lineTo(535, y + 22).strokeColor(ORANGE).lineWidth(1.5).stroke();
       y += 36;
 
@@ -300,9 +480,9 @@ function generarPDF(datos, scores, riesgos, plan) {
       doc.fillColor(GRAY).font('Helvetica').fontSize(7.5)
         .text('Este diagnóstico constituye una evaluación preliminar basada exclusivamente en las respuestas proporcionadas por la organización. No constituye una auditoría legal, técnica ni certificación de cumplimiento de la Ley N° 21.719 de Protección de Datos Personales. Los puntajes y recomendaciones tienen carácter orientativo. Para efectos de cumplimiento formal, se recomienda consultar con un abogado especializado. vCISO.cl no asume responsabilidad por las decisiones adoptadas en base a este informe.', 70, y + 22, {width: W - 20});
 
-      // Footer en cada página
-      const totalPages = doc.bufferedPageRange().count + 1;
-      for (let i = 0; i < doc._pageBuffer.length; i++) {
+      // Footer en cada página — compatible con pdfkit
+      const range = doc.bufferedPageRange();
+      for (let i = range.start; i < range.start + range.count; i++) {
         doc.switchToPage(i);
         doc.fillColor(GRAY).font('Helvetica').fontSize(7)
           .text(`Diagnóstico Ley 21.719 · ${datos.empresa} · ${fecha} · Confidencial · vCISO.cl`, 60, 810, {width: W, align:'center'});
@@ -334,20 +514,24 @@ module.exports = async (req, res) => {
   try {
     // 1. Calcular scoring
     const scores  = calcularScoring(respuestas);
-    const riesgos = detectarRiesgos(respuestas, scores);
-    const plan    = generarPlanAccion(riesgos, scores);
     const madurez = nivelMadurez(scores.global);
 
     console.log(`Scores: global=${scores.global}, nivel=${madurez.nivel}`);
 
-    // 2. Generar PDF
-    const pdfBuffer  = await generarPDF({ empresa, rubro, email }, scores, riesgos, plan);
+    // 2. Análisis con Claude
+    console.log('Llamando a Claude para análisis...');
+    const analisis = await analizarConClaude({ empresa, rubro }, respuestas, scores);
+    console.log('Análisis Claude completado');
+
+    // 3. Generar PDF
+    const pdfBuffer  = await generarPDF({ empresa, rubro, email }, scores, analisis);
     const pdfBase64  = pdfBuffer.toString('base64');
     const nombrePDF  = `Diagnostico_Ley21719_${empresa.replace(/[^a-zA-Z0-9]/g,'_')}_vCISO.pdf`;
 
     // 3. Email al cliente
     const colorNivel = scores.global >= 80 ? '#22c55e' : scores.global >= 60 ? '#f59e0b' : scores.global >= 40 ? '#f97316' : '#ef4444';
     
+    const resumenEjecutivo = analisis.resumen_ejecutivo || '';
     const dimensionesHTML = [
       ['Bases de licitud', scores.licitud],
       ['Derechos de titulares', scores.derechos],
@@ -367,9 +551,12 @@ module.exports = async (req, res) => {
       <div style="font-size:1.6rem;font-weight:900;margin-bottom:4px">v<span style="color:#f47c47">CISO</span>.cl</div>
       <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-bottom:28px;text-transform:uppercase;letter-spacing:0.06em">Diagnóstico Ley 21.719 · ${fecha}</div>
       <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Tu diagnóstico de cumplimiento está listo</h2>
-      <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-bottom:24px">
+      <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-bottom:16px">
         Hola <strong style="color:#fff">${empresa}</strong>, adjunto encontrarás tu informe PDF de cumplimiento con la Ley 21.719.
       </p>
+      <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:14px;margin-bottom:16px;font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.6;border-left:3px solid ${colorNivel};">
+        ${resumenEjecutivo}
+      </div>
       <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:20px;margin-bottom:24px">
         <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.08);">
           <div style="font-size:2.5rem;font-weight:900;color:${colorNivel};">${scores.global}</div>
