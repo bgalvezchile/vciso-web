@@ -172,6 +172,11 @@
     font-weight: 600; padding: 8px 18px;
   }
   .nav-links .btn-nav:hover { background: var(--orange-lt); box-shadow: 0 0 18px rgba(232,93,38,0.35); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: rgba(255,255,255,0.8); font-size: 1.5rem; line-height: 1; }
+  .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: #0d1f3c; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 16px 5%; z-index: 99; flex-direction: column; gap: 4px; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.95rem; font-weight: 500; padding: 12px 16px; border-radius: 8px; transition: all .2s; }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.06); color: #fff; }
   .nav-back {
     display: flex; align-items: center; gap: 8px;
     font-size: 0.85rem; color: rgba(255,255,255,0.5);
@@ -304,6 +309,7 @@
   @media (max-width: 768px) {
     .vciso-nav { padding: 0 20px; }
     .nav-links .nav-link { display: none; }
+    .hamburger { display: block; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .page-wrap { padding: 32px 16px 0; }
   }
@@ -500,7 +506,17 @@ section { position:relative; z-index:1; }
     <li><a href="https://wa.me/56981307440?text=Hola%2C+quisiera+información+sobre+vCISO.cl"
            class="btn btn-nav" target="_blank" rel="noopener">Hablar con un experto</a></li>
   </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">☰</button>
 </nav>
+
+<!-- MENÚ MÓVIL -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="/#como-funciona" onclick="toggleMenu()">Cómo funciona</a>
+  <a href="/#precios" onclick="toggleMenu()">Precios</a>
+  <a href="/scanner-dominio" onclick="toggleMenu()">Test gratuito</a>
+  <a href="https://wa.me/56981307440" target="_blank" rel="noopener" style="color:#25d366;">💬 WhatsApp</a>
+</div>
 
 <!-- HERO -->
 <section aria-label="Presentación principal">
@@ -759,9 +775,9 @@ section { position:relative; z-index:1; }
     <div class="footer-col">
       <h4>Legal</h4>
       <ul>
-        <li><a href="#">Política de Privacidad</a></li>
-        <li><a href="#">Términos de servicio</a></li>
-        <li><a href="#">Ley 21.719</a></li>
+        <li><a href="/legal#privacidad">Política de Privacidad</a></li>
+        <li><a href="/legal#terminos">Términos de Servicio</a></li>
+        <li><a href="/legal#ley21719">Ley 21.719</a></li>
       </ul>
     </div>
   </div>
