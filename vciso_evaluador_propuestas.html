@@ -627,7 +627,7 @@ function buildSummary() {
 async function submitForm() {
   const btn = document.getElementById('btn-submit');
   btn.disabled = true;
-  btn.textContent = '&#9203; Subiendo archivos...';
+  btn.innerHTML = '⏳ Subiendo archivos...';
   
   try {
     // 1. Recopilar datos de proveedores
@@ -638,7 +638,7 @@ async function submitForm() {
     for (let i = 0; i < nombres.length; i++) {
       if (nombres[i].value.trim() && archivos[i]) {
         // Subir archivo a Vercel Blob via API
-        btn.textContent = `&#9203; Subiendo propuesta ${proveedores.length + 1}...`;
+        btn.innerHTML = `⏳ Subiendo propuesta ${proveedores.length + 1}...`;
         
         const formData = new FormData();
         formData.append('file', archivos[i]);
@@ -662,7 +662,7 @@ async function submitForm() {
     }
     
     // 2. Enviar datos al backend
-    btn.textContent = '&#9203; Evaluando propuestas...';
+    btn.innerHTML = '⏳ Evaluando propuestas...';
     
     const payload = {
       token:    window.__accessToken || '',
@@ -697,7 +697,7 @@ async function submitForm() {
     
   } catch(e) {
     btn.disabled = false;
-    btn.innerHTML = '&#128640; Evaluar propuestas';
+    btn.innerHTML = '🚀 Evaluar propuestas';
     alert('Hubo un error. Por favor intenta de nuevo o escríbenos a contacto@vciso.cl');
   }
 }
