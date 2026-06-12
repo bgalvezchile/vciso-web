@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
     const blobName  = `propuestas/${timestamp}_${safeName}`;
     
     const blob = await put(blobName, fileBuffer, {
-      access: 'public',
+      access: 'private',
       contentType: mimeType,
       token: process.env.BLOB_READ_WRITE_TOKEN,
     });
