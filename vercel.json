@@ -23,6 +23,9 @@
     },
     "api/get-download.js": {
       "maxDuration": 30
+    },
+    "api/submit-ley21719.js": {
+      "maxDuration": 120
     }
   },
   "rewrites": [
@@ -77,6 +80,10 @@
     {
       "source": "/legal",
       "destination": "/legal.html"
+    },
+    {
+      "source": "/diagnostico-ley21719",
+      "destination": "/vciso_ley21719.html"
     }
   ]
 }
