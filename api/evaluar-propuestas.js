@@ -2,7 +2,7 @@
 // Descarga propuestas desde Blob, Claude las analiza, genera Word, envía email, limpia Blob
 const crypto = require('crypto');
 const fetch  = require('node-fetch');
-const { del } = require('@vercel/blob');
+const { del, download } = require('@vercel/blob');
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
   AlignmentType, HeadingLevel, BorderStyle, WidthType, ShadingType,
@@ -76,8 +76,10 @@ const empty = () => new Paragraph({ children:[new TextRun({ text:"" })] });
 
 // ── Descargar y convertir archivo a texto ─────────────────────────────────
 async function extraerTexto(blobUrl, fileName) {
-  const resp = await fetch(blobUrl);
-  const buffer = await resp.buffer();
+  const { body } = await download(blobUrl, { token: process.env.BLOB_READ_WRITE_TOKEN });
+  const chunks = [];
+  for await (const chunk of body) chunks.push(chunk);
+  const buffer = Buffer.concat(chunks);
   
   // Para PDF y Word, enviamos como base64 a Claude directamente
   const base64 = buffer.toString('base64');
@@ -643,7 +645,7 @@ module.exports = async (req, res) => {
     // 5. Eliminar archivos del Blob
     console.log('Eliminando archivos del Blob...');
     for (const url of blobUrls) {
-      try { await del(url); } catch(e) { console.error('Error eliminando:', e.message); }
+      try { await del(url, { token: process.env.BLOB_READ_WRITE_TOKEN }); } catch(e) { console.error('Error eliminando:', e.message); }
     }
 
     console.log('Proceso completado exitosamente');
@@ -653,7 +655,7 @@ module.exports = async (req, res) => {
     console.error('evaluar-propuestas error:', err.message, err.stack);
     // Intentar limpiar archivos aunque haya error
     for (const url of blobUrls) {
-      try { await del(url); } catch(e) {}
+      try { await del(url, { token: process.env.BLOB_READ_WRITE_TOKEN }); } catch(e) {}
     }
     return res.status(500).json({ error: 'Error procesando evaluación' });
   }
