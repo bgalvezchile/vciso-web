@@ -2,7 +2,7 @@
 // Descarga propuestas desde Blob, Claude las analiza, genera Word, envía email, limpia Blob
 const crypto = require('crypto');
 const fetch  = require('node-fetch');
-const { del, download } = require('@vercel/blob');
+const { del } = require('@vercel/blob');
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
   AlignmentType, HeadingLevel, BorderStyle, WidthType, ShadingType,
@@ -76,10 +76,10 @@ const empty = () => new Paragraph({ children:[new TextRun({ text:"" })] });
 
 // ── Descargar y convertir archivo a texto ─────────────────────────────────
 async function extraerTexto(blobUrl, fileName) {
-  const { body } = await download(blobUrl, { token: process.env.BLOB_READ_WRITE_TOKEN });
-  const chunks = [];
-  for await (const chunk of body) chunks.push(chunk);
-  const buffer = Buffer.concat(chunks);
+  const resp = await fetch(blobUrl);
+  if (!resp.ok) throw new Error('Error descargando blob: ' + resp.status);
+  const arrayBuffer = await resp.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
   
   // Para PDF y Word, enviamos como base64 a Claude directamente
   const base64 = buffer.toString('base64');
