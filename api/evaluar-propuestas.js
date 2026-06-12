@@ -146,7 +146,7 @@ Devuelve SOLO este JSON:
 }
 
 // ── Evaluar propuesta con Claude ──────────────────────────────────────────
-async function evaluarPropuesta(nombre, fileData, producto, contexto, ponderaciones, infoExterna) {
+async function evaluarPropuesta(nombre, fileData, producto, contexto, ponderaciones, infoExterna, datos = {}) {
   const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
   
   const messages = [{
@@ -167,8 +167,8 @@ async function evaluarPropuesta(nombre, fileData, producto, contexto, ponderacio
 Contexto adicional del cliente: ${contexto || 'No proporcionado'}
 
 Ponderaciones del proceso:
-- Aspectos Técnicos: ${ponderaciones.tecnico}%
-- Aspectos Comerciales: ${ponderaciones.comercial}%  
+- Aspectos Funcionales: ${datos.ponderaciones?.funcional || ponderaciones.funcional || 50}%
+- Aspectos Comerciales: ${ponderaciones.comercial}%
 - Aspectos Empresariales: ${ponderaciones.empresarial}%
 
 Información externa encontrada sobre el proveedor:
@@ -180,7 +180,7 @@ Información externa encontrada sobre el proveedor:
 Evalúa la propuesta y devuelve SOLO este JSON (sin markdown):
 {
   "resumen_propuesta": "Resumen de 2-3 oraciones sobre lo que ofrece esta propuesta",
-  "aspectos_tecnicos": {
+  "aspectos_funcionales": {
     "calidad_solucion": {"puntaje": 1-5, "justificacion": "1-2 oraciones"},
     "capacidad_tecnica": {"puntaje": 1-5, "justificacion": "1-2 oraciones"},
     "calidad_certificada": {"puntaje": 1-5, "justificacion": "1-2 oraciones"},
@@ -221,6 +221,7 @@ Evalúa la propuesta y devuelve SOLO este JSON (sin markdown):
       system: `Eres un consultor senior especializado en evaluación de proveedores TI para PYMEs chilenas. 
 Evalúas propuestas con criterio profesional, objetivo y equilibrado.
 Usas escala 1-5: 1=Muy deficiente, 2=Deficiente, 3=Aceptable, 4=Bueno, 5=Excelente.
+Adaptas los criterios de evaluación al tipo de servicio o producto que se evalúa.
 Respondes SOLO en JSON válido sin markdown.`,
       messages,
     }),
@@ -236,11 +237,11 @@ Respondes SOLO en JSON válido sin markdown.`,
 
 // ── Calcular puntaje ponderado ─────────────────────────────────────────────
 function calcularPuntaje(evaluacion, ponderaciones) {
-  const wT = ponderaciones.tecnico / 100;
+  const wT = (ponderaciones.funcional || ponderaciones.tecnico || 50) / 100;
   const wC = ponderaciones.comercial / 100;
   const wE = ponderaciones.empresarial / 100;
   
-  const t = evaluacion.aspectos_tecnicos;
+  const t = evaluacion.aspectos_funcionales || evaluacion.aspectos_tecnicos;
   const c = evaluacion.aspectos_comerciales;
   const e = evaluacion.aspectos_empresariales;
   
@@ -279,7 +280,7 @@ async function generarWordInforme(datos, resultados) {
       ["Empresa",    datos.empresa],
       ["Producto/Servicio evaluado", datos.producto],
       ["N° de propuestas", `${resultados.length} propuestas evaluadas`],
-      ["Criterio técnico", `${datos.ponderaciones.tecnico}%`],
+      ["Criterio funcional", `${datos.ponderaciones.funcional || datos.ponderaciones.tecnico || 50}%`],
       ["Criterio comercial", `${datos.ponderaciones.comercial}%`],
       ["Criterio empresarial", `${datos.ponderaciones.empresarial}%`],
       ["Fecha de evaluación", fecha],
@@ -313,7 +314,7 @@ async function generarWordInforme(datos, resultados) {
       new TableRow({children:[
         cell([p("#",{bold:true,size:18,color:WHITE,align:AlignmentType.CENTER})],{w:540,bg:NAVY}),
         cell([p("Proveedor",{bold:true,size:18,color:WHITE})],{w:2500,bg:NAVY}),
-        cell([p(`Técnico\n${datos.ponderaciones.tecnico}%`,{bold:true,size:17,color:WHITE,align:AlignmentType.CENTER})],{w:1560,bg:NAVY}),
+        cell([p(`Funcional\n${datos.ponderaciones.funcional || datos.ponderaciones.tecnico || 50}%`,{bold:true,size:17,color:WHITE,align:AlignmentType.CENTER})],{w:1560,bg:NAVY}),
         cell([p(`Comercial\n${datos.ponderaciones.comercial}%`,{bold:true,size:17,color:WHITE,align:AlignmentType.CENTER})],{w:1560,bg:NAVY}),
         cell([p(`Empresarial\n${datos.ponderaciones.empresarial}%`,{bold:true,size:17,color:WHITE,align:AlignmentType.CENTER})],{w:1560,bg:NAVY}),
         cell([p("Puntaje\nTotal",{bold:true,size:18,color:WHITE,align:AlignmentType.CENTER})],{w:1680,bg:ORANGE}),
@@ -373,7 +374,7 @@ async function generarWordInforme(datos, resultados) {
     
     // Tabla de puntajes detallados
     const criterios = [
-      ...Object.entries(ev.aspectos_tecnicos).map(([k,v]) => ({area:"Técnico",criterio:k.replace(/_/g,' '),puntaje:v.puntaje,just:v.justificacion})),
+      ...Object.entries(ev.aspectos_funcionales || ev.aspectos_tecnicos || {}).map(([k,v]) => ({area:"Funcional",criterio:k.replace(/_/g,' '),puntaje:v.puntaje,just:v.justificacion})),
       ...Object.entries(ev.aspectos_comerciales).map(([k,v]) => ({area:"Comercial",criterio:k.replace(/_/g,' '),puntaje:v.puntaje,just:v.justificacion})),
       ...Object.entries(ev.aspectos_empresariales).map(([k,v]) => ({area:"Empresarial",criterio:k.replace(/_/g,' '),puntaje:v.puntaje,just:v.justificacion})),
     ];
@@ -459,7 +460,7 @@ async function generarWordInforme(datos, resultados) {
   
   children.push(p(`Basándose en el análisis comparativo de las ${resultados.length} propuestas recibidas para "${datos.producto}", el proveedor con mejor evaluación global es ${ganador.nombre}, con un puntaje ponderado de ${ganador.puntajes.total.toFixed(2)} sobre 5.00.`,{size:20,color:GRAY_TX,sa:120}));
   
-  children.push(p(`Esta evaluación consideró los criterios definidos para el proceso: ${datos.ponderaciones.tecnico}% aspectos técnicos, ${datos.ponderaciones.comercial}% aspectos comerciales y ${datos.ponderaciones.empresarial}% aspectos empresariales. Los puntajes reflejan el análisis del contenido de cada propuesta y la información externa verificada sobre cada proveedor.`,{size:20,color:GRAY_TX,sa:120}));
+  children.push(p(`Esta evaluación consideró los criterios definidos para el proceso: ${datos.ponderaciones.funcional || datos.ponderaciones.tecnico || 50}% aspectos funcionales, ${datos.ponderaciones.comercial}% aspectos comerciales y ${datos.ponderaciones.empresarial}% aspectos empresariales. Los puntajes reflejan el análisis del contenido de cada propuesta y la información externa verificada sobre cada proveedor.`,{size:20,color:GRAY_TX,sa:120}));
   
   children.push(p("Se recomienda revisar este informe en conjunto con el equipo decisor antes de formalizar la contratación, y solicitar referencias directas al proveedor seleccionado.",{size:20,color:GRAY_TX,sa:200}));
   
@@ -534,7 +535,7 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { token, empresa, email, producto, contexto, ponderaciones, proveedores } = req.body || {};
+  const { token, empresa, email, producto, contexto, ponderaciones, proveedores, categoria, empleados } = req.body || {};
 
   const info = token ? verifyToken(token) : null;
   if (!info) return res.status(403).json({ error: 'Token inválido o expirado' });
@@ -564,7 +565,8 @@ module.exports = async (req, res) => {
       const fileData   = await extraerTexto(prov.blobUrl, prov.fileName);
       const evaluacion = await evaluarPropuesta(
         prov.nombre, fileData, producto, contexto,
-        ponderaciones, infoExterna[prov.nombre]
+        ponderaciones, infoExterna[prov.nombre],
+        { empresa, categoria: categoria || 'General', empleados: empleados || '' }
       );
       const puntajes = calcularPuntaje(evaluacion, ponderaciones);
       resultados.push({
@@ -578,7 +580,7 @@ module.exports = async (req, res) => {
     // 3. Generar Word
     console.log('Generando informe Word...');
     const wordBuffer = await generarWordInforme(
-      { empresa, producto, contexto, ponderaciones },
+      { empresa, producto, contexto, ponderaciones, categoria: categoria || 'General', empleados: empleados || '' },
       resultados
     );
     const wordBase64 = wordBuffer.toString('base64');
