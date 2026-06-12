@@ -120,6 +120,15 @@
   .step-num-small{width:24px;height:24px;border-radius:50%;background:var(--navy);color:white;font-size:0.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
   .step-item p{font-size:0.84rem;color:#334155;line-height:1.5;}
   #access-denied{display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;max-width:520px;margin:0 auto;}
+  #progress-overlay{display:none;position:fixed;inset:0;background:rgba(8,15,30,0.92);z-index:999;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
+  #progress-overlay.active{display:flex;}
+  .progress-spinner{width:64px;height:64px;border:4px solid rgba(255,255,255,0.1);border-top-color:#f47c47;border-radius:50%;animation:spin2 1s linear infinite;margin-bottom:28px;}
+  @keyframes spin2{to{transform:rotate(360deg)}}
+  .progress-step-msg{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:8px;text-align:center;}
+  .progress-sub-msg{font-size:0.85rem;color:rgba(255,255,255,0.5);text-align:center;max-width:380px;line-height:1.6;}
+  .progress-bar-wrap{width:320px;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin-top:24px;overflow:hidden;}
+  .progress-bar-fill{height:100%;background:linear-gradient(90deg,#1e4fad,#f47c47);border-radius:3px;transition:width 0.8s ease;width:5%;}
+  .progress-warning{margin-top:28px;padding:12px 20px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:8px;font-size:0.78rem;color:#fcd34d;text-align:center;max-width:380px;}
   @media(max-width:600px){.card-body{padding:20px;}.form-nav{padding:16px 20px;flex-direction:column;gap:10px;}.field-grid{grid-template-columns:1fr;}.formato-grid{grid-template-columns:1fr;}.btn-prev,.btn-next,.btn-submit{width:100%;justify-content:center;}}
   </style>
 </head>
@@ -469,9 +478,35 @@ function buildSummary(){
   document.getElementById('resumen-politicas').innerHTML='<div style="font-size:0.78rem;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">'+selected.length+' política'+(selected.length!==1?'s':'')+' seleccionada'+(selected.length!==1?'s':'')+'</div>'+selected.map(k=>'<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #d1fae5;font-size:0.85rem;color:#15803d;"><span>'+POLICIES_CONFIG[k].icon+'</span><span style="font-weight:600;">'+POLICIES_CONFIG[k].name+'</span></div>').join('')+'<div style="margin-top:12px;font-size:0.9rem;font-weight:700;color:#0d1f3c;">Total: $49.900 CLP · Precio único incluye todas las políticas seleccionadas</div>';
 }
 
+
+const POL_STEPS = [
+  {msg:'Procesando solicitud...', sub:'Verificando los datos de tu empresa.', pct:10},
+  {msg:'Redactando políticas (lote 1)...', sub:'Elaborando las primeras políticas adaptadas a tu empresa.', pct:40},
+  {msg:'Redactando políticas (lote 2)...', sub:'Continuando con las políticas restantes.', pct:68},
+  {msg:'Generando documentos Word...', sub:'Creando archivos con control de versiones y tabla de firmas.', pct:88},
+  {msg:'Enviando a tu correo...', sub:'Los documentos están listos. Enviando por email.', pct:97},
+];
+let polStep=0, polTimer=null;
+function startPolProgress(){
+  document.getElementById('progress-overlay').classList.add('active');
+  document.body.style.overflow='hidden';
+  polStep=0; setPolStep(0);
+  polTimer=setInterval(()=>{if(polStep<POL_STEPS.length-1){polStep++;setPolStep(polStep);}},35000);
+}
+function setPolStep(i){
+  document.getElementById('prog-msg').textContent=POL_STEPS[i].msg;
+  document.getElementById('prog-sub').textContent=POL_STEPS[i].sub;
+  document.getElementById('prog-bar').style.width=POL_STEPS[i].pct+'%';
+}
+function stopPolProgress(){
+  if(polTimer)clearInterval(polTimer);
+  document.getElementById('progress-overlay').classList.remove('active');
+  document.body.style.overflow='';
+}
 async function submitForm(){
   const btn=document.getElementById('btn-submit');
   btn.disabled=true;
+  startPolProgress();
   btn.textContent='⏳ Generando políticas...';
   const selected=getSelectedPolicies();
   const formato=document.querySelector('input[name="formato"]:checked').value;
@@ -495,6 +530,7 @@ async function submitForm(){
   try{
     const resp=await fetch('/api/submit-politicas',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     if(resp.ok){
+      stopPolProgress();
       document.getElementById('form-container').style.display='none';
       document.getElementById('result').style.display='block';
       document.getElementById('result-empresa').textContent=datos.empresa;
@@ -505,6 +541,7 @@ async function submitForm(){
       alert('Hubo un error al generar las políticas. Por favor intenta de nuevo o escríbenos a contacto@vciso.cl');
     }
   }catch(e){
+    stopPolProgress();
     btn.disabled=false;btn.innerHTML='🚀 Generar mis políticas';
     alert('Error de conexión. Por favor intenta de nuevo.');
   }
