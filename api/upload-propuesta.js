@@ -62,12 +62,10 @@ module.exports = async (req, res) => {
     const safeName  = fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
     const blobName  = `propuestas/${timestamp}_${safeName}`;
     
-    const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN || 'vercel_blob_rw_2Iz8qVo7Kgk5k7Vr_dxEfXanfw5ZPAA5oyQG66ooj7MNHQu';
-    console.log('Token usado:', BLOB_TOKEN.substring(0,30) + '...');
     const blob = await put(blobName, fileBuffer, {
       access: 'public',
       contentType: mimeType,
-      token: BLOB_TOKEN,
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     });
     
     console.log(`Archivo subido: ${blob.url}`);
