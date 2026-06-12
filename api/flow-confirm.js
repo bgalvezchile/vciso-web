@@ -61,8 +61,8 @@ const PRODUCTS = {
   },
   evaluador: {
     prefix:       'EVAL',
-    name:         'Evaluador de Propuestas TI',
-    price:        '$69.900 CLP',
+    name:         'Evaluador de Propuestas',
+    price:        '$79.900 CLP',
     hasDownload:  false,
     hasForm:      true,
     formPath:     '/evaluador-propuestas',
