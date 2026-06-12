@@ -84,7 +84,9 @@ async function extraerTexto(blobUrl, fileName) {
   // Para PDF y Word, enviamos como base64 a Claude directamente
   const base64 = buffer.toString('base64');
   const isPdf  = fileName.toLowerCase().endsWith('.pdf');
+  const isDocx = fileName.toLowerCase().endsWith('.docx') || fileName.toLowerCase().endsWith('.doc');
   const mimeType = isPdf ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  console.log('Archivo:', fileName, 'isPdf:', isPdf, 'isDocx:', isDocx, 'size:', buffer.length);
   
   return { base64, mimeType, isPdf };
 }
@@ -214,7 +216,7 @@ Evalúa la propuesta y devuelve SOLO este JSON (sin markdown):
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
+      model: 'claude-sonnet-4-6',
       max_tokens: 4000,
       system: `Eres un consultor senior especializado en evaluación de proveedores TI para PYMEs chilenas. 
 Evalúas propuestas con criterio profesional, objetivo y equilibrado.
