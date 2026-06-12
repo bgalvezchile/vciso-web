@@ -199,6 +199,38 @@
             <span class="error-msg" id="err-producto">Campo requerido</span>
           </div>
         </div>
+        <div class="field-grid">
+          <div class="field">
+            <label>Categoría de las propuestas *</label>
+            <select id="categoria">
+              <option value="">Selecciona...</option>
+              <option value="Tecnología y Sistemas">💻 Tecnología y Sistemas (ERP, software, hardware, soporte TI)</option>
+              <option value="Ciberseguridad">🔒 Ciberseguridad (antivirus, firewall, backups, consultoría)</option>
+              <option value="Seguridad Física y Vigilancia">👮 Seguridad Física y Vigilancia (guardias, alarmas, cámaras)</option>
+              <option value="Servicios de Aseo y Limpieza">🧹 Servicios de Aseo y Limpieza (oficinas, industria, sanitización)</option>
+              <option value="Capacitación y Formación">🎓 Capacitación y Formación (cursos, talleres, e-learning, SENCE)</option>
+              <option value="Transporte y Logística">🚛 Transporte y Logística (flota, courier, traslado de personal)</option>
+              <option value="Construcción y Mantención">🏗️ Construcción y Mantención (obras menores, remodelación)</option>
+              <option value="Marketing y Comunicaciones">📣 Marketing y Comunicaciones (agencia digital, diseño, RRSS)</option>
+              <option value="Alimentación y Casino">🍽️ Alimentación y Casino (catering, casino empresarial)</option>
+              <option value="Asesoría Profesional">📋 Asesoría Profesional (contabilidad, legal, RRHH, gestión)</option>
+              <option value="Equipamiento y Mobiliario">🪑 Equipamiento y Mobiliario (muebles, equipos, herramientas)</option>
+              <option value="Otro">✏️ Otro — describirlo en el contexto</option>
+            </select>
+            <span class="error-msg" id="err-categoria">Campo requerido</span>
+          </div>
+          <div class="field">
+            <label>Número de empleados</label>
+            <select id="empleados">
+              <option value="">Selecciona...</option>
+              <option>1 – 10</option>
+              <option>11 – 50</option>
+              <option>51 – 200</option>
+              <option>Más de 200</option>
+            </select>
+          </div>
+        </div>
+
         <div class="field-grid full">
           <div class="field">
             <label>Contexto adicional (opcional)</label>
@@ -212,11 +244,11 @@
         <div class="sliders-wrap">
           <div class="slider-row">
             <div class="slider-header">
-              <span class="slider-label">&#128187; Aspectos Técnicos</span>
-              <span class="slider-value" id="val-tecnico">50%</span>
+              <span class="slider-label">⚙️ Aspectos Funcionales</span>
+              <span class="slider-value" id="val-funcional">50%</span>
             </div>
-            <input type="range" id="sl-tecnico" min="10" max="80" value="50" oninput="updateSliders('tecnico')"/>
-            <span style="font-size:0.72rem;color:#94a3b8;">Funcionalidad, capacidad técnica, calidad, plazos de implementación</span>
+            <input type="range" id="sl-funcional" min="10" max="80" value="50" oninput="updateSliders('tecnico')"/>
+            <span style="font-size:0.72rem;color:#94a3b8;">Calidad de la solución, cumplimiento del requerimiento, experiencia, plazos</span>
           </div>
           <div class="slider-row">
             <div class="slider-header">
@@ -383,17 +415,17 @@ const archivos = {}; // {index: File}
 
 // ── Sliders ───────────────────────────────────────────────────────────────
 function updateSliders(changed) {
-  const t = parseInt(document.getElementById('sl-tecnico').value);
+  const t = parseInt(document.getElementById('sl-funcional').value);
   const c = parseInt(document.getElementById('sl-comercial').value);
   const e = parseInt(document.getElementById('sl-empresarial').value);
   const total = t + c + e;
   
-  document.getElementById('val-tecnico').textContent = t + '%';
+  document.getElementById('val-funcional').textContent = t + '%';
   document.getElementById('val-comercial').textContent = c + '%';
   document.getElementById('val-empresarial').textContent = e + '%';
   
   // Actualizar gradiente visual
-  ['tecnico','comercial','empresarial'].forEach(id => {
+  ['funcional','comercial','empresarial'].forEach(id => {
     const sl = document.getElementById('sl-' + id);
     const val = parseInt(sl.value);
     const pct = ((val - parseInt(sl.min)) / (parseInt(sl.max) - parseInt(sl.min))) * 100;
@@ -513,7 +545,7 @@ function validateStep(step) {
   let ok = true;
   
   if (step === 1) {
-    ['empresa','email','producto'].forEach(id => {
+    ['empresa','email','producto','categoria'].forEach(id => {
       const el = document.getElementById(id);
       const err = document.getElementById('err-' + id);
       const val = el ? el.value.trim() : '';
@@ -524,7 +556,7 @@ function validateStep(step) {
         if (err) err.classList.remove('visible');
       }
     });
-    const t = parseInt(document.getElementById('sl-tecnico').value);
+    const t = parseInt(document.getElementById('sl-funcional').value);
     const c = parseInt(document.getElementById('sl-comercial').value);
     const e = parseInt(document.getElementById('sl-empresarial').value);
     if (t + c + e !== 100) {
@@ -574,7 +606,7 @@ function buildSummary() {
     <div style="font-size:1rem;font-weight:700;color:#0d1f3c;margin-bottom:4px;">${empresa}</div>
     <div style="font-size:0.88rem;color:#64748b;margin-bottom:8px;">${producto}</div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
-      <span style="font-size:0.8rem;background:#dbeafe;color:#1e40af;padding:3px 10px;border-radius:20px;font-weight:600;">&#128187; Técnico ${t}%</span>
+      <span style="font-size:0.8rem;background:#dbeafe;color:#1e40af;padding:3px 10px;border-radius:20px;font-weight:600;">⚙️ Funcional ${t}%</span>
       <span style="font-size:0.8rem;background:#dcfce7;color:#15803d;padding:3px 10px;border-radius:20px;font-weight:600;">&#128176; Comercial ${c}%</span>
       <span style="font-size:0.8rem;background:#fef9c3;color:#854d0e;padding:3px 10px;border-radius:20px;font-weight:600;">&#127970; Empresarial ${e}%</span>
     </div>`;
@@ -638,8 +670,10 @@ async function submitForm() {
       email:    document.getElementById('email').value.trim(),
       producto: document.getElementById('producto').value.trim(),
       contexto: document.getElementById('contexto').value.trim(),
+      categoria:    document.getElementById('categoria').value,
+      empleados:    document.getElementById('empleados') ? document.getElementById('empleados').value : '',
       ponderaciones: {
-        tecnico:     parseInt(document.getElementById('sl-tecnico').value),
+        funcional:   parseInt(document.getElementById('sl-funcional').value),
         comercial:   parseInt(document.getElementById('sl-comercial').value),
         empresarial: parseInt(document.getElementById('sl-empresarial').value),
       },
