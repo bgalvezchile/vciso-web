@@ -92,10 +92,10 @@ async function extraerTexto(blobUrl, fileName) {
 }
 
 // ── Buscar información del proveedor en internet ──────────────────────────
-async function buscarProveedor(nombre, web) {
+async function buscarProveedor(nombre, web, categoria) {
   const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
   
-  const query = web ? `${nombre} ${web}` : nombre;
+  const query = web ? `${nombre} ${web}` : `${nombre} empresa proveedor`;
   
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -108,10 +108,11 @@ async function buscarProveedor(nombre, web) {
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1000,
       tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-      system: 'Eres un analista que busca información sobre proveedores tecnológicos. Responde SOLO en JSON.',
+      system: 'Eres un analista que busca información sobre proveedores y empresas. Respondes SOLO en JSON válido.',
       messages: [{
         role: 'user',
-        content: `Busca información sobre el proveedor: "${query}". 
+        content: `Busca información sobre la empresa o persona "${nombre}" que es proveedor de servicios en la categoría: "${categoria || 'servicios generales'}". ${web ? 'Sitio web: ' + web : ''}
+Si no encuentras información específica de esta empresa, indica que no hay datos disponibles.
 Devuelve SOLO este JSON:
 {
   "existe": true/false,
@@ -267,9 +268,9 @@ async function generarWordInforme(datos, resultados) {
     t(".cl",{bold:true,size:64,color:NAVY}),
   ],{align:AlignmentType.CENTER,sb:800,sa:80}));
   
-  children.push(p("Ciberseguridad para PYMEs chilenas",{align:AlignmentType.CENTER,size:18,color:GRAY_TX,sa:200}));
+  children.push(p("Servicios profesionales para PYMEs chilenas",{align:AlignmentType.CENTER,size:18,color:GRAY_TX,sa:200}));
   children.push(p2([],{sb:80,sa:80,border:{bottom:{style:BorderStyle.SINGLE,size:8,color:ORANGE,space:1}}}));
-  children.push(p("INFORME DE EVALUACIÓN COMPARATIVA DE PROVEEDORES TI",{align:AlignmentType.CENTER,bold:true,size:32,color:NAVY,sb:300,sa:120}));
+  children.push(p("INFORME DE EVALUACIÓN COMPARATIVA DE PROVEEDORES",{align:AlignmentType.CENTER,bold:true,size:32,color:NAVY,sb:300,sa:120}));
   children.push(p(datos.empresa,{align:AlignmentType.CENTER,size:24,color:GRAY_TX,sa:80}));
   children.push(p(datos.producto,{align:AlignmentType.CENTER,size:22,color:NAVY,sa:400}));
   
@@ -284,7 +285,7 @@ async function generarWordInforme(datos, resultados) {
       ["Criterio comercial", `${datos.ponderaciones.comercial}%`],
       ["Criterio empresarial", `${datos.ponderaciones.empresarial}%`],
       ["Fecha de evaluación", fecha],
-      ["Elaborado por", "vCISO.cl — Equipo de consultoría TI"],
+      ["Elaborado por", "vCISO.cl — Equipo de consultoría"],
     ].map(([label,value]) => new TableRow({children:[
       cell([p(label,{bold:true,size:18,color:WHITE})],{w:2500,bg:NAVY,bc:NAVY}),
       cell([p(value,{size:18})],{w:6860,bg:GRAY_BG}),
@@ -464,19 +465,6 @@ async function generarWordInforme(datos, resultados) {
   
   children.push(p("Se recomienda revisar este informe en conjunto con el equipo decisor antes de formalizar la contratación, y solicitar referencias directas al proveedor seleccionado.",{size:20,color:GRAY_TX,sa:200}));
   
-  // CTA
-  children.push(new Table({
-    width:{size:9360,type:WidthType.DXA},
-    columnWidths:[9360],
-    rows:[new TableRow({children:[
-      cell([
-        p("¿Necesitas apoyo en la negociación o implementación?",{bold:true,size:22,color:WHITE,align:AlignmentType.CENTER,sa:100}),
-        p("vCISO.cl puede acompañarte en el proceso de contratación, revisión de contratos y gestión del proveedor seleccionado.",{size:20,color:"CCDDFF",align:AlignmentType.CENTER,sa:100}),
-        p("📧 contacto@vciso.cl  ·  📱 +56 9 8130 7440  ·  🌐 www.vciso.cl",{size:20,color:WHITE,align:AlignmentType.CENTER,bold:true}),
-      ],{w:9360,bg:NAVY}),
-    ]})]
-  }));
-  
   children.push(empty());
   
   // Aviso legal
@@ -554,7 +542,7 @@ module.exports = async (req, res) => {
     const infoExterna = {};
     for (const prov of proveedores) {
       console.log(`Buscando: ${prov.nombre}`);
-      infoExterna[prov.nombre] = await buscarProveedor(prov.nombre, prov.web);
+      infoExterna[prov.nombre] = await buscarProveedor(prov.nombre, prov.web, categoria);
     }
 
     // 2. Descargar y evaluar cada propuesta
