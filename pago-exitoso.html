@@ -80,7 +80,7 @@
     <div class="steps" id="serviceSteps" style="display:none">
       <div class="step"><div class="step-num">1</div><div>Tu pago fue confirmado por Flow ✅</div></div>
       <div class="step"><div class="step-num">2</div><div>Revisaremos tu solicitud y comenzaremos el proceso</div></div>
-      <div class="step"><div class="step-num">3</div><div>Recibirás tu entrega en las próximas 24 horas hábiles</div></div>
+      <div class="step"><div class="step-num">3</div><div id="deliveryMsg">Recibirás tu entrega en las próximas 48 horas hábiles</div></div>
     </div>
 
     <!-- Botón descarga (solo para ebook) -->
@@ -141,6 +141,17 @@ function showSuccess() {
     dlBtn.style.display = 'flex';
   } else {
     document.getElementById('serviceSteps').style.display = 'block';
+    // Ajustar plazo según producto
+    const deliveryMsg = document.getElementById('deliveryMsg');
+    if (dlProduct === 'evaluador') {
+      deliveryMsg.textContent = 'Recibirás tu informe comparativo en los próximos minutos por email.';
+    } else if (dlProduct === 'politicas') {
+      deliveryMsg.textContent = 'Recibirás tus políticas en menos de 3 minutos por email.';
+    } else if (dlProduct === 'diagnostico') {
+      deliveryMsg.textContent = 'Nuestro equipo revisará tu diagnóstico. Recibirás el informe en 48 horas hábiles.';
+    } else if (dlProduct === 'dominio') {
+      deliveryMsg.textContent = 'Recibirás tu análisis de dominio en las próximas 48 horas hábiles.';
+    }
   }
 
   // Limpiar localStorage
