@@ -129,6 +129,21 @@
   .step-num-small{width:24px;height:24px;border-radius:50%;background:var(--navy);color:white;font-size:0.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
   .step-item p{font-size:0.84rem;color:#334155;line-height:1.5;}
   #access-denied{display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;max-width:520px;margin:0 auto;}
+
+  /* OVERLAY DE PROGRESO */
+  #progress-overlay{display:none;position:fixed;inset:0;background:rgba(8,15,30,0.92);z-index:999;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;}
+  #progress-overlay.active{display:flex;}
+  .progress-spinner{width:64px;height:64px;border:4px solid rgba(255,255,255,0.1);border-top-color:#f47c47;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:28px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .progress-step-msg{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:8px;text-align:center;}
+  .progress-sub-msg{font-size:0.85rem;color:rgba(255,255,255,0.5);text-align:center;max-width:380px;line-height:1.6;}
+  .progress-bar-wrap{width:320px;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin-top:24px;overflow:hidden;}
+  .progress-bar-fill{height:100%;background:linear-gradient(90deg,#1e4fad,#f47c47);border-radius:3px;transition:width 0.8s ease;width:0%;}
+  .progress-steps-dots{display:flex;gap:8px;margin-top:16px;}
+  .progress-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);transition:background 0.3s;}
+  .progress-dot.done{background:#22c55e;}
+  .progress-dot.active{background:#f47c47;}
+  .progress-warning{margin-top:28px;padding:12px 20px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);border-radius:8px;font-size:0.78rem;color:#fcd34d;text-align:center;max-width:380px;}
   @media(max-width:600px){.card-body{padding:20px;}.form-nav{padding:16px 20px;flex-direction:column;gap:10px;}.field-grid{grid-template-columns:1fr;}.proveedor-grid{grid-template-columns:1fr;}.btn-prev,.btn-next,.btn-submit{width:100%;justify-content:center;}}
   </style>
 </head>
@@ -401,6 +416,22 @@
 
 </div>
 
+<!-- OVERLAY DE PROGRESO -->
+<div id="progress-overlay">
+  <div class="progress-spinner"></div>
+  <div class="progress-step-msg" id="prog-msg">Preparando evaluación...</div>
+  <div class="progress-sub-msg" id="prog-sub">Esto puede tomar entre 3 y 8 minutos dependiendo del número de propuestas.</div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog-bar"></div></div>
+  <div class="progress-steps-dots">
+    <div class="progress-dot" id="pdot-0"></div>
+    <div class="progress-dot" id="pdot-1"></div>
+    <div class="progress-dot" id="pdot-2"></div>
+    <div class="progress-dot" id="pdot-3"></div>
+    <div class="progress-dot" id="pdot-4"></div>
+  </div>
+  <div class="progress-warning">⚠️ Por favor no cierres esta ventana ni vuelvas atrás — estamos procesando tus propuestas. Recibirás el informe por email aunque cierres accidentalmente.</div>
+</div>
+
 <footer style="background:#080f1e;padding:40px 5% 24px;">
   <div style="max-width:1200px;margin:0 auto;">
     <p style="font-size:0.78rem;color:#94a3b8;text-align:center;">&#169; 2026 vCISO.cl · Todos los derechos reservados · Santiago, Chile · &#129518; Emitimos boletas y facturas electrónicas · SII</p>
@@ -624,10 +655,55 @@ function buildSummary() {
 }
 
 // ── Enviar ────────────────────────────────────────────────────────────────
+// ── Progreso animado ──────────────────────────────────────────────────────
+const PROG_STEPS = [
+  { msg: '📂 Subiendo propuestas...', sub: 'Cargando los archivos de forma segura.', pct: 10 },
+  { msg: '🔍 Investigando proveedores...', sub: 'Consultando información pública de cada proveedor en internet.', pct: 30 },
+  { msg: '📄 Leyendo y analizando propuestas...', sub: 'Nuestro equipo está revisando el contenido de cada propuesta en detalle.', pct: 55 },
+  { msg: '📊 Calculando ranking y puntajes...', sub: 'Aplicando los criterios de evaluación con las ponderaciones definidas.', pct: 80 },
+  { msg: '📧 Generando y enviando informe...', sub: 'Preparando el documento Word y enviándolo a tu correo.', pct: 95 },
+];
+let progInterval = null;
+let progStep = 0;
+
+function startProgress() {
+  const overlay = document.getElementById('progress-overlay');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  progStep = 0;
+  updateProgress(0);
+  
+  // Avanzar automáticamente cada ~40 segundos
+  progInterval = setInterval(() => {
+    if (progStep < PROG_STEPS.length - 1) {
+      progStep++;
+      updateProgress(progStep);
+    }
+  }, 40000);
+}
+
+function updateProgress(step) {
+  const s = PROG_STEPS[step];
+  document.getElementById('prog-msg').textContent = s.msg;
+  document.getElementById('prog-sub').textContent = s.sub;
+  document.getElementById('prog-bar').style.width = s.pct + '%';
+  for (let i = 0; i < PROG_STEPS.length; i++) {
+    const dot = document.getElementById('pdot-' + i);
+    dot.className = 'progress-dot' + (i < step ? ' done' : i === step ? ' active' : '');
+  }
+}
+
+function stopProgress() {
+  if (progInterval) clearInterval(progInterval);
+  document.getElementById('progress-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 async function submitForm() {
   const btn = document.getElementById('btn-submit');
   btn.disabled = true;
-  btn.innerHTML = '⏳ Subiendo archivos...';
+  btn.innerHTML = '⏳ Iniciando...';
+  startProgress();
   
   try {
     // 1. Recopilar datos de proveedores
@@ -638,7 +714,7 @@ async function submitForm() {
     for (let i = 0; i < nombres.length; i++) {
       if (nombres[i].value.trim() && archivos[i]) {
         // Subir archivo a Vercel Blob via API
-        btn.innerHTML = `⏳ Subiendo propuesta ${proveedores.length + 1}...`;
+        updateProgress(0);
         
         const formData = new FormData();
         formData.append('file', archivos[i]);
@@ -662,7 +738,7 @@ async function submitForm() {
     }
     
     // 2. Enviar datos al backend
-    btn.innerHTML = '⏳ Evaluando propuestas...';
+    updateProgress(2);
     
     const payload = {
       token:    window.__accessToken || '',
