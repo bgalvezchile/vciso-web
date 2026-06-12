@@ -68,6 +68,15 @@ const PRODUCTS = {
     formPath:     '/evaluador-propuestas',
     deliveryMsg:  'Usa el link para subir las propuestas y recibir tu informe comparativo en minutos.',
   },
+  ley21719: {
+    prefix:       'LEY21719',
+    name:         'Diagnóstico Ley 21.719 — Protección de Datos',
+    price:        '$49.000 CLP',
+    hasDownload:  false,
+    hasForm:      true,
+    formPath:     '/diagnostico-ley21719',
+    deliveryMsg:  'Usa el link para completar el cuestionario y recibir tu informe PDF en minutos.',
+  },
 };
 
 function detectProduct(order) {
