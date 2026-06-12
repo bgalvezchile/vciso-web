@@ -73,6 +73,10 @@
     {
       "source": "/evaluador-propuestas-checkout",
       "destination": "/vciso_evaluador_checkout.html"
+    },
+    {
+      "source": "/legal",
+      "destination": "/legal.html"
     }
   ]
 }
