@@ -307,191 +307,412 @@ Respondes SOLO en JSON válido, sin texto adicional ni markdown.`,
 function generarPDF(datos, scores, analisis) {
   return new Promise((resolve, reject) => {
     try {
-      const doc = new PDFDocument({ margin: 60, size: 'A4', info: {
-        Title: `Diagnóstico Ley 21.719 — ${datos.empresa}`,
-        Author: 'vCISO.cl',
-      }});
+      const doc = new PDFDocument({
+        margin: 0,
+        size: 'A4',
+        bufferPages: true,
+        info: {
+          Title: `Diagnóstico Ley 21.719 — ${datos.empresa}`,
+          Author: 'vCISO.cl',
+          Subject: 'Diagnóstico de Cumplimiento Ley 21.719',
+        }
+      });
+
       const buffers = [];
       doc.on('data', b => buffers.push(b));
-      doc.on('end', () => resolve(Buffer.concat(buffers)));
+      doc.on('end',  () => resolve(Buffer.concat(buffers)));
       doc.on('error', reject);
 
-      const W = 595 - 120; // ancho útil
-      const NAVY  = '#0d1f3c';
-      const BLUE  = '#1e4fad';
-      const ORANGE= '#e85d26';
-      const GRAY  = '#64748b';
-      const BLACK = '#1e293b';
-      const fecha = new Date().toLocaleDateString('es-CL', {year:'numeric',month:'long',day:'numeric'});
+      // Constantes
+      const PW = 595, PH = 842;
+      const ML = 56, MR = 56, MT = 56;
+      const CW = PW - ML - MR; // 483
+      const NAVY   = '#0D1F3C';
+      const BLUE   = '#1E4FAD';
+      const ORANGE = '#E85D26';
+      const WHITE  = '#FFFFFF';
+      const LGRAY  = '#F1F5F9';
+      const MGRAY  = '#94A3B8';
+      const DGRAY  = '#334155';
+      const fecha  = new Date().toLocaleDateString('es-CL', {year:'numeric',month:'long',day:'numeric'});
       const madurez = nivelMadurez(scores.global);
 
-      const COLOR_NIVEL = scores.global >= 80 ? '#22c55e' : scores.global >= 60 ? '#f59e0b' : scores.global >= 40 ? '#f97316' : '#ef4444';
+      const COLOR_NIVEL = scores.global >= 80 ? '#16A34A' :
+                          scores.global >= 60 ? '#D97706' :
+                          scores.global >= 40 ? '#EA580C' : '#DC2626';
+      const BG_NIVEL    = scores.global >= 80 ? '#F0FDF4' :
+                          scores.global >= 60 ? '#FFFBEB' :
+                          scores.global >= 40 ? '#FFF7ED' : '#FEF2F2';
 
-      // ── PORTADA ──
-      doc.rect(0, 0, 595, 280).fill(NAVY);
-      doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(28).text('vCISO.cl', 60, 60);
-      doc.fillColor(ORANGE).font('Helvetica').fontSize(11).text('Ciberseguridad para PYMEs chilenas', 60, 96);
-      doc.moveTo(60, 116).lineTo(535, 116).strokeColor(ORANGE).lineWidth(2).stroke();
-      doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(20).text('DIAGNÓSTICO DE CUMPLIMIENTO', 60, 130);
-      doc.fontSize(16).text('LEY N° 21.719 — PROTECCIÓN DE DATOS PERSONALES', 60, 158);
-      doc.fillColor('rgba(255,255,255,0.7)').font('Helvetica').fontSize(12)
-        .text(datos.empresa, 60, 196)
-        .text(datos.rubro || 'Empresa', 60, 214)
-        .text(`Fecha: ${fecha}`, 60, 232);
+      function colorDim(p) {
+        return p >= 80 ? '#16A34A' : p >= 60 ? '#D97706' : p >= 40 ? '#EA580C' : '#DC2626';
+      }
+      function bgDim(p) {
+        return p >= 80 ? '#F0FDF4' : p >= 60 ? '#FFFBEB' : p >= 40 ? '#FFF7ED' : '#FEF2F2';
+      }
+      function nivelTexto(p) {
+        return p >= 80 ? 'Alto cumplimiento' : p >= 60 ? 'Cumplimiento parcial' : p >= 40 ? 'Riesgo relevante' : 'Riesgo critico';
+      }
 
-      // Puntaje global en portada
-      doc.roundedRect(60, 250, 475, 80, 8).fill('rgba(255,255,255,0.08)');
-      doc.fillColor(COLOR_NIVEL).font('Helvetica-Bold').fontSize(36).text(`${scores.global}`, 80, 262);
-      doc.fillColor('#ffffff').font('Helvetica').fontSize(11).text('/100', 80 + (scores.global >= 100 ? 58 : scores.global >= 10 ? 38 : 18), 275);
-      doc.fillColor(COLOR_NIVEL).font('Helvetica-Bold').fontSize(14).text(madurez.nivel, 160, 262);
-      doc.fillColor('rgba(255,255,255,0.65)').font('Helvetica').fontSize(10).text(madurez.desc, 160, 280);
+      // ── PORTADA ──────────────────────────────────────────────────────────────
+      // Fondo azul marino completo
+      doc.rect(0, 0, PW, PH).fill(NAVY);
 
-      doc.addPage();
+      // Franja naranja izquierda
+      doc.rect(0, 0, 6, PH).fill(ORANGE);
 
-      // ── SECCIÓN 1: RESUMEN EJECUTIVO ──
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('1. Resumen Ejecutivo', 60, 60);
-      doc.moveTo(60, 82).lineTo(535, 82).strokeColor(ORANGE).lineWidth(1.5).stroke();
+      // Logo superior
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(32)
+        .text('vCISO', ML, 60, {continued:true})
+        .fillColor(ORANGE).text('.cl');
 
-      let y = 100;
-      doc.rect(60, y, W, 4).fill(COLOR_NIVEL);
-      y += 12;
-      doc.fillColor(BLACK).font('Helvetica').fontSize(10).text(analisis.resumen_ejecutivo || '', 60, y, {width: W});
-      y += doc.heightOfString(analisis.resumen_ejecutivo || '', {width: W}) + 20;
+      doc.fillColor('#94A3B8').font('Helvetica').fontSize(10)
+        .text('Servicios profesionales para PYMEs chilenas', ML, 100);
 
-      // ── SECCIÓN 2: EVALUACIÓN POR DIMENSIÓN ──
-      if (y > 650) { doc.addPage(); y = 60; }
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('2. Evaluación por Dimensión', 60, y);
-      doc.moveTo(60, y + 22).lineTo(535, y + 22).strokeColor(ORANGE).lineWidth(1.5).stroke();
-      y += 36;
+      // Línea separadora
+      doc.rect(ML, 120, CW, 1).fill(ORANGE);
+
+      // Título del documento
+      doc.fillColor('#94A3B8').font('Helvetica').fontSize(10)
+        .text('INFORME DE', ML, 160)
+        .fillColor(WHITE).font('Helvetica-Bold').fontSize(26)
+        .text('DIAGNOSTICO DE CUMPLIMIENTO', ML, 178)
+        .fillColor(ORANGE).font('Helvetica-Bold').fontSize(18)
+        .text('Ley N° 21.719 — Proteccion de Datos Personales', ML, 212);
+
+      // Recuadro empresa
+      doc.rect(ML, 270, CW, 100).fill('rgba(255,255,255,0.06)').stroke('rgba(255,255,255,0.12)');
+      doc.fillColor('#94A3B8').font('Helvetica').fontSize(9).text('EMPRESA EVALUADA', ML + 20, 286);
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(20).text(datos.empresa, ML + 20, 302);
+      doc.fillColor('#94A3B8').font('Helvetica').fontSize(10)
+        .text(`${datos.rubro || 'PYME'}   |   Fecha: ${fecha}`, ML + 20, 330)
+        .text('Elaborado por: vCISO.cl — Equipo de consultoria', ML + 20, 348);
+
+      // Recuadro puntaje global
+      doc.rect(ML, 400, CW, 130).fill('rgba(255,255,255,0.04)').stroke(COLOR_NIVEL);
+      doc.rect(ML, 400, 6, 130).fill(COLOR_NIVEL);
+
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(13)
+        .text('RESULTADO GLOBAL', ML + 24, 418);
+
+      // Puntaje grande
+      doc.fillColor(COLOR_NIVEL).font('Helvetica-Bold').fontSize(64)
+        .text(`${scores.global}`, ML + 24, 432);
+      doc.fillColor('#94A3B8').font('Helvetica').fontSize(14)
+        .text('/ 100', ML + 24 + (scores.global >= 100 ? 80 : scores.global >= 10 ? 56 : 36), 462);
+
+      doc.fillColor(COLOR_NIVEL).font('Helvetica-Bold').fontSize(16)
+        .text(madurez.nivel, ML + 160, 444);
+      doc.fillColor(WHITE).font('Helvetica').fontSize(10)
+        .text(madurez.desc, ML + 160, 466, {width: CW - 200});
+
+      // Tabla resumen puntajes en portada
+      doc.rect(ML, 552, CW, 24).fill('rgba(255,255,255,0.1)');
+      doc.fillColor('#94A3B8').font('Helvetica-Bold').fontSize(8)
+        .text('DIMENSION', ML + 10, 560)
+        .text('PUNTAJE', ML + 280, 560)
+        .text('NIVEL', ML + 340, 560);
+
+      const dimsPorAtda = [
+        ['Bases de licitud y consentimiento', scores.licitud],
+        ['Derechos de los titulares', scores.derechos],
+        ['Inventario y gobernanza', scores.inventario],
+        ['Seguridad tecnica', scores.seguridad],
+        ['Riesgo regulatorio', scores.riesgoReg],
+      ];
+
+      let py = 580;
+      dimsPorAtda.forEach(([nombre, puntaje], i) => {
+        if (i % 2 === 0) doc.rect(ML, py - 4, CW, 20).fill('rgba(255,255,255,0.03)');
+        const c = colorDim(puntaje);
+        doc.fillColor(WHITE).font('Helvetica').fontSize(9).text(nombre, ML + 10, py);
+        doc.fillColor(c).font('Helvetica-Bold').fontSize(9).text(`${puntaje}/100`, ML + 280, py);
+        doc.fillColor(c).font('Helvetica').fontSize(9).text(nivelTexto(puntaje), ML + 340, py);
+        py += 20;
+      });
+
+      // Pie de portada
+      doc.rect(ML, 800, CW, 1).fill('rgba(255,255,255,0.15)');
+      doc.fillColor('#475569').font('Helvetica').fontSize(8)
+        .text('Documento confidencial — Uso exclusivo de ' + datos.empresa + ' — vCISO.cl', ML, 812, {width:CW, align:'center'});
+
+      // ── PÁGINA 2: RESUMEN EJECUTIVO + EVALUACIÓN POR DIMENSIÓN ──────────────
+      doc.addPage({margin:0, size:'A4'});
+
+      // Header de página
+      doc.rect(0, 0, PW, 52).fill(NAVY);
+      doc.rect(0, 0, 6, 52).fill(ORANGE);
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+        .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+        .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+
+      let y = 72;
+
+      // Sección: Resumen Ejecutivo
+      doc.rect(ML, y, CW, 26).fill(NAVY);
+      doc.rect(ML, y, 4, 26).fill(ORANGE);
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(13)
+        .text('1. Resumen Ejecutivo', ML + 14, y + 7);
+      y += 34;
+
+      // Caja de resumen
+      const resText = analisis.resumen_ejecutivo || '';
+      const resH = doc.heightOfString(resText, {width: CW - 32, fontSize:10}) + 24;
+      doc.rect(ML, y, CW, resH).fill(BG_NIVEL).stroke(COLOR_NIVEL);
+      doc.rect(ML, y, 4, resH).fill(COLOR_NIVEL);
+      doc.fillColor(DGRAY).font('Helvetica').fontSize(10)
+        .text(resText, ML + 16, y + 12, {width: CW - 32, lineGap: 3});
+      y += resH + 20;
+
+      // Sección: Evaluación por Dimensión
+      doc.rect(ML, y, CW, 26).fill(NAVY);
+      doc.rect(ML, y, 4, 26).fill(ORANGE);
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(13)
+        .text('2. Evaluacion por Dimension', ML + 14, y + 7);
+      y += 34;
 
       const dimensiones = analisis.dimensiones || [];
-      dimensiones.forEach(d => {
-        if (y > 660) { doc.addPage(); y = 60; }
-        const barColor = d.puntaje >= 80 ? '#22c55e' : d.puntaje >= 60 ? '#f59e0b' : d.puntaje >= 40 ? '#f97316' : '#ef4444';
+      dimensiones.forEach((d, idx) => {
+        const cDim = colorDim(d.puntaje);
+        const bgDimColor = bgDim(d.puntaje);
+        const analisisText = d.analisis || '';
+        const analisisH = doc.heightOfString(analisisText, {width: CW - 32, fontSize: 9.5}) + 16;
+        const totalH = 52 + analisisH;
+
+        if (y + totalH > PH - 60) {
+          // Nueva página con header
+          doc.addPage({margin:0, size:'A4'});
+          doc.rect(0, 0, PW, 52).fill(NAVY);
+          doc.rect(0, 0, 6, 52).fill(ORANGE);
+          doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+            .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+            .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+          y = 72;
+        }
 
         // Header dimensión
-        doc.rect(60, y, W, 22).fill(barColor);
-        doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10)
-          .text(d.nombre, 70, y + 6)
-          .text(`${d.puntaje}/100 — ${d.nivel}`, 70, y + 6, {width: W - 20, align: 'right'});
-        y += 26;
+        doc.rect(ML, y, CW, 30).fill(cDim);
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11)
+          .text(d.nombre, ML + 14, y + 5, {width: CW - 120, continued: false});
+        // Puntaje y nivel a la derecha
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11)
+          .text(`${d.puntaje}/100`, ML + CW - 100, y + 5, {width: 90, align:'right'});
+        doc.fillColor('rgba(255,255,255,0.8)').font('Helvetica').fontSize(8)
+          .text(nivelTexto(d.puntaje), ML + CW - 120, y + 19, {width: 110, align:'right'});
+        y += 30;
 
         // Barra de progreso
-        doc.rect(60, y, W, 6).fill('#f1f5f9');
-        doc.rect(60, y, W * (d.puntaje / 100), 6).fill(barColor);
-        y += 14;
+        doc.rect(ML, y, CW, 8).fill('#E2E8F0');
+        doc.rect(ML, y, CW * (d.puntaje / 100), 8).fill(cDim);
+        y += 12;
 
         // Análisis narrativo
-        const analisisText = d.analisis || '';
-        const textHeight = doc.heightOfString(analisisText, {width: W - 20}) + 16;
-        doc.rect(60, y, W, textHeight).fill('#f8fafc').stroke('#e2e8f0');
-        doc.fillColor(BLACK).font('Helvetica').fontSize(9).text(analisisText, 70, y + 8, {width: W - 20});
-        y += textHeight + 10;
+        doc.rect(ML, y, CW, analisisH).fill(bgDimColor);
+        doc.rect(ML, y, 3, analisisH).fill(cDim);
+        doc.fillColor(DGRAY).font('Helvetica').fontSize(9.5)
+          .text(analisisText, ML + 14, y + 8, {width: CW - 28, lineGap: 3});
+        y += analisisH + 14;
       });
 
       // Leyenda
-      if (y > 700) { doc.addPage(); y = 60; }
-      y += 6;
-      doc.rect(60, y, W, 24).fill('#f8fafc').stroke('#e2e8f0');
-      doc.fillColor(GRAY).font('Helvetica').fontSize(8)
-        .text('🟢 80-100: Alto cumplimiento   🟡 60-79: Cumplimiento parcial   🟠 40-59: Riesgo relevante   🔴 0-39: Riesgo crítico', 70, y + 8);
-      y += 34;
+      if (y + 30 > PH - 60) {
+        doc.addPage({margin:0, size:'A4'});
+        doc.rect(0, 0, PW, 52).fill(NAVY);
+        doc.rect(0, 0, 6, 52).fill(ORANGE);
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+          .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+          .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+        y = 72;
+      }
 
-      // ── SECCIÓN 3: HALLAZGOS Y ASPECTOS POSITIVOS ──
-      if (y > 620) { doc.addPage(); y = 60; }
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('3. Hallazgos y Aspectos Destacados', 60, y);
-      doc.moveTo(60, y + 22).lineTo(535, y + 22).strokeColor(ORANGE).lineWidth(1.5).stroke();
-      y += 36;
+      doc.rect(ML, y, CW, 22).fill(LGRAY).stroke('#CBD5E1');
+      doc.fillColor(MGRAY).font('Helvetica').fontSize(8)
+        .text('[VERDE] 80-100: Alto cumplimiento   [AMARILLO] 60-79: Cumplimiento parcial   [NARANJA] 40-59: Riesgo relevante   [ROJO] 0-39: Riesgo critico', ML + 10, y + 7, {width: CW - 20});
+      y += 32;
+
+      // ── PÁGINA 3: HALLAZGOS + CONCLUSION + CONTEXTO ─────────────────────────
+      if (y + 60 > PH - 60) {
+        doc.addPage({margin:0, size:'A4'});
+        doc.rect(0, 0, PW, 52).fill(NAVY);
+        doc.rect(0, 0, 6, 52).fill(ORANGE);
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+          .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+          .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+        y = 72;
+      }
+
+      // Sección: Hallazgos
+      doc.rect(ML, y, CW, 26).fill(NAVY);
+      doc.rect(ML, y, 4, 26).fill(ORANGE);
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(13)
+        .text('3. Hallazgos y Aspectos Destacados', ML + 14, y + 7);
+      y += 34;
 
       // Hallazgos críticos
       const hallazgos = analisis.hallazgos_criticos || [];
       if (hallazgos.length) {
-        doc.rect(60, y, W, 22).fill('#ef4444');
-        doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10).text('⚠ Aspectos que requieren atención', 70, y + 6);
+        doc.rect(ML, y, CW, 22).fill('#DC2626');
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(10)
+          .text('ASPECTOS QUE REQUIEREN ATENCION URGENTE', ML + 14, y + 6);
         y += 26;
-        hallazgos.forEach(h => {
-          if (y > 720) { doc.addPage(); y = 60; }
-          const hh = doc.heightOfString(h, {width: W - 30}) + 16;
-          doc.rect(60, y, W, hh).fill('#fef2f2').stroke('#fecaca');
-          doc.fillColor('#dc2626').font('Helvetica-Bold').fontSize(9).text('●', 70, y + 8);
-          doc.fillColor(BLACK).font('Helvetica').fontSize(9).text(h, 84, y + 8, {width: W - 34});
+
+        hallazgos.forEach((h, i) => {
+          if (y + 50 > PH - 60) {
+            doc.addPage({margin:0, size:'A4'});
+            doc.rect(0, 0, PW, 52).fill(NAVY);
+            doc.rect(0, 0, 6, 52).fill(ORANGE);
+            doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+              .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+              .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+            y = 72;
+          }
+          const hh = doc.heightOfString(h, {width: CW - 44, fontSize: 9.5}) + 18;
+          doc.rect(ML, y, CW, hh).fill(i % 2 === 0 ? '#FEF2F2' : '#FFF5F5').stroke('#FECACA');
+          doc.rect(ML, y, 4, hh).fill('#DC2626');
+          doc.fillColor('#DC2626').font('Helvetica-Bold').fontSize(10).text(`${i+1}.`, ML + 10, y + hh/2 - 5);
+          doc.fillColor(DGRAY).font('Helvetica').fontSize(9.5)
+            .text(h, ML + 26, y + 9, {width: CW - 44, lineGap: 2});
           y += hh + 4;
         });
-        y += 8;
+        y += 10;
       }
 
       // Aspectos positivos
       const positivos = analisis.aspectos_positivos || [];
       if (positivos.length) {
-        if (y > 680) { doc.addPage(); y = 60; }
-        doc.rect(60, y, W, 22).fill('#22c55e');
-        doc.fillColor('#ffffff').font('Helvetica-Bold').fontSize(10).text('✓ Aspectos positivos identificados', 70, y + 6);
+        if (y + 50 > PH - 60) {
+          doc.addPage({margin:0, size:'A4'});
+          doc.rect(0, 0, PW, 52).fill(NAVY);
+          doc.rect(0, 0, 6, 52).fill(ORANGE);
+          doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+            .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+            .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+          y = 72;
+        }
+        doc.rect(ML, y, CW, 22).fill('#16A34A');
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(10)
+          .text('ASPECTOS POSITIVOS IDENTIFICADOS', ML + 14, y + 6);
         y += 26;
-        positivos.forEach(p => {
-          if (y > 720) { doc.addPage(); y = 60; }
-          const ph = doc.heightOfString(p, {width: W - 30}) + 16;
-          doc.rect(60, y, W, ph).fill('#f0fdf4').stroke('#bbf7d0');
-          doc.fillColor('#16a34a').font('Helvetica-Bold').fontSize(9).text('✓', 70, y + 8);
-          doc.fillColor(BLACK).font('Helvetica').fontSize(9).text(p, 84, y + 8, {width: W - 34});
+
+        positivos.forEach((p, i) => {
+          const ph = doc.heightOfString(p, {width: CW - 44, fontSize: 9.5}) + 18;
+          doc.rect(ML, y, CW, ph).fill(i % 2 === 0 ? '#F0FDF4' : '#F7FEF9').stroke('#BBF7D0');
+          doc.rect(ML, y, 4, ph).fill('#16A34A');
+          doc.fillColor('#16A34A').font('Helvetica-Bold').fontSize(12).text('OK', ML + 8, y + ph/2 - 6);
+          doc.fillColor(DGRAY).font('Helvetica').fontSize(9.5)
+            .text(p, ML + 28, y + 9, {width: CW - 44, lineGap: 2});
           y += ph + 4;
         });
-        y += 8;
+        y += 10;
       }
 
       // Conclusión
-      if (y > 660) { doc.addPage(); y = 60; }
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('4. Conclusión', 60, y);
-      doc.moveTo(60, y + 22).lineTo(535, y + 22).strokeColor(ORANGE).lineWidth(1.5).stroke();
-      y += 36;
+      if (y + 80 > PH - 60) {
+        doc.addPage({margin:0, size:'A4'});
+        doc.rect(0, 0, PW, 52).fill(NAVY);
+        doc.rect(0, 0, 6, 52).fill(ORANGE);
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+          .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+          .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+        y = 72;
+      }
+
+      doc.rect(ML, y, CW, 26).fill(NAVY);
+      doc.rect(ML, y, 4, 26).fill(ORANGE);
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(13)
+        .text('4. Conclusion', ML + 14, y + 7);
+      y += 34;
+
       const concText = analisis.conclusion || '';
-      const concH = doc.heightOfString(concText, {width: W - 20}) + 20;
-      doc.rect(60, y, W, concH).fill('#eff6ff').stroke('#bfdbfe');
-      doc.fillColor(BLACK).font('Helvetica').fontSize(10).text(concText, 70, y + 10, {width: W - 20});
+      const concH = doc.heightOfString(concText, {width: CW - 32, fontSize: 10}) + 24;
+      doc.rect(ML, y, CW, concH).fill('#EFF6FF').stroke('#BFDBFE');
+      doc.rect(ML, y, 4, concH).fill(BLUE);
+      doc.fillColor(DGRAY).font('Helvetica').fontSize(10)
+        .text(concText, ML + 16, y + 12, {width: CW - 32, lineGap: 3});
       y += concH + 20;
 
-      // ── SECCIÓN 5: CONTEXTO REGULATORIO ──
-      if (y > 600) { doc.addPage(); y = 60; }
-      doc.fillColor(NAVY).font('Helvetica-Bold').fontSize(16).text('5. Contexto Regulatorio', 60, y);
-      doc.moveTo(60, y + 22).lineTo(535, y + 22).strokeColor(ORANGE).lineWidth(1.5).stroke();
-      y += 36;
+      // Contexto regulatorio
+      if (y + 120 > PH - 60) {
+        doc.addPage({margin:0, size:'A4'});
+        doc.rect(0, 0, PW, 52).fill(NAVY);
+        doc.rect(0, 0, 6, 52).fill(ORANGE);
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+          .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+          .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+        y = 72;
+      }
 
-      doc.rect(60, y, W, 100).fill('#eff6ff').stroke('#bfdbfe');
-      doc.fillColor(BLUE).font('Helvetica-Bold').fontSize(10).text('Ley N° 21.719 — Protección de Datos Personales', 70, y + 10);
-      doc.fillColor(BLACK).font('Helvetica').fontSize(9)
-        .text('Publicada el 13 de diciembre de 2024. Entra en plena vigencia el 1 de diciembre de 2026.', 70, y + 26, {width: W - 20})
-        .text('Crea la Agencia de Protección de Datos Personales (APDP) con facultades sancionatorias:', 70, y + 42, {width: W - 20})
-        .text('• Infracciones leves: hasta 100 UTM (~$7,5 millones)', 80, y + 56)
-        .text('• Infracciones graves: hasta 1.000 UTM (~$75 millones)', 80, y + 68)
-        .text('• Infracciones gravísimas: hasta 5.000 UTM (~$375 millones) o 2% de los ingresos anuales', 80, y + 80);
-      y += 116;
+      doc.rect(ML, y, CW, 26).fill(NAVY);
+      doc.rect(ML, y, 4, 26).fill(ORANGE);
+      doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(13)
+        .text('5. Contexto Regulatorio', ML + 14, y + 7);
+      y += 34;
 
-      // Recomendación asesor
-      if (y > 680) { doc.addPage(); y = 60; }
-      doc.rect(60, y, W, 60).fill('#f0fdf4').stroke('#bbf7d0');
-      doc.fillColor('#15803d').font('Helvetica-Bold').fontSize(10).text('Recomendación', 70, y + 10);
-      doc.fillColor(BLACK).font('Helvetica').fontSize(9)
-        .text('Para implementar las acciones identificadas en este diagnóstico, recomendamos contar con el apoyo de un asesor especializado en protección de datos personales y ciberseguridad. Un profesional puede acompañar la adecuación documental, técnica y legal requerida por la Ley 21.719.', 70, y + 24, {width: W - 20});
-      y += 76;
+      doc.rect(ML, y, CW, 100).fill('#EFF6FF').stroke('#BFDBFE');
+      doc.fillColor(BLUE).font('Helvetica-Bold').fontSize(10)
+        .text('Ley N° 21.719 — Proteccion de Datos Personales', ML + 14, y + 10);
+      doc.fillColor(DGRAY).font('Helvetica').fontSize(9)
+        .text('Publicada el 13 de diciembre de 2024. Entra en plena vigencia el 1 de diciembre de 2026.', ML + 14, y + 26, {width: CW - 28})
+        .text('Crea la Agencia de Proteccion de Datos Personales (APDP) con facultades sancionatorias:', ML + 14, y + 42, {width: CW - 28})
+        .text('- Infracciones leves: hasta 100 UTM (~$7,5 millones CLP)', ML + 20, y + 56)
+        .text('- Infracciones graves: hasta 1.000 UTM (~$75 millones CLP)', ML + 20, y + 68)
+        .text('- Infracciones gravisimas: hasta 5.000 UTM (~$375 millones CLP) o 2% de los ingresos anuales', ML + 20, y + 80);
+      y += 110;
 
-      // ── AVISO LEGAL ──
-      if (y > 680) { doc.addPage(); y = 60; }
-      doc.rect(60, y, W, 70).fill('#f8fafc').stroke('#e2e8f0');
-      doc.fillColor(GRAY).font('Helvetica-Bold').fontSize(8).text('AVISO LEGAL', 70, y + 10);
-      doc.fillColor(GRAY).font('Helvetica').fontSize(7.5)
-        .text('Este diagnóstico constituye una evaluación preliminar basada exclusivamente en las respuestas proporcionadas por la organización. No constituye una auditoría legal, técnica ni certificación de cumplimiento de la Ley N° 21.719 de Protección de Datos Personales. Los puntajes y recomendaciones tienen carácter orientativo. Para efectos de cumplimiento formal, se recomienda consultar con un abogado especializado. vCISO.cl no asume responsabilidad por las decisiones adoptadas en base a este informe.', 70, y + 22, {width: W - 20});
+      // Recomendación de asesoría
+      if (y + 60 > PH - 80) {
+        doc.addPage({margin:0, size:'A4'});
+        doc.rect(0, 0, PW, 52).fill(NAVY);
+        doc.rect(0, 0, 6, 52).fill(ORANGE);
+        doc.fillColor(WHITE).font('Helvetica-Bold').fontSize(11).text('vCISO.cl', ML, 14)
+          .fillColor('#94A3B8').font('Helvetica').fontSize(9)
+          .text(`Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}`, ML, 32);
+        y = 72;
+      }
 
-      // Footer en cada página — compatible con pdfkit
+      doc.rect(ML, y, CW, 52).fill('#F0FDF4').stroke('#BBF7D0');
+      doc.rect(ML, y, 4, 52).fill('#16A34A');
+      doc.fillColor('#15803D').font('Helvetica-Bold').fontSize(10).text('Recomendacion', ML + 14, y + 8);
+      doc.fillColor(DGRAY).font('Helvetica').fontSize(9)
+        .text('Para implementar los cambios necesarios, recomendamos contar con el apoyo de un asesor especializado en proteccion de datos personales y ciberseguridad. Un profesional puede acompanar la adecuacion documental, tecnica y legal requerida por la Ley 21.719 antes de diciembre 2026.', ML + 14, y + 24, {width: CW - 28});
+      y += 62;
+
+      // Aviso legal
+      if (y + 70 > PH - 40) {
+        doc.addPage({margin:0, size:'A4'});
+        doc.rect(0, 0, PW, 52).fill(NAVY);
+        doc.rect(0, 0, 6, 52).fill(ORANGE);
+        y = 72;
+      }
+
+      doc.rect(ML, y, CW, 68).fill(LGRAY).stroke('#CBD5E1');
+      doc.fillColor(MGRAY).font('Helvetica-Bold').fontSize(8).text('AVISO LEGAL', ML + 14, y + 10);
+      doc.fillColor(MGRAY).font('Helvetica').fontSize(7.5)
+        .text('Este diagnostico constituye una evaluacion preliminar basada exclusivamente en las respuestas proporcionadas por la organizacion. No constituye una auditoria legal, tecnica ni certificacion de cumplimiento de la Ley N° 21.719. Los puntajes y recomendaciones tienen caracter orientativo. Para efectos de cumplimiento formal, se recomienda consultar con un abogado especializado. vCISO.cl no asume responsabilidad por las decisiones adoptadas en base a este informe.', ML + 14, y + 24, {width: CW - 28});
+      y += 78;
+
+      // ── FOOTERS EN TODAS LAS PÁGINAS ────────────────────────────────────────
       const range = doc.bufferedPageRange();
       for (let i = range.start; i < range.start + range.count; i++) {
         doc.switchToPage(i);
-        doc.fillColor(GRAY).font('Helvetica').fontSize(7)
-          .text(`Diagnóstico Ley 21.719 · ${datos.empresa} · ${fecha} · Confidencial · vCISO.cl`, 60, 810, {width: W, align:'center'});
+        // No poner footer en portada (página 0)
+        if (i === range.start) continue;
+        doc.rect(0, PH - 28, PW, 28).fill('#080F1E');
+        doc.rect(0, PH - 28, 6, 28).fill(ORANGE);
+        doc.fillColor('#475569').font('Helvetica').fontSize(7.5)
+          .text(
+            `Diagnostico Ley 21.719  |  ${datos.empresa}  |  ${fecha}  |  Confidencial  |  vCISO.cl`,
+            ML, PH - 18, {width: CW - 60, align: 'left'}
+          )
+          .text(`Pag. ${i - range.start + 1}`, ML + CW - 40, PH - 18, {width: 50, align: 'right'});
       }
 
       doc.end();
     } catch(err) { reject(err); }
   });
 }
+
+module.exports
 
 // ── HANDLER PRINCIPAL ──────────────────────────────────────────────────────────
 module.exports = async (req, res) => {
