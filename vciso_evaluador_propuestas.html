@@ -763,6 +763,7 @@ async function submitForm() {
     });
     
     if (resp.ok) {
+      stopProgress();
       document.getElementById('form-container').style.display = 'none';
       document.getElementById('result').style.display = 'block';
       document.getElementById('result-empresa').textContent = payload.empresa;
@@ -772,6 +773,7 @@ async function submitForm() {
     }
     
   } catch(e) {
+    stopProgress();
     btn.disabled = false;
     btn.innerHTML = '🚀 Evaluar propuestas';
     alert('Hubo un error. Por favor intenta de nuevo o escríbenos a contacto@vciso.cl');
