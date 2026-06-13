@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Evaluador de Propuestas | vCISO.cl</title>
+  <title>Validador de Propuestas Tecnológicas | vCISO.cl</title>
   <meta name="description" content="Evalúa y compara propuestas tecnológicas con metodología profesional. Informe comparativo con ranking en minutos."/>
   <meta name="robots" content="noindex, nofollow"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -161,9 +161,9 @@
 </nav>
 
 <div class="hero-mini">
-  <div class="badge">&#128203; Evaluador de Propuestas · $79.900 CLP</div>
-  <h1>Evaluación Comparativa de Proveedores</h1>
-  <p>Sube las propuestas, define los criterios y recibe un informe comparativo profesional con ranking y recomendación fundamentada.</p>
+  <div class="badge">&#128269; Validador de Propuestas Tecnológicas · $79.900 CLP</div>
+  <h1>Validador de Propuestas Tecnológicas</h1>
+  <p>Tu segunda opinión independiente antes de contratar tecnología. Compara propuestas con criterio experto y recibe un informe con ranking y recomendación.</p>
 </div>
 
 <div class="progress-wrap">
@@ -192,7 +192,7 @@
     <div class="step active" id="step1">
       <div class="card-header">
         <div class="card-header-icon">&#128203;</div>
-        <div><h2>Datos del proceso de evaluación</h2><p>Información sobre qué se está evaluando y los criterios de comparación.</p></div>
+        <div><h2>Datos del proceso</h2><p>Información sobre qué se está evaluando y los criterios de comparación.</p></div>
       </div>
       <div class="card-body">
         <div class="field-grid">
@@ -209,28 +209,21 @@
         </div>
         <div class="field-grid full">
           <div class="field">
-            <label>¿Qué producto o servicio están evaluando? *</label>
-            <input type="text" id="producto" placeholder="Ej: Sistema de gestión ERP, servicio de soporte TI, servicio de catering, empresa de aseo, agencia de marketing..."/>
+            <label>¿Qué solución o servicio tecnológico están evaluando? *</label>
+            <input type="text" id="producto" placeholder="Ej: ERP, plataforma de facturación, soporte TI, ciberseguridad, Microsoft 365, firewall, software de RRHH..."/>
             <span class="error-msg" id="err-producto">Campo requerido</span>
           </div>
         </div>
         <div class="field-grid">
           <div class="field">
-            <label>Categoría de las propuestas *</label>
+            <label>Tipo de solución tecnológica *</label>
             <select id="categoria">
               <option value="">Selecciona...</option>
-              <option value="Tecnología y Sistemas">💻 Tecnología y Sistemas (ERP, software, hardware, soporte TI)</option>
-              <option value="Ciberseguridad">🔒 Ciberseguridad (antivirus, firewall, backups, consultoría)</option>
-              <option value="Seguridad Física y Vigilancia">👮 Seguridad Física y Vigilancia (guardias, alarmas, cámaras)</option>
-              <option value="Servicios de Aseo y Limpieza">🧹 Servicios de Aseo y Limpieza (oficinas, industria, sanitización)</option>
-              <option value="Capacitación y Formación">🎓 Capacitación y Formación (cursos, talleres, e-learning, SENCE)</option>
-              <option value="Transporte y Logística">🚛 Transporte y Logística (flota, courier, traslado de personal)</option>
-              <option value="Construcción y Mantención">🏗️ Construcción y Mantención (obras menores, remodelación)</option>
-              <option value="Marketing y Comunicaciones">📣 Marketing y Comunicaciones (agencia digital, diseño, RRSS)</option>
-              <option value="Alimentación y Casino">🍽️ Alimentación y Casino (catering, casino empresarial)</option>
-              <option value="Asesoría Profesional">📋 Asesoría Profesional (contabilidad, legal, RRHH, gestión)</option>
-              <option value="Equipamiento y Mobiliario">🪑 Equipamiento y Mobiliario (muebles, equipos, herramientas)</option>
-              <option value="Otro">✏️ Otro — describirlo en el contexto</option>
+              <option value="Tecnología y Sistemas">💻 Tecnología y Sistemas (ERP, CRM, software, hardware, soporte TI)</option>
+              <option value="Ciberseguridad">🔒 Ciberseguridad (firewall, antivirus, backup, SIEM, consultoría)</option>
+              <option value="Cloud e Infraestructura">☁️ Cloud e Infraestructura (Microsoft 365, AWS, Azure, hosting, redes)</option>
+              <option value="Servicios TI Gestionados">🖥️ Servicios TI Gestionados (soporte, mesa de ayuda, outsourcing TI)</option>
+              <option value="Inteligencia Artificial">🤖 Inteligencia Artificial (plataformas IA, automatización, chatbots)</option>
             </select>
             <span class="error-msg" id="err-categoria">Campo requerido</span>
           </div>
@@ -763,7 +756,6 @@ async function submitForm() {
     });
     
     if (resp.ok) {
-      stopProgress();
       document.getElementById('form-container').style.display = 'none';
       document.getElementById('result').style.display = 'block';
       document.getElementById('result-empresa').textContent = payload.empresa;
@@ -773,7 +765,6 @@ async function submitForm() {
     }
     
   } catch(e) {
-    stopProgress();
     btn.disabled = false;
     btn.innerHTML = '🚀 Evaluar propuestas';
     alert('Hubo un error. Por favor intenta de nuevo o escríbenos a contacto@vciso.cl');
