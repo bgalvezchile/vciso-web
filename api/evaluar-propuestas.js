@@ -346,7 +346,7 @@ async function generarWordInforme(datos, resultados) {
     columnWidths:[9360],
     rows:[new TableRow({children:[
       cell([
-        p("&#127942; PROVEEDOR RECOMENDADO",{bold:true,size:22,color:GRN_TX,sa:80}),
+        p("PROVEEDOR RECOMENDADO",{bold:true,size:22,color:GRN_TX,sa:80}),
         p2([t(ganador.nombre,{bold:true,size:26,color:NAVY})],{sb:40,sa:80}),
         p(`Puntaje total: ${ganador.puntajes.total.toFixed(2)} / 5.00`,{size:20,color:GRAY_TX}),
       ],{w:9360,bg:GRN_BG,bc:"BBF7D0"}),
@@ -630,7 +630,7 @@ module.exports = async (req, res) => {
         from: 'vCISO.cl <contacto@vciso.cl>',
         to: [emailDest],
         bcc: ['contacto@vciso.cl'],
-        subject: `📊 Evaluación de Proveedores — ${producto} | ${empresa} | vCISO.cl`,
+        subject: `📊 Evaluación de Proveedores — ${empresa} | vCISO.cl`,
         html: htmlEmail,
         attachments: [{ filename: nombreArchivo, content: wordBase64 }],
       }),
