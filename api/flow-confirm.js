@@ -62,7 +62,7 @@ const PRODUCTS = {
   evaluador: {
     prefix:       'EVAL',
     name:         'Validador de Propuestas Tecnológicas',
-    price:        '$69.900 CLP',
+    price:        '$79.900 CLP',
     hasDownload:  false,
     hasForm:      true,
     formPath:     '/evaluador-propuestas',
