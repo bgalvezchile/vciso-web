@@ -62,10 +62,6 @@
       "destination": "/vciso_evaluador_propuestas.html"
     },
     {
-      "source": "/analisis-dominio",
-      "destination": "/vciso_dominio_checkout.html"
-    },
-    {
       "source": "/ejemplo-informe",
       "destination": "/vciso_informe_ejemplo.html"
     },

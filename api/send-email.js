@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
       html: base + `
         <h1 style="font-size:1.3rem;margin-bottom:12px">¡Gracias por tu compra! 🎉</h1>
         <p style="color:rgba(255,255,255,0.7);margin-bottom:8px">
-          Tu pago de <strong>$5.000 CLP</strong> fue confirmado.
+          Tu pago de <strong>$12.900 CLP</strong> fue confirmado.
         </p>
         <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin-bottom:24px">
           El PDF incluye tu email como marca de agua personal.
@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
         <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:14px;
                     font-size:0.8rem;color:rgba(255,255,255,0.4)">
           ⏰ Link válido por 48 horas · Orden: ${order || 'N/A'}<br/>
-          ¿Necesitas otro link? contacto@vciso.cl · WhatsApp +56 9 8451 5075
+          ¿Necesitas otro link? contacto@vciso.cl · WhatsApp +56 9 8130 7440
         </div></div>`,
     },
     diagnostico: {
@@ -64,11 +64,11 @@ module.exports = async (req, res) => {
       html: base + `
         <h1 style="font-size:1.3rem;margin-bottom:12px">¡Pago confirmado! En proceso 🔍</h1>
         <p style="color:rgba(255,255,255,0.7)">
-          Recibimos tu pago de <strong>$79.000 CLP</strong>.<br/>
-          Tu informe llegará en las próximas <strong>24 horas hábiles</strong>.
+          Recibimos tu pago de <strong>$89.000 CLP</strong>.<br/>
+          Tu informe llegará en las próximas <strong>48 horas hábiles</strong> una vez que completes el formulario.
         </p>
         <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);margin-top:20px">
-          Orden: ${order || 'N/A'} · WhatsApp: +56 9 8451 5075
+          Orden: ${order || 'N/A'} · WhatsApp: +56 9 8130 7440
         </p></div>`,
     },
     politicas: {
@@ -76,8 +76,8 @@ module.exports = async (req, res) => {
       html: base + `
         <h1 style="font-size:1.3rem;margin-bottom:12px">¡Pago confirmado! 📋</h1>
         <p style="color:rgba(255,255,255,0.7)">
-          Recibimos tu pago de <strong>$29.000 CLP</strong>.<br/>
-          Tus políticas personalizadas llegarán pronto.
+          Recibimos tu pago de <strong>$49.900 CLP</strong>.<br/>
+          Tus políticas personalizadas llegarán en menos de 3 minutos.
         </p>
         <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);margin-top:20px">
           Orden: ${order || 'N/A'} · contacto@vciso.cl
