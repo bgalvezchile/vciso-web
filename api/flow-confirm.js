@@ -56,7 +56,7 @@ const PRODUCTS = {
     price:        '$49.000 CLP',
     hasDownload:  false,
     hasForm:      true,
-    formPath:     '/analisis-dominio',
+    formPath:     '/scanner-dominio',
     deliveryMsg:  'Recibirás tu informe de análisis de dominio en las próximas <strong>48 horas hábiles</strong> una vez que confirmes los datos.',
   },
   evaluador: {
